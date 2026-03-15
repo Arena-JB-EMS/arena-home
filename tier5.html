@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authority Partner — £6,500 | Arena Genesis — Genesis 5 Programme</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B263B;--navy-deep:#111C2D;--navy-mid:#243450;--navy-light:#2E4169;--gold:#C5A059;--gold-light:#D4B472;--gold-pale:#E8D5A3;--gold-dim:rgba(197,160,89,0.15);--gold-border:rgba(197,160,89,0.3);--slate:#8B9CB5;--slate-light:#B4C2D4;--slate-dark:#4A5A6E;--white:#F0F4F8;--divider:rgba(197,160,89,0.2);--green:#4ADE80;--red:#F87171}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--navy-deep);color:var(--white);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.6}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(17,28,45,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--divider);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo-badge{width:42px;height:42px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;color:var(--navy-deep);text-decoration:none;flex-shrink:0}
+.header-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);letter-spacing:.02em}
+.header-brand-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase}
+.header-nav{display:flex;gap:28px;list-style:none}
+.header-nav a{font-size:12px;color:var(--slate-light);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.header-nav a:hover{color:var(--gold)}
+ 
+/* HERO */
+.tier-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:120px 48px 80px;overflow:hidden;text-align:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(197,160,89,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 0%,transparent 100%)}
+.hero-glow{position:absolute;width:1000px;height:1000px;background:radial-gradient(circle,rgba(197,160,89,.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.tier-hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0;animation:fade-up .8s ease forwards .1s}
+.tier-hero-eyebrow::before,.tier-hero-eyebrow::after{content:'';width:32px;height:1px;background:var(--gold);opacity:.5}
+.tier-price-display{opacity:0;animation:fade-up .8s ease forwards .25s;margin-bottom:12px}
+.tier-price-number{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,11vw,130px);font-weight:700;color:var(--gold);line-height:.9;letter-spacing:-.03em}
+.tier-price-number span{font-size:40%;color:var(--gold-light)}
+.tier-name-display{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.5vw,38px);font-weight:600;color:var(--white);margin-bottom:6px;letter-spacing:.02em;opacity:0;animation:fade-up .8s ease forwards .4s}
+.tier-programme-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0;animation:fade-up .8s ease forwards .5s}
+.tier-hero-hook{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.2vw,22px);font-style:italic;color:var(--slate-light);max-width:800px;margin:0 auto 20px;line-height:1.65;opacity:0;animation:fade-up .8s ease forwards .6s}
+.tier-limit-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 20px;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.4);border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:44px;opacity:0;animation:fade-up .8s ease forwards .75s}
+.hero-cta-group{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fade-up .8s ease forwards .9s}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);color:var(--navy-deep);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .3s ease}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(197,160,89,.35)}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:transparent;color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--gold-border);border-radius:8px;cursor:pointer;text-decoration:none;transition:all .3s ease}
+.btn-secondary:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fade-up .8s ease forwards 1.1s;cursor:pointer}
+.hero-scroll span{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+.hero-scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scroll-line 1.5s ease-in-out infinite}
+@keyframes scroll-line{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.1;color:var(--white);margin-bottom:16px}
+.section-lead{font-size:15px;color:var(--slate-light);max-width:620px;line-height:1.8;margin-bottom:40px}
+ 
+/* MANDATE SECTION */
+.mandate-outer{background:var(--navy);padding:100px 0}
+.mandate-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.mandate-card{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%);border:1px solid rgba(197,160,89,.4);border-radius:20px;padding:48px;position:relative;overflow:hidden}
+.mandate-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.mandate-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(197,160,89,.07) 0%,transparent 70%);top:-60px;right:-60px;pointer-events:none}
+.mandate-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.mandate-stat-list{display:flex;flex-direction:column;gap:20px}
+.mandate-stat{border-bottom:1px solid var(--divider);padding-bottom:20px}
+.mandate-stat:last-child{border-bottom:none;padding-bottom:0}
+.mandate-stat-value{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--gold);line-height:1}
+.mandate-stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--slate);margin:6px 0 8px}
+.mandate-stat-body{font-size:12px;color:var(--slate-light);line-height:1.7}
+ 
+/* GENESIS 5 */
+.g5-outer{background:var(--navy-deep);padding:100px 0}
+.g5-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.g5-card{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy-deep) 100%);border:1px solid rgba(197,160,89,.45);border-radius:24px;padding:64px;position:relative;overflow:hidden}
+.g5-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.g5-glow{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(197,160,89,.06) 0%,transparent 70%);top:-100px;right:-100px;pointer-events:none}
+.g5-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.g5-number{font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:700;color:var(--gold);opacity:.25;line-height:.9;margin-bottom:4px}
+.g5-number-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--slate);margin-bottom:32px}
+.g5-feature-list{display:flex;flex-direction:column;gap:16px}
+.g5-feature{display:flex;gap:14px;padding:18px;background:rgba(17,28,45,.5);border:1px solid var(--divider);border-radius:12px;transition:border-color .3s}
+.g5-feature:hover{border-color:var(--gold-border)}
+.g5-feature-icon{width:40px;height:40px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.g5-feature-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--white);margin-bottom:3px}
+.g5-feature-body{font-size:12px;color:var(--slate-light);line-height:1.65}
+ 
+/* PERKS */
+.perks-outer{background:var(--navy);padding:100px 0}
+.perks-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.perks-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.perk-card{background:var(--navy-mid);border:1px solid var(--divider);border-radius:16px;padding:28px;display:flex;gap:18px;align-items:flex-start;transition:border-color .3s}
+.perk-card:hover{border-color:var(--gold-border)}
+.perk-card.featured{border-color:rgba(197,160,89,.4);background:linear-gradient(135deg,rgba(197,160,89,.08),var(--navy-mid))}
+.perk-icon{width:48px;height:48px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.perk-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white);margin-bottom:6px}
+.perk-body{font-size:13px;color:var(--slate-light);line-height:1.75}
+.perk-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:4px;color:var(--gold);margin-bottom:8px}
+ 
+/* NARRATIVE BAND */
+.narrative-band{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy-deep) 100%);border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);padding:60px 48px;position:relative;overflow:hidden}
+.narrative-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 50%,rgba(197,160,89,.05),transparent)}
+.narrative-band-inner{max-width:860px;margin:0 auto;position:relative;text-align:center}
+.narrative-band-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.narrative-band-text{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--slate-light);line-height:1.7}
+.narrative-band-text strong{color:var(--white);font-style:normal}
+ 
+/* VIDEO SECTION */
+.video-outer{background:var(--navy-deep);padding:100px 0}
+.video-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.video-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+.video-block{background:var(--navy-mid);border:1px solid var(--divider);border-radius:20px;overflow:hidden}
+.video-block-header{padding:24px 28px;border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:16px}
+.video-block-icon{width:44px;height:44px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.video-block-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white)}
+.video-block-sub{font-size:11px;color:var(--slate);margin-top:2px}
+.video-player-wrap{position:relative;background:#000;aspect-ratio:16/9}
+video{width:100%;height:100%;display:block;object-fit:cover}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#0a0f1a 0%,#111c2d 100%)}
+.video-placeholder-ring{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold-border);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.video-placeholder-text{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);text-align:center}
+.video-footer{padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.video-milestone{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.video-filename{font-family:'DM Mono',monospace;font-size:8px;color:var(--slate-dark);letter-spacing:.08em}
+.video-grid-small{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:16px 24px;border-top:1px solid var(--divider)}
+.trophy-grid-small{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px 24px;border-top:1px solid var(--divider)}
+.video-thumb{background:var(--navy);border:1px solid var(--divider);border-radius:8px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .3s}
+.video-thumb:hover,.video-thumb.active{border-color:var(--gold-border);background:var(--gold-dim)}
+.video-thumb-pct{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--gold)}
+.video-thumb-label{font-family:'DM Mono',monospace;font-size:7px;color:var(--slate-dark);letter-spacing:.06em;margin-top:3px}
+ 
+/* LOGO + WALL */
+.logo-reveal-outer{background:var(--navy);padding:80px 0}
+.logo-reveal-inner{max-width:1100px;margin:0 auto;padding:0 48px;text-align:center}
+.logo-reveal-canvas-wrap{display:inline-block;border-radius:16px;overflow:hidden;border:1px solid var(--gold-border);box-shadow:0 0 60px rgba(197,160,89,.12)}
+#logo-reveal-canvas{display:block;width:320px;height:320px}
+.logo-reveal-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-top:16px}
+.logo-reveal-pct{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold);margin-top:4px}
+.wall-outer{background:var(--navy-deep);padding:80px 0}
+.wall-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.wall-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center}
+.wall-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:600;color:var(--white);text-align:center;margin-bottom:8px}
+.wall-sub{font-size:13px;color:var(--slate);text-align:center;margin-bottom:40px}
+#memorial-wall-canvas{width:100%;height:300px;border-radius:12px;border:1px solid var(--gold-border);display:block}
+.wall-legend{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:16px;padding-bottom:20px}
+.wall-legend-item{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--slate);text-transform:uppercase}
+.wall-legend-brick-gold{width:24px;height:14px;border-radius:2px;background:linear-gradient(135deg,#C5A059,#E8D5A3);border:1px solid #1B263B}
+.wall-legend-brick-la{width:24px;height:14px;border-radius:2px;background:linear-gradient(135deg,#F0E6C8,#E8D5A3);border:1px solid #111C2D}
+ 
+/* CTA */
+.cta-banner{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%);border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);padding:80px 48px;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.cta-banner-inner{max-width:760px;margin:0 auto;text-align:center}
+.cta-banner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--white);margin-bottom:12px}
+.cta-banner-title span{color:var(--gold);font-style:italic}
+.cta-banner-sub{font-size:15px;color:var(--slate-light);margin-bottom:36px;line-height:1.8}
+.cta-contact{background:var(--navy-mid);border:1px solid var(--divider);border-radius:16px;padding:28px 32px;margin-top:32px;text-align:left}
+.cta-contact-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white);margin-bottom:8px}
+.cta-contact-body{font-size:13px;color:var(--slate-light);line-height:1.8}
+.cta-disclaimer{font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-dark);letter-spacing:.08em;margin-top:20px;line-height:1.8}
+footer{background:var(--navy-deep);border-top:1px solid var(--divider);padding:48px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px}
+.footer-logo-badge{width:36px;height:36px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:15px;color:var(--navy-deep);text-decoration:none}
+.footer-brand-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white)}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-dark);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--slate-dark);letter-spacing:.08em;line-height:1.8}
+@keyframes fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse-dot 2s infinite;display:inline-block}
+.red-dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 6px var(--red);animation:pulse-dot 2s infinite;display:inline-block}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){
+  header{padding:0 20px}.header-nav{display:none}
+  .tier-hero{padding:100px 24px 80px}
+  .mandate-inner,.g5-grid,.perks-inner,.video-inner,.logo-reveal-inner,.wall-inner{padding:0 24px}
+  .mandate-outer,.g5-outer,.perks-outer,.video-outer,.logo-reveal-outer,.wall-outer{padding:60px 0}
+  .mandate-inner,.g5-grid,.perks-grid,.video-pair{grid-template-columns:1fr}
+  .g5-inner{padding:0 24px}
+  .g5-card{padding:36px 24px}
+  .cta-banner{padding:60px 24px}
+  #memorial-wall-canvas{height:200px}
+}
+</style>
+</head>
+<body>
+ 
+<header>
+  <div class="header-left">
+    <a href="genesis.html" class="logo-badge">A</a>
+    <div>
+      <div class="header-brand-name">The Arena</div>
+      <div class="header-brand-sub">Genesis 5 Programme</div>
+    </div>
+  </div>
+  <nav><ul class="header-nav">
+    <li><a href="genesis.html#vault-section">The Vault</a></li>
+    <li><a href="genesis.html#la-section">LA Portal</a></li>
+    <li><a href="genesis.html">← Back to Genesis</a></li>
+  </ul></nav>
+  <div style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--slate);letter-spacing:.08em">
+    <div class="status-dot"></div><span id="hdr-raised">Loading…</span>
+  </div>
+</header>
+ 
+<div class="tier-hero">
+  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="tier-hero-eyebrow">Founding Tier 5 of 5 — Arena Genesis</div>
+  <div class="tier-price-display">
+    <div class="tier-price-number"><span>£</span>6,500</div>
+  </div>
+  <div class="tier-name-display">Authority Partner</div>
+  <div class="tier-programme-label">Genesis 5 Programme — Five Local Authorities</div>
+  <p class="tier-hero-hook">"The DfE SEND whitepaper is not a suggestion. Five Local Authorities will shape Arena's national rollout. Is yours one of them?"</p>
+  <div class="tier-limit-badge"><div class="red-dot"></div>&nbsp;5 Positions — Genesis 5 Cohort</div>
+  <div class="hero-cta-group">
+    <a href="#" id="ks-btn-hero" class="btn-primary" target="_blank" rel="noopener">Enter the Genesis 5 Cohort ↗</a>
+    <a href="genesis.html#la-section" class="btn-secondary">LA Portal Details</a>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('mandate-section').scrollIntoView({behavior:'smooth'})">
+    <span>The Mandate</span><div class="hero-scroll-line"></div>
+  </div>
+</div>
+ 
+<!-- MANDATE: REGULATORY CONTEXT -->
+<section id="mandate-section" class="mandate-outer">
+  <div class="mandate-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">The Regulatory Reality</div>
+      <h2 class="section-title">The February 2026 standards<br><em style="color:var(--gold)">are already written.</em></h2>
+      <p class="section-lead">The DfE SEND whitepaper and the incoming statutory audit standards for Alternative Provision are not policy proposals. They are the new compliance baseline. The question for Local Authorities is not whether evidence infrastructure is required — it is whether your LA has it.</p>
+      <p style="font-size:13px;color:var(--slate);line-height:1.8;margin-bottom:32px">Arena was built to produce the evidence these standards demand — automatically, across every placement, every transition, every child. The Genesis 5 Authority Partners are the five LAs who will be ahead of this standard before it is enforced.</p>
+      <a href="#" id="ks-btn-mandate" class="btn-primary" target="_blank" rel="noopener">Secure Your LA's Position — £6,500 ↗</a>
+    </div>
+    <div class="mandate-card reveal">
+      <div class="mandate-glow"></div>
+      <div class="mandate-eyebrow">The Evidence Behind the Mandate</div>
+      <div class="mandate-stat-list">
+        <div class="mandate-stat">
+          <div class="mandate-stat-value">1 in 5</div>
+          <div class="mandate-stat-label">AP Exits Without Full Evidence</div>
+          <div class="mandate-stat-body">Children leaving Alternative Provision across all 152 Local Authorities with no continuous clinical evidence trail — creating legal exposure at every stage.</div>
+        </div>
+        <div class="mandate-stat">
+          <div class="mandate-stat-value">63%</div>
+          <div class="mandate-stat-label">SEND Tribunal Cases Involve AP Documentation</div>
+          <div class="mandate-stat-body">The majority of LA SEND tribunal challenges where AP is in scope involve incomplete or absent evidence. Each case represents a failure of the system — and a financial cost to the LA.</div>
+        </div>
+        <div class="mandate-stat">
+          <div class="mandate-stat-value">£152k</div>
+          <div class="mandate-stat-label">Average Cost Per Contested Tribunal (LA)</div>
+          <div class="mandate-stat-body">The fully-loaded cost to an LA of a contested SEND tribunal that reaches panel — compared to Arena's Authority Partner investment. Prevention at scale is the economic case.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- GENESIS 5 PROGRAMME -->
+<section class="g5-outer">
+  <div class="g5-inner">
+    <div class="g5-card reveal">
+      <div class="g5-glow"></div>
+      <div class="g5-grid">
+        <div>
+          <div class="section-eyebrow">The Programme</div>
+          <h2 class="section-title">Genesis 5.<br><em style="color:var(--gold)">Five LAs. One cohort.</em></h2>
+          <p class="section-lead" style="margin-bottom:24px">The Genesis 5 Authority Partners are the five Local Authorities who will shape Arena's national deployment strategy. This is not a supplier relationship — it is a founding partnership in the clinical infrastructure that will serve every child in AP across England.</p>
+          <div class="g5-number">5</div>
+          <div class="g5-number-label">LA Positions — The Genesis 5 Cohort</div>
+        </div>
+        <div class="g5-feature-list">
+          <div class="g5-feature">
+            <div class="g5-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M9 8h1m-1 4h1m-1 4h1m4-8h1m-1 4h1m-1 4h1M5 21V7l7-4 7 4v14"/></svg></div>
+            <div>
+              <div class="g5-feature-title">National Rollout Influence</div>
+              <div class="g5-feature-body">Genesis 5 LAs directly shape Arena's deployment strategy across all 152 Local Authorities — your LA's operational reality embedded in the national infrastructure design.</div>
+            </div>
+          </div>
+          <div class="g5-feature">
+            <div class="g5-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div>
+              <div class="g5-feature-title">Statutory Audit Readiness — Now</div>
+              <div class="g5-feature-body">Arena produces the evidence trail that February 2026 SEND standards require — automatically, across every AP placement under your LA's responsibility. Your LA is compliant before the audit window opens.</div>
+            </div>
+          </div>
+          <div class="g5-feature">
+            <div class="g5-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+            <div>
+              <div class="g5-feature-title">Strategic Leadership Access</div>
+              <div class="g5-feature-body">Direct access to The Arena Hub Ltd leadership team. Bi-annual strategic briefings. Your LA's SEND and AP commissioning leadership works directly with Arena's development roadmap.</div>
+            </div>
+          </div>
+          <div class="g5-feature">
+            <div class="g5-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div>
+              <div class="g5-feature-title">LA Name in Founding Charter</div>
+              <div class="g5-feature-body">Your Local Authority's name is permanently embedded in Arena's founding documentation. The five Genesis 5 LAs are on record as the authorities that made national deployment possible.</div>
+            </div>
+          </div>
+          <div class="g5-feature">
+            <div class="g5-feature-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+            <div>
+              <div class="g5-feature-title">Full Vault — All Briefings</div>
+              <div class="g5-feature-body">All Genesis Vault content including the 2026 Statutory Audit Guide, the AI Explainability Layer, and the National Deployment Plan — the full strategic intelligence package.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PERKS -->
+<section class="perks-outer">
+  <div class="perks-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">The Full Package</div>
+      <h2 class="section-title">Everything an Authority<br><em style="color:var(--gold)">Partner receives.</em></h2>
+    </div>
+    <div class="perks-grid">
+      <div class="perk-card featured reveal">
+        <div class="perk-icon" style="background:linear-gradient(135deg,var(--gold),#9A7A3A);border:none">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy-deep)" stroke-width="1.5"><path d="M3 21h18M9 8h1m-1 4h1m-1 4h1m4-8h1m-1 4h1m-1 4h1M5 21V7l7-4 7 4v14"/></svg>
+        </div>
+        <div>
+          <div class="perk-tag">Strategic Access</div>
+          <div class="perk-title" style="color:var(--gold)">Genesis 5 Strategic Partnership</div>
+          <div class="perk-body">A formal strategic partnership agreement with The Arena Hub Ltd. Bi-annual leadership briefings, direct policy input, and named status in every Arena national deployment document.</div>
+        </div>
+      </div>
+      <div class="perk-card featured reveal">
+        <div class="perk-icon" style="background:linear-gradient(135deg,var(--gold),#9A7A3A);border:none">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy-deep)" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="perk-tag">Compliance Infrastructure</div>
+          <div class="perk-title" style="color:var(--gold)">Statutory Audit Coverage</div>
+          <div class="perk-body">Arena deployed across your LA's commissioned AP provision. The evidence infrastructure required by February 2026 SEND standards — operational before the audit window opens.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Arena Key + Desk Trophy</div>
+          <div class="perk-body">Both physical artefacts: the personalised 3D-printed Arena Key and the Arena desk trophy — both bearing your unique partnership number, both permanent. Issued to a named LA representative.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Bi-Annual Leadership Briefings</div>
+          <div class="perk-body">Twice-yearly strategic briefings with The Arena Hub Ltd leadership. Agenda includes: deployment progress, policy development, evidence standards evolution, and your LA's input on platform direction.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">LA Name — Founding Charter</div>
+          <div class="perk-body">Your Local Authority permanently named in the Arena Founding Charter. When Arena is operational in all 152 LAs, the Genesis 5 cohort will be the documented origin of that scale.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Full Vault — All Content</div>
+          <div class="perk-body">Complete Genesis Vault access: all 10 briefings, the 2026 Statutory Audit Guide, the AI Explainability Layer, and the full National Deployment Plan — the complete strategic intelligence package.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- NARRATIVE BAND -->
+<div class="narrative-band">
+  <div class="narrative-band-inner">
+    <div class="narrative-band-label">The Policy Context — February 2026</div>
+    <p class="narrative-band-text">
+      The DfE SEND whitepaper has established that <strong>evidence continuity across AP placements</strong>
+      is a statutory requirement, not a best practice recommendation.
+      The five Genesis 5 LAs are not waiting for enforcement.
+      They are the authorities that <strong>will have already solved the problem</strong>
+      before the audit window opens — and whose names will be on the founding record of how England's
+      AP evidence infrastructure came to exist.
+    </p>
+  </div>
+</div>
+ 
+<!-- VIDEOS -->
+<section class="video-outer">
+  <div class="video-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">The Authority Partner Artefacts</div>
+      <h2 class="section-title">Your key. Your trophy.<br><em style="color:var(--gold)">Your LA's name. Permanent.</em></h2>
+      <p class="section-lead">Authority Partners receive both 3D-printed artefacts — the personalised Arena Key and the Arena desk trophy bearing your partnership number — issued to a named representative of your LA.</p>
+    </div>
+    <div class="video-pair">
+      <div class="video-block reveal">
+        <div class="video-block-header">
+          <div class="video-block-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div><div class="video-block-title">The Arena Key</div><div class="video-block-sub" id="key-sub">3D Print — Your Partnership Key</div></div>
+        </div>
+        <div class="video-player-wrap">
+          <video id="key-video" controls preload="none"><source id="key-src" src="" type="video/mp4"></video>
+          <div class="video-placeholder" id="key-ph"><div class="video-placeholder-ring"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="video-placeholder-text">Unlocks at 10% Funded</div></div>
+        </div>
+        <div class="video-footer"><div class="video-milestone" id="key-label">Campaign Live</div><div class="video-filename" id="key-file">key_10pct.mp4</div></div>
+        <div class="video-grid-small" id="key-grid"></div>
+      </div>
+      <div class="video-block reveal">
+        <div class="video-block-header">
+          <div class="video-block-icon" style="background:linear-gradient(135deg,var(--gold),#9A7A3A);border:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--navy-deep)" stroke-width="1.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></div>
+          <div><div class="video-block-title" style="color:var(--gold)">The Arena Trophy</div><div class="video-block-sub" id="trophy-sub">3D Print — Your LA's Trophy</div></div>
+        </div>
+        <div class="video-player-wrap">
+          <video id="trophy-video" controls preload="none"><source id="trophy-src" src="" type="video/mp4"></video>
+          <div class="video-placeholder" id="trophy-ph"><div class="video-placeholder-ring" style="border-color:var(--gold)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="video-placeholder-text">Unlocks at 25% Funded</div></div>
+        </div>
+        <div class="video-footer"><div class="video-milestone" id="trophy-label">Unlocks at 25%</div><div class="video-filename" id="trophy-file">trophy_25pct.mp4</div></div>
+        <div class="trophy-grid-small" id="trophy-grid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- LOGO + WALL -->
+<section class="logo-reveal-outer">
+  <div class="logo-reveal-inner">
+    <div class="reveal">
+      <div class="section-eyebrow" style="text-align:center">Campaign Progress</div>
+      <h2 class="section-title" style="text-align:center;margin-bottom:8px">The Arena logo <em style="color:var(--gold)">reveals</em></h2>
+      <p style="font-size:14px;color:var(--slate);margin-bottom:40px">As the campaign funds, the full Arena mark emerges. At 100%, the platform is fully revealed.</p>
+    </div>
+    <div class="logo-reveal-canvas-wrap reveal"><canvas id="logo-reveal-canvas" width="320" height="320"></canvas></div>
+    <div class="logo-reveal-label">Funded</div>
+    <div class="logo-reveal-pct" id="logo-pct-display">0%</div>
+  </div>
+</section>
+<section class="wall-outer">
+  <div class="wall-inner">
+    <div class="wall-eyebrow reveal">The Founding Wall</div>
+    <h2 class="wall-title reveal">Your Local Authority.<br><em style="color:var(--gold)">In the founding record.</em></h2>
+    <p class="wall-sub reveal">Authority Partners receive the most prominent brick on the Arena Memorial Wall — your LA's name, at the top of the founding record.</p>
+    <canvas id="memorial-wall-canvas" class="reveal"></canvas>
+    <div class="wall-legend reveal">
+      <div class="wall-legend-item"><div class="wall-legend-brick-la"></div>Authority Partner</div>
+      <div class="wall-legend-item"><div class="wall-legend-brick-gold"></div>Founding Supporter+</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="cta-banner-inner reveal">
+    <div class="section-eyebrow" style="display:flex;align-items:center;justify-content:center;gap:8px"><div class="red-dot"></div>Genesis 5 — Five Positions</div>
+    <h2 class="cta-banner-title">Is your LA<br>in the <span>Genesis 5</span> cohort?</h2>
+    <p class="cta-banner-sub">The February 2026 SEND standards are already written. Five Local Authorities will be ahead of them. The other 147 will be catching up. The Genesis 5 cohort closes when five positions are filled.</p>
+    <a href="#" id="ks-btn-cta" class="btn-primary" target="_blank" rel="noopener" style="font-size:13px;padding:18px 48px">Enter the Genesis 5 Cohort — £6,500 ↗</a>
+    <div class="cta-contact">
+      <div class="cta-contact-title">Prefer to discuss before pledging?</div>
+      <div class="cta-contact-body">The Authority Partner tier is a significant strategic commitment and we are happy to speak with SEND leads, AP commissioners, and LA leadership teams before a decision is made. Pledge on Kickstarter to hold your position — discussions can be completed after the campaign close, before the partnership agreement is signed.</div>
+    </div>
+    <p class="cta-disclaimer">Kickstarter pledge. Processed securely by Kickstarter. If the campaign does not reach its target, no charge is made.<br>This tier is subject to a formal strategic partnership agreement to be signed on campaign close. The Arena Hub Ltd · Company registered in England &amp; Wales.</p>
+  </div>
+</div>
+ 
+<footer>
+  <div class="footer-logo">
+    <a href="genesis.html" class="footer-logo-badge">A</a>
+    <div class="footer-brand-text">The Arena Hub Ltd</div>
+  </div>
+  <div class="footer-links">
+    <a href="genesis.html">Genesis Campaign</a>
+    <a href="genesis.html#la-section">LA Portal</a>
+    <a href="tier4.html">Pilot Partner — £1,500</a>
+    <a href="genesis.html#tier-section">All Tiers</a>
+    <a href="index.html">Main Site</a>
+  </div>
+  <div class="footer-copy">© 2026 The Arena Hub Ltd · Arena Genesis 5 · National Clinical Infrastructure for UK Alternative Provision</div>
+</footer>
+ 
+<script>
+const SHEET_ID='1uzdcww7KhRSoW5Vh3oM1sYbqrAMAI2VBmEWgfumrntE';
+const GID={matrix:'1500722618',backers:'0'};
+const KS_FALLBACK='https://www.kickstarter.com';
+const KEY_MILESTONES=[{pct:10,file:'key_10pct.mp4',label:'10%'},{pct:20,file:'key_20pct.mp4',label:'20%'},{pct:30,file:'key_30pct.mp4',label:'30%'},{pct:40,file:'key_40pct.mp4',label:'40%'},{pct:50,file:'key_50pct.mp4',label:'50%'},{pct:60,file:'key_60pct.mp4',label:'60%'},{pct:70,file:'key_70pct.mp4',label:'70%'},{pct:80,file:'key_80pct.mp4',label:'80%'},{pct:90,file:'key_90pct.mp4',label:'90%'},{pct:100,file:'key_100pct.mp4',label:'100%'}];
+const TROPHY_MILESTONES=[{pct:25,file:'trophy_25pct.mp4',label:'25%'},{pct:50,file:'trophy_50pct.mp4',label:'50%'},{pct:75,file:'trophy_75pct.mp4',label:'75%'},{pct:100,file:'trophy_100pct.mp4',label:'100%'}];
+let currentFundPct=0,currentKsUrl=KS_FALLBACK,backerData=[];
+async function fetchSheet(gid){const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${gid}`;try{const r=await fetch(url);const txt=await r.text();const json=JSON.parse(txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);return json.table;}catch(e){return null;}}
+function toRows(t){if(!t||!t.rows)return[];return t.rows.map(r=>r.c?r.c.map(c=>c?(c.v!==null&&c.v!==undefined?String(c.v):''):''):[]);}
+async function loadSheetData(){const table=await fetchSheet(GID.matrix);const rows=toRows(table);let funding=0,target=50000,ksUrl=KS_FALLBACK;rows.forEach(r=>{if(r[0]==='STAT_FUNDING')funding=parseFloat(r[4])||0;if(r[0]==='STAT_TARGET')target=parseFloat(r[4])||50000;if(r[0]==='STAT_KS_URL'&&r[4]&&r[4].startsWith('http'))ksUrl=r[4];});currentFundPct=Math.min(100,Math.round((funding/target)*100));currentKsUrl=ksUrl;document.getElementById('hdr-raised').textContent=`£${funding.toLocaleString()} raised`;['ks-btn-hero','ks-btn-mandate','ks-btn-cta'].forEach(id=>{const el=document.getElementById(id);if(el)el.href=ksUrl;});buildGrids();drawLogoReveal(currentFundPct);document.getElementById('logo-pct-display').textContent=currentFundPct+'%';loadKeyVideo();loadTrophyVideo();}
+async function loadBackers(){const table=await fetchSheet(GID.backers);const rows=toRows(table).slice(1);backerData=rows.filter(r=>r[0]).map(r=>({id:r[0],name:r[1]||'Authority Partner',tier:parseInt(r[3])||1}));if(!backerData.length)backerData=[{id:'B001',name:'LA Partner',tier:5}];drawWall(backerData,currentFundPct);}
+function loadKeyVideo(fp){const pct=fp!==undefined?fp:currentFundPct;const m=KEY_MILESTONES.slice().reverse().find(x=>x.pct<=pct)||KEY_MILESTONES[0];const vid=document.getElementById('key-video');document.getElementById('key-src').src=m.file;vid.load();document.getElementById('key-label').textContent='Key: '+m.label;document.getElementById('key-file').textContent=m.file;document.getElementById('key-sub').textContent='Build — '+m.label;vid.oncanplay=()=>document.getElementById('key-ph').style.display='none';vid.onerror=()=>document.getElementById('key-ph').style.display='flex';document.querySelectorAll('#key-grid .video-thumb').forEach(el=>el.classList.toggle('active',el.dataset.pct==m.pct));}
+function loadTrophyVideo(fp){const pct=fp!==undefined?fp:currentFundPct;const m=TROPHY_MILESTONES.slice().reverse().find(x=>x.pct<=pct)||TROPHY_MILESTONES[0];const vid=document.getElementById('trophy-video');document.getElementById('trophy-src').src=m.file;vid.load();document.getElementById('trophy-label').textContent='Trophy: '+m.label;document.getElementById('trophy-file').textContent=m.file;document.getElementById('trophy-sub').textContent='Build — '+m.label;vid.oncanplay=()=>document.getElementById('trophy-ph').style.display='none';vid.onerror=()=>document.getElementById('trophy-ph').style.display='flex';document.querySelectorAll('#trophy-grid .video-thumb').forEach(el=>el.classList.toggle('active',el.dataset.pct==m.pct));}
+function buildGrids(){document.getElementById('key-grid').innerHTML=KEY_MILESTONES.map(m=>`<div class="video-thumb" data-pct="${m.pct}" onclick="loadKeyVideo(${m.pct})" style="${m.pct>currentFundPct?'opacity:.4':''}"><div class="video-thumb-pct" style="${m.pct>currentFundPct?'color:var(--slate-dark)':''}">${m.pct}%</div><div class="video-thumb-label">${m.pct<=currentFundPct?'▶':'🔒'}</div></div>`).join('');document.getElementById('trophy-grid').innerHTML=TROPHY_MILESTONES.map(m=>`<div class="video-thumb" data-pct="${m.pct}" onclick="loadTrophyVideo(${m.pct})" style="${m.pct>currentFundPct?'opacity:.4':''}"><div class="video-thumb-pct" style="${m.pct>currentFundPct?'color:var(--slate-dark)':''}">${m.pct}%</div><div class="video-thumb-label">${m.pct<=currentFundPct?'▶':'🔒'}</div></div>`).join('');}
+function drawLogoReveal(pct){const canvas=document.getElementById('logo-reveal-canvas');const ctx=canvas.getContext('2d');const W=320,H=320,GRID=16,cellW=W/GRID,cellH=H/GRID;function overlay(){const total=GRID*GRID,covered=Math.round(total*(1-pct/100));const order=[];for(let i=0;i<total;i++)order.push(i);for(let i=order.length-1;i>0;i--){const j=Math.abs(Math.sin(i*9301+49297)*233280)%(i+1)|0;[order[i],order[j]]=[order[j],order[i]];}for(let k=0;k<covered;k++){const idx=order[k];ctx.fillStyle='rgba(17,28,45,0.9)';ctx.fillRect((idx%GRID)*cellW,Math.floor(idx/GRID)*cellH,cellW+1,cellH+1);}}
+const img=new Image();img.onload=()=>{ctx.clearRect(0,0,W,H);ctx.drawImage(img,0,0,W,H);overlay();};img.onerror=()=>{ctx.fillStyle='#1B263B';ctx.fillRect(0,0,W,H);ctx.font='bold 64px Cormorant Garamond,serif';ctx.fillStyle='#C5A059';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('A',W/2,H/2-10);overlay();};img.src='arena-logo.png';}
+function drawWall(backers,pct){const canvas=document.getElementById('memorial-wall-canvas');const ctx=canvas.getContext('2d');const W=canvas.offsetWidth||canvas.width,H=300;canvas.width=W;canvas.height=H;ctx.fillStyle='#111C2D';ctx.fillRect(0,0,W,H);const brickH=22,gap=2,cols=Math.floor(W/92),brickW=(W-(cols+1)*gap)/cols;const tc=[['#2a2a4e','#3d3d6b','#C5A059'],['#C5A059','#E8D5A3','#1B263B'],['#D4B472','#C5A059','#1B263B'],['#E8D5A3','#D4B472','#1B263B'],['#F0E6C8','#E8D5A3','#111C2D']];const rows=Math.ceil(H/(brickH+gap)),total=cols*rows,filled=Math.ceil(total*(pct/100));let bi=0;for(let row=rows-1;row>=0;row--){const off=(row%2)*(brickW/2+gap/2);for(let col=0;col<cols;col++){if((rows-1-row)*cols+col>=filled)continue;const x=gap+col*(brickW+gap)+off,y=row*(brickH+gap);const b=backers[bi%backers.length];const t=Math.min((b?b.tier:1),5)-1;const grad=ctx.createLinearGradient(x,y,x+brickW,y+brickH);grad.addColorStop(0,tc[t][0]);grad.addColorStop(1,tc[t][1]);ctx.fillStyle=grad;ctx.beginPath();ctx.roundRect(x,y,brickW,brickH,3);ctx.fill();ctx.strokeStyle='rgba(197,160,89,0.15)';ctx.lineWidth=0.5;ctx.stroke();if(brickW>60){ctx.fillStyle=tc[t][2];ctx.font='9px DM Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText((b?b.name:'LA Partner').substring(0,12),x+brickW/2,y+brickH/2);}bi++;}}if(pct<100){ctx.fillStyle='rgba(139,156,181,0.35)';ctx.font='10px DM Mono,monospace';ctx.textAlign='center';ctx.fillText('YOUR LOCAL AUTHORITY COULD BE HERE',W/2,24);}}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('DOMContentLoaded',()=>{buildGrids();drawLogoReveal(0);drawWall([{id:'B001',name:'LA Partner',tier:5}],0);loadSheetData();loadBackers();});
+window.addEventListener('resize',()=>drawWall(backerData.length?backerData:[{id:'B001',name:'LA Partner',tier:5}],currentFundPct));
+</script>
+</body>
+</html>
+ 

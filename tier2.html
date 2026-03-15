@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Founding Supporter — £100 | Arena Genesis Founding Campaign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B263B;--navy-deep:#111C2D;--navy-mid:#243450;--navy-light:#2E4169;--gold:#C5A059;--gold-light:#D4B472;--gold-pale:#E8D5A3;--gold-dim:rgba(197,160,89,0.15);--gold-border:rgba(197,160,89,0.3);--slate:#8B9CB5;--slate-light:#B4C2D4;--slate-dark:#4A5A6E;--white:#F0F4F8;--divider:rgba(197,160,89,0.2);--green:#4ADE80;--red:#F87171}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--navy-deep);color:var(--white);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:0.6}
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(17,28,45,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--divider);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo-badge{width:42px;height:42px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:18px;color:var(--navy-deep);text-decoration:none;flex-shrink:0}
+.header-brand-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--white);letter-spacing:.02em}
+.header-brand-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase}
+.header-nav{display:flex;gap:28px;list-style:none}
+.header-nav a{font-size:12px;color:var(--slate-light);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;cursor:pointer}
+.header-nav a:hover{color:var(--gold)}
+.tier-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:120px 48px 80px;overflow:hidden;text-align:center}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(197,160,89,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 0%,transparent 100%)}
+.hero-glow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(197,160,89,.09) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.tier-hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px;opacity:0;animation:fade-up .8s ease forwards .1s}
+.tier-hero-eyebrow::before,.tier-hero-eyebrow::after{content:'';width:32px;height:1px;background:var(--gold);opacity:.5}
+.tier-price-display{opacity:0;animation:fade-up .8s ease forwards .25s;margin-bottom:12px}
+.tier-price-number{font-family:'Cormorant Garamond',serif;font-size:clamp(80px,14vw,160px);font-weight:700;color:var(--gold);line-height:.9;letter-spacing:-.03em}
+.tier-price-number span{font-size:40%;color:var(--gold-light)}
+.tier-name-display{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,42px);font-weight:600;color:var(--white);margin-bottom:12px;letter-spacing:.02em;opacity:0;animation:fade-up .8s ease forwards .4s}
+.tier-hero-hook{font-family:'Cormorant Garamond',serif;font-size:clamp(16px,2.2vw,22px);font-style:italic;color:var(--slate-light);max-width:720px;margin:0 auto 20px;line-height:1.65;opacity:0;animation:fade-up .8s ease forwards .55s}
+.tier-limit-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 20px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:44px;opacity:0;animation:fade-up .8s ease forwards .7s}
+.hero-cta-group{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fade-up .8s ease forwards .85s}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:16px 40px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);color:var(--navy-deep);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .3s ease}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(197,160,89,.35)}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:transparent;color:var(--gold);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--gold-border);border-radius:8px;cursor:pointer;text-decoration:none;transition:all .3s ease}
+.btn-secondary:hover{background:var(--gold-dim);border-color:var(--gold);transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fade-up .8s ease forwards 1.1s;cursor:pointer}
+.hero-scroll span{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate)}
+.hero-scroll-line{width:1px;height:32px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scroll-line 1.5s ease-in-out infinite}
+@keyframes scroll-line{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+ 
+/* KEY SHOWCASE */
+.key-showcase{background:var(--navy);padding:100px 0}
+.key-showcase-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.key-detail-block{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%);border:1px solid rgba(197,160,89,.4);border-radius:20px;padding:52px;position:relative;overflow:hidden}
+.key-detail-block::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.key-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(197,160,89,.08) 0%,transparent 70%);top:-50px;right:-50px;pointer-events:none}
+.key-number-display{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:700;color:var(--gold);line-height:.9;margin-bottom:8px;opacity:.5}
+.key-number-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--slate);margin-bottom:32px}
+.key-spec-list{display:flex;flex-direction:column;gap:14px}
+.key-spec{display:flex;gap:12px;align-items:flex-start}
+.key-spec-arrow{color:var(--gold);flex-shrink:0;margin-top:2px}
+.key-spec-text{font-size:13px;color:var(--slate-light);line-height:1.65}
+.key-spec-text strong{color:var(--white)}
+.section-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;line-height:1.1;color:var(--white);margin-bottom:16px}
+.section-lead{font-size:15px;color:var(--slate-light);max-width:580px;line-height:1.8;margin-bottom:40px}
+ 
+/* PERKS */
+.perks-outer{background:var(--navy-deep);padding:100px 0}
+.perks-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.perks-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.perk-card{background:var(--navy-mid);border:1px solid var(--divider);border-radius:16px;padding:28px;display:flex;gap:18px;align-items:flex-start;transition:border-color .3s}
+.perk-card:hover{border-color:var(--gold-border)}
+.perk-card.featured{border-color:rgba(197,160,89,.4);background:linear-gradient(135deg,rgba(197,160,89,.08),var(--navy-mid))}
+.perk-icon{width:48px;height:48px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.perk-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white);margin-bottom:6px}
+.perk-body{font-size:13px;color:var(--slate-light);line-height:1.75}
+.perk-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:4px;color:var(--gold);margin-bottom:8px}
+ 
+/* NARRATIVE BAND */
+.narrative-band{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy-deep) 100%);border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);padding:60px 48px;position:relative;overflow:hidden}
+.narrative-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 100% at 50% 50%,rgba(197,160,89,.05),transparent)}
+.narrative-band-inner{max-width:860px;margin:0 auto;position:relative;text-align:center}
+.narrative-band-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.narrative-band-text{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,26px);font-style:italic;color:var(--slate-light);line-height:1.7}
+.narrative-band-text strong{color:var(--white);font-style:normal}
+ 
+/* VIDEO SECTION */
+.video-outer{background:var(--navy-deep);padding:100px 0}
+.video-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.video-block{background:var(--navy-mid);border:1px solid var(--divider);border-radius:20px;overflow:hidden;margin-top:48px}
+.video-block-header{padding:32px 40px;border-bottom:1px solid var(--divider);display:flex;align-items:center;gap:20px}
+.video-block-icon{width:52px;height:52px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.video-block-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--white)}
+.video-block-sub{font-size:12px;color:var(--slate);margin-top:3px}
+.video-player-wrap{position:relative;background:#000;aspect-ratio:16/9}
+video{width:100%;height:100%;display:block;object-fit:cover}
+.video-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:linear-gradient(135deg,#0a0f1a 0%,#111c2d 100%)}
+.video-placeholder-ring{width:80px;height:80px;border-radius:50%;border:2px solid var(--gold-border);display:flex;align-items:center;justify-content:center;color:var(--gold)}
+.video-placeholder-text{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);text-align:center}
+.video-placeholder-sub{font-size:11px;color:var(--slate-dark);text-align:center;font-style:italic}
+.video-footer{padding:20px 40px;display:flex;align-items:center;justify-content:space-between}
+.video-milestone{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.video-filename{font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-dark);letter-spacing:.08em}
+.video-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:32px}
+.video-thumb{background:var(--navy-mid);border:1px solid var(--divider);border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:all .3s}
+.video-thumb:hover,.video-thumb.active{border-color:var(--gold-border);background:var(--gold-dim)}
+.video-thumb-pct{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--gold)}
+.video-thumb-label{font-family:'DM Mono',monospace;font-size:8px;color:var(--slate-dark);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+ 
+/* LOGO + WALL */
+.logo-reveal-outer{background:var(--navy);padding:80px 0}
+.logo-reveal-inner{max-width:1100px;margin:0 auto;padding:0 48px;text-align:center}
+.logo-reveal-canvas-wrap{display:inline-block;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--gold-border);box-shadow:0 0 60px rgba(197,160,89,.12)}
+#logo-reveal-canvas{display:block;width:320px;height:320px}
+.logo-reveal-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin-top:16px}
+.logo-reveal-pct{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold);margin-top:4px}
+.wall-outer{background:var(--navy-deep);padding:80px 0}
+.wall-inner{max-width:1100px;margin:0 auto;padding:0 48px}
+.wall-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center}
+.wall-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:600;color:var(--white);text-align:center;margin-bottom:8px}
+.wall-sub{font-size:13px;color:var(--slate);text-align:center;margin-bottom:40px}
+#memorial-wall-canvas{width:100%;height:300px;border-radius:12px;border:1px solid var(--gold-border);display:block}
+.wall-legend{display:flex;align-items:center;justify-content:center;gap:24px;margin-top:16px;padding-bottom:20px}
+.wall-legend-item{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--slate);text-transform:uppercase}
+.wall-legend-brick-gold{width:24px;height:14px;border-radius:2px;background:linear-gradient(135deg,#C5A059,#E8D5A3);border:1px solid #1B263B}
+.wall-legend-brick-black{width:24px;height:14px;border-radius:2px;background:linear-gradient(135deg,#1a1a2e,#2d2d4e);border:1px solid #C5A059}
+.cta-banner{background:linear-gradient(135deg,var(--navy-mid) 0%,var(--navy) 100%);border-top:1px solid var(--divider);border-bottom:1px solid var(--divider);padding:80px 48px;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold))}
+.cta-banner-inner{max-width:760px;margin:0 auto;text-align:center}
+.cta-banner-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--white);margin-bottom:12px}
+.cta-banner-title span{color:var(--gold);font-style:italic}
+.cta-banner-sub{font-size:15px;color:var(--slate-light);margin-bottom:36px;line-height:1.8}
+.cta-disclaimer{font-family:'DM Mono',monospace;font-size:9px;color:var(--slate-dark);letter-spacing:.08em;margin-top:20px;line-height:1.8}
+footer{background:var(--navy-deep);border-top:1px solid var(--divider);padding:48px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px}
+.footer-logo-badge{width:36px;height:36px;background:linear-gradient(135deg,var(--gold) 0%,#9A7A3A 100%);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:15px;color:var(--navy-deep);text-decoration:none}
+.footer-brand-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white)}
+.footer-links{display:flex;gap:24px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.footer-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate-dark);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--slate-dark);letter-spacing:.08em;line-height:1.8}
+@keyframes fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse-dot 2s infinite;display:inline-block}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
+@media(max-width:900px){
+  header{padding:0 20px}.header-nav{display:none}
+  .tier-hero{padding:100px 24px 80px}
+  .key-showcase-inner{grid-template-columns:1fr}
+  .perks-inner,.video-inner,.logo-reveal-inner,.wall-inner{padding:0 24px}
+  .perks-outer,.video-outer,.logo-reveal-outer,.wall-outer,.key-showcase{padding:60px 0}
+  .perks-grid{grid-template-columns:1fr}
+  .cta-banner{padding:60px 24px}
+  #memorial-wall-canvas{height:200px}
+}
+</style>
+</head>
+<body>
+ 
+<header>
+  <div class="header-left">
+    <a href="genesis.html" class="logo-badge">A</a>
+    <div>
+      <div class="header-brand-name">The Arena</div>
+      <div class="header-brand-sub">Genesis Campaign</div>
+    </div>
+  </div>
+  <nav><ul class="header-nav">
+    <li><a href="genesis.html#vault-section">The Vault</a></li>
+    <li><a href="genesis.html#tier-section">All Tiers</a></li>
+    <li><a href="genesis.html">← Back to Genesis</a></li>
+  </ul></nav>
+  <div style="display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:var(--slate);letter-spacing:.08em">
+    <div class="status-dot"></div><span id="hdr-raised">Loading…</span>
+  </div>
+</header>
+ 
+<div class="tier-hero">
+  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="tier-hero-eyebrow">Founding Tier 2 of 5 — Arena Genesis</div>
+  <div class="tier-price-display">
+    <div class="tier-price-number"><span>£</span>100</div>
+  </div>
+  <div class="tier-name-display">Founding Supporter</div>
+  <p class="tier-hero-hook">"You hold a key to the future. Literally. A personalised 3D-printed Arena Key — your unique number, engraved permanently."</p>
+  <div class="tier-limit-badge"><div class="status-dot"></div>&nbsp;Limited to 500 Founding Supporters</div>
+  <div class="hero-cta-group">
+    <a href="#" id="ks-btn-hero" class="btn-primary" target="_blank" rel="noopener">Claim Your Key on Kickstarter ↗</a>
+    <a href="genesis.html#tier-section" class="btn-secondary">Compare All Tiers</a>
+  </div>
+  <div class="hero-scroll" onclick="document.getElementById('key-section').scrollIntoView({behavior:'smooth'})">
+    <span>Your Key</span><div class="hero-scroll-line"></div>
+  </div>
+</div>
+ 
+<!-- KEY SHOWCASE -->
+<section id="key-section" class="key-showcase">
+  <div class="key-showcase-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">The Physical Artefact</div>
+      <h2 class="section-title">Your Arena Key.<br><em style="color:var(--gold)">Unique. Permanent.</em></h2>
+      <p class="section-lead">Every Founding Supporter receives a 3D-printed Arena Key. Black finish. Gold engraving. Your supporter number — unique to you — laser-etched into the surface. No two are the same.</p>
+      <p style="font-size:13px;color:var(--slate);line-height:1.8;margin-bottom:32px">This is not merchandise. It is a permanent record that you were part of the moment Arena came into existence. The key will be dispatched when the campaign closes at 100% funded.</p>
+      <a href="#" id="ks-btn-key" class="btn-primary" target="_blank" rel="noopener">Secure Your Key — £100 ↗</a>
+    </div>
+    <div class="key-detail-block reveal">
+      <div class="key-glow"></div>
+      <div class="key-number-display">#001</div>
+      <div class="key-number-label">Your Unique Supporter Number</div>
+      <div class="key-spec-list">
+        <div class="key-spec"><div class="key-spec-arrow">→</div><div class="key-spec-text"><strong>3D Printed</strong> — black PLA, premium finish. Approximately 12cm × 4cm.</div></div>
+        <div class="key-spec"><div class="key-spec-arrow">→</div><div class="key-spec-text"><strong>Gold Detail</strong> — Arena wordmark and your unique supporter number, engraved in gold.</div></div>
+        <div class="key-spec"><div class="key-spec-arrow">→</div><div class="key-spec-text"><strong>Sequentially Numbered</strong> — 500 maximum. Your number reflects when you pledged.</div></div>
+        <div class="key-spec"><div class="key-spec-arrow">→</div><div class="key-spec-text"><strong>Dispatched at 100%</strong> — when the campaign closes funded, keys are produced and posted.</div></div>
+        <div class="key-spec"><div class="key-spec-arrow">→</div><div class="key-spec-text"><strong>UK Delivery Included</strong> — the key ships to you. A physical piece of the founding moment.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PERKS -->
+<section class="perks-outer">
+  <div class="perks-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Everything That's Included</div>
+      <h2 class="section-title">The full Founding<br><em style="color:var(--gold)">Supporter package.</em></h2>
+    </div>
+    <div class="perks-grid">
+      <div class="perk-card featured reveal">
+        <div class="perk-icon" style="background:linear-gradient(135deg,var(--gold),#9A7A3A);border:none">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--navy-deep)" stroke-width="1.5"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        </div>
+        <div>
+          <div class="perk-tag">Physical Reward</div>
+          <div class="perk-title" style="color:var(--gold)">Your Arena Key</div>
+          <div class="perk-body">A 3D-printed key with your unique supporter number engraved. Black finish, gold detail. Dispatched when the campaign hits 100% funded.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Full Vault Access</div>
+          <div class="perk-body">All 10 Genesis Vault briefings, from evidence reform to the national deployment plan. Unlocked progressively as funding milestones are hit.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Name on the Memorial Wall</div>
+          <div class="perk-body">Your name on the Arena Founding Wall — the permanent, public record of everyone who believed before the platform existed. Gold brick. Tier 2 prominence.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Priority Campaign Updates</div>
+          <div class="perk-body">First to receive milestone updates, platform progress, and strategic briefings as Arena moves from campaign to clinical deployment.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Founders Archive — Named Entry</div>
+          <div class="perk-body">A permanent digital record of every Founding Supporter. When Arena is deployed nationally, the Founders Archive will be the evidence that this started with you.</div>
+        </div>
+      </div>
+      <div class="perk-card reveal">
+        <div class="perk-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div>
+          <div class="perk-title">Genesis Certificate — Numbered</div>
+          <div class="perk-body">A digital founding certificate bearing your unique supporter number. Issued on campaign close, archived permanently in the Arena Founders record.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- NARRATIVE BAND -->
+<div class="narrative-band">
+  <div class="narrative-band-inner">
+    <div class="narrative-band-label">The Physical Meets the Systemic</div>
+    <p class="narrative-band-text">
+      The key is not a metaphor. It is a physical object you will hold —
+      the first <strong>material evidence</strong> that Arena existed before it was a platform,
+      before it was deployed, before it changed the trajectory of a child in Alternative Provision.
+      <strong>Your number is your place in that history.</strong>
+    </p>
+  </div>
+</div>
+ 
+<!-- VIDEO: KEY BUILD -->
+<section class="video-outer" id="video-section">
+  <div class="video-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Watch Your Key Being Made</div>
+      <h2 class="section-title"><em style="color:var(--gold)">Your</em> Arena Key —<br>from first layer to finish</h2>
+      <p class="section-lead">Each funding milestone triggers a new stage of the 3D print. This is a cumulative record — every video shows the build from the beginning to that point. Watch your key come into existence.</p>
+    </div>
+    <div class="video-block reveal">
+      <div class="video-block-header">
+        <div class="video-block-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div>
+          <div class="video-block-title">3D Print — The Arena Key</div>
+          <div class="video-block-sub" id="video-key-sub">Current milestone video</div>
+        </div>
+      </div>
+      <div class="video-player-wrap">
+        <video id="key-video" controls preload="none"><source id="key-video-src" src="" type="video/mp4"></video>
+        <div class="video-placeholder" id="key-placeholder">
+          <div class="video-placeholder-ring"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="video-placeholder-text">Video Uploads at First Funding Milestone</div>
+          <div class="video-placeholder-sub">Your key begins printing when funding hits 10%</div>
+        </div>
+      </div>
+      <div class="video-footer">
+        <div class="video-milestone" id="key-milestone-label">Awaiting First Milestone</div>
+        <div class="video-filename" id="key-filename">key_10pct.mp4</div>
+      </div>
+    </div>
+    <div class="video-grid reveal" id="key-video-grid"></div>
+  </div>
+</section>
+ 
+<!-- LOGO REVEAL -->
+<section class="logo-reveal-outer">
+  <div class="logo-reveal-inner">
+    <div class="reveal">
+      <div class="section-eyebrow" style="text-align:center">Campaign Progress — Arena Logo</div>
+      <h2 class="section-title" style="text-align:center;margin-bottom:8px">The logo <em style="color:var(--gold)">reveals</em> as we fund</h2>
+      <p style="font-size:14px;color:var(--slate);margin-bottom:40px">Each percentage point of funding removes another block. At 100%, the full Arena mark is unveiled.</p>
+    </div>
+    <div class="logo-reveal-canvas-wrap reveal"><canvas id="logo-reveal-canvas" width="320" height="320"></canvas></div>
+    <div class="logo-reveal-label">Funded</div>
+    <div class="logo-reveal-pct" id="logo-pct-display">0%</div>
+  </div>
+</section>
+ 
+<!-- MEMORIAL WALL -->
+<section class="wall-outer">
+  <div class="wall-inner">
+    <div class="wall-eyebrow reveal">The Founding Wall</div>
+    <h2 class="wall-title reveal">Your name. <em style="color:var(--gold)">Your brick. Your legacy.</em></h2>
+    <p class="wall-sub reveal">Founding Supporters receive a gold brick on the Arena Memorial Wall. It's permanent — and it's yours.</p>
+    <canvas id="memorial-wall-canvas" class="reveal"></canvas>
+    <div class="wall-legend reveal">
+      <div class="wall-legend-item"><div class="wall-legend-brick-gold"></div>Founding Supporter+</div>
+      <div class="wall-legend-item"><div class="wall-legend-brick-black"></div>Supporter</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CTA -->
+<div class="cta-banner">
+  <div class="cta-banner-inner reveal">
+    <div class="section-eyebrow" style="display:flex;align-items:center;justify-content:center;gap:8px"><div class="status-dot"></div>Limited to 500 Founding Supporters</div>
+    <h2 class="cta-banner-title">Claim your <span>key</span><br>before the 500 are gone.</h2>
+    <p class="cta-banner-sub">Once 500 Founding Supporters have pledged, this tier closes. Your number is determined by when you pledge — the earlier you join, the lower your number.</p>
+    <a href="#" id="ks-btn-cta" class="btn-primary" target="_blank" rel="noopener" style="font-size:13px;padding:18px 48px">Claim Founding Supporter — £100 ↗</a>
+    <p class="cta-disclaimer">Kickstarter pledge. Processed securely by Kickstarter. If the campaign does not reach its target, no charge is made.<br>The Arena Hub Ltd · Company registered in England &amp; Wales</p>
+  </div>
+</div>
+ 
+<footer>
+  <div class="footer-logo">
+    <a href="genesis.html" class="footer-logo-badge">A</a>
+    <div class="footer-brand-text">The Arena Hub Ltd</div>
+  </div>
+  <div class="footer-links">
+    <a href="genesis.html">Genesis Campaign</a>
+    <a href="tier1.html">Supporter — £25</a>
+    <a href="tier3.html">Founding Future Partner — £750</a>
+    <a href="genesis.html#tier-section">All Tiers</a>
+    <a href="index.html">Main Site</a>
+  </div>
+  <div class="footer-copy">© 2026 The Arena Hub Ltd · Arena Genesis Founding Campaign · Clinical Infrastructure for UK Alternative Provision</div>
+</footer>
+ 
+<script>
+const SHEET_ID = '1uzdcww7KhRSoW5Vh3oM1sYbqrAMAI2VBmEWgfumrntE';
+const GID = { matrix: '1500722618', backers: '0' };
+const KS_FALLBACK = 'https://www.kickstarter.com';
+const KEY_MILESTONES = [
+  {pct:10,file:'key_10pct.mp4',label:'10% — The Build Begins'},
+  {pct:20,file:'key_20pct.mp4',label:'20% — Taking Shape'},
+  {pct:30,file:'key_30pct.mp4',label:'30% — Form Emerging'},
+  {pct:40,file:'key_40pct.mp4',label:'40% — Structure Solidifying'},
+  {pct:50,file:'key_50pct.mp4',label:'50% — Halfway'},
+  {pct:60,file:'key_60pct.mp4',label:'60% — Detail Work'},
+  {pct:70,file:'key_70pct.mp4',label:'70% — Nearly Formed'},
+  {pct:80,file:'key_80pct.mp4',label:'80% — Final Structure'},
+  {pct:90,file:'key_90pct.mp4',label:'90% — Last Stage'},
+  {pct:100,file:'key_100pct.mp4',label:'100% — Complete'},
+];
+let currentFundPct = 0, currentKsUrl = KS_FALLBACK, backerData = [];
+ 
+async function fetchSheet(gid) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${gid}`;
+  try {
+    const r = await fetch(url);
+    const txt = await r.text();
+    const json = JSON.parse(txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+    return json.table;
+  } catch(e) { return null; }
+}
+function toRows(table) {
+  if (!table || !table.rows) return [];
+  return table.rows.map(r => r.c ? r.c.map(c => c ? (c.v !== null && c.v !== undefined ? String(c.v) : '') : '') : []);
+}
+async function loadSheetData() {
+  const table = await fetchSheet(GID.matrix);
+  const rows = toRows(table);
+  let funding = 0, target = 50000, ksUrl = KS_FALLBACK;
+  rows.forEach(r => {
+    if (r[0]==='STAT_FUNDING') funding = parseFloat(r[4])||0;
+    if (r[0]==='STAT_TARGET') target = parseFloat(r[4])||50000;
+    if (r[0]==='STAT_KS_URL' && r[4] && r[4].startsWith('http')) ksUrl = r[4];
+  });
+  currentFundPct = Math.min(100, Math.round((funding/target)*100));
+  currentKsUrl = ksUrl;
+  document.getElementById('hdr-raised').textContent = `£${funding.toLocaleString()} raised`;
+  ['ks-btn-hero','ks-btn-key','ks-btn-cta'].forEach(id => { const el = document.getElementById(id); if(el) el.href = ksUrl; });
+  buildKeyVideoGrid(); drawLogoReveal(currentFundPct);
+  document.getElementById('logo-pct-display').textContent = currentFundPct + '%';
+  loadCurrentKeyVideo();
+}
+async function loadBackers() {
+  const table = await fetchSheet(GID.backers);
+  const rows = toRows(table).slice(1);
+  backerData = rows.filter(r=>r[0]).map(r=>({id:r[0],name:r[1]||'Supporter',tier:parseInt(r[3])||1}));
+  if (!backerData.length) backerData = [{id:'BACKER_001',name:'Arena Team',tier:2}];
+  drawWall(backerData, currentFundPct);
+}
+function loadCurrentKeyVideo(forcePct) {
+  const pct = forcePct !== undefined ? forcePct : currentFundPct;
+  const milestone = KEY_MILESTONES.slice().reverse().find(m=>m.pct<=pct)||KEY_MILESTONES[0];
+  const vid = document.getElementById('key-video');
+  const src = document.getElementById('key-video-src');
+  const ph = document.getElementById('key-placeholder');
+  src.src = milestone.file; vid.load();
+  document.getElementById('key-milestone-label').textContent = 'Current: ' + milestone.label;
+  document.getElementById('key-filename').textContent = milestone.file;
+  document.getElementById('key-video-sub').textContent = milestone.label;
+  vid.oncanplay = ()=>{ ph.style.display='none'; };
+  vid.onerror = ()=>{ ph.style.display='flex'; };
+  document.querySelectorAll('.video-thumb').forEach(el=>el.classList.toggle('active',el.dataset.pct==milestone.pct));
+}
+function buildKeyVideoGrid() {
+  const grid = document.getElementById('key-video-grid');
+  grid.innerHTML = KEY_MILESTONES.map(m=>`<div class="video-thumb" data-pct="${m.pct}" onclick="loadCurrentKeyVideo(${m.pct})" style="${m.pct>currentFundPct?'opacity:.45':''}"><div class="video-thumb-pct" style="${m.pct>currentFundPct?'color:var(--slate-dark)':''}">${m.pct}%</div><div class="video-thumb-label">${m.pct<=currentFundPct?'▶':'🔒'}</div></div>`).join('');
+}
+function drawLogoReveal(pct) {
+  const canvas = document.getElementById('logo-reveal-canvas');
+  const ctx = canvas.getContext('2d');
+  const W=320,H=320,GRID=16,cellW=W/GRID,cellH=H/GRID;
+  const img = new Image();
+  function overlay() {
+    const total=GRID*GRID, covered=Math.round(total*(1-pct/100));
+    const order=[]; for(let i=0;i<total;i++) order.push(i);
+    for(let i=order.length-1;i>0;i--){const j=Math.abs(Math.sin(i*9301+49297)*233280)%(i+1)|0;[order[i],order[j]]=[order[j],order[i]];}
+    for(let k=0;k<covered;k++){const idx=order[k];const col=idx%GRID,row=Math.floor(idx/GRID);ctx.fillStyle='rgba(17,28,45,0.9)';ctx.fillRect(col*cellW,row*cellH,cellW+1,cellH+1);}
+  }
+  img.onload = ()=>{ ctx.clearRect(0,0,W,H); ctx.drawImage(img,0,0,W,H); overlay(); };
+  img.onerror = ()=>{
+    ctx.fillStyle='#1B263B';ctx.fillRect(0,0,W,H);
+    ctx.font='bold 64px Cormorant Garamond,serif';ctx.fillStyle='#C5A059';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('A',W/2,H/2-10);ctx.font='10px DM Mono,monospace';ctx.fillStyle='#8B9CB5';ctx.fillText('arena-logo.png',W/2,H/2+50);
+    overlay();
+  };
+  img.src='arena-logo.png';
+}
+function drawWall(backers, pct) {
+  const canvas = document.getElementById('memorial-wall-canvas');
+  const ctx = canvas.getContext('2d');
+  const W=canvas.offsetWidth||canvas.width, H=300;
+  canvas.width=W; canvas.height=H;
+  ctx.fillStyle='#111C2D'; ctx.fillRect(0,0,W,H);
+  const brickH=22,gap=2,cols=Math.floor(W/92);
+  const brickW=(W-(cols+1)*gap)/cols;
+  const tierColors=[['#2a2a4e','#3d3d6b','#C5A059'],['#C5A059','#E8D5A3','#1B263B'],['#D4B472','#C5A059','#1B263B'],['#E8D5A3','#D4B472','#1B263B'],['#F0E6C8','#E8D5A3','#111C2D']];
+  const rows=Math.ceil(H/(brickH+gap));
+  const totalSlots=cols*rows, filledSlots=Math.ceil(totalSlots*(pct/100));
+  let bIdx=0;
+  for(let row=rows-1;row>=0;row--){
+    const offset=(row%2)*(brickW/2+gap/2);
+    for(let col=0;col<cols;col++){
+      const slotNum=(rows-1-row)*cols+col;
+      if(slotNum>=filledSlots) continue;
+      const x=gap+col*(brickW+gap)+offset, y=row*(brickH+gap);
+      const backer=backers[bIdx%backers.length];
+      const tier=Math.min((backer?backer.tier:1),5)-1;
+      const [bg1,bg2,textCol]=tierColors[tier];
+      const grad=ctx.createLinearGradient(x,y,x+brickW,y+brickH);
+      grad.addColorStop(0,bg1);grad.addColorStop(1,bg2);
+      ctx.fillStyle=grad;ctx.beginPath();ctx.roundRect(x,y,brickW,brickH,3);ctx.fill();
+      ctx.strokeStyle='rgba(197,160,89,0.15)';ctx.lineWidth=0.5;ctx.stroke();
+      if(brickW>60){ctx.fillStyle=textCol;ctx.font='9px DM Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText((backer?backer.name:'Supporter').substring(0,12),x+brickW/2,y+brickH/2);}
+      bIdx++;
+    }
+  }
+  if(pct<100){ctx.fillStyle='rgba(139,156,181,0.35)';ctx.font='10px DM Mono,monospace';ctx.textAlign='center';ctx.fillText('YOUR NAME COULD BE HERE',W/2,24);}
+}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('DOMContentLoaded',()=>{
+  buildKeyVideoGrid(); drawLogoReveal(0); drawWall([{id:'B001',name:'Founding Supporter',tier:2}],0);
+  loadSheetData(); loadBackers();
+});
+window.addEventListener('resize',()=>drawWall(backerData.length?backerData:[{id:'B001',name:'Founding Supporter',tier:2}],currentFundPct));
+</script>
+</body>
+</html>
+ 
