@@ -16,1298 +16,210 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>The Arena Hub — Enterprise Education Management for Alternative Provision</title>
 
-    <!--
-    ═══════════════════════════════════════════════════════════════
-    ARENA_HUB_CONFIG dynamic injection
-    The JS at the bottom of this file fetches:
-      ARENA_HUB_CONFIG_URL (replace the placeholder below)
-    and populates:
-      #dynamic-article-btn    — latest SubStack article button
-      #dynamic-article-label  — button text
-      footer social links
-    ═══════════════════════════════════════════════════════════════
-    -->
-
     <style>
         /* =======================================================
-           GLOBAL RESET
+           GLOBAL RESET & UTILITIES
            ======================================================= */
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Source Sans 3', sans-serif;
-            background: #F4F5F7;
-            color: #2C3E50;
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        h1, h2, h3, h4, h5 {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
+        body { font-family: 'Source Sans 3', sans-serif; background: #F4F5F7; color: #2C3E50; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+        h1, h2, h3, h4, h5 { font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: -0.5px; }
         p { margin-bottom: 1rem; }
-        p:last-child { margin-bottom: 0; }
-
-        img { display: block; max-width: 100%; }
-
-        a { color: #C5A059; }
+        a { color: #C5A059; text-decoration: none; transition: color 0.2s; }
         a:hover { color: #B09047; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
 
-        /* =======================================================
-           UTILITIES
-           ======================================================= */
-        .container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 11px 26px;
-            border: 2px solid #C5A059;
-            border-radius: 4px;
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
-            white-space: nowrap;
-        }
-
-        .btn-gold {
-            background: #C5A059;
-            color: #FFFFFF;
-        }
-
-        .btn-gold:hover, .btn-gold:focus {
-            background: #B09047;
-            border-color: #B09047;
-            color: #FFFFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(197,160,89,0.3);
-            outline: none;
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: #C5A059;
-        }
-
-        .btn-outline:hover, .btn-outline:focus {
-            background: #C5A059;
-            color: #FFFFFF;
-            transform: translateY(-2px);
-            outline: none;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            border-color: rgba(255,255,255,0.4);
-            color: #FFFFFF;
-        }
-
-        .btn-ghost:hover, .btn-ghost:focus {
-            background: rgba(255,255,255,0.1);
-            border-color: #C5A059;
-            color: #C5A059;
-            outline: none;
-        }
-
+        /* Buttons */
+        .btn { display: inline-block; padding: 11px 26px; border: 2px solid #C5A059; border-radius: 4px; font-weight: 600; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .btn-gold { background: #C5A059; color: #FFFFFF; }
+        .btn-gold:hover { background: #B09047; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(197,160,89,0.3); }
+        .btn-outline { background: transparent; color: #C5A059; }
+        .btn-outline:hover { background: #C5A059; color: #FFFFFF; transform: translateY(-2px); }
+        .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.4); color: #FFFFFF; }
+        .btn-ghost:hover { border-color: #C5A059; color: #C5A059; }
         .btn-sm { padding: 8px 18px; font-size: 0.87rem; }
 
-        /* =======================================================
-           HEADER / NAV
-           ======================================================= */
-        .site-header {
-            background: #1B263B;
-            border-bottom: 2px solid rgba(197,160,89,0.25);
-            position: sticky;
-            top: 0;
-            z-index: 200;
-        }
-
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            padding: 0.9rem 2rem;
-            max-width: 1140px;
-            margin: 0 auto;
-        }
-
-        /* Logo */
-        .site-logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
+        /* Header */
+        .site-header { background: #1B263B; border-bottom: 2px solid rgba(197,160,89,0.25); position: sticky; top: 0; z-index: 200; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 2rem; max-width: 1140px; margin: 0 auto; }
+        .site-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #FFFFFF; }
         .site-logo span { color: #C5A059; }
+        .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+        #dynamic-article-btn { display: none; }
 
-        /* Nav cluster — right side */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        /* Dynamic article button — hidden until JS loads config */
-        #dynamic-article-btn {
-            display: none;
-        }
-
-        /* =======================================================
-           HERO
-           ======================================================= */
-        .hero {
-            background: linear-gradient(135deg, #1B263B 0%, #1e2e45 60%, #243447 100%);
-            color: #FFFFFF;
-            padding: 5.5rem 2rem 5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 15% 50%, rgba(197,160,89,0.09) 0%, transparent 55%),
-                radial-gradient(ellipse at 85% 20%, rgba(197,160,89,0.06) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 860px;
-            margin: 0 auto;
-            animation: fadeInUp 0.75s ease-out both;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(197,160,89,0.12);
-            border: 1px solid rgba(197,160,89,0.4);
-            color: #C5A059;
-            padding: 0.45rem 1.1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-bottom: 1.8rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.4rem, 5vw, 4rem);
-            line-height: 1.08;
-            margin-bottom: 1.2rem;
-        }
-
+        /* Hero */
+        .hero { background: linear-gradient(135deg, #1B263B 0%, #1e2e45 60%, #243447 100%); color: #FFFFFF; padding: 5.5rem 2rem 5rem; text-align: center; position: relative; }
+        .hero-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; animation: fadeInUp 0.75s ease-out; }
+        .hero-badge { display: inline-block; background: rgba(197,160,89,0.12); border: 1px solid rgba(197,160,89,0.4); color: #C5A059; padding: 0.45rem 1.1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 1.8rem; }
+        .hero h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.08; margin-bottom: 1.2rem; }
         .hero h1 span { color: #C5A059; }
+        .hero-tagline { font-size: 1.25rem; color: #C4CDDA; margin-bottom: 2.5rem; }
 
-        .hero-tagline {
-            font-size: 1.25rem;
-            color: #C4CDDA;
-            max-width: 620px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.55;
-        }
+        /* Sections */
+        .section { padding: 5rem 2rem; }
+        .section-alt { background: #FFFFFF; }
+        .section-dark { background: #1B263B; color: #FFFFFF; }
+        .section-heading { text-align: center; margin-bottom: 3.5rem; }
+        .eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #C5A059; display: block; margin-bottom: 0.75rem; }
 
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        /* Pillar Grid */
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .pillar-card { background: #FFFFFF; border-radius: 8px; padding: 2.2rem 2rem; border-top: 4px solid #C5A059; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .pillar-icon { font-size: 2.2rem; color: #C5A059; margin-bottom: 1.2rem; }
 
-        /* =======================================================
-           CLINICAL INFRASTRUCTURE BANNER
-           ======================================================= */
-        .infra-banner {
-            background: #C5A059;
-            padding: 1.1rem 2rem;
-            text-align: center;
-        }
+        /* Pricing */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.75rem; }
+        .pricing-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.2); border-radius: 8px; padding: 2rem 1.5rem; text-align: center; }
+        .pricing-price { font-family: 'Rajdhani', sans-serif; font-size: 2.4rem; color: #C5A059; font-weight: 700; }
 
-        .infra-banner p {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #1B263B;
-            margin: 0;
-        }
+        /* Footer */
+        .site-footer { background: #1B263B; color: #A8B5C2; padding: 4rem 2rem 2rem; border-top: 2px solid rgba(197,160,89,0.2); }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2.5rem; max-width: 1140px; margin: 0 auto 3rem; }
+        .footer-col h4 { font-family: 'Rajdhani', sans-serif; color: #C5A059; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; font-size: 0.8rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.6rem; }
+        .footer-col a { color: #A8B5C2; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
 
-        /* =======================================================
-           SECTION SHARED STYLES
-           ======================================================= */
-        .section {
-            padding: 5rem 2rem;
-        }
-
-        .section-alt {
-            background: #FFFFFF;
-        }
-
-        .section-dark {
-            background: #1B263B;
-            color: #FFFFFF;
-        }
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-heading .eyebrow {
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #C5A059;
-            display: block;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-heading h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            color: #1B263B;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-dark .section-heading h2 { color: #FFFFFF; }
-
-        .section-heading p {
-            font-size: 1.05rem;
-            color: #5A6C7D;
-            max-width: 580px;
-            margin: 0 auto;
-        }
-
-        .section-dark .section-heading p { color: #A8B5C2; }
-
-        /* =======================================================
-           THREE PILLARS
-           ======================================================= */
-        .pillar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        @media (min-width: 960px) {
-            .pillar-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        .pillar-card {
-            background: #FFFFFF;
-            border-radius: 8px;
-            padding: 2.2rem 2rem;
-            box-shadow: 0 2px 10px rgba(27,38,59,0.07);
-            border-top: 4px solid #C5A059;
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-
-        .section-alt .pillar-card {
-            background: #F4F5F7;
-        }
-
-        .pillar-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 28px rgba(27,38,59,0.12);
-        }
-
-        .pillar-icon {
-            font-size: 2.2rem;
-            color: #C5A059;
-            margin-bottom: 1.2rem;
-        }
-
-        .pillar-card h3 {
-            font-size: 1.4rem;
-            color: #1B263B;
-            margin-bottom: 0.6rem;
-        }
-
-        .pillar-card p {
-            font-size: 0.95rem;
-            color: #5A6C7D;
-        }
-
-        /* =======================================================
-           FEATURE LIST
-           ======================================================= */
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.75rem;
-        }
-
-        @media (min-width: 900px) {
-            .feature-list { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .feature-item {
-            display: flex;
-            gap: 1.1rem;
-            align-items: flex-start;
-        }
-
-        .feature-item-icon {
-            font-size: 1.5rem;
-            color: #C5A059;
-            flex-shrink: 0;
-            margin-top: 0.15rem;
-        }
-
-        .feature-item h4 {
-            font-size: 1.05rem;
-            color: #1B263B;
-            margin-bottom: 0.3rem;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-        }
-
-        .section-dark .feature-item h4 { color: #FFFFFF; }
-
-        .feature-item p {
-            font-size: 0.9rem;
-            color: #5A6C7D;
-            margin: 0;
-        }
-
-        .section-dark .feature-item p { color: #A8B5C2; }
-
-        /* =======================================================
-           CAMPAIGN / CTA BAND
-           ======================================================= */
-        .cta-band {
-            background: linear-gradient(135deg, #1B263B 0%, #243447 100%);
-            color: #FFFFFF;
-            padding: 5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-band::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.1) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .cta-band-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta-band h2 {
-            font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-            margin-bottom: 1rem;
-        }
-
-        .cta-band p {
-            font-size: 1.1rem;
-            color: #C4CDDA;
-            margin-bottom: 2.5rem;
-        }
-
-        /* =======================================================
-           PRICING SECTION
-           ======================================================= */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.75rem;
-        }
-
-        @media (min-width: 960px) {
-            .pricing-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .pricing-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(197,160,89,0.2);
-            border-radius: 8px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            transition: border-color 0.25s, transform 0.25s;
-        }
-
-        .pricing-card:hover {
-            border-color: #C5A059;
-            transform: translateY(-3px);
-        }
-
-        .pricing-tier {
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 0.75rem;
-        }
-
-        .pricing-name {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: #C5A059;
-            line-height: 1;
-            margin-bottom: 0.3rem;
-        }
-
-        .pricing-freq {
-            font-size: 0.85rem;
-            color: #7A8E9F;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-uc {
-            font-size: 0.85rem;
-            color: #A8B5C2;
-            font-style: italic;
-        }
-
-        /* Under construction overlay on pricing */
-        .pricing-uc-badge {
-            display: inline-block;
-            margin-top: 0.5rem;
-            background: rgba(197,160,89,0.15);
-            border: 1px solid rgba(197,160,89,0.4);
-            color: #C5A059;
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 3px 10px;
-            border-radius: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        /* =======================================================
-           UNDER CONSTRUCTION MODAL
-           ======================================================= */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(27,38,59,0.7);
-            z-index: 500;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            backdrop-filter: blur(4px);
-        }
-
+        /* Modals */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(27,38,59,0.85); z-index: 500; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
         .modal-overlay.active { display: flex; }
+        .modal-box { background: #FFFFFF; border-radius: 8px; padding: 2.5rem; max-width: 480px; width: 90%; position: relative; color: #1B263B; }
+        .modal-close { position: absolute; top: 1rem; right: 1rem; border: none; background: none; font-size: 1.5rem; cursor: pointer; }
 
-        .modal-box {
-            background: #FFFFFF;
-            border-radius: 8px;
-            padding: 2.5rem 2.5rem 2rem;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-            animation: modalIn 0.3s ease-out both;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #8A9AAA;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0.25rem;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover { color: #1B263B; }
-
-        .modal-icon {
-            font-size: 2.5rem;
-            color: #C5A059;
-            margin-bottom: 1rem;
-        }
-
-        .modal-box h3 {
-            font-size: 1.6rem;
-            color: #1B263B;
-            margin-bottom: 0.6rem;
-        }
-
-        .modal-box p {
-            font-size: 1rem;
-            color: #5A6C7D;
-        }
-
-        @keyframes modalIn {
-            from { opacity:0; transform: scale(0.94) translateY(16px); }
-            to   { opacity:1; transform: scale(1) translateY(0); }
-        }
-
-        /* =======================================================
-           EMAIL ARENA MODAL
-           ======================================================= */
-        .email-modal-box .modal-icon { color: #1B263B; }
-
-        .email-select {
-            width: 100%;
-            padding: 10px 14px;
-            margin: 1.2rem 0;
-            border: 2px solid #E0E3E8;
-            border-radius: 4px;
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 1rem;
-            color: #2C3E50;
-            background: #F9FAFB;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23C5A059' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 38px;
-        }
-
-        .email-select:focus {
-            border-color: #C5A059;
-            outline: none;
-        }
-
-        /* =======================================================
-           FOOTER
-           ======================================================= */
-        .site-footer {
-            background: #1B263B;
-            color: #A8B5C2;
-            padding: 4rem 2rem 2rem;
-            border-top: 2px solid rgba(197,160,89,0.2);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            max-width: 1140px;
-            margin: 0 auto;
-            margin-bottom: 3rem;
-        }
-
-        @media (min-width: 640px) {
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (min-width: 960px) {
-            .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; }
-        }
-
-        .footer-brand .logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 0.6rem;
-        }
-
-        .footer-brand .logo span { color: #C5A059; }
-
-        .footer-brand p {
-            font-size: 0.9rem;
-            line-height: 1.55;
-            margin-bottom: 0;
-        }
-
-        .footer-col h4 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 1rem;
-        }
-
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 0.6rem;
-        }
-
-        .footer-col ul li a {
-            color: #A8B5C2;
-            text-decoration: none;
-            font-size: 0.92rem;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-col ul li a:hover { color: #C5A059; }
-
-        .footer-col ul li a i {
-            width: 16px;
-            text-align: center;
-            font-size: 0.95rem;
-            color: #6A7E8F;
-            transition: color 0.2s;
-        }
-
-        .footer-col ul li a:hover i { color: #C5A059; }
-
-        .footer-phone {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #C5A059;
-            font-size: 1.05rem;
-            font-weight: 600;
-            text-decoration: none;
-            margin-bottom: 1.2rem;
-            transition: color 0.2s;
-        }
-
-        .footer-phone:hover { color: #FFFFFF; }
-
-        .footer-divider {
-            border: none;
-            border-top: 1px solid rgba(197,160,89,0.12);
-            margin: 0 auto 1.5rem;
-            max-width: 1140px;
-        }
-
-        .footer-bottom {
-            max-width: 1140px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .footer-bottom p {
-            font-size: 0.82rem;
-            margin: 0;
-        }
-
-        .footer-email-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 8px 18px;
-            background: rgba(197,160,89,0.1);
-            border: 1px solid rgba(197,160,89,0.35);
-            border-radius: 4px;
-            color: #C5A059;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-            font-family: 'Source Sans 3', sans-serif;
-            text-decoration: none;
-        }
-
-        .footer-email-btn:hover {
-            background: rgba(197,160,89,0.18);
-            border-color: #C5A059;
-            color: #C5A059;
-        }
-
-        /* =======================================================
-           SKIP LINK & A11Y
-           ======================================================= */
-        .skip-link {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            background: #C5A059;
-            color: #1B263B;
-            padding: 10px 18px;
-            font-weight: 700;
-            text-decoration: none;
-            z-index: 300;
-        }
-
-        .skip-link:focus { top: 0; }
-
-        a:focus-visible {
-            outline: 2px solid #C5A059;
-            outline-offset: 2px;
-        }
-
-        /* =======================================================
-           ANIMATIONS
-           ======================================================= */
-        @keyframes fadeInUp {
-            from { opacity:0; transform: translateY(20px); }
-            to   { opacity:1; transform: translateY(0); }
-        }
-
-        /* =======================================================
-           RESPONSIVE
-           ======================================================= */
-        @media (max-width: 600px) {
-            .section { padding: 3.5rem 1.5rem; }
-            .cta-band { padding: 3.5rem 1.5rem; }
-            .header-actions { gap: 0.5rem; }
-            .btn { padding: 9px 18px; font-size: 0.9rem; }
-            .hero { padding: 4rem 1.5rem 3.5rem; }
-        }
+        @keyframes fadeInUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to content</a>
 
-    <!-- ═══════════════════════════════════════════════════
-         HEADER
-         ═══════════════════════════════════════════════════ -->
-    <header class="site-header" role="banner">
+    <header class="site-header">
         <div class="header-inner">
-            <a href="company.html" class="site-logo" aria-label="The Arena Hub — home">
-                The <span>Arena Hub</span>
-            </a>
-
+            <a href="company.html" class="site-logo">The <span>Arena Hub</span></a>
             <div class="header-actions">
-                <!-- Dynamic article button — populated by ARENA_HUB_CONFIG JS -->
                 <a href="#" id="dynamic-article-btn" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
                     <span id="dynamic-article-label">Latest Article</span>
                 </a>
-
-                <!-- Explore Prices — opens under-construction modal -->
-                <button class="btn btn-sm btn-outline" onclick="openModal('pricing-modal')" aria-haspopup="dialog">
-                    Explore Prices
-                </button>
-
-                <!-- Support the campaign — ONE instance only -->
-                <a href="https://thearenahub.substack.com" target="_blank" rel="noopener" class="btn btn-sm btn-gold">
-                    Support the Campaign
-                </a>
-
-                <!-- Enter The Arena (school users) -->
-                <a href="platform.html" class="btn btn-sm btn-outline" style="display:none" id="enter-arena-header-btn">
-                    Enter The Arena
-                </a>
+                <button class="btn btn-sm btn-outline" onclick="openModal('pricing-modal')">Explore Prices</button>
+                <a href="https://thearenahub.substack.com" target="_blank" class="btn btn-sm btn-gold">Support Campaign</a>
             </div>
         </div>
     </header>
 
-    <!-- ═══════════════════════════════════════════════════
-         CLINICAL INFRASTRUCTURE BANNER
-         ═══════════════════════════════════════════════════ -->
-    <div class="infra-banner" role="complementary" aria-label="Product tagline">
-        <p>Arena Hub Ltd &mdash; Clinical Infrastructure for Alternative Provision</p>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════
-         HERO
-         ═══════════════════════════════════════════════════ -->
-    <section class="hero" aria-labelledby="hero-heading">
+    <section class="hero">
         <div class="hero-inner">
-            <div class="hero-badge">JB-EMS: The Arena &mdash; v5.0 Enterprise Evolution</div>
-            <h1 id="hero-heading">The EMS Built for<br><span>Schools That Don&rsquo;t Give Up</span></h1>
-            <p class="hero-tagline">
-                Clinical-grade education management infrastructure for UK Alternative Provision.
-                Performance, welfare and curriculum &mdash; unified under one sovereign platform.
-            </p>
+            <div class="hero-badge">JB-EMS: The Arena &mdash; v5.1 Enterprise Evolution</div>
+            <h1>The EMS Built for<br><span>Schools That Don't Give Up</span></h1>
+            <p class="hero-tagline">Clinical-grade education management infrastructure for Alternative Provision. Performance, welfare and curriculum unified.</p>
             <div class="hero-actions">
                 <a href="platform.html" class="btn btn-gold">Enter The Arena &rarr;</a>
-                <button class="btn btn-ghost" onclick="document.getElementById('pillars').scrollIntoView({behavior:'smooth'})">
-                    Discover The Platform
-                </button>
             </div>
         </div>
     </section>
 
-    <!-- ═══════════════════════════════════════════════════
-         MAIN CONTENT
-         ═══════════════════════════════════════════════════ -->
-    <main id="main" role="main">
-
-        <!-- THREE PILLARS -->
-        <section id="pillars" class="section section-alt" aria-labelledby="pillars-heading">
+    <main id="main">
+        <section class="section section-alt">
             <div class="container">
                 <div class="section-heading">
-                    <span class="eyebrow">The Architecture</span>
-                    <h2 id="pillars-heading">Three Pillars. One Platform.</h2>
-                    <p>Every tool your school needs — Performance, Welfare, and Curriculum — engineered to work as one.</p>
+                    <span class="eyebrow">Architecture</span>
+                    <h2>Three Pillars. One Platform.</h2>
                 </div>
                 <div class="pillar-grid">
-                    <div class="pillar-card">
-                        <div class="pillar-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
-                        <h3>Performance Centre</h3>
-                        <p>Daily register with FIFA 6-pillar scoring, resilience tracking, HT Command dashboard, room heatmap, morning reports, and player cards. Your school&rsquo;s performance data — clear, live, and actionable.</p>
-                    </div>
-                    <div class="pillar-card">
-                        <div class="pillar-icon"><i class="fas fa-shield-heart" aria-hidden="true"></i></div>
-                        <h3>Welfare Suite</h3>
-                        <p>DSL sovereignty toggle, NODE correlation engine, safeguarding chronology, 3-path triage, SLT response hub, and a complete audit trail. Built to the standard your students deserve.</p>
-                    </div>
-                    <div class="pillar-card">
-                        <div class="pillar-icon"><i class="fas fa-toolbox" aria-hidden="true"></i></div>
-                        <h3>Kit Room</h3>
-                        <p>Resource Bible, taxonomy management, partner links, curriculum unit cascade, opportunity reports, and the Ticker Board. Everything your team needs to close the gap.</p>
-                    </div>
+                    <div class="pillar-card"><div class="pillar-icon"><i class="fas fa-chart-line"></i></div><h3>Performance Centre</h3><p>Live tracking, FIFA 6-pillar scoring, and room heatmaps.</p></div>
+                    <div class="pillar-card"><div class="pillar-icon"><i class="fas fa-shield-heart"></i></div><h3>Welfare Suite</h3><p>DSL sovereignty, safeguarding chronologies, and audit trails.</p></div>
+                    <div class="pillar-card"><div class="pillar-icon"><i class="fas fa-toolbox"></i></div><h3>Kit Room</h3><p>Curriculum management, taxonomy, and opportunity reports.</p></div>
                 </div>
             </div>
         </section>
 
-        <!-- PLATFORM FEATURES -->
-        <section class="section" aria-labelledby="features-heading">
-            <div class="container">
-                <div class="section-heading">
-                    <span class="eyebrow">Why Arena</span>
-                    <h2 id="features-heading">Purpose-Built for Your Context</h2>
-                    <p>Not adapted. Not repurposed. Designed from day one for the realities of Alternative Provision.</p>
-                </div>
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Sovereign Data Architecture</h4>
-                            <p>Your welfare data stays under DSL control. No third-party access. No cloud-first compromise. The Arena Hub cannot read your clinical records.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Provider-Agnostic AI</h4>
-                            <p>Human teachers and AI agents are treated identically within your ecosystem. Evidence assessment, letter drafting, NODE correlation — all transparent and auditable.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-code-branch" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Hybrid Infrastructure</h4>
-                            <p>Google Workspace backbone with Cloud Run orchestration. No new logins for your team. Deploys into your existing environment in under an hour.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>2FA Everywhere It Counts</h4>
-                            <p>Clinical threshold changes, welfare data access, and admin actions are all protected by two-factor authentication — built in, not bolted on.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-sitemap" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>LA Partner Ready</h4>
-                            <p>Designed for multi-site deployment and Local Authority partnership from the ground up. Roll out across your entire portfolio of schools.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-puzzle-piece" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Tiered & Feature-Flagged</h4>
-                            <p>Enterprise, Professional, and Foundations tiers — every feature flag individually controlled so your deployment matches your school&rsquo;s exact needs.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CAMPAIGN CTA -->
-        <section class="cta-band" aria-labelledby="campaign-heading">
-            <div class="cta-band-inner">
-                <h2 id="campaign-heading">Support the Campaign</h2>
-                <p>
-                    The Arena Hub is built by a practitioner, for practitioners. Support our campaign
-                    to bring clinical-grade infrastructure to every AP school in the UK.
-                </p>
-                <a href="https://thearenahub.substack.com" target="_blank" rel="noopener" class="btn btn-gold">
-                    Support the Campaign &rarr;
-                </a>
-            </div>
-        </section>
-
-        <!-- PRICING PREVIEW -->
-        <section id="pricing" class="section section-dark" aria-labelledby="pricing-heading">
+        <section class="section section-dark">
             <div class="container">
                 <div class="section-heading">
                     <span class="eyebrow">Pricing</span>
-                    <h2 id="pricing-heading">Transparent Pricing. Flexible Tiers.</h2>
-                    <p>One annual licence. No per-user fees. No surprises.</p>
+                    <h2>Transparent Licensing</h2>
                 </div>
                 <div class="pricing-grid">
-                    <div class="pricing-card">
-                        <div class="pricing-tier">Tier 1</div>
-                        <div class="pricing-name">Enterprise</div>
-                        <div class="pricing-price">&pound;10,500</div>
-                        <div class="pricing-freq">per site, per year</div>
-                        <div class="pricing-uc">Full platform &bull; All features<br>Priority support</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-tier">Tier 2</div>
-                        <div class="pricing-name">Professional</div>
-                        <div class="pricing-price">&pound;8,500</div>
-                        <div class="pricing-freq">per site, per year</div>
-                        <div class="pricing-uc">Core platform &bull; Pro features<br>Standard support</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-tier">Tier 3</div>
-                        <div class="pricing-name">Foundations</div>
-                        <div class="pricing-price">&pound;7,750</div>
-                        <div class="pricing-freq">per site, per year</div>
-                        <div class="pricing-uc">Core platform<br>Standard support</div>
-                    </div>
-                    <div class="pricing-card">
-                        <div class="pricing-tier">LA Partner</div>
-                        <div class="pricing-name">Partnership</div>
-                        <div class="pricing-price">From<br>&pound;6,500</div>
-                        <div class="pricing-freq">per site, per year</div>
-                        <div class="pricing-uc">Multi-site discount<br>LA partnership rate</div>
-                    </div>
-                </div>
-                <div style="text-align:center; margin-top:2.5rem;">
-                    <button class="btn btn-outline" onclick="openModal('pricing-modal')" aria-haspopup="dialog">
-                        Full Pricing Details &rarr;
-                    </button>
+                    <div class="pricing-card"><div class="pricing-name">Enterprise</div><div class="pricing-price">&pound;10,500</div></div>
+                    <div class="pricing-card"><div class="pricing-name">Professional</div><div class="pricing-price">&pound;8,500</div></div>
+                    <div class="pricing-card"><div class="pricing-name">Foundations</div><div class="pricing-price">&pound;7,750</div></div>
+                    <div class="pricing-card"><div class="pricing-name">Partnership</div><div class="pricing-price">&pound;6,500+</div></div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- ═══════════════════════════════════════════════════
-         FOOTER
-         ═══════════════════════════════════════════════════ -->
-    <footer class="site-footer" role="contentinfo">
+    <footer class="site-footer">
         <div class="footer-grid">
-
-            <!-- Brand column -->
-            <div class="footer-brand">
-                <div class="logo">The <span>Arena Hub</span></div>
-                <p>Enterprise Education Management Infrastructure for UK Alternative Provision.</p>
-                <br>
-                <a href="tel:01618702916" class="footer-phone" aria-label="Call us on 01618702916">
-                    <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
-                </a>
-                <button class="footer-email-btn" onclick="openModal('email-modal')" aria-haspopup="dialog">
-                    <i class="fas fa-envelope" aria-hidden="true"></i> Email Arena
-                </button>
-            </div>
-
-            <!-- Substack / content -->
             <div class="footer-col">
                 <h4>Read</h4>
                 <ul>
-                    <li>
-                        <a id="footer-substack-1" href="https://thearenahub.substack.com" target="_blank" rel="noopener">
-                            <i class="fas fa-rss" aria-hidden="true"></i>
-                            <span id="footer-substack-1-label">Arena Hub on Substack</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-substack-2" href="https://thearenahub.substack.com/p/the-2026-send-reform-why-the-legacy?r=7y2kri" target="_blank" rel="noopener">
-                            <i class="fas fa-file-alt" aria-hidden="true"></i>
-                            <span id="footer-substack-2-label">The 2026 SEND Reform</span>
-                        </a>
-                    </li>
+                    <li><a id="footer-substack-1" href="#"><i class="fas fa-rss"></i><span id="footer-substack-1-label">Substack</span></a></li>
+                    <li><a id="footer-substack-2" href="#"><i class="fas fa-file-alt"></i><span id="footer-substack-2-label">SEND Reform</span></a></li>
                 </ul>
             </div>
-
-            <!-- Social -->
             <div class="footer-col">
                 <h4>Connect</h4>
                 <ul>
-                    <li>
-                        <a id="footer-linkedin" href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-bluesky" href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener">
-                            <i class="fas fa-cloud" aria-hidden="true"></i> BlueSky
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-twitter" href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-facebook" href="https://facebook.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
-                        </a>
-                    </li>
+                    <li><a id="footer-linkedin" href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a id="footer-bluesky" href="#"><i class="fas fa-cloud"></i> BlueSky</a></li>
+                    <li><a id="footer-twitter" href="#"><i class="fab fa-x-twitter"></i> X / Twitter</a></li>
                 </ul>
             </div>
-
-            <!-- More social -->
             <div class="footer-col">
                 <h4>Also On</h4>
                 <ul>
-                    <li>
-                        <a id="footer-instagram" href="https://instagram.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-threads" href="https://threads.net/@TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-threads" aria-hidden="true"></i> Threads
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-reddit" href="https://reddit.com/r/TheArenaHub" target="_blank" rel="noopener">
-                            <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
-                        </a>
-                    </li>
+                    <li><a id="footer-instagram" href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a id="footer-reddit" href="#"><i class="fab fa-reddit"></i> Reddit</a></li>
                 </ul>
             </div>
-
         </div>
-
-        <hr class="footer-divider">
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 The Arena Hub Ltd &mdash; All rights reserved.</p>
-            <p>
-                <a href="index.html">Home</a> &nbsp;&bull;&nbsp;
-                <a href="platform.html">Enter The Arena</a>
-            </p>
-        </div>
+        <div style="text-align:center; padding-top:2rem; font-size:0.8rem;">&copy; 2026 The Arena Hub Ltd</div>
     </footer>
 
-    <!-- ═══════════════════════════════════════════════════
-         PRICING UNDER CONSTRUCTION MODAL
-         ═══════════════════════════════════════════════════ -->
-    <div id="pricing-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
-        <div class="modal-box" style="text-align:center;">
-            <button class="modal-close" onclick="closeModal('pricing-modal')" aria-label="Close pricing modal">&times;</button>
-            <div class="modal-icon"><i class="fas fa-hard-hat" aria-hidden="true"></i></div>
-            <h3 id="pricing-modal-title">Full Pricing Details<br>Coming Soon</h3>
-            <p style="margin-top:0.75rem;">
-                We&rsquo;re putting the finishing touches on our full pricing page.<br>
-                In the meantime, contact us directly for a quote tailored to your school or LA.
-            </p>
-            <br>
-            <button class="btn btn-gold" onclick="closeModal('pricing-modal'); openModal('email-modal')" style="width:100%;">
-                Contact Us for Pricing
-            </button>
+    <div id="pricing-modal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('pricing-modal')">&times;</button>
+            <h3>Pricing Details Coming Soon</h3>
+            <p>Contact us for a bespoke quote tailored to your school context.</p>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════
-         EMAIL ARENA MODAL
-         ═══════════════════════════════════════════════════ -->
-    <div id="email-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="email-modal-title">
-        <div class="modal-box email-modal-box">
-            <button class="modal-close" onclick="closeModal('email-modal')" aria-label="Close email modal">&times;</button>
-            <div class="modal-icon">
-                <i class="fas fa-envelope" aria-hidden="true" style="color:#1B263B;"></i>
-            </div>
-            <h3 id="email-modal-title">Email The Arena Hub</h3>
-            <p style="font-size:0.95rem; color:#5A6C7D; margin-top:0.5rem;">
-                Select the team you&rsquo;d like to contact. We&rsquo;ll open your email client ready to go.
-            </p>
-
-            <label for="email-alias-select" class="sr-only">Select department</label>
-            <select id="email-alias-select" class="email-select" aria-label="Select department to email">
-                <option value="">-- Select a department --</option>
-                <option value="info">General Enquiries — info@thearenahub.co.uk</option>
-                <option value="sales">Sales — sales@thearenahub.co.uk</option>
-                <option value="support">Support — support@thearenahub.co.uk</option>
-                <option value="schools">Schools Team — schools@thearenahub.co.uk</option>
-                <option value="safeguarding">Safeguarding — safeguarding@thearenahub.co.uk</option>
-                <option value="data-protection">Data Protection — data-protection@thearenahub.co.uk</option>
-                <option value="compliance">Compliance — compliance@thearenahub.co.uk</option>
-                <option value="security">Security — security@thearenahub.co.uk</option>
-                <option value="press">Press &amp; Media — press@thearenahub.co.uk</option>
-                <option value="careers">Careers — careers@thearenahub.co.uk</option>
-                <option value="legal">Legal — legal@thearenahub.co.uk</option>
-                <option value="policy">Policy — policy@thearenahub.co.uk</option>
-                <option value="admin">Administration — admin@thearenahub.co.uk</option>
-                <option value="help">Help Desk — help@thearenahub.co.uk</option>
-                <option value="pilot">Pilot Programme — pilot@thearenahub.co.uk</option>
-            </select>
-
-            <button class="btn btn-gold" onclick="sendEmail()" style="width:100%;">
-                Open in Email Client &rarr;
-            </button>
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════
-         SERVICE WORKER + DYNAMIC CONFIG + MODALS
-         ═══════════════════════════════════════════════════ -->
     <script>
-        'use strict';
+        // CONFIG URL INJECTION
+        var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbyHxPWAv3KURsyjoJsGoyzX6jEhl_Xogu01dh5rZD-VfHbQXs2atkCokqHeFeJMKiKl/exec';
 
-        // ── Service Worker ──────────────────────────────────
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').catch(function () {});
-            });
-        }
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-        // ── Modal helpers ───────────────────────────────────
-        function openModal(id) {
-            var overlay = document.getElementById(id);
-            if (overlay) {
-                overlay.classList.add('active');
-                // Trap focus on first focusable element
-                var firstFocusable = overlay.querySelector('button, select, a, input');
-                if (firstFocusable) firstFocusable.focus();
-            }
-        }
-
-        function closeModal(id) {
-            var overlay = document.getElementById(id);
-            if (overlay) overlay.classList.remove('active');
-        }
-
-        // Close modals on overlay click
-        document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
-            overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) closeModal(overlay.id);
-            });
-        });
-
-        // Close modals on Escape key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.active').forEach(function (overlay) {
-                    closeModal(overlay.id);
-                });
-            }
-        });
-
-        // ── Email Arena modal ───────────────────────────────
-        function sendEmail() {
-            var select = document.getElementById('email-alias-select');
-            var alias  = select.value;
-            if (!alias) {
-                select.focus();
-                select.style.borderColor = '#C5A059';
-                return;
-            }
-            window.location.href = 'mailto:' + alias + '@thearenahub.co.uk';
-            closeModal('email-modal');
-        }
-
-        // Allow Enter key in select to trigger sendEmail
-        document.getElementById('email-alias-select').addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') sendEmail();
-        });
-
-        // ── Dynamic config from ARENA_HUB_CONFIG ────────────
-        //
-        // REPLACE the placeholder URL below with the deployed
-        // ARENA_HUB_CONFIG GAS Web App URL once it is set up.
-        // Format: https://script.google.com/macros/s/[ID]/exec
-        //
-        var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
-
-        function loadSiteConfig() {
-            if (!ARENA_HUB_CONFIG_URL || ARENA_HUB_CONFIG_URL.indexOf('ARENA_HUB_CONFIG_URL') !== -1) {
-                // Config URL not yet set — silently skip
-                return;
-            }
-
+        function loadConfig() {
             fetch(ARENA_HUB_CONFIG_URL)
-                .then(function (r) { return r.json(); })
-                .then(function (data) {
-                    if (!data.success || !data.config) return;
+                .then(r => r.json())
+                .then(data => {
+                    if (!data.success) return;
                     var cfg = data.config;
 
-                    // ── Latest article button ──────────────
-                    var articleBtn   = document.getElementById('dynamic-article-btn');
-                    var articleLabel = document.getElementById('dynamic-article-label');
-                    var url    = cfg['LATEST_ARTICLE_URL'];
-                    var label  = cfg['LATEST_ARTICLE_LABEL'];
-                    var active = cfg['LATEST_ARTICLE_ACTIVE'];
-
-                    if (url && active !== 'FALSE') {
-                        articleBtn.href = url;
-                        if (label) articleLabel.textContent = label;
-                        articleBtn.style.display = 'inline-block';
+                    // Update dynamic button
+                    var btn = document.getElementById('dynamic-article-btn');
+                    if (cfg.LATEST_ARTICLE_ACTIVE === "TRUE") {
+                        btn.href = cfg.LATEST_ARTICLE_URL;
+                        document.getElementById('dynamic-article-label').textContent = cfg.LATEST_ARTICLE_LABEL;
+                        btn.style.display = 'inline-block';
                     }
 
-                    // ── Footer social links ────────────────
-                    var linkMap = {
-                        'LINKEDIN_URL':    'footer-linkedin',
-                        'BLUESKY_URL':     'footer-bluesky',
-                        'TWITTER_URL':     'footer-twitter',
-                        'FACEBOOK_URL':    'footer-facebook',
-                        'INSTAGRAM_URL':   'footer-instagram',
-                        'THREADS_URL':     'footer-threads',
-                        'REDDIT_URL':      'footer-reddit',
-                        'SUBSTACK_URL_1':  'footer-substack-1',
-                        'SUBSTACK_URL_2':  'footer-substack-2'
+                    // Update Links
+                    const links = {
+                        'LINKEDIN_URL': 'footer-linkedin',
+                        'BLUESKY_URL': 'footer-bluesky',
+                        'TWITTER_URL': 'footer-twitter',
+                        'INSTAGRAM_URL': 'footer-instagram',
+                        'REDDIT_URL': 'footer-reddit',
+                        'SUBSTACK_URL_1': 'footer-substack-1',
+                        'SUBSTACK_URL_2': 'footer-substack-2'
                     };
-
-                    Object.keys(linkMap).forEach(function (key) {
-                        var val = cfg[key];
-                        var el  = document.getElementById(linkMap[key]);
-                        if (val && el) el.href = val;
+                    Object.keys(links).forEach(key => {
+                        if (cfg[key]) document.getElementById(links[key]).href = cfg[key];
                     });
-
-                    // ── Substack labels ────────────────────
-                    if (cfg['SUBSTACK_LABEL_1']) {
-                        var sl1 = document.getElementById('footer-substack-1-label');
-                        if (sl1) sl1.textContent = cfg['SUBSTACK_LABEL_1'];
-                    }
-                    if (cfg['SUBSTACK_LABEL_2']) {
-                        var sl2 = document.getElementById('footer-substack-2-label');
-                        if (sl2) sl2.textContent = cfg['SUBSTACK_LABEL_2'];
-                    }
-
-                    // ── Phone ──────────────────────────────
-                    if (cfg['PHONE']) {
-                        var phoneEl = document.querySelector('.footer-phone');
-                        if (phoneEl) {
-                            phoneEl.href = 'tel:' + cfg['PHONE'].replace(/\s/g,'');
-                            // Update text node (keep icon)
-                            var textNodes = Array.from(phoneEl.childNodes)
-                                .filter(function(n){ return n.nodeType === 3; });
-                            if (textNodes.length) textNodes[0].nodeValue = ' ' + cfg['PHONE'];
-                        }
-                    }
-                })
-                .catch(function () {
-                    // Config fetch failed — static fallbacks already in HTML
                 });
         }
-
-        // Run on DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadSiteConfig);
-        } else {
-            loadSiteConfig();
-        }
+        window.onload = loadConfig;
     </script>
 </body>
 </html>
