@@ -1,0 +1,82 @@
+{
+  "name": "JB-EMS: The Arena Hub",
+  "short_name": "Arena Hub",
+  "description": "Sovereign Hybrid Education Management Platform for UK Alternative Provision",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1B263B",
+  "theme_color": "#1B263B",
+  "scope": "./",
+  "lang": "en-GB",
+  "icons": [
+    {
+      "src": "arena-icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "arena-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "arena-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "arena-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Performance Centre",
+      "short_name": "Performance",
+      "description": "Quick access to Performance Centre",
+      "url": "#pc",
+      "icons": [
+        {
+          "src": "arena-icon-72.png",
+          "sizes": "72x72"
+        }
+      ]
+    },
+    {
+      "name": "Welfare Suite",
+      "short_name": "Welfare",
+      "description": "Quick access to Welfare Suite",
+      "url": "#ws"
+    },
+    {
+      "name": "Student Hub",
+      "short_name": "Student Hub",
+      "description": "Quick access to Student Hub",
+      "url": "student-hub.html"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Arena Hub Dashboard"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Arena Hub Mobile"
+    }
+  ],
+  "categories": ["education", "productivity"],
+  "iarc_rating_id": ""
+}

@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JB-EMS: The Arena - Parent Portal</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --navy: #1B263B;
+            --gold: #C5A059;
+            --white: #FFFFFF;
+            --light-grey: #F4F5F7;
+            --green: #22C55E;
+            --amber: #F59E0B;
+            --red: #EF4444;
+            --dark-grey: #6B7280;
+            --border: #E5E7EB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--light-grey);
+            color: var(--navy);
+            line-height: 1.6;
+        }
+
+        /* Sticky Header/Nav */
+        .header {
+            background-color: var(--navy);
+            color: var(--white);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(27, 38, 59, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-branding {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .header-branding i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .header-student {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0 auto;
+        }
+
+        .student-chip {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link {
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .back-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Sections */
+        section {
+            animation: slideInUp 0.5s ease-out;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--gold);
+        }
+
+        /* SECTION 1: Portrait Report Card */
+        .portrait-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--gold);
+        }
+
+        .portrait-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .student-name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .chip-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .chip-student-id {
+            background-color: var(--light-grey);
+            color: var(--navy);
+            border: 1px solid var(--border);
+        }
+
+        .chip-site {
+            background-color: #EEF2FF;
+            color: #1E40AF;
+        }
+
+        .chip-ehcp {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .chip-status {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .status-pending {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .status-signed {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+
+        .status-read {
+            background-color: #F3F4F6;
+            color: #4B5563;
+        }
+
+        /* Attendance Stat */
+        .attendance-stat {
+            background: linear-gradient(135deg, var(--navy), #2D3E52);
+            color: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .attendance-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .attendance-percent {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .attendance-indicator {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .indicator-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .indicator-green {
+            background-color: var(--green);
+        }
+
+        .indicator-amber {
+            background-color: var(--amber);
+        }
+
+        .indicator-red {
+            background-color: var(--red);
+        }
+
+        /* Resilience Sparkline */
+        .resilience-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .resilience-label {
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .sparkline-container {
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            height: 60px;
+        }
+
+        .sparkline-svg {
+            width: 100%;
+            height: 100%;
+            max-width: 400px;
+        }
+
+        /* FIFA Pillars */
+        .pillars-section {
+            margin-top: 1.5rem;
+        }
+
+        .pillars-label {
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .pillars-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .pillar-chip {
+            background-color: var(--light-grey);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .pillar-chip:hover {
+            border-color: var(--gold);
+            background-color: #FFFBF0;
+        }
+
+        .pillar-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .pillar-value {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .last-updated {
+            font-size: 0.8rem;
+            color: var(--dark-grey);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* SECTION 2: Correspondence */
+        .correspondence-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .letter-item {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--gold);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .letter-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateX(4px);
+        }
+
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .letter-type-badge {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-formal {
+            background-color: #DBEAFE;
+            color: #0C4A6E;
+        }
+
+        .badge-supportive {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+
+        .badge-urgent {
+            background-color: #FEE2E2;
+            color: #7F1D1D;
+        }
+
+        .letter-date {
+            font-size: 0.85rem;
+            color: var(--dark-grey);
+        }
+
+        .letter-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .letter-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .letter-subject {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .letter-preview {
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+            margin-bottom: 0.75rem;
+        }
+
+        .letter-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+        }
+
+        .letter-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .expand-icon {
+            color: var(--gold);
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .letter-item.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .letter-full-text {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .letter-item.expanded .letter-full-text {
+            max-height: 500px;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .letter-full-text p {
+            line-height: 1.7;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Digital Signature Section */
+        .signature-section {
+            background-color: #FEF3C7;
+            border: 2px solid var(--amber);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .signature-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            color: #92400E;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .signature-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .signature-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .signature-checkbox input {
+            margin-top: 0.3rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .signature-checkbox label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--navy);
+        }
+
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: 'Source Sans 3', sans-serif;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+        }
+
+        .signature-button {
+            background-color: var(--gold);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .signature-button:hover:not(:disabled) {
+            background-color: #B89446;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(197, 160, 89, 0.3);
+        }
+
+        .signature-button:disabled {
+            background-color: #D1D5DB;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .signature-success {
+            background-color: #DCFCE7;
+            border: 1px solid var(--green);
+            color: #166534;
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .empty-state {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            color: var(--dark-grey);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--border);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* SECTION 3: Contact Modal */
+        .contact-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--white);
+        }
+
+        .contact-btn-navy {
+            background-color: var(--navy);
+            box-shadow: 0 2px 8px rgba(27, 38, 59, 0.2);
+        }
+
+        .contact-btn-navy:hover {
+            background-color: #0F172A;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(27, 38, 59, 0.3);
+        }
+
+        .contact-btn-red {
+            background-color: var(--red);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+        }
+
+        .contact-btn-red:hover {
+            background-color: #DC2626;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .contact-btn i {
+            font-size: 1.75rem;
+            color: var(--gold);
+        }
+
+        .contact-btn-red i {
+            color: var(--white);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(27, 38, 59, 0.7);
+            z-index: 200;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-grey);
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: var(--navy);
+        }
+
+        .modal-note {
+            background-color: #EEF2FF;
+            color: #1E40AF;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3B82F6;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.2s;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+        }
+
+        .form-textarea.char-limit {
+            font-size: 0.85rem;
+            min-height: 80px;
+        }
+
+        .char-count {
+            font-size: 0.8rem;
+            color: var(--dark-grey);
+            margin-top: 0.25rem;
+            text-align: right;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background-color: var(--gold);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: #B89446;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(197, 160, 89, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background-color: #D1D5DB;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            background-color: var(--light-grey);
+            color: var(--navy);
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #E5E7EB;
+        }
+
+        /* DSL Red Flag Confirmation */
+        .confirmation-title {
+            color: var(--red);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-message {
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* Success Card */
+        .success-card {
+            background-color: #DCFCE7;
+            border: 2px solid var(--green);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            color: #166534;
+        }
+
+        .success-card i {
+            font-size: 3rem;
+            color: var(--green);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .success-card-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-card-text {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* SECTION 4: Morning Input */
+        .morning-input-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--gold);
+        }
+
+        .morning-question {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .mood-options {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mood-btn {
+            flex: 1;
+            background-color: var(--light-grey);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            font-size: 2rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mood-btn:hover {
+            border-color: var(--gold);
+            background-color: #FFFBF0;
+            transform: scale(1.05);
+        }
+
+        .mood-btn.selected {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.3);
+        }
+
+        .mood-note-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mood-note-group label {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--navy);
+        }
+
+        .morning-submit-btn {
+            width: 100%;
+            background-color: var(--gold);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .morning-submit-btn:hover:not(:disabled) {
+            background-color: #B89446;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(197, 160, 89, 0.3);
+        }
+
+        .morning-submit-btn:disabled {
+            background-color: #D1D5DB;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .morning-success {
+            background-color: #DCFCE7;
+            border: 1px solid var(--green);
+            color: #166534;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: var(--navy);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 300;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast.success {
+            background-color: var(--green);
+        }
+
+        .toast.error {
+            background-color: var(--red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-student {
+                justify-content: center;
+            }
+
+            .attendance-percent {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .student-name {
+                font-size: 1.5rem;
+            }
+
+            .contact-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                width: 95%;
+                padding: 1.5rem;
+            }
+
+            .mood-options {
+                flex-wrap: wrap;
+            }
+
+            .mood-btn {
+                flex: 0 1 calc(20% - 0.8rem);
+                padding: 1rem;
+                font-size: 1.5rem;
+            }
+
+            .pillars-row {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-branding {
+                font-size: 1rem;
+            }
+
+            .student-name {
+                font-size: 1.25rem;
+            }
+
+            .attendance-percent {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.25rem;
+            }
+
+            .portrait-card {
+                padding: 1.5rem;
+            }
+
+            .pillars-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mood-options {
+                gap: 0.5rem;
+            }
+
+            .mood-btn {
+                flex: 1;
+                padding: 0.75rem;
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-branding">
+                <i class="fas fa-trophy"></i>
+                <span>JB-EMS: The Arena</span>
+            </div>
+            <div class="header-student">
+                <div class="student-chip" id="headerStudentName">Alice Johnson</div>
+            </div>
+            <div class="header-nav">
+                <a href="#" class="back-link">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Hub</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- SECTION 1: Portrait Report -->
+        <section id="portraitSection">
+            <div class="section-title">
+                <i class="fas fa-user-circle"></i>
+                Student Profile
+            </div>
+
+            <div class="portrait-card">
+                <div class="portrait-header">
+                    <div>
+                        <div class="student-name" id="studentName">Alice Johnson</div>
+                        <div class="chip-group">
+                            <span class="chip chip-student-id">
+                                <i class="fas fa-id-card"></i>
+                                <span id="studentId">STU-2024-0451</span>
+                            </span>
+                            <span class="chip chip-site">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span id="studentSite">Main Campus</span>
+                            </span>
+                            <span class="chip chip-ehcp" id="ehcpChip" style="display: none;">
+                                <i class="fas fa-certificate"></i>
+                                EHCP
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="attendance-stat">
+                    <div class="attendance-label">Current Attendance</div>
+                    <div class="attendance-percent" id="attendancePercent">92%</div>
+                    <div class="attendance-indicator">
+                        <span class="indicator-dot indicator-green"></span>
+                        <span id="attendanceStatus">Excellent</span>
+                    </div>
+                </div>
+
+                <div class="resilience-section">
+                    <div class="resilience-label">5-Day Resilience Trend</div>
+                    <div class="sparkline-container">
+                        <svg class="sparkline-svg" viewBox="0 0 400 100" preserveAspectRatio="xMidYMid meet" id="resilienceChart">
+                            <polyline points="20,70 100,45 180,55 260,35 380,50"
+                                      fill="none"
+                                      stroke="#C5A059"
+                                      stroke-width="2"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            <circle cx="20" cy="70" r="3" fill="#C5A059"/>
+                            <circle cx="100" cy="45" r="3" fill="#C5A059"/>
+                            <circle cx="180" cy="55" r="3" fill="#C5A059"/>
+                            <circle cx="260" cy="35" r="3" fill="#C5A059"/>
+                            <circle cx="380" cy="50" r="3" fill="#C5A059"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="pillars-section">
+                    <div class="pillars-label">Latest FIFA Pillars</div>
+                    <div class="pillars-row">
+                        <div class="pillar-chip">
+                            <div class="pillar-label">RES</div>
+                            <div class="pillar-value" id="pillarRes">78</div>
+                        </div>
+                        <div class="pillar-chip">
+                            <div class="pillar-label">VEL</div>
+                            <div class="pillar-value" id="pillarVel">85</div>
+                        </div>
+                        <div class="pillar-chip">
+                            <div class="pillar-label">ENG</div>
+                            <div class="pillar-value" id="pillarEng">82</div>
+                        </div>
+                        <div class="pillar-chip">
+                            <div class="pillar-label">ATT</div>
+                            <div class="pillar-value" id="pillarAtt">88</div>
+                        </div>
+                        <div class="pillar-chip">
+                            <div class="pillar-label">WLF</div>
+                            <div class="pillar-value" id="pillarWlf">91</div>
+                        </div>
+                        <div class="pillar-chip">
+                            <div class="pillar-label">WIN</div>
+                            <div class="pillar-value" id="pillarWin">79</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i>
+                    Last Updated: <span id="lastUpdated">2026-03-20 09:30 AM</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Correspondence Inbox -->
+        <section id="correspondenceSection">
+            <div class="section-title">
+                <i class="fas fa-envelope"></i>
+                Correspondence Inbox
+            </div>
+
+            <div id="correspondenceList" class="correspondence-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECTION 3: Contact the School -->
+        <section id="contactSection">
+            <div class="section-title">
+                <i class="fas fa-phone-alt"></i>
+                Contact the School
+            </div>
+
+            <div class="contact-buttons">
+                <button class="contact-btn contact-btn-navy" id="teacherBtn" aria-label="Contact teacher">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <span>Contact Teacher</span>
+                </button>
+                <button class="contact-btn contact-btn-navy" id="htBtn" aria-label="Contact head teacher">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Contact Head Teacher</span>
+                </button>
+                <button class="contact-btn contact-btn-red" id="dslBtn" aria-label="DSL red flag safeguarding alert">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <span>DSL Red Flag</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Morning Input (Feature-Flagged) -->
+        <section id="morningInputSection" style="display: none;">
+            <div class="section-title">
+                <i class="fas fa-sunrise"></i>
+                Daily Check-In
+            </div>
+
+            <div class="morning-input-card">
+                <div class="morning-question" id="morningQuestion">
+                    How is Alice feeling this morning?
+                </div>
+
+                <div class="mood-options" id="moodOptions">
+                    <button class="mood-btn" data-mood="1" title="Very Sad">😔</button>
+                    <button class="mood-btn" data-mood="2" title="Sad">😕</button>
+                    <button class="mood-btn" data-mood="3" title="Neutral">😐</button>
+                    <button class="mood-btn" data-mood="4" title="Happy">🙂</button>
+                    <button class="mood-btn" data-mood="5" title="Very Happy">😊</button>
+                </div>
+
+                <div class="mood-note-group">
+                    <label for="morningNote">Optional Note (max 100 chars)</label>
+                    <textarea
+                        id="morningNote"
+                        class="form-textarea char-limit"
+                        maxlength="100"
+                        placeholder="Add any additional comments..."></textarea>
+                    <div class="char-count">
+                        <span id="charCount">0</span>/100
+                    </div>
+                </div>
+
+                <button class="morning-submit-btn" id="morningSubmitBtn">Submit Check-In</button>
+                <div id="morningSuccessMsg" style="display: none; margin-top: 1rem;" class="morning-success">
+                    <i class="fas fa-check-circle"></i>
+                    Morning input received — thank you
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal-overlay" id="messageModalOverlay">
+        <div class="modal" id="messageModal">
+            <div class="modal-header">
+                <span id="messageModalTitle">Contact Teacher</span>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+
+            <div id="htNote" class="modal-note" style="display: none;">
+                <i class="fas fa-info-circle"></i>
+                The Head Teacher will respond within 2 school days.
+            </div>
+
+            <form id="messageForm">
+                <div class="form-group">
+                    <label class="form-label" for="messageSubject">Subject</label>
+                    <input
+                        type="text"
+                        id="messageSubject"
+                        class="form-input"
+                        placeholder="e.g., Homework concerns"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="messageBody">Message</label>
+                    <textarea
+                        id="messageBody"
+                        class="form-textarea"
+                        placeholder="Type your message here..."
+                        required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Send Message</button>
+                    <button type="button" class="btn-secondary" id="messageCancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DSL Red Flag Modal - Confirmation Step -->
+    <div class="modal-overlay" id="dslConfirmOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="confirmation-title">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    Safeguarding Alert
+                </span>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+
+            <div class="confirmation-message">
+                Are you sure you want to raise a DSL Safeguarding Alert? This will be logged and responded to urgently.
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn-primary" id="dslConfirmYes">Yes, Continue</button>
+                <button type="button" class="btn-secondary" id="dslConfirmNo">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DSL Red Flag Modal - Form Step -->
+    <div class="modal-overlay" id="dslFormOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span>Safeguarding Concern Report</span>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+
+            <form id="dslForm">
+                <div class="form-group">
+                    <label class="form-label" for="dslChildName">Child's Name</label>
+                    <input
+                        type="text"
+                        id="dslChildName"
+                        class="form-input"
+                        readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dslConcern">Describe Your Concern *</label>
+                    <textarea
+                        id="dslConcern"
+                        class="form-textarea"
+                        placeholder="Please provide details about the concern..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="dslContact">Contact Number</label>
+                    <input
+                        type="tel"
+                        id="dslContact"
+                        class="form-input"
+                        placeholder="Your phone number">
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-primary">Submit Alert</button>
+                    <button type="button" class="btn-secondary" id="dslFormCancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DSL Success Card -->
+    <div class="modal-overlay" id="dslSuccessOverlay">
+        <div class="modal">
+            <div class="success-card">
+                <i class="fas fa-check-circle"></i>
+                <div class="success-card-title">Alert Received</div>
+                <div class="success-card-text">
+                    Your concern has been received. The DSL will contact you urgently.
+                </div>
+                <button type="button" class="btn-primary" id="dslSuccessClose">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const ARENA_API_URL = ''; // blank placeholder
+
+        // Feature Flags
+        window.flags = {
+            FLAG_PARENT_MORNING_INPUT: true
+        };
+
+        // Demo Data
+        const demoData = {
+            student: {
+                name: 'Alice Johnson',
+                id: 'STU-2024-0451',
+                site: 'Main Campus',
+                ehcp: false,
+                attendance: 92,
+                resilience: [70, 45, 55, 35, 50],
+                pillars: {
+                    res: 78,
+                    vel: 85,
+                    eng: 82,
+                    att: 88,
+                    wlf: 91,
+                    win: 79
+                }
+            },
+            correspondence: [
+                {
+                    id: 'letter-001',
+                    type: 'FORMAL',
+                    date: '2026-03-18',
+                    subject: 'End of Term Report',
+                    preview: 'We are pleased to inform you that Alice has made excellent progress...',
+                    fullText: 'Dear Parent/Guardian,\n\nWe are pleased to inform you that Alice has made excellent progress during this term. She has consistently demonstrated engagement with her studies and positive relationships with peers and staff.\n\nHer attendance has been exemplary, and she continues to contribute meaningfully to class discussions. We would like to highlight her particular strengths in mathematics and creative writing.\n\nPlease feel free to contact us if you would like to discuss Alice\'s progress further.\n\nBest regards,\nThe Arena Education Team',
+                    status: 'PENDING_SIGNATURE'
+                },
+                {
+                    id: 'letter-002',
+                    type: 'SUPPORTIVE',
+                    date: '2026-03-15',
+                    subject: 'Wellbeing Check-In',
+                    preview: 'As part of our ongoing commitment to student wellbeing, we wanted to check in...',
+                    fullText: 'Dear Parent/Guardian,\n\nAs part of our ongoing commitment to student wellbeing, we wanted to check in regarding Alice\'s social and emotional development.\n\nWe have noticed that Alice has been engaging well with her peers and participating actively in extracurricular activities. Our wellbeing team continues to be available should you wish to discuss any concerns.\n\nWarm regards,\nThe Arena Wellbeing Team',
+                    status: 'SIGNED'
+                }
+            ]
+        };
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            loadParentData();
+            setupEventListeners();
+            updateCharCount();
+        });
+
+        async function loadParentData(parentId) {
+            if (!ARENA_API_URL) {
+                showDemo();
+                return;
+            }
+            // Future: fetch from GAS API
+        }
+
+        function showDemo() {
+            populateStudentProfile(demoData.student);
+            populateCorrespondence(demoData.correspondence);
+
+            // Show morning input if flagged
+            if (window.flags.FLAG_PARENT_MORNING_INPUT) {
+                document.getElementById('morningInputSection').style.display = 'block';
+                updateMorningQuestion(demoData.student.name);
+            }
+        }
+
+        function populateStudentProfile(student) {
+            document.getElementById('studentName').textContent = student.name;
+            document.getElementById('headerStudentName').textContent = student.name;
+            document.getElementById('studentId').textContent = student.id;
+            document.getElementById('studentSite').textContent = student.site;
+            document.getElementById('morningQuestion').textContent = `How is ${student.name} feeling this morning?`;
+            document.getElementById('dslChildName').value = student.name;
+
+            // Attendance
+            const attendance = student.attendance;
+            document.getElementById('attendancePercent').textContent = attendance + '%';
+
+            let status = 'Excellent';
+            let color = 'green';
+            if (attendance < 70) {
+                status = 'Needs Improvement';
+                color = 'red';
+            } else if (attendance < 85) {
+                status = 'Good';
+                color = 'amber';
+            }
+
+            document.getElementById('attendanceStatus').textContent = status;
+            const indicator = document.querySelector('.indicator-dot');
+            indicator.className = `indicator-dot indicator-${color}`;
+
+            // EHCP
+            if (student.ehcp) {
+                document.getElementById('ehcpChip').style.display = 'flex';
+            }
+
+            // FIFA Pillars
+            document.getElementById('pillarRes').textContent = student.pillars.res;
+            document.getElementById('pillarVel').textContent = student.pillars.vel;
+            document.getElementById('pillarEng').textContent = student.pillars.eng;
+            document.getElementById('pillarAtt').textContent = student.pillars.att;
+            document.getElementById('pillarWlf').textContent = student.pillars.wlf;
+            document.getElementById('pillarWin').textContent = student.pillars.win;
+
+            // Last Updated
+            const now = new Date();
+            const formatted = now.toLocaleString('en-GB', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('lastUpdated').textContent = formatted;
+        }
+
+        function populateCorrespondence(letters) {
+            const listEl = document.getElementById('correspondenceList');
+
+            if (!letters || letters.length === 0) {
+                listEl.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>No correspondence yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = letters.map(letter => `
+                <div class="letter-item" data-letter-id="${letter.id}">
+                    <div class="letter-header">
+                        <div>
+                            <span class="letter-type-badge badge-${letter.type.toLowerCase()}">${letter.type}</span>
+                            <span class="letter-date">${formatDate(letter.date)}</span>
+                        </div>
+                        <span class="chip chip-status status-${letter.status.toLowerCase()}">${formatStatus(letter.status)}</span>
+                    </div>
+
+                    <div class="letter-content">
+                        <div class="letter-text">
+                            <div class="letter-subject">${letter.subject}</div>
+                            <div class="letter-preview">${letter.preview}</div>
+                        </div>
+                        <div class="letter-actions">
+                            <i class="fas fa-chevron-down expand-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="letter-full-text">
+                        <p>${letter.fullText}</p>
+                        ${letter.status === 'PENDING_SIGNATURE' ? `
+                            <div class="signature-section">
+                                <div class="signature-title">
+                                    <i class="fas fa-pen-fancy"></i>
+                                    Digital Signature Required
+                                </div>
+                                <form class="signature-form" data-letter-id="${letter.id}">
+                                    <div class="signature-checkbox">
+                                        <input type="checkbox" id="sig-check-${letter.id}" required>
+                                        <label for="sig-check-${letter.id}">
+                                            I have read and understood this letter
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="sig-name-${letter.id}">Parent/Guardian Name</label>
+                                        <input
+                                            type="text"
+                                            id="sig-name-${letter.id}"
+                                            class="form-input"
+                                            placeholder="Full name"
+                                            required>
+                                    </div>
+                                    <button type="submit" class="signature-button">Sign & Confirm</button>
+                                    <div class="signature-success" style="display: none;">
+                                        <i class="fas fa-check-circle"></i>
+                                        Letter signed successfully
+                                    </div>
+                                </form>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Attach letter expansion listeners
+            listEl.querySelectorAll('.letter-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (e.target.closest('.signature-form')) return;
+                    item.classList.toggle('expanded');
+                });
+            });
+
+            // Attach signature form listeners
+            listEl.querySelectorAll('.signature-form').forEach(form => {
+                form.addEventListener('submit', handleSignaturSubmit);
+            });
+        }
+
+        function handleSignaturSubmit(e) {
+            e.preventDefault();
+            const letterId = e.dataset.letterId;
+            const parentName = document.getElementById(`sig-name-${letterId}`).value;
+
+            // Simulate API call
+            console.log('Signing letter:', letterId, 'by', parentName);
+
+            // Show success
+            const successDiv = e.querySelector('.signature-success');
+            successDiv.style.display = 'flex';
+
+            // Disable button and inputs
+            e.querySelectorAll('input, button').forEach(el => el.disabled = true);
+
+            showToast('Letter signed successfully', 'success');
+        }
+
+        function setupEventListeners() {
+            // Contact buttons
+            document.getElementById('teacherBtn').addEventListener('click', () => {
+                openMessageModal('Contact Teacher', false);
+            });
+
+            document.getElementById('htBtn').addEventListener('click', () => {
+                openMessageModal('Contact Head Teacher', true);
+            });
+
+            document.getElementById('dslBtn').addEventListener('click', () => {
+                openDslConfirmation();
+            });
+
+            // Message modal
+            document.getElementById('messageForm').addEventListener('submit', handleMessageSubmit);
+            document.getElementById('messageCancelBtn').addEventListener('click', closeAllModals);
+
+            // DSL flow
+            document.getElementById('dslConfirmYes').addEventListener('click', openDslForm);
+            document.getElementById('dslConfirmNo').addEventListener('click', closeAllModals);
+            document.getElementById('dslForm').addEventListener('submit', handleDslSubmit);
+            document.getElementById('dslFormCancelBtn').addEventListener('click', closeAllModals);
+            document.getElementById('dslSuccessClose').addEventListener('click', closeAllModals);
+
+            // Modal close buttons
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', closeAllModals);
+            });
+
+            // Modal overlay click
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) closeAllModals();
+                });
+            });
+
+            // Morning input
+            if (window.flags.FLAG_PARENT_MORNING_INPUT) {
+                document.getElementById('moodOptions').addEventListener('click', (e) => {
+                    if (e.target.classList.contains('mood-btn')) {
+                        document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('selected'));
+                        e.target.classList.add('selected');
+                    }
+                });
+
+                document.getElementById('morningNote').addEventListener('input', updateCharCount);
+                document.getElementById('morningSubmitBtn').addEventListener('click', handleMorningSubmit);
+            }
+        }
+
+        function openMessageModal(title, isHt) {
+            document.getElementById('messageModalTitle').textContent = title;
+            document.getElementById('htNote').style.display = isHt ? 'block' : 'none';
+            document.getElementById('messageForm').reset();
+            document.getElementById('messageModalOverlay').classList.add('active');
+        }
+
+        function openDslConfirmation() {
+            document.getElementById('dslConfirmOverlay').classList.add('active');
+        }
+
+        function openDslForm() {
+            document.getElementById('dslConfirmOverlay').classList.remove('active');
+            document.getElementById('dslFormOverlay').classList.add('active');
+        }
+
+        function handleMessageSubmit(e) {
+            e.preventDefault();
+            const subject = document.getElementById('messageSubject').value;
+            const body = document.getElementById('messageBody').value;
+
+            // Simulate API call
+            console.log('Sending message:', { subject, body });
+
+            closeAllModals();
+            showToast('Message sent', 'success');
+        }
+
+        function handleDslSubmit(e) {
+            e.preventDefault();
+            const concern = document.getElementById('dslConcern').value;
+            const contact = document.getElementById('dslContact').value;
+
+            // Simulate API call
+            console.log('Submitting DSL alert:', { concern, contact });
+
+            document.getElementById('dslFormOverlay').classList.remove('active');
+            document.getElementById('dslSuccessOverlay').classList.add('active');
+        }
+
+        function handleMorningSubmit() {
+            const selectedMood = document.querySelector('.mood-btn.selected');
+            if (!selectedMood) {
+                showToast('Please select a mood', 'error');
+                return;
+            }
+
+            const mood = selectedMood.dataset.mood;
+            const note = document.getElementById('morningNote').value;
+
+            // Simulate API call
+            console.log('Submitting morning input:', { mood, note });
+
+            // Show success state
+            document.getElementById('moodOptions').style.display = 'none';
+            document.getElementById('morningNote').style.display = 'none';
+            document.getElementById('morningSubmitBtn').style.display = 'none';
+            document.getElementById('morningSuccessMsg').style.display = 'block';
+
+            showToast('Morning check-in submitted', 'success');
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-overlay').forEach(overlay => {
+                overlay.classList.remove('active');
+            });
+        }
+
+        function updateMorningQuestion(studentName) {
+            document.getElementById('morningQuestion').textContent = `How is ${studentName} feeling this morning?`;
+        }
+
+        function updateCharCount() {
+            const textarea = document.getElementById('morningNote');
+            const count = document.getElementById('charCount');
+            count.textContent = textarea.value.length;
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00Z');
+            return date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function formatStatus(status) {
+            const map = {
+                'PENDING_SIGNATURE': 'Awaiting Signature',
+                'SIGNED': 'Signed',
+                'READ': 'Read'
+            };
+            return map[status] || status;
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

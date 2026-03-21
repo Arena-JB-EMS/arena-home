@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Batching — JB-EMS: The Arena</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVJkEZSMUkrQ6usKu8zIvxUsvypLcXsvLTIdB+OpI07AfwuaYuZtZN7aBLJLZRAoE8NKZOG2FUw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #1B263B;
+      --gold: #C5A059;
+      --white: #FFFFFF;
+      --light-grey: #F4F5F7;
+      --dark-grey: #6C757D;
+      --success: #28A745;
+      --error: #DC3545;
+      --border-light: #E0E0E0;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background-color: var(--light-grey);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+    }
+
+    /* ========== TOP BAR ========== */
+    .top-bar {
+      background-color: var(--navy);
+      color: var(--white);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .current-date {
+      color: #AAA;
+      font-size: 0.9rem;
+    }
+
+    /* ========== BREADCRUMB ========== */
+    .breadcrumb {
+      background-color: var(--white);
+      padding: 0.75rem 2rem;
+      font-size: 0.9rem;
+      color: var(--dark-grey);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .breadcrumb a {
+      color: var(--gold);
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* ========== MAIN CONTAINER ========== */
+    .main-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* ========== SECTION CARD ========== */
+    .section-card {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--light-grey);
+    }
+
+    .section-header i {
+      color: var(--gold);
+      font-size: 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+
+    /* ========== BUILDER LAYOUT (3-COLUMN) ========== */
+    .builder-columns {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .column-header {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .list-container {
+      flex: 1;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      overflow-y: auto;
+      max-height: 500px;
+      background-color: var(--white);
+    }
+
+    .list-item {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: background-color 0.2s, border-left 0.2s;
+      border-left: 4px solid transparent;
+    }
+
+    .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .list-item:hover {
+      background-color: #F9F9F9;
+    }
+
+    .list-item.selected {
+      background-color: #FFF9E6;
+      border-left-color: var(--gold);
+    }
+
+    .item-chip {
+      display: inline-block;
+      background-color: var(--navy);
+      color: var(--white);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    .item-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .item-meta {
+      font-size: 0.85rem;
+      color: var(--dark-grey);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: var(--gold);
+      color: var(--navy);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge.type-human {
+      background-color: #E3F2FD;
+      color: #1565C0;
+    }
+
+    .badge.type-ai {
+      background-color: #F3E5F5;
+      color: #6A1B9A;
+    }
+
+    /* ========== SLOTS GRID ========== */
+    .slots-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .grid-row {
+      display: grid;
+      grid-template-columns: 80px repeat(5, 1fr);
+      gap: 0;
+      min-height: 60px;
+    }
+
+    .grid-header {
+      font-weight: 600;
+      padding: 0.75rem;
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .grid-header.day {
+      background-color: var(--light-grey);
+      font-size: 0.9rem;
+    }
+
+    .grid-header.period {
+      background-color: var(--light-grey);
+      text-align: right;
+      font-size: 0.85rem;
+    }
+
+    .slot-cell {
+      border: 1px solid var(--border-light);
+      padding: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      background-color: var(--white);
+      transition: background-color 0.2s, border 0.2s;
+      min-height: 60px;
+    }
+
+    .slot-cell:hover {
+      background-color: #F5F5F5;
+    }
+
+    .slot-cell.empty {
+      color: #CCC;
+      font-style: italic;
+    }
+
+    .slot-cell.selected {
+      background-color: #FFF9E6;
+      border: 2px solid var(--gold);
+    }
+
+    .slot-cell.filled {
+      background-color: #F0F0F0;
+      font-weight: 500;
+    }
+
+    /* ========== ADD GROUP FORM ========== */
+    .add-item-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .add-item-form input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .add-item-form button {
+      padding: 0.5rem 1rem;
+      background-color: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .add-item-form button:hover {
+      opacity: 0.9;
+    }
+
+    /* ========== ASSIGNMENT ACTION BAR ========== */
+    .assignment-bar {
+      background-color: var(--light-grey);
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--gold);
+    }
+
+    .selection-display {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: var(--navy);
+      font-weight: 500;
+    }
+
+    .selection-display .badge {
+      margin: 0 0.3rem;
+    }
+
+    .assignment-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--gold);
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    .btn-secondary:hover {
+      opacity: 0.8;
+    }
+
+    .btn-danger {
+      background-color: var(--error);
+      color: var(--white);
+    }
+
+    .btn-danger:hover {
+      opacity: 0.9;
+    }
+
+    /* ========== CLONE TOOL ========== */
+    .clone-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 0.75rem;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.1);
+    }
+
+    .checkbox-group {
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 1rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .checkbox-item {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      cursor: pointer;
+    }
+
+    .checkbox-item label {
+      cursor: pointer;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    /* ========== OVERVIEW TABLE ========== */
+    .overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .overview-table thead {
+      background-color: var(--light-grey);
+    }
+
+    .overview-table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid var(--border-light);
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .overview-table th:hover {
+      background-color: #E8E8E8;
+    }
+
+    .overview-table th.sorted-asc::after {
+      content: ' ↑';
+      color: var(--gold);
+    }
+
+    .overview-table th.sorted-desc::after {
+      content: ' ↓';
+      color: var(--gold);
+    }
+
+    .overview-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .overview-table tbody tr:hover {
+      background-color: var(--light-grey);
+    }
+
+    .table-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ========== TOAST NOTIFICATIONS ========== */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      color: var(--white);
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      animation: slideIn 0.3s ease-out;
+      z-index: 1000;
+      max-width: 400px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .toast.success {
+      background-color: var(--success);
+    }
+
+    .toast.error {
+      background-color: var(--error);
+    }
+
+    .toast.info {
+      background-color: var(--navy);
+    }
+
+    /* ========== LOADING STATE ========== */
+    .loading {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid var(--gold);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ========== MODAL ========== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--navy);
+    }
+
+    .modal-body {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: var(--navy);
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+    }
+
+    /* ========== PREVIEW BOX ========== */
+    .preview-box {
+      background-color: var(--light-grey);
+      border-left: 4px solid var(--gold);
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .warning-box {
+      background-color: #FFF3CD;
+      border-left: 4px solid #FFC107;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      color: #856404;
+      font-size: 0.95rem;
+    }
+
+    .success-summary {
+      margin-top: 1rem;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1024px) {
+      .builder-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .clone-form {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .top-bar-left {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .page-title {
+        font-size: 1.2rem;
+      }
+
+      .section-card {
+        padding: 1rem;
+      }
+
+      .grid-row {
+        grid-template-columns: 60px repeat(5, 1fr);
+        min-height: 50px;
+      }
+
+      .grid-header.period {
+        font-size: 0.75rem;
+      }
+
+      .slot-cell {
+        font-size: 0.75rem;
+        min-height: 50px;
+      }
+
+      .assignment-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .overview-table {
+        font-size: 0.85rem;
+      }
+
+      .overview-table th,
+      .overview-table td {
+        padding: 0.75rem 0.5rem;
+      }
+
+      .toast {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a href="#" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Back to Hub
+      </a>
+      <h1 class="page-title">Admin — Master Timetable</h1>
+    </div>
+    <div class="current-date" id="currentDate"></div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <span>Hub</span>
+    <span>/</span>
+    <a href="#">Admin</a>
+    <span>/</span>
+    <span>Timetable Builder</span>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <div class="main-container">
+
+    <!-- SECTION 1: MASTER TIMETABLE BUILDER -->
+    <div class="section-card">
+      <div class="section-header">
+        <i class="fas fa-th"></i>
+        <h2>Master Timetable Builder</h2>
+      </div>
+
+      <!-- 3-COLUMN LAYOUT -->
+      <div class="builder-columns">
+
+        <!-- COLUMN 1: GROUPS -->
+        <div class="column">
+          <div class="column-header">1. Select Group</div>
+          <div class="list-container" id="groupsContainer">
+            <!-- Populated by JS -->
+          </div>
+          <div class="add-item-form">
+            <input type="text" id="newGroupInput" placeholder="Group name">
+            <button onclick="addNewGroup()">Add</button>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: SLOTS (GRID) -->
+        <div class="column">
+          <div class="column-header">2. Select Slot</div>
+          <div class="slots-grid" id="slotsGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- COLUMN 3: PROVIDERS -->
+        <div class="column">
+          <div class="column-header">3. Select Provider</div>
+          <div class="list-container" id="providersContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ASSIGNMENT ACTION BAR -->
+      <div class="assignment-bar">
+        <div class="selection-display" id="selectionDisplay">
+          No selection. Choose a Group → Slot → Provider to assign.
+        </div>
+        <div class="assignment-actions">
+          <button class="btn btn-primary" id="assignBtn" disabled onclick="assignLesson()">
+            <i class="fas fa-check"></i> Assign
+          </button>
+          <button class="btn btn-secondary" onclick="clearSelection()">Clear Selection</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SECTION 2: CLONE TOOL -->
+    <div class="section-card">
+      <div class="section-header">
+        <i class="fas fa-calendar-days"></i>
+        <h2>Clone Week to Date Range</h2>
+      </div>
+
+      <div class="warning-box">
+        <i class="fas fa-exclamation-triangle"></i>
+        This will overwrite existing assignments in the target range. This action cannot be undone.
+      </div>
+
+      <div class="clone-form">
+        <div class="form-group">
+          <label for="sourceWeekPicker">Copy from week of:</label>
+          <input type="date" id="sourceWeekPicker">
+        </div>
+        <div class="form-group">
+          <label for="targetStartDate">Apply to period starting:</label>
+          <input type="date" id="targetStartDate">
+        </div>
+        <div class="form-group">
+          <label for="targetEndDate">Apply until:</label>
+          <input type="date" id="targetEndDate">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 1.5rem;">
+        <label>Groups to Clone:</label>
+        <div class="checkbox-group" id="cloneGroupsCheckboxes">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div id="previewBox" class="preview-box" style="display: none;">
+        <!-- Populated by JS on preview -->
+      </div>
+
+      <div class="assignment-actions">
+        <button class="btn btn-primary" id="previewBtn" onclick="previewClone()">
+          <i class="fas fa-eye"></i> Preview
+        </button>
+        <button class="btn btn-primary" id="executeCloneBtn" disabled onclick="executeClone()">
+          <i class="fas fa-copy"></i> Execute Clone
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SECTION 3: TIMETABLE OVERVIEW -->
+    <div class="section-card">
+      <div class="section-header">
+        <i class="fas fa-list"></i>
+        <h2>Timetable Overview</h2>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="overview-table" id="overviewTable">
+          <thead>
+            <tr>
+              <th onclick="sortTable('groupId')">GROUP_ID</th>
+              <th onclick="sortTable('slotId')">SLOT_ID</th>
+              <th onclick="sortTable('provider')">PROVIDER</th>
+              <th onclick="sortTable('unit')">UNIT</th>
+              <th onclick="sortTable('room')">ROOM</th>
+            </tr>
+          </thead>
+          <tbody id="overviewTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-actions">
+        <button class="btn btn-primary" onclick="exportToSheet()">
+          <i class="fas fa-download"></i> Export to Sheet
+        </button>
+        <button class="btn btn-danger" onclick="confirmClearAll()">
+          <i class="fas fa-trash"></i> Clear All Assignments
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CLEAR ALL CONFIRM MODAL -->
+  <div class="modal" id="clearAllModal">
+    <div class="modal-content">
+      <div class="modal-header">Clear All Assignments?</div>
+      <div class="modal-body">
+        Are you sure you want to delete all assignments? This action cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeClearAllModal()">Cancel</button>
+        <button class="btn btn-danger" onclick="executeClearAll()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLONE RESULT MODAL -->
+  <div class="modal" id="cloneResultModal">
+    <div class="modal-content">
+      <div class="modal-header">Clone Complete</div>
+      <div class="modal-body" id="cloneResultBody">
+        <!-- Populated by JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closeCloneResultModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIG & STATE =====
+    const ARENA_API_URL = '';
+    let state = {
+      selectedGroup: null,
+      selectedSlot: null,
+      selectedProvider: null,
+      groups: [],
+      providers: [],
+      assignments: [],
+      sortColumn: null,
+      sortDirection: 'asc'
+    };
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCurrentDate();
+      loadAdminData();
+    });
+
+    function updateCurrentDate() {
+      const today = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
+    }
+
+    async function loadAdminData() {
+      if (!ARENA_API_URL) {
+        showDemo();
+        return;
+      }
+      try {
+        const resp = await fetch(ARENA_API_URL + '?action=getAdminBatchingData');
+        const data = await resp.json();
+        state.groups = data.groups || [];
+        state.providers = data.providers || [];
+        state.assignments = data.assignments || [];
+        renderUI();
+      } catch (err) {
+        showToast('Error loading data: ' + err.message, 'error');
+        showDemo();
+      }
+    }
+
+    function showDemo() {
+      // Demo data
+      state.groups = [
+        { groupId: 'GRP_ENG_001', name: 'English Year 9', studentCount: 28 },
+        { groupId: 'GRP_MTH_001', name: 'Mathematics Year 9', studentCount: 30 },
+        { groupId: 'GRP_VOC_001', name: 'Vocational Skills', studentCount: 15 },
+        { groupId: 'GRP_SPT_001', name: 'Sports & PE', studentCount: 22 }
+      ];
+
+      state.providers = [
+        { providerId: 'PRV_001', name: 'Dr. Sarah Chen', type: 'HUMAN' },
+        { providerId: 'PRV_002', name: 'Mr. James Wilson', type: 'HUMAN' },
+        { providerId: 'PRV_AI_001', name: 'AI Tutor Beta', type: 'AI' }
+      ];
+
+      state.assignments = [
+        { groupId: 'GRP_ENG_001', slotId: 'SLT_MON_P1', providerId: 'PRV_001', unit: 'Literature', room: 'A101' },
+        { groupId: 'GRP_MTH_001', slotId: 'SLT_TUE_P2', providerId: 'PRV_002', unit: 'Algebra', room: 'B203' },
+        { groupId: 'GRP_VOC_001', slotId: 'SLT_WED_P3', providerId: 'PRV_001', unit: 'Workshop', room: 'C301' },
+        { groupId: 'GRP_SPT_001', slotId: 'SLT_FRI_P4', providerId: 'PRV_002', unit: 'Fitness', room: 'GYM' }
+      ];
+
+      renderUI();
+      showToast('Running in demo mode. API URL is not configured.', 'info');
+    }
+
+    // ===== RENDER UI =====
+    function renderUI() {
+      renderGroups();
+      renderProviders();
+      renderSlotsGrid();
+      renderOverviewTable();
+      populateCloneCheckboxes();
+    }
+
+    function renderGroups() {
+      const container = document.getElementById('groupsContainer');
+      container.innerHTML = '';
+      state.groups.forEach(group => {
+        const div = document.createElement('div');
+        div.className = 'list-item' + (state.selectedGroup?.groupId === group.groupId ? ' selected' : '');
+        div.onclick = () => selectGroup(group);
+        div.innerHTML = `
+          <div class="item-chip">${group.groupId}</div>
+          <div class="item-name">${group.name}</div>
+          <div class="item-meta">
+            <span class="badge">${group.studentCount} students</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderProviders() {
+      const container = document.getElementById('providersContainer');
+      container.innerHTML = '';
+      state.providers.forEach(provider => {
+        const div = document.createElement('div');
+        div.className = 'list-item' + (state.selectedProvider?.providerId === provider.providerId ? ' selected' : '');
+        div.onclick = () => selectProvider(provider);
+        const typeBadgeClass = provider.type === 'HUMAN' ? 'type-human' : 'type-ai';
+        div.innerHTML = `
+          <div class="item-chip">${provider.providerId}</div>
+          <div class="item-name">${provider.name}</div>
+          <div class="item-meta">
+            <span class="badge ${typeBadgeClass}">${provider.type}</span>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderSlotsGrid() {
+      const container = document.getElementById('slotsGrid');
+      container.innerHTML = '';
+
+      const days = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+      const periods = [
+        { num: 'P1', time: '08:45' },
+        { num: 'P2', time: '09:45' },
+        { num: 'P3', time: '10:45' },
+        { num: 'P4', time: '12:30' },
+        { num: 'P5', time: '13:30' },
+        { num: 'P6', time: '14:30' }
+      ];
+
+      // Header row
+      const headerRow = document.createElement('div');
+      headerRow.className = 'grid-row';
+      headerRow.innerHTML = '<div class="grid-header"></div>' +
+        days.map(d => `<div class="grid-header day">${d}</div>`).join('');
+      container.appendChild(headerRow);
+
+      // Period rows
+      periods.forEach(period => {
+        const row = document.createElement('div');
+        row.className = 'grid-row';
+        row.innerHTML = `<div class="grid-header period">${period.num}<br><small>${period.time}</small></div>`;
+
+        days.forEach(day => {
+          const slotId = `SLT_${day}_${period.num}`;
+          const assignment = state.assignments.find(a => a.slotId === slotId);
+          const cell = document.createElement('div');
+          cell.className = 'slot-cell';
+          if (!assignment) {
+            cell.classList.add('empty');
+            cell.textContent = '—';
+          } else {
+            cell.classList.add('filled');
+            const provider = state.providers.find(p => p.providerId === assignment.providerId);
+            cell.textContent = provider ? provider.name.split(' ')[0] : '?';
+          }
+          if (state.selectedSlot?.slotId === slotId) {
+            cell.classList.add('selected');
+          }
+          cell.onclick = () => selectSlot(slotId);
+          row.appendChild(cell);
+        });
+
+        container.appendChild(row);
+      });
+    }
+
+    function renderOverviewTable() {
+      const tbody = document.getElementById('overviewTableBody');
+      tbody.innerHTML = '';
+
+      let sorted = [...state.assignments];
+      if (state.sortColumn) {
+        sorted.sort((a, b) => {
+          let aVal = a[state.sortColumn] || '';
+          let bVal = b[state.sortColumn] || '';
+          const cmp = aVal.localeCompare(bVal);
+          return state.sortDirection === 'asc' ? cmp : -cmp;
+        });
+      }
+
+      sorted.forEach(assignment => {
+        const group = state.groups.find(g => g.groupId === assignment.groupId);
+        const provider = state.providers.find(p => p.providerId === assignment.providerId);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${assignment.groupId}</td>
+          <td>${assignment.slotId}</td>
+          <td>${provider ? provider.name : '?'}</td>
+          <td>${assignment.unit || '—'}</td>
+          <td>${assignment.room || '—'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function populateCloneCheckboxes() {
+      const container = document.getElementById('cloneGroupsCheckboxes');
+      container.innerHTML = '';
+      state.groups.forEach(group => {
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+        div.innerHTML = `
+          <input type="checkbox" id="clone_${group.groupId}" checked data-group-id="${group.groupId}">
+          <label for="clone_${group.groupId}">${group.name}</label>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // ===== SELECTION HANDLERS =====
+    function selectGroup(group) {
+      state.selectedGroup = group;
+      renderGroups();
+      updateSelectionDisplay();
+    }
+
+    function selectSlot(slotId) {
+      state.selectedSlot = { slotId };
+      renderSlotsGrid();
+      updateSelectionDisplay();
+    }
+
+    function selectProvider(provider) {
+      state.selectedProvider = provider;
+      renderProviders();
+      updateSelectionDisplay();
+    }
+
+    function updateSelectionDisplay() {
+      const display = document.getElementById('selectionDisplay');
+      const parts = [];
+      if (state.selectedGroup) {
+        parts.push(`<strong>Group:</strong> <span class="badge">${state.selectedGroup.name}</span>`);
+      }
+      if (state.selectedSlot) {
+        parts.push(`<strong>Slot:</strong> <span class="badge">${state.selectedSlot.slotId}</span>`);
+      }
+      if (state.selectedProvider) {
+        parts.push(`<strong>Provider:</strong> <span class="badge">${state.selectedProvider.name}</span>`);
+      }
+
+      if (parts.length === 0) {
+        display.textContent = 'No selection. Choose a Group → Slot → Provider to assign.';
+      } else {
+        display.innerHTML = parts.join(' → ');
+      }
+
+      const assignBtn = document.getElementById('assignBtn');
+      assignBtn.disabled = !(state.selectedGroup && state.selectedSlot && state.selectedProvider);
+    }
+
+    function clearSelection() {
+      state.selectedGroup = null;
+      state.selectedSlot = null;
+      state.selectedProvider = null;
+      renderUI();
+      updateSelectionDisplay();
+    }
+
+    // ===== ASSIGNMENT =====
+    async function assignLesson() {
+      if (!state.selectedGroup || !state.selectedSlot || !state.selectedProvider) {
+        showToast('Please select a Group, Slot, and Provider', 'error');
+        return;
+      }
+
+      const payload = {
+        groupId: state.selectedGroup.groupId,
+        slotId: state.selectedSlot.slotId,
+        providerId: state.selectedProvider.providerId
+      };
+
+      try {
+        if (ARENA_API_URL) {
+          const resp = await fetch(ARENA_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'assignLessonToSlot', payload })
+          });
+          const result = await resp.json();
+          if (result.success) {
+            // Add or update assignment
+            const existing = state.assignments.findIndex(
+              a => a.groupId === payload.groupId && a.slotId === payload.slotId
+            );
+            if (existing >= 0) {
+              state.assignments[existing].providerId = payload.providerId;
+            } else {
+              state.assignments.push(payload);
+            }
+            renderUI();
+            clearSelection();
+            showToast('Assignment successful!', 'success');
+          } else {
+            showToast('Assignment failed: ' + (result.error || 'Unknown error'), 'error');
+          }
+        } else {
+          // Demo mode
+          const existing = state.assignments.findIndex(
+            a => a.groupId === payload.groupId && a.slotId === payload.slotId
+          );
+          if (existing >= 0) {
+            state.assignments[existing].providerId = payload.providerId;
+          } else {
+            state.assignments.push(payload);
+          }
+          renderUI();
+          clearSelection();
+          showToast('Assignment successful (demo mode)', 'success');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      }
+    }
+
+    // ===== CLONE TOOL =====
+    function previewClone() {
+      const sourceDate = document.getElementById('sourceWeekPicker').value;
+      const startDate = document.getElementById('targetStartDate').value;
+      const endDate = document.getElementById('targetEndDate').value;
+
+      if (!sourceDate || !startDate || !endDate) {
+        showToast('Please fill in all date fields', 'error');
+        return;
+      }
+
+      if (new Date(startDate) > new Date(endDate)) {
+        showToast('Start date must be before end date', 'error');
+        return;
+      }
+
+      const selectedGroups = Array.from(document.querySelectorAll('#cloneGroupsCheckboxes input:checked'))
+        .map(cb => cb.getAttribute('data-group-id'));
+
+      if (selectedGroups.length === 0) {
+        showToast('Please select at least one group to clone', 'error');
+        return;
+      }
+
+      const daysDiff = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) + 1;
+      const previewBox = document.getElementById('previewBox');
+      previewBox.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        This will clone <strong>${selectedGroups.length}</strong> group assignment(s) across <strong>${daysDiff}</strong> day(s).
+      `;
+      previewBox.style.display = 'block';
+
+      document.getElementById('executeCloneBtn').disabled = false;
+      showToast('Preview ready. Click Execute Clone to proceed.', 'info');
+    }
+
+    async function executeClone() {
+      const sourceDate = document.getElementById('sourceWeekPicker').value;
+      const startDate = document.getElementById('targetStartDate').value;
+      const endDate = document.getElementById('targetEndDate').value;
+
+      const selectedGroups = Array.from(document.querySelectorAll('#cloneGroupsCheckboxes input:checked'))
+        .map(cb => cb.getAttribute('data-group-id'));
+
+      const payload = {
+        sourceDate,
+        startDate,
+        endDate,
+        groupIds: selectedGroups
+      };
+
+      try {
+        if (ARENA_API_URL) {
+          const resp = await fetch(ARENA_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'cloneScheduleToRange', payload })
+          });
+          const result = await resp.json();
+          if (result.success) {
+            showCloneResultModal(result.summary || []);
+            // Reload assignments
+            state.assignments = result.assignments || state.assignments;
+            renderOverviewTable();
+          } else {
+            showToast('Clone failed: ' + (result.error || 'Unknown error'), 'error');
+          }
+        } else {
+          // Demo mode
+          const summary = selectedGroups.map(gid => ({
+            groupId: gid,
+            sourceDate,
+            targetStartDate: startDate,
+            targetEndDate: endDate
+          }));
+          showCloneResultModal(summary);
+          showToast('Clone executed (demo mode)', 'success');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      }
+    }
+
+    function showCloneResultModal(summary) {
+      const body = document.getElementById('cloneResultBody');
+      let html = '<div class="success-summary">';
+      summary.forEach(item => {
+        html += `
+          <div class="summary-row">
+            <div class="summary-label">${item.groupId}</div>
+            <div>${item.sourceDate || item.targetStartDate} → ${item.targetEndDate}</div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      body.innerHTML = html;
+      document.getElementById('cloneResultModal').classList.add('active');
+    }
+
+    function closeCloneResultModal() {
+      document.getElementById('cloneResultModal').classList.remove('active');
+      document.getElementById('previewBox').style.display = 'none';
+      document.getElementById('executeCloneBtn').disabled = true;
+      document.getElementById('sourceWeekPicker').value = '';
+      document.getElementById('targetStartDate').value = '';
+      document.getElementById('targetEndDate').value = '';
+    }
+
+    function addNewGroup() {
+      const input = document.getElementById('newGroupInput');
+      const name = input.value.trim();
+      if (!name) {
+        showToast('Please enter a group name', 'error');
+        return;
+      }
+      const newId = `GRP_${String(state.groups.length + 1).padStart(3, '0')}`;
+      state.groups.push({ groupId: newId, name, studentCount: 0 });
+      input.value = '';
+      renderGroups();
+      populateCloneCheckboxes();
+      showToast('Group added: ' + newId, 'success');
+    }
+
+    // ===== OVERVIEW TABLE ACTIONS =====
+    function sortTable(column) {
+      const th = event.target.closest('th');
+      document.querySelectorAll('th').forEach(h => {
+        h.classList.remove('sorted-asc', 'sorted-desc');
+      });
+
+      if (state.sortColumn === column) {
+        state.sortDirection = state.sortDirection === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sortColumn = column;
+        state.sortDirection = 'asc';
+      }
+
+      th.classList.add('sorted-' + state.sortDirection);
+      renderOverviewTable();
+    }
+
+    async function exportToSheet() {
+      try {
+        if (ARENA_API_URL) {
+          const resp = await fetch(ARENA_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'exportTimetableToSheet', payload: {} })
+          });
+          const result = await resp.json();
+          if (result.success) {
+            showToast('Timetable exported to sheet!', 'success');
+          } else {
+            showToast('Export failed: ' + (result.error || 'Unknown error'), 'error');
+          }
+        } else {
+          showToast('Export feature requires API configuration (demo mode)', 'info');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      }
+    }
+
+    function confirmClearAll() {
+      document.getElementById('clearAllModal').classList.add('active');
+    }
+
+    function closeClearAllModal() {
+      document.getElementById('clearAllModal').classList.remove('active');
+    }
+
+    async function executeClearAll() {
+      try {
+        if (ARENA_API_URL) {
+          const resp = await fetch(ARENA_API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'clearTimetable', payload: {} })
+          });
+          const result = await resp.json();
+          if (result.success) {
+            state.assignments = [];
+            renderUI();
+            closeClearAllModal();
+            showToast('All assignments cleared!', 'success');
+          } else {
+            showToast('Clear failed: ' + (result.error || 'Unknown error'), 'error');
+          }
+        } else {
+          // Demo mode
+          state.assignments = [];
+          renderUI();
+          closeClearAllModal();
+          showToast('All assignments cleared (demo mode)', 'success');
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message, 'error');
+      }
+    }
+
+    // ===== TOAST NOTIFICATIONS =====
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+      toast.innerHTML = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 4000);
+    }
+  </script>
+
+</body>
+</html>

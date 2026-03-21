@@ -1,1940 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Arena – clinical infrastructure for AP/SEND — Evidence Integrity Infrastructure</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: 
-#1B263B;
-    --navy-deep: 
-#111C2D;
-    --navy-mid: 
-#243450;
-    --navy-light: 
-#2E4169;
-    --gold: 
-#C5A059;
-    --gold-light: 
-#D4B472;
-    --gold-pale: 
-#E8D5A3;
-    --gold-dim: rgba(197, 160, 89, 0.15);
-    --gold-border: rgba(197, 160, 89, 0.3);
-    --slate: 
-#8B9CB5;
-    --slate-light: 
-#B4C2D4;
-    --slate-dark: 
-#4A5A6E;
-    --white: 
-#F0F4F8;
-    --text-muted: rgba(240,244,248,0.55);
-    --divider: rgba(197,160,89,0.2);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--navy-deep);
-    color: var(--white);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-  /* ── GRAIN OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.6;
-  }
-  /* ── HEADER ── */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(17, 28, 45, 0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--divider);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 48px;
-    height: 72px;
-  }
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .logo-badge {
-    width: 42px;
-    height: 42px;
-    background: linear-gradient(135deg, var(--gold) 0%,
-#9A7A3A 100%);
-    border-radius: 8px;
-    object-fit: contain;
-    padding: 5px;
-    flex-shrink: 0;
-    display: block;
-  }
-  .header-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .header-brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.02em;
-  }
-  .header-brand-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    font-weight: 400;
-    color: var(--gold);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-  .header-nav {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-  .header-nav a {
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--slate-light);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    cursor: pointer;
-  }
-  .header-nav a:hover { color: var(--gold); }
-  .header-status {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--slate);
-    letter-spacing: 0.08em;
-  }
-  .status-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: 
-#4ADE80;
-    box-shadow: 0 0 6px 
-#4ADE80;
-    animation: pulse-dot 2s infinite;
-  }
-  @keyframes pulse-dot {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 120px 48px 80px;
-    overflow: hidden;
-  }
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(197,160,89,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(197,160,89,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%);
-  }
-  .hero-glow {
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(197,160,89,0.08) 0%, transparent 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 0.2s;
-  }
-  .hero-eyebrow::before, .hero-eyebrow::after {
-    content: '';
-    width: 32px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.5;
-  }
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(56px, 8vw, 108px);
-    font-weight: 600;
-    line-height: 0.92;
-    text-align: center;
-    letter-spacing: -0.02em;
-    color: var(--white);
-    margin-bottom: 12px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 0.4s;
-  }
-  .hero-title span {
-    color: var(--gold);
-    font-style: italic;
-  }
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 2.5vw, 28px);
-    font-weight: 400;
-    color: var(--slate-light);
-    text-align: center;
-    letter-spacing: 0.04em;
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 0.6s;
-  }
-  .hero-divider {
-    width: 1px;
-    height: 48px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    margin: 0 auto 48px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 0.8s;
-  }
-  .hero-meta {
-    display: flex;
-    gap: 48px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 1s;
-  }
-  .hero-meta-item {
-    text-align: center;
-  }
-  .hero-meta-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-  .hero-meta-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--slate);
-  }
-  .hero-scroll {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    animation: fade-up 0.8s ease forwards 1.4s;
-    cursor: pointer;
-  }
-  .hero-scroll span {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--slate);
-  }
-  .hero-scroll-line {
-    width: 1px;
-    height: 32px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scroll-line 1.5s ease-in-out infinite;
-  }
-  @keyframes scroll-line {
-    0% { transform: scaleY(0); transform-origin: top; }
-    50% { transform: scaleY(1); transform-origin: top; }
-    51% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
-  }
-  /* ── SECTION COMMONS ── */
-  section {
-    padding: 100px 48px;
-    max-width: 1320px;
-    margin: 0 auto;
-  }
-  .section-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 600;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-  .section-lead {
-    font-size: 16px;
-    color: var(--slate-light);
-    max-width: 680px;
-    line-height: 1.8;
-    margin-bottom: 64px;
-  }
-  /* ── FULL-WIDTH DIVIDERS ── */
-  .section-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--divider);
-  }
-  /* ── VISUAL STACK ── */
-  .stack-section {
-    background: var(--navy-deep);
-    padding: 100px 0;
-  }
-  .stack-inner {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 48px;
-  }
-  .stack-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 64px;
-    border: 1px solid var(--divider);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-  .stack-layer {
-    border-bottom: 1px solid var(--divider);
-    transition: all 0.4s ease;
-    cursor: pointer;
-  }
-  .stack-layer:last-child { border-bottom: none; }
-  .stack-layer-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 28px 36px;
-    transition: background 0.3s;
-  }
-  .stack-layer:hover .stack-layer-header,
-  .stack-layer.active .stack-layer-header {
-    background: rgba(197, 160, 89, 0.06);
-  }
-  .stack-layer-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .stack-layer-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 10px;
-    border: 1px solid var(--gold-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    background: var(--gold-dim);
-    flex-shrink: 0;
-  }
-  .stack-layer-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-  .stack-layer-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-  }
-  .stack-layer-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--slate);
-    letter-spacing: 0.05em;
-  }
-  .stack-expand-icon {
-    color: var(--slate-dark);
-    transition: transform 0.3s, color 0.3s;
-    flex-shrink: 0;
-  }
-  .stack-layer.active .stack-expand-icon {
-    transform: rotate(180deg);
-    color: var(--gold);
-  }
-  .stack-layer-body {
-    display: none;
-    padding: 0 36px 36px;
-    border-top: 1px solid var(--divider);
-  }
-  .stack-layer.active .stack-layer-body { display: block; }
-  .stack-body-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    padding-top: 28px;
-  }
-  .stack-narrative {
-    font-size: 15px;
-    color: var(--slate-light);
-    line-height: 1.85;
-  }
-  .stack-mechanics {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .mechanic-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    background: rgba(17,28,45,0.8);
-    border: 1px solid var(--divider);
-    border-radius: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--gold-pale);
-    letter-spacing: 0.04em;
-  }
-  .mechanic-tag .dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
-  /* ── PILLARS ── */
-  .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 64px;
-  }
-  .pillar-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--divider);
-    border-radius: 16px;
-    padding: 36px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.4s ease;
-  }
-  .pillar-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .pillar-card:hover {
-    border-color: var(--gold-border);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-  }
-  .pillar-card:hover::before { opacity: 1; }
-  .pillar-card.expanded {
-    border-color: rgba(197,160,89,0.5);
-    grid-column: span 3;
-    transform: none;
-  }
-  .pillar-card.expanded::before { opacity: 1; }
-  .pillar-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
-    font-weight: 700;
-    color: rgba(197,160,89,0.08);
-    line-height: 1;
-    position: absolute;
-    top: 20px;
-    right: 24px;
-  }
-  .pillar-icon {
-    width: 52px;
-    height: 52px;
-    background: var(--gold-dim);
-    border: 1px solid var(--gold-border);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    margin-bottom: 24px;
-  }
-  .pillar-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .pillar-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 8px;
-    line-height: 1.1;
-  }
-  .pillar-subtitle {
-    font-size: 13px;
-    color: var(--slate);
-    font-style: italic;
-    margin-bottom: 20px;
-  }
-  .pillar-summary {
-    font-size: 14px;
-    color: var(--slate-light);
-    line-height: 1.75;
-    margin-bottom: 20px;
-  }
-  .pillar-expand-detail {
-    display: none;
-  }
-  .pillar-card.expanded .pillar-expand-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin-top: 28px;
-    padding-top: 28px;
-    border-top: 1px solid var(--divider);
-  }
-  .pillar-detail-block h4 {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-  .pillar-detail-block p {
-    font-size: 13px;
-    color: var(--slate-light);
-    line-height: 1.7;
-  }
-  .pillar-detail-block ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .pillar-detail-block ul li {
-    font-size: 12px;
-    color: var(--slate-light);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .pillar-detail-block ul li::before {
-    content: '→';
-    color: var(--gold);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .pillar-expand-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: gap 0.2s;
-  }
-  .pillar-expand-btn:hover { gap: 10px; }
-  /* ── MANIFEST BAND ── */
-  .manifest-band {
-    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-deep) 100%);
-    border-top: 1px solid var(--divider);
-    border-bottom: 1px solid var(--divider);
-    padding: 40px 48px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .manifest-band::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(197,160,89,0.05), transparent);
-  }
-  .manifest-band-inner {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-  }
-  .manifest-band-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-  .manifest-band-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-style: italic;
-    color: var(--slate-light);
-    line-height: 1.6;
-  }
-  .manifest-band-text strong {
-    color: var(--white);
-    font-style: normal;
-  }
-  /* ── TRAJECTORY ── */
-  .trajectory-section {
-    background: var(--navy);
-  }
-  .trajectory-timeline {
-    position: relative;
-    margin-top: 64px;
-  }
-  .trajectory-timeline::before {
-    content: '';
-    position: absolute;
-    left: 32px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--gold), rgba(197,160,89,0.1));
-  }
-  .trajectory-item {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 40px;
-    margin-bottom: 64px;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s ease;
-  }
-  .trajectory-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  .trajectory-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    position: relative;
-  }
-  .trajectory-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--gold);
-    border: 3px solid var(--navy);
-    box-shadow: 0 0 0 3px rgba(197,160,89,0.3);
-    position: relative;
-    z-index: 1;
-    margin-top: 24px;
-  }
-  .trajectory-year {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--gold);
-    writing-mode: horizontal-tb;
-    white-space: nowrap;
-  }
-  .trajectory-content {
-    background: var(--navy-mid);
-    border: 1px solid var(--divider);
-    border-radius: 16px;
-    padding: 36px;
-    position: relative;
-    overflow: hidden;
-  }
-  .trajectory-content::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 3px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-  }
-  .trajectory-phase {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .trajectory-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 16px;
-    line-height: 1.1;
-  }
-  .trajectory-body {
-    font-size: 15px;
-    color: var(--slate-light);
-    line-height: 1.85;
-    font-style: italic;
-  }
-  .trajectory-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 20px;
-  }
-  .trajectory-tag {
-    padding: 4px 12px;
-    background: var(--gold-dim);
-    border: 1px solid var(--gold-border);
-    border-radius: 4px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold-pale);
-    letter-spacing: 0.06em;
-  }
-  /* ── BEFORE / AFTER ── */
-  .comparison-section {
-    background: var(--navy-deep);
-  }
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: 1fr 80px 1fr;
-    gap: 0;
-    margin-top: 64px;
-    align-items: stretch;
-  }
-  .comparison-col {
-    background: var(--navy-mid);
-    border: 1px solid var(--divider);
-    border-radius: 16px;
-    padding: 40px;
-  }
-  .comparison-col.before {
-    border-color: rgba(239,68,68,0.2);
-  }
-  .comparison-col.after {
-    border-color: rgba(74,222,128,0.2);
-    background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(27,38,59,1) 100%);
-  }
-  .comparison-col.after::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(74,222,128,0.04), transparent 70%);
-    pointer-events: none;
-  }
-  .comparison-col { position: relative; }
-  .comparison-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .comparison-col.before .comparison-label { color: 
-#F87171; }
-  .comparison-col.after .comparison-label { color: 
-#4ADE80; }
-  .comparison-label-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  .before .comparison-label-dot { background: 
-#F87171; }
-  .after .comparison-label-dot { background: 
-#4ADE80; }
-  .comparison-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 24px;
-    line-height: 1.1;
-  }
-  .comparison-body {
-    font-size: 14px;
-    color: var(--slate-light);
-    line-height: 1.85;
-    font-style: italic;
-  }
-  .comparison-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .vs-badge {
-    width: 52px;
-    height: 52px;
-    background: var(--navy-deep);
-    border: 1px solid var(--divider);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--slate);
-  }
-  /* ── LA SECTION ── */
-  .la-section {
-    background: var(--navy);
-  }
-  .la-features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-top: 64px;
-  }
-  .la-feature {
-    background: var(--navy-mid);
-    border: 1px solid var(--divider);
-    border-radius: 12px;
-    padding: 28px;
-    display: flex;
-    gap: 20px;
-    transition: border-color 0.3s;
-  }
-  .la-feature:hover { border-color: var(--gold-border); }
-  .la-feature-icon {
-    width: 44px;
-    height: 44px;
-    background: var(--gold-dim);
-    border: 1px solid var(--gold-border);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gold);
-    flex-shrink: 0;
-  }
-  .la-feature-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-  .la-feature-body {
-    font-size: 13px;
-    color: var(--slate-light);
-    line-height: 1.75;
-  }
-  /* ── VAULT ARCHITECTURE ── */
-  .vault-section {
-    background: var(--navy-deep);
-  }
-  .vault-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 64px;
-  }
-  .vault-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--divider);
-    border-radius: 12px;
-    padding: 28px;
-    transition: all 0.3s;
-  }
-  .vault-card:hover {
-    border-color: var(--gold-border);
-    transform: translateY(-2px);
-  }
-  .vault-id-prefix {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--gold);
-    letter-spacing: 0.12em;
-    margin-bottom: 6px;
-  }
-  .vault-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-  .vault-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .vault-field {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--slate);
-    letter-spacing: 0.05em;
-    padding: 5px 10px;
-    background: rgba(17,28,45,0.6);
-    border-radius: 4px;
-    border-left: 2px solid var(--gold-border);
-  }
-  /* ── ROLE MAP ── */
-  .role-section {
-    background: var(--navy);
-  }
-  .role-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 64px;
-    font-size: 13px;
-  }
-  .role-table th {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid var(--divider);
-  }
-  .role-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid rgba(197,160,89,0.08);
-    color: var(--slate-light);
-    vertical-align: top;
-  }
-  .role-table tr:hover td {
-    background: rgba(197,160,89,0.03);
-  }
-  .role-badge {
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .role-badge.organizer { background: rgba(197,160,89,0.15); color: var(--gold); }
-  .role-badge.manager { background: rgba(59,130,246,0.15); color: 
-#93C5FD; }
-  .role-badge.contributor { background: rgba(74,222,128,0.1); color: 
-#86EFAC; }
-  .role-badge.viewer { background: rgba(148,163,184,0.1); color: 
-#94A3B8; }
-  .role-badge.owner { background: rgba(239,68,68,0.1); color: 
-#FCA5A5; }
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy-deep);
-    border-top: 1px solid var(--divider);
-    padding: 48px;
-    text-align: center;
-  }
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .footer-logo-badge {
-    width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--gold) 0%,
-#9A7A3A 100%);
-    border-radius: 7px;
-    object-fit: contain;
-    padding: 4px;
-    display: block;
-  }
-  .footer-brand-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--white);
-  }
-  .footer-copy {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--slate-dark);
-    letter-spacing: 0.08em;
-    line-height: 1.8;
-  }
-  /* ── ANIMATIONS ── */
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  /* ── QUOTE BLOCK ── */
-  .quote-block {
-    border-left: 3px solid var(--gold);
-    padding: 20px 28px;
-    background: var(--gold-dim);
-    border-radius: 0 8px 8px 0;
-    margin: 20px 0;
-  }
-  .quote-block p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-style: italic;
-    color: var(--slate-light);
-    line-height: 1.7;
-  }
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    section { padding: 60px 24px; }
-    .pillars-grid { grid-template-columns: 1fr; }
-    .comparison-grid { grid-template-columns: 1fr; }
-    .comparison-divider { display: none; }
-    .vault-grid { grid-template-columns: 1fr; }
-    .la-features { grid-template-columns: 1fr; }
-    .stack-body-inner { grid-template-columns: 1fr; }
-    header { padding: 0 24px; }
-    .header-nav { display: none; }
-    .hero-meta { gap: 24px; flex-wrap: wrap; justify-content: center; }
-    .hero { padding: 100px 24px 60px; }
-    .trajectory-timeline::before { left: 16px; }
-    .trajectory-item { grid-template-columns: 56px 1fr; gap: 20px; }
-    .pillar-card.expanded .pillar-expand-detail { grid-template-columns: 1fr; }
-    .manifest-band { padding: 40px 24px; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1B263B">
+    <meta name="description" content="JB-EMS: The Arena — Enterprise hybrid education management platform for UK Alternative Provision schools.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="The Arena Hub">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%231B263B' width='180' height='180'/><text x='50%' y='50%' font-size='60' font-weight='700' font-family='Rajdhani, sans-serif' fill='%23C5A059' text-anchor='middle' dominant-baseline='middle'>A</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>JB-EMS: The Arena Hub — v5.0</title>
+    <style>
+        /* =============================================
+           GLOBAL STYLES & RESET
+           ============================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #F4F5F7;
+            color: #2C3E50;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* =============================================
+           TYPOGRAPHY
+           ============================================= */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        /* =============================================
+           BUTTONS & CTAs
+           ============================================= */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border: 2px solid #C5A059;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: #C5A059;
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #B09047;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+            outline: none;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        /* =============================================
+           HERO SECTION
+           ============================================= */
+        .hero {
+            background: linear-gradient(135deg, #1B263B 0%, #243447 100%);
+            color: #FFFFFF;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(197, 160, 89, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(197, 160, 89, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-logo span {
+            color: #C5A059;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #D4C5B9;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: #A8B5C2;
+            margin-bottom: 2rem;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(197, 160, 89, 0.15);
+            border: 1px solid #C5A059;
+            color: #C5A059;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* =============================================
+           ROLE ROUTER SECTION
+           ============================================= */
+        .role-router {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .router-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .router-heading h2 {
+            color: #1B263B;
+            margin-bottom: 0.5rem;
+        }
+
+        .router-heading p {
+            color: #5A6C7D;
+            font-size: 1.1rem;
+        }
+
+        .tile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .tile-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .tile-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(27, 38, 59, 0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid transparent;
+        }
+
+        .tile-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(27, 38, 59, 0.15);
+            border-color: #C5A059;
+        }
+
+        .tile-icon {
+            font-size: 3rem;
+            color: #C5A059;
+            margin-bottom: 1.5rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tile-title {
+            color: #1B263B;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tile-description {
+            color: #5A6C7D;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tile-roles {
+            font-size: 0.85rem;
+            color: #8A9AAA;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .tile-button {
+            align-self: flex-start;
+        }
+
+        /* =============================================
+           ABOUT STRIP SECTION
+           ============================================= */
+        .about-strip {
+            background: #FFFFFF;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+            border-top: 2px solid #E8E9EB;
+            border-bottom: 2px solid #E8E9EB;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-heading {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1B263B;
+        }
+
+        .feature-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .feature-blocks {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-block {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #C5A059;
+            margin-bottom: 1rem;
+        }
+
+        .feature-block h3 {
+            color: #1B263B;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-block p {
+            color: #5A6C7D;
+            font-size: 0.95rem;
+        }
+
+        /* =============================================
+           FOOTER
+           ============================================= */
+        footer {
+            background: #1B263B;
+            color: #FFFFFF;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-title span {
+            color: #C5A059;
+        }
+
+        .footer-url {
+            font-size: 1.1rem;
+            color: #C5A059;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            color: #A8B5C2;
+        }
+
+        /* =============================================
+           RESPONSIVE DESIGN
+           ============================================= */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-logo {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-tagline {
+                font-size: 1rem;
+            }
+
+            .tile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-blocks {
+                grid-template-columns: 1fr;
+            }
+
+            .role-router,
+            .about-strip {
+                padding: 0 1.5rem;
+            }
+
+            .router-heading h2,
+            .about-heading {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* =============================================
+           ACCESSIBILITY & FOCUS STATES
+           ============================================= */
+        a:focus,
+        button:focus {
+            outline: 2px solid #C5A059;
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #C5A059;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* =============================================
+           ANIMATIONS
+           ============================================= */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tile-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .tile-card:nth-child(1) { animation-delay: 0.1s; }
+        .tile-card:nth-child(2) { animation-delay: 0.2s; }
+        .tile-card:nth-child(3) { animation-delay: 0.3s; }
+        .tile-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
 </head>
 <body>
-<!-- HEADER -->
-<header>
-  <div class="header-left">
-    <img src="arena-logo.png" class="logo-badge" alt="The Arena Hub Ltd"/>
-  <div class="header-brand">
-      <div class="header-brand-name">The Arena</div>
-      <div class="header-brand-sub">The Arena Hub Ltd Clinical Infrastructure</div>
-    </div>
-  </div>
-  <nav>
-    <ul class="header-nav">
-      <li><a onclick="navTo('stack')">Architecture</a></li>
-      <li><a onclick="navTo('pillars')">Pillars</a></li>
-      <li><a onclick="navTo('trajectory')">Trajectory</a></li>
-      <li><a onclick="navTo('comparison')">Evidence</a></li>
-      <li><a onclick="navTo('la')">LA Portfolio</a></li>
-    </ul>
-  </nav>
-  <div class="header-right">
-    <a href="genesis.html" style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;background:var(--gold);color:var(--navy-deep);font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='#D4B472'" onmouseout="this.style.background='var(--gold)'">Support the Campaign ›</a>
-    <div class="header-status">
-      <div class="status-dot"></div>
-      Pre-Ignition — v7.0.0
-    </div>
-  </div>
-</header>
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-eyebrow">Evidence Integrity Infrastructure</div>
-  <h1 class="hero-title">The <span>Arena</span></h1>
-  <p class="hero-subtitle">Clinical infrastructure for UK Alternative Provision & SEND</p>
-  <div class="hero-divider"></div>
-  <div class="hero-meta">
-    <div class="hero-meta-item">
-      <div class="hero-meta-value">3</div>
-      <div class="hero-meta-label">Clinical Pillars</div>
-    </div>
-    <div class="hero-meta-item">
-      <div class="hero-meta-value">152</div>
-      <div class="hero-meta-label">Target LAs</div>
-    </div>
-    <div class="hero-meta-item">
-      <div class="hero-meta-value">6yr</div>
-      <div class="hero-meta-label">Impact Trajectory</div>
-    </div>
-    <div class="hero-meta-item">
-      <div class="hero-meta-value">v7</div>
-      <div class="hero-meta-label">Architecture</div>
-    </div>
-  </div>
-  <div style="opacity:0;animation:fade-up 0.8s ease forwards 1.2s;margin-bottom:48px;">
-    <a href="genesis.html" style="display:inline-flex;align-items:center;gap:12px;padding:16px 36px;background:var(--gold);color:var(--navy-deep);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:8px;box-shadow:0 8px 32px rgba(197,160,89,0.3);transition:all 0.3s;" onmouseover="this.style.background='#D4B472';this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 40px rgba(197,160,89,0.4)'" onmouseout="this.style.background='var(--gold)';this.style.transform='none';this.style.boxShadow='0 8px 32px rgba(197,160,89,0.3)'">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Support This Campaign
-    </a>
-  </div>
-  <div class="hero-scroll" onclick="navTo('stack')">
-    <span>Explore</span>
-    <div class="hero-scroll-line"></div>
-  </div>
-</div>
-<div class="section-divider"></div>
-<!-- VISUAL STACK -->
-<div class="stack-section" id="stack">
-  <div class="stack-inner">
-    <p class="section-eyebrow reveal">Architecture — 3-Layer Visual Stack</p>
-    <h2 class="section-title reveal">Evidence flows upward.<br>Accountability is structural.</h2>
-    <p class="section-lead reveal">The Arena is not software — it is infrastructure. Three sovereign layers form an unbroken chain from classroom activity to Local Authority portfolio. Each layer serves a distinct clinical function. None operates in isolation.</p>
-    <div class="stack-container reveal">
-      <!-- Layer 1: LA Oversight -->
-      <div class="stack-layer" id="layer-la" onclick="toggleLayer('layer-la')">
-        <div class="stack-layer-header">
-          <div class="stack-layer-left">
-            <div class="stack-layer-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M9 8h1m-1 4h1m-1 4h1m4-8h1m-1 4h1m-1 4h1M5 21V7l7-4 7 4v14"/></svg>
-            </div>
-            <div>
-              <div class="stack-layer-label">Layer 1 — Top Tier</div>
-              <div class="stack-layer-title">Local Authority Oversight Portfolio</div>
-              <div class="stack-layer-tag">Statutory compliance visibility across all commissioned AP provision</div>
-            </div>
-          </div>
-          <svg class="stack-expand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+    <a href="#role-router" class="skip-link">Skip to main content</a>
+
+    <!-- HERO SECTION -->
+    <header class="hero" role="banner">
+        <div class="hero-content">
+            <div class="hero-logo">JB-EMS: <span>THE ARENA</span></div>
+            <div class="hero-subtitle">Sovereign Hybrid Education Management Platform</div>
+            <div class="hero-tagline">Purpose-built for UK Alternative Provision</div>
+            <div class="version-badge">v5.0 — Enterprise Evolution</div>
         </div>
-        <div class="stack-layer-body">
-          <div class="stack-body-inner">
-            <div class="stack-narrative">
-              <p>Arena equips LA commissioners with a defensible, real-time evidence layer across every AP site in their portfolio. Each placement decision is anchored to an immutable chronology of student progress, welfare events, and vocational attainment — reducing tribunal exposure and satisfying the February 2026 statutory SEND standards before they become mandatory for your provision tier.</p>
-              <div class="quote-block" style="margin-top: 20px;">
-                <p>One LA contract represents potentially 5–15 Arena deployments. 152 Local Authorities in scope. The LA is not a gatekeeper — it is the force multiplier.</p>
-              </div>
+    </header>
+
+    <!-- MAIN ROLE ROUTER -->
+    <main id="role-router" role="main">
+        <section class="role-router">
+            <div class="router-heading">
+                <h2>Select Your Role</h2>
+                <p>Access the tools built for your role within The Arena</p>
             </div>
-            <div style="display:flex;flex-direction:column;gap:0;">
-              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate);margin-bottom:16px;">Coming Next — Feature Pipeline</div>
-              <div style="position:relative;padding-left:28px;">
-                <div style="position:absolute;left:9px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),rgba(197,160,89,0.1));"></div>
-                <div style="display:flex;flex-direction:column;gap:16px;">
-                  <div style="display:flex;align-items:flex-start;gap:12px;position:relative;">
-                    <div style="position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--navy-deep);flex-shrink:0;"></div>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="flex-shrink:0;margin-top:2px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    <div><div style="font-size:13px;color:var(--white);font-weight:500;">Value-for-Money Index</div><div style="font-size:12px;color:var(--slate);margin-top:2px;">Shows commissioners exactly what they're getting for every pound spent on a placement — in real numbers.</div></div>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:12px;position:relative;">
-                    <div style="position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--navy-deep);flex-shrink:0;"></div>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="flex-shrink:0;margin-top:2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                    <div><div style="font-size:13px;color:var(--white);font-weight:500;">Escalation Early Warning</div><div style="font-size:12px;color:var(--slate);margin-top:2px;">Flags students whose support needs are intensifying — before it becomes a crisis, not after.</div></div>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:12px;position:relative;">
-                    <div style="position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--navy-deep);flex-shrink:0;"></div>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="flex-shrink:0;margin-top:2px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                    <div><div style="font-size:13px;color:var(--white);font-weight:500;">Legal Compliance Tracker</div><div style="font-size:12px;color:var(--slate);margin-top:2px;">Automatically tracks every legal obligation within a child's Education, Health and Care Plan — nothing falls through the cracks.</div></div>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:12px;position:relative;">
-                    <div style="position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--navy-deep);flex-shrink:0;"></div>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" style="flex-shrink:0;margin-top:2px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    <div><div style="font-size:13px;color:var(--white);font-weight:500;">One-Click Inspection Pack</div><div style="font-size:12px;color:var(--slate);margin-top:2px;">Generates a complete, ready-to-hand Ofsted evidence pack instantly — no preparation, no last-minute panic.</div></div>
-                  </div>
-                  <div style="display:flex;align-items:flex-start;gap:12px;position:relative;">
-                    <div style="position:absolute;left:-19px;top:6px;width:10px;height:10px;border-radius:50%;background:rgba(197,160,89,0.4);border:2px solid var(--navy-deep);flex-shrink:0;"></div>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--slate)" stroke-width="1.5" style="flex-shrink:0;margin-top:2px;"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                    <div><div style="font-size:13px;color:var(--slate-light);font-weight:500;">Multi-School Portfolio View</div><div style="font-size:12px;color:var(--slate);margin-top:2px;">Gives MAT directors and LA teams a single dashboard across every school in their network. Horizon feature.</div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Layer 2: Arena Evidence -->
-      <div class="stack-layer active" id="layer-arena" onclick="toggleLayer('layer-arena')">
-        <div class="stack-layer-header">
-          <div class="stack-layer-left">
-            <div class="stack-layer-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-            </div>
-            <div>
-              <div class="stack-layer-label">Layer 2 — Core Engine</div>
-              <div class="stack-layer-title">Arena Evidence Layer</div>
-              <div class="stack-layer-tag">The Three-Pillar clinical infrastructure — Performance · Welfare · Kit Room</div>
-            </div>
-          </div>
-          <svg class="stack-expand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="stack-layer-body">
-          <div class="stack-body-inner">
-            <div class="stack-narrative">
-              <p>The Arena Evidence Layer is the clinical heart of the system. Three sovereign pillars — each with a distinct function, distinct access control, and distinct forensic protocol — collectively produce the immutable evidence chronology that no generic MIS can replicate.</p>
-              <p style="margin-top: 16px;">All three pillars are deployed simultaneously at school ignition. All three write to the Master Manifest. All three are protected by the IP Sentry watermark. None can be modified without a timestamped audit record.</p>
-              <div class="quote-block" style="margin-top: 20px;">
-                <p>The Sovereign Hybrid Architecture (v7.0.0) separates person data into three distinct Vaults — Student, Staff, Parent — preventing cross-contamination and ensuring GDPR integrity at schema level.</p>
-              </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate);margin-bottom:12px;">How the system breathes</div>
-              <svg viewBox="0 0 320 320" width="100%" style="max-width:320px;margin:0 auto;display:block;" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-                    <path d="M1,1 L7,4 L1,7 Z" fill="rgba(197,160,89,0.7)"/>
-                  </marker>
-                  <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-                  <linearGradient id="flowgrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="rgba(197,160,89,0)"/>
-                    <stop offset="50%" stop-color="rgba(197,160,89,0.8)"/>
-                    <stop offset="100%" stop-color="rgba(197,160,89,0)"/>
-                    <animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="1 0" dur="2s" repeatCount="indefinite"/>
-                  </linearGradient>
-                </defs>
-                <!-- Central hub -->
-                <circle cx="160" cy="160" r="38" fill="rgba(197,160,89,0.12)" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" filter="url(#glow)"/>
-                <circle cx="160" cy="160" r="28" fill="rgba(197,160,89,0.08)" stroke="rgba(197,160,89,0.3)" stroke-width="1"/>
-                <text x="160" y="155" text-anchor="middle" fill="
-#C5A059" font-size="9" font-family="DM Mono,monospace" letter-spacing="1">MASTER</text>
-                <text x="160" y="168" text-anchor="middle" fill="
-#C5A059" font-size="9" font-family="DM Mono,monospace" letter-spacing="1">MANIFEST</text>
-                <!-- Performance node -->
-                <circle cx="160" cy="56" r="28" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1.5"/>
-                <path d="M148,56 L152,44 L156,60 L160,48 L164,60 L168,44 L172,56" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-                <text x="160" y="100" text-anchor="middle" fill="
-#B4C2D4" font-size="9" font-family="Outfit,sans-serif">Performance</text>
-                <!-- Welfare node -->
-                <circle cx="270" cy="200" r="28" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1.5"/>
-                <path d="M270,188 c-8,0,-14,6,-14,13 c0,12,14,19,14,19 c0,0,14,-7,14,-19 c0,-7,-6,-13,-14,-13 z" stroke="
-#C5A059" stroke-width="1.5" fill="rgba(197,160,89,0.15)"/>
-                <text x="270" y="244" text-anchor="middle" fill="
-#B4C2D4" font-size="9" font-family="Outfit,sans-serif">Welfare</text>
-                <!-- Kit Room node -->
-                <circle cx="50" cy="200" r="28" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1.5"/>
-                <circle cx="50" cy="200" r="7" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-                <path d="M43,193 a10,10,0,0,1,14,0" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-                <path d="M38,188 a16,16,0,0,1,24,0" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" fill="none"/>
-                <text x="50" y="244" text-anchor="middle" fill="
-#B4C2D4" font-size="9" font-family="Outfit,sans-serif">Kit Room</text>
-                <!-- Flow lines -->
-                <path d="M160,84 L160,122" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-                <path d="M160,122 L160,84" stroke="rgba(197,160,89,0.3)" stroke-width="1" stroke-dasharray="2,4"/>
-                <path d="M242,185 L185,168" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-                <path d="M185,168 L242,185" stroke="rgba(197,160,89,0.3)" stroke-width="1" stroke-dasharray="2,4"/>
-                <path d="M78,185 L135,168" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
-                <path d="M135,168 L78,185" stroke="rgba(197,160,89,0.3)" stroke-width="1" stroke-dasharray="2,4"/>
-                <!-- LA output arrow -->
-                <path d="M160,122 Q160,20 280,20" stroke="rgba(197,160,89,0.25)" stroke-width="1" stroke-dasharray="3,4" fill="none"/>
-                <circle cx="290" cy="20" r="5" fill="rgba(197,160,89,0.4)"/>
-                <text x="300" y="24" fill="rgba(197,160,89,0.7)" font-size="8" font-family="DM Mono,monospace">LA</text>
-                <!-- pulse dots on lines -->
-                <circle r="3" fill="
-#C5A059" opacity="0.8">
-                  <animateMotion dur="2s" repeatCount="indefinite" path="M160,84 L160,122"/>
-                </circle>
-                <circle r="3" fill="
-#C5A059" opacity="0.8">
-                  <animateMotion dur="2.4s" repeatCount="indefinite" path="M242,185 L185,168"/>
-                </circle>
-                <circle r="3" fill="
-#C5A059" opacity="0.8">
-                  <animateMotion dur="2.2s" repeatCount="indefinite" path="M78,185 L135,168"/>
-                </circle>
-              </svg>
-              <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
-                <div style="font-size:11px;color:var(--slate);text-align:center;line-height:1.6;">Each pillar constantly sends evidence to a central controller — like a nervous system routing signals to the brain. Everything is synchronised, timestamped, and protected. The LA sees only what they need — clean, verified, encrypted.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Layer 3: Ground Activity -->
-      <div class="stack-layer" id="layer-ground" onclick="toggleLayer('layer-ground')">
-        <div class="stack-layer-header">
-          <div class="stack-layer-left">
-            <div class="stack-layer-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <div>
-              <div class="stack-layer-label">Layer 3 — Ground Level</div>
-              <div class="stack-layer-title">MIS Systems + Daily AP Activity</div>
-              <div class="stack-layer-tag">Attendance · Safeguarding Events · Vocational Sessions · EHCP Targets</div>
-            </div>
-          </div>
-          <svg class="stack-expand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="stack-layer-body">
-          <div class="stack-body-inner">
-            <div class="stack-narrative">
-              <p>Arena does not replace your MIS. It closes the evidence gap your MIS cannot fill — the forensic, criteria-mapped, welfare-integrated record that turns daily AP activity into a legally defensible chronology.</p>
-              <p style="margin-top: 16px;">Keep CPOMS for safeguarding case management. Keep Arbor for attendance and census. Add Arena to produce the evidence layer that protects your provision at inspection, annual review, and tribunal.</p>
-              <div class="quote-block" style="margin-top: 20px;">
-                <p>Google Workspace-native. No third-party data transfer. Data sovereignty stays with the school. Your data is not on our servers — it is in your Google Workspace, deployed by ours.</p>
-              </div>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--slate);margin-bottom:12px;">How it all fits together</div>
-              <div style="position:relative;padding:16px 0 8px;">
-                <!-- Arena at top -->
-                <div style="display:flex;justify-content:center;margin-bottom:8px;">
-                  <div style="background:rgba(197,160,89,0.12);border:1.5px solid rgba(197,160,89,0.5);border-radius:12px;padding:10px 20px;display:flex;align-items:center;gap:10px;position:relative;">
-                    <img src="arena-logo.png" style="width:28px;height:28px;object-fit:contain;" alt="Arena"/>
-                    <div>
-                      <div style="font-size:12px;font-weight:600;color:var(--white);">The Arena</div>
-                      <div style="font-size:10px;color:var(--gold);">Gathers · Organises · Protects</div>
+
+            <div class="tile-grid">
+                <!-- Performance Centre -->
+                <article class="tile-card">
+                    <div class="tile-icon">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <!-- folders icon above -->
-                    <div style="position:absolute;top:-22px;right:12px;display:flex;gap:3px;">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(197,160,89,0.6)" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(197,160,89,0.9)" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(197,160,89,0.6)" stroke="none"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                    <h3 class="tile-title">Performance Centre</h3>
+                    <p class="tile-description">Register, FIFA scoring, HT Command, Attendance tracking</p>
+                    <p class="tile-roles">For: HT, SLT, Teachers</p>
+                    <a href="#pc" class="btn btn-primary tile-button">Enter Performance Centre</a>
+                </article>
+
+                <!-- Welfare Suite -->
+                <article class="tile-card">
+                    <div class="tile-icon">
+                        <i class="fas fa-shield-heart"></i>
                     </div>
-                  </div>
-                </div>
-                <!-- upward arrows -->
-                <div style="display:flex;justify-content:space-around;margin-bottom:4px;padding:0 20px;">
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-                    <svg width="16" height="20" viewBox="0 0 16 20"><path d="M8,18 L8,2 M2,8 L8,2 L14,8" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" fill="none"/></svg>
-                  </div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-                    <svg width="16" height="20" viewBox="0 0 16 20"><path d="M8,18 L8,2 M2,8 L8,2 L14,8" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" fill="none"/></svg>
-                  </div>
-                  <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
-                    <svg width="16" height="20" viewBox="0 0 16 20"><path d="M8,18 L8,2 M2,8 L8,2 L14,8" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" fill="none"/></svg>
-                  </div>
-                </div>
-                <!-- Three source systems -->
-                <div style="display:flex;justify-content:space-around;gap:8px;">
-                  <!-- Arbor -->
-                  <div style="flex:1;background:rgba(17,28,45,0.7);border:1px solid rgba(139,156,181,0.2);border-radius:10px;padding:12px 8px;text-align:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(139,156,181,0.8)" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                    <div style="font-size:11px;font-weight:600;color:var(--slate-light);">Arbor</div>
-                    <div style="font-size:9px;color:var(--slate);margin-top:2px;">Attendance &amp; registers</div>
-                  </div>
-                  <!-- SIMS -->
-                  <div style="flex:1;background:rgba(17,28,45,0.7);border:1px solid rgba(139,156,181,0.2);border-radius:10px;padding:12px 8px;text-align:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(139,156,181,0.8)" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><circle cx="6" cy="10" r="2" stroke-width="1"/><circle cx="18" cy="10" r="2" stroke-width="1"/></svg>
-                    <div style="font-size:11px;font-weight:600;color:var(--slate-light);">SIMS</div>
-                    <div style="font-size:9px;color:var(--slate);margin-top:2px;">Pupil records &amp; census</div>
-                  </div>
-                  <!-- CPOMS -->
-                  <div style="flex:1;background:rgba(17,28,45,0.7);border:1px solid rgba(139,156,181,0.2);border-radius:10px;padding:12px 8px;text-align:center;">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(139,156,181,0.8)" stroke-width="1.5" style="margin:0 auto 6px;display:block;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-                    <div style="font-size:11px;font-weight:600;color:var(--slate-light);">CPOMS</div>
-                    <div style="font-size:9px;color:var(--slate);margin-top:2px;">Safeguarding cases</div>
-                  </div>
-                </div>
-                <div style="font-size:10px;color:var(--slate);text-align:center;margin-top:12px;line-height:1.6;">Keep using your existing tools. Arena sits above them — collecting what they can't, organising it all, and building the evidence layer that protects your provision.</div>
-              </div>
+                    <h3 class="tile-title">Welfare Suite</h3>
+                    <p class="tile-description">DSL dashboard, Incident management, Safeguarding audit trail</p>
+                    <p class="tile-roles">For: DSL, SLT</p>
+                    <a href="#ws" class="btn btn-primary tile-button">Enter Welfare Suite</a>
+                </article>
+
+                <!-- Kit Room -->
+                <article class="tile-card">
+                    <div class="tile-icon">
+                        <i class="fas fa-toolbox"></i>
+                    </div>
+                    <h3 class="tile-title">Kit Room</h3>
+                    <p class="tile-description">Resource Bible, Curriculum units, Partner management</p>
+                    <p class="tile-roles">For: Kit Manager, HT</p>
+                    <a href="#kr" class="btn btn-primary tile-button">Enter Kit Room</a>
+                </article>
+
+                <!-- Student Hub -->
+                <article class="tile-card">
+                    <div class="tile-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="tile-title">Student Hub</h3>
+                    <p class="tile-description">Your FIFA card, Schedule, and Learning journey</p>
+                    <p class="tile-roles">For: Students</p>
+                    <a href="student-hub.html" class="btn btn-primary tile-button">My Hub</a>
+                </article>
             </div>
-          </div>
+        </section>
+
+        <!-- ABOUT STRIP -->
+        <section class="about-strip" role="complementary">
+            <div class="about-container">
+                <div class="about-heading">
+                    <h2>Why The Arena</h2>
+                </div>
+
+                <div class="feature-blocks">
+                    <div class="feature-block">
+                        <div class="feature-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h3>Three Pillars</h3>
+                        <p>Performance Centre, Welfare Suite, and Kit Room working in seamless harmony</p>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Provider-Agnostic</h3>
+                        <p>Human and AI providers treated identically within your ecosystem</p>
+                    </div>
+
+                    <div class="feature-block">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>DSL Sovereign</h3>
+                        <p>Welfare data remains under full DSL control and governance</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-title">JB-EMS: <span>The Arena Hub</span></div>
+            <div class="footer-url">thearenahub.co.uk</div>
+            <div class="footer-tagline">v5.0 — Built for UK Alternative Provision</div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="section-divider"></div>
-<!-- THREE PILLARS -->
-<section id="pillars">
-  <p class="section-eyebrow reveal">Clinical Infrastructure — Three Pillars</p>
-  <h2 class="section-title reveal">Distinct function.<br>Unified chronology.</h2>
-  <p class="section-lead reveal">Each Pillar is a sovereign, permission-controlled clinical unit. Together they produce the only evidence infrastructure in the UK AP market purpose-built for SEND reform compliance.</p>
-  <div class="pillars-grid reveal" id="pillars-grid">
-    <!-- Performance Centre -->
-    <div class="pillar-card" id="pillar-1" onclick="togglePillar('pillar-1')">
-      <div class="pillar-number">01</div>
-      <div class="pillar-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <div class="pillar-tag">Pillar 01 — Mandatory at All Tiers</div>
-      <div class="pillar-name">Performance Centre</div>
-      <div class="pillar-subtitle">Academic Velocity Engine</div>
-      <div class="pillar-summary">Imagine a live scoreboard for every student's learning journey. Staff record what a student did and how well — the Performance Centre turns those daily moments into a clear, running picture of progress that anyone from a class teacher to a Local Authority can understand at a glance.</div>
-      <button class="pillar-expand-btn">
-        <span>Full specification</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-      <div class="pillar-expand-detail">
-        <div class="pillar-detail-block">
-          <h4>Core Sheet</h4>
-          <p>MASTER_PERFORMANCE_CENTRE — hosts all three Vaults (Student, Staff, Parent), Academic Track, Playbook, and Squad Overview. Mandatory at all tier levels (T1_PC through T3_FULL).</p>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>Key Functions</h4>
-          <ul>
-            <li>PERF_CORE_SYNC() — continuous Manifest push</li>
-            <li>VelocityScore — attainment speed metric</li>
-            <li>SQUAD_OVERVIEW — fast cross-pillar roster view</li>
-            <li>THE_STUDENT_VAULT — 12-column clinical record</li>
-            <li>THE_STAFF_VAULT — 13-column RBAC registry</li>
-          </ul>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>Clinical Value</h4>
-          <p>Produces the Academic Velocity chronology that underpins EHCP Section B progress evidence, Annual Review packs, and LA placement justification. Real-time feed to LA Portfolio tier.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Welfare Suite -->
-    <div class="pillar-card" id="pillar-2" onclick="togglePillar('pillar-2')">
-      <div class="pillar-number">02</div>
-      <div class="pillar-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div class="pillar-tag">Pillar 02 — DSL-Silo Architecture</div>
-      <div class="pillar-name">Welfare Suite</div>
-      <div class="pillar-subtitle">Forensic Immutability Protocol — VAR Sentry Active</div>
-      <div class="pillar-summary">A completely sealed, secure space where safeguarding concerns are recorded and locked in time. Only the designated safeguarding lead can access it. Every entry is permanent, timestamped, and tamper-proof — so that if anyone ever questions what happened and when, the answer is already there in black and white.</div>
-      <button class="pillar-expand-btn">
-        <span>Full specification</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-      <div class="pillar-expand-detail">
-        <div class="pillar-detail-block">
-          <h4>Core Sheet</h4>
-          <p>MASTER_WELFARE_SUITE — safeguarding chronology, forensic audit trail. Access restricted to DSL and registered Organizer. Siloed subfolder with revoked inheritance ensures no staff cross-access.</p>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>VAR Sentry Specification</h4>
-          <ul>
-            <li>Installable onEdit() trigger — not simple trigger</li>
-            <li>getLastRow()+1 append model — tamper-evident</li>
-            <li>Logs: TIMESTAMP, USER, SHEET, CELL, PREV_VAL, NEW_VAL</li>
-            <li>Hidden VAR_AUDIT_LOG — inaccessible to school staff</li>
-            <li>Named after Video Assistant Referee — immutable review</li>
-          </ul>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>Clinical Value</h4>
-          <p>Produces a legally defensible safeguarding chronology. At tribunal, every welfare entry is timestamped and user-attributed. At Ofsted inspection, the VAR log is the single source of truth for safeguarding governance.</p>
-        </div>
-      </div>
-    </div>
-    <!-- Kit Room -->
-    <div class="pillar-card" id="pillar-3" onclick="togglePillar('pillar-3')">
-      <div class="pillar-number">03</div>
-      <div class="pillar-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
-      </div>
-      <div class="pillar-tag">Pillar 03 — AI Assessor Engine</div>
-      <div class="pillar-name">The Kit Room</div>
-      <div class="pillar-subtitle">Clinical Assessor AI — Vocational Evidence Mapping</div>
-      <div class="pillar-summary">The place where practical learning becomes provable achievement. A student builds a car engine, cooks a meal, or completes a project — the Kit Room turns that real-world activity into formal, nationally recognised evidence. Our built-in AI does the heavy lifting of matching what the student did to the qualification criteria. The teacher makes the final call, always.</div>
-      <button class="pillar-expand-btn">
-        <span>Full specification</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
-      <div class="pillar-expand-detail">
-        <div class="pillar-detail-block">
-          <h4>Core Sheet</h4>
-          <p>MASTER_KIT_ROOM — vocational project log (PBLLOG), criteria map (CRITERIAMAP), stakeholder CRM, AI planner. Powered by Gemini 1.5 Flash via Apps Script integration.</p>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>Explainability Return Schema</h4>
-          <ul>
-            <li>MET criteria codes (e.g. P1, M1, D1)</li>
-            <li>JUSTIFICATION — 2-sentence rationale</li>
-            <li>MISSING — evidence gap for next level</li>
-            <li>CONFIDENCE_SCORE — percentage (0–100%)</li>
-            <li>HUMAN_VERIFICATION_FLAG — Pending/Verified/Returned</li>
-          </ul>
-        </div>
-        <div class="pillar-detail-block">
-          <h4>Clinical Value</h4>
-          <p>Closes the BTEC evidence gap in AP settings. Practical work is formally mapped against national standards within seconds, with full explainability documentation. Human assessor retains final authority over all grading decisions.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- MANIFEST BAND -->
-<div class="manifest-band">
-  <div class="manifest-band-inner">
-    <div class="manifest-band-label">Master Manifest — Central Controller</div>
-    <p class="manifest-band-text">All three Pillars are connected via the <strong>Master Manifest</strong> — a developer-owned, version-agnostic central registry. Updates propagate automatically to every deployed Arena instance. The Manifest holds the blueprint. The school owns the evidence.</p>
-  </div>
-</div>
-<!-- 6-YEAR TRAJECTORY -->
-<section class="trajectory-section" id="trajectory" style="max-width: 100%; padding: 100px 0;">
-  <div style="max-width: 1320px; margin: 0 auto; padding: 0 48px;">
-    <p class="section-eyebrow reveal">Impact Roadmap — 2026 to 2031</p>
-    <h2 class="section-title reveal">Six years to<br>systemic infrastructure.</h2>
-    <p class="section-lead reveal">The Arena – clinical infrastructure for AP/SEND does not enter the market as a product. It enters as a standard. The six-year trajectory is not a growth plan — it is an accountability architecture, built one forensic pilot at a time.</p>
-    <div class="trajectory-timeline">
-      <div class="trajectory-item" id="traj-1">
-        <div class="trajectory-marker">
-          <div class="trajectory-dot"></div>
-          <div class="trajectory-year">2026</div>
-        </div>
-        <div class="trajectory-content">
-          <div class="trajectory-phase">Phase I — Ignition</div>
-          <h3 class="trajectory-title">Forensic Pilot: Establishing the Gold Standard</h3>
-          <p class="trajectory-body">"In 2026, a small cohort of Alternative Provision settings becomes the first in the UK to operate under a fully structured, Manifest-driven evidence infrastructure. Every welfare event is immutably logged. Every vocational session is AI-mapped against national criteria. Every academic data point contributes to a real-time, LA-visible progress chronology.<br><br>These pilot sites do not merely track students. They generate a forensic record — one that, for the first time, makes an AP setting genuinely inspection-proof, tribunal-resilient, and placement-defensible. This is the Gold Standard. Everything that follows is built on its integrity."</p>
-          <div class="trajectory-tags">
-            <span class="trajectory-tag">AP Pilot Sites</span>
-            <span class="trajectory-tag">DSL Ignition</span>
-            <span class="trajectory-tag">VAR Sentry Active</span>
-            <span class="trajectory-tag">Manifest v7.0.0</span>
-          </div>
-        </div>
-      </div>
-      <div class="trajectory-item" id="traj-2">
-        <div class="trajectory-marker">
-          <div class="trajectory-dot"></div>
-          <div class="trajectory-year">2027–28</div>
-        </div>
-        <div class="trajectory-content">
-          <div class="trajectory-phase">Phase II — The Bridge</div>
-          <h3 class="trajectory-title">Arena Lite & Arena Home: Solving the Continuity Crisis</h3>
-          <p class="trajectory-body">"The most dangerous moment in an AP student's journey is the transition — the gap between school, alternative provision, and home. Evidence fragments. Progress disappears. The student's story is lost in the discontinuity.<br><br>Arena Lite deploys into mainstream schools managing EBSA — a lightweight evidence layer that speaks the same clinical language as the full Arena. Arena Home gives DSL-validated, structured evidence capture to families managing education at home.<br><br>Together, these two products create the Continuity Ecosystem: a validated, unbroken evidence chain that travels with the student from school to home to AP and back — without a single gap in the chronology. The DSL holds the key. The student's record remains intact."</p>
-          <div class="trajectory-tags">
-            <span class="trajectory-tag">Arena Lite — EBSA Bridge</span>
-            <span class="trajectory-tag">Arena Home</span>
-            <span class="trajectory-tag">EBSA Continuity</span>
-            <span class="trajectory-tag">DSL Validation</span>
-            <span class="trajectory-tag">School → Home → AP</span>
-          </div>
-        </div>
-      </div>
-      <div class="trajectory-item" id="traj-3">
-        <div class="trajectory-marker">
-          <div class="trajectory-dot"></div>
-          <div class="trajectory-year">2029–31</div>
-        </div>
-        <div class="trajectory-content">
-          <div class="trajectory-phase">Phase III — Systemic Infrastructure</div>
-          <h3 class="trajectory-title">Arena Becomes the National Standard</h3>
-          <p class="trajectory-body">"By 2029, Arena is no longer a product AP settings choose. It is the infrastructure the system expects.<br><br>Local Authorities commissioning provision reference Arena compliance as standard. EHCP annual reviews draw directly from Arena evidence packages. Ofsted inspection frameworks align with the evidence architecture Arena has spent three years defining. MAT directors manage cross-site provision from a single, real-time portfolio view.<br><br>Arena does not advocate for better AP provision. It makes better AP provision structurally inevitable — because when every school in a Local Authority's portfolio runs on the same forensic evidence infrastructure, systemic accountability is not a goal. It is the default."</p>
-          <div class="trajectory-tags">
-            <span class="trajectory-tag">National Standard</span>
-            <span class="trajectory-tag">LA Portfolio Integration</span>
-            <span class="trajectory-tag">MAT Aggregation</span>
-            <span class="trajectory-tag">Ofsted Framework Alignment</span>
-            <span class="trajectory-tag">152 LA Target</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="section-divider"></div>
-<!-- BEFORE / AFTER -->
-<section class="comparison-section" id="comparison">
-  <p class="section-eyebrow reveal">Provision Integrity — Before vs. After Arena</p>
-  <h2 class="section-title reveal">The evidence gap<br>is a liability. Arena closes it.</h2>
-  <p class="section-lead reveal">This is not a feature comparison. It is a forensic audit of what happens to a student's record — and an LA's legal exposure — in the absence of evidence integrity infrastructure.</p>
-  <div class="comparison-grid reveal">
-    <div class="comparison-col before">
-      <div class="comparison-label">
-        <div class="comparison-label-dot"></div>
-        Before Arena — Current State
-      </div>
-      <h3 class="comparison-heading">The Evidence Gap</h3>
-      <div class="comparison-body">
-        <p>An AP student's academic progress exists in a teacher's private spreadsheet. Their welfare events are recorded — if at all — in a shared folder with no access control and no audit trail. Their vocational attainment is undocumented in any format that a BTEC assessor, Ofsted inspector, or LA commissioner could interrogate.</p>
-        <br>
-        <p>When the EHCP annual review arrives, the evidence pack is assembled manually over two days, drawing on memory, informal notes, and whatever files can be located. When a placement is challenged at tribunal, the school cannot produce a timestamped chronology of provision. The LA cannot defend the decision.</p>
-        <br>
-        <p><strong style="color: 
-#F87171;">The case is lost. The cost follows.</strong></p>
-      </div>
-    </div>
-    <div class="comparison-divider">
-      <div class="vs-badge">vs</div>
-    </div>
-    <div class="comparison-col after">
-      <div class="comparison-label">
-        <div class="comparison-label-dot"></div>
-        After Arena — Evidence Integrity
-      </div>
-      <h3 class="comparison-heading">The Immutable Chronology</h3>
-      <div class="comparison-body">
-        <p>The moment a student is added to the system, their evidence chronology begins. Every lesson observation is timestamped. Every welfare event is logged to an immutable audit trail, restricted to the DSL and forensically complete. Every vocational session is AI-mapped against national criteria within seconds, with explainability documentation — criteria citations, confidence scores, human-verification flags — attached to every entry.</p>
-        <br>
-        <p>When the annual review arrives, the evidence pack generates automatically. When Ofsted inspect, the read-only inspection view requires no preparation. When a placement is challenged at tribunal, Arena produces an unbroken, timestamped, tamper-evident chronology from day one of provision.</p>
-        <br>
-        <p><strong style="color: 
-#4ADE80;">The case is not lost. The student is protected. The provision is defensible.</strong></p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="section-divider"></div>
-<!-- LA PORTFOLIO -->
-<section class="la-section" id="la">
-  <p class="section-eyebrow reveal">Local Authority Portfolio — Strategic Value</p>
-  <h2 class="section-title reveal">The LA is not a gatekeeper.<br>It is the force multiplier.</h2>
-  <p class="section-lead reveal">One LA contract potentially activates 5–15 Arena deployments. The February 2026 policy announcement — statutory SEND standards, ISP framework, LA commissioning authority — has not disrupted Arena's market. It has activated it.</p>
-  <div class="la-features reveal">
-    <div class="la-feature">
-      <div class="la-feature-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div>
-        <div class="la-feature-title">Tribunal Risk Mitigation</div>
-        <p class="la-feature-body">EHCP non-compliance, inadequate Section F evidence, and poor placement justification drive costly LA legal challenges. Arena's forensic chronology is the pre-emptive defence. One prevented tribunal pays for Arena at any tier level.</p>
-      </div>
-    </div>
-    <div class="la-feature">
-      <div class="la-feature-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <div>
-        <div class="la-feature-title">Ofsted EIF Compliance</div>
-        <p class="la-feature-body">AP settings cannot currently produce a legally defensible, auditable evidence trail at inspection. Arena generates it continuously — without preparation, without collation, without staff burden. The Ofsted Mode Dashboard surfaces everything, instantly.</p>
-      </div>
-    </div>
-    <div class="la-feature">
-      <div class="la-feature-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
-      <div>
-        <div class="la-feature-title">High Needs Block Exposure</div>
-        <p class="la-feature-body">43% of councils are on track to approach or exceed usable reserves by March 2026. Arena's VFM Index correlates student progress velocity against placement cost — giving LA finance officers the evidence to defend banding decisions and contain High Needs Block exposure.</p>
-      </div>
-    </div>
-    <div class="la-feature">
-      <div class="la-feature-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
-      <div>
-        <div class="la-feature-title">Placement Defensibility</div>
-        <p class="la-feature-body">An LA pointing to Arena-equipped AP sites producing verifiable EHCP-linked evidence can defend placement decisions with structured data. Under the February 2026 statutory SEND standards, that defensibility shifts from optional to essential.</p>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="section-divider"></div>
-<!-- VAULT ARCHITECTURE -->
-<section class="vault-section">
-  <p class="section-eyebrow reveal">Data Architecture — How Evidence Travels</p>
-  <h2 class="section-title reveal">Three pillars at the centre.<br>Evidence flows outward.</h2>
-  <p class="section-lead reveal">The Arena's three pillars act as a single, pulsing engine. Evidence generated every day — in lessons, in welfare conversations, in workshops — is collected, organised, and pushed outward as encrypted, structured data to Local Authorities who need to see it. No manual reports. No emails. Just clean, protected data flowing where it needs to go.</p>
-  <div class="reveal" style="margin-top:48px;">
-    <svg viewBox="0 0 900 480" width="100%" xmlns="http://www.w3.org/2000/svg" style="max-width:900px;margin:0 auto;display:block;">
-      <defs>
-        <marker id="arrowOut" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-          <path d="M1,1 L7,4 L1,7 Z" fill="rgba(197,160,89,0.6)"/>
-        </marker>
-        <filter id="softglow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <radialGradient id="hubgrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(197,160,89,0.18)"/>
-          <stop offset="100%" stop-color="rgba(197,160,89,0.04)"/>
-        </radialGradient>
-      </defs>
-      <!-- LA nodes right side -->
-      <g>
-        <ellipse cx="800" cy="100" rx="72" ry="30" fill="rgba(27,38,59,0.8)" stroke="rgba(197,160,89,0.35)" stroke-width="1.5"/>
-        <text x="800" y="96" text-anchor="middle" fill="
-#C5A059" font-size="11" font-family="DM Mono,monospace" letter-spacing="1">LA PORTFOLIO</text>
-        <text x="800" y="110" text-anchor="middle" fill="rgba(180,194,212,0.7)" font-size="9" font-family="Outfit,sans-serif">Commissioner View</text>
-        <ellipse cx="800" cy="240" rx="72" ry="30" fill="rgba(27,38,59,0.8)" stroke="rgba(197,160,89,0.35)" stroke-width="1.5"/>
-        <text x="800" y="236" text-anchor="middle" fill="
-#C5A059" font-size="11" font-family="DM Mono,monospace" letter-spacing="1">OFSTED</text>
-        <text x="800" y="250" text-anchor="middle" fill="rgba(180,194,212,0.7)" font-size="9" font-family="Outfit,sans-serif">Inspection Layer</text>
-        <ellipse cx="800" cy="380" rx="72" ry="30" fill="rgba(27,38,59,0.8)" stroke="rgba(197,160,89,0.35)" stroke-width="1.5"/>
-        <text x="800" y="376" text-anchor="middle" fill="
-#C5A059" font-size="11" font-family="DM Mono,monospace" letter-spacing="1">TRIBUNAL</text>
-        <text x="800" y="390" text-anchor="middle" fill="rgba(180,194,212,0.7)" font-size="9" font-family="Outfit,sans-serif">Legal Defence</text>
-      </g>
-      <!-- Encrypted flow lines to LA nodes with animated dots -->
-      <g>
-        <path d="M570,200 Q680,130 728,108" stroke="rgba(197,160,89,0.35)" stroke-width="1.5" stroke-dasharray="5,4" fill="none" marker-end="url(#arrowOut)"/>
-        <path d="M570,240 L728,240" stroke="rgba(197,160,89,0.35)" stroke-width="1.5" stroke-dasharray="5,4" fill="none" marker-end="url(#arrowOut)"/>
-        <path d="M570,280 Q680,340 728,372" stroke="rgba(197,160,89,0.35)" stroke-width="1.5" stroke-dasharray="5,4" fill="none" marker-end="url(#arrowOut)"/>
-        <!-- lock icons on flow lines -->
-        <g transform="translate(635,155)"><rect x="-8" y="-8" width="16" height="16" rx="3" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1"/><path d="M-3,-1 L-3,-4 a3,3,0,0,1,6,0 L3,-1" stroke="rgba(197,160,89,0.7)" stroke-width="1" fill="none"/><rect x="-4" y="-1" width="8" height="7" rx="1" fill="rgba(197,160,89,0.3)"/></g>
-        <g transform="translate(649,240)"><rect x="-8" y="-8" width="16" height="16" rx="3" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1"/><path d="M-3,-1 L-3,-4 a3,3,0,0,1,6,0 L3,-1" stroke="rgba(197,160,89,0.7)" stroke-width="1" fill="none"/><rect x="-4" y="-1" width="8" height="7" rx="1" fill="rgba(197,160,89,0.3)"/></g>
-        <g transform="translate(635,325)"><rect x="-8" y="-8" width="16" height="16" rx="3" fill="rgba(27,38,59,0.9)" stroke="rgba(197,160,89,0.4)" stroke-width="1"/><path d="M-3,-1 L-3,-4 a3,3,0,0,1,6,0 L3,-1" stroke="rgba(197,160,89,0.7)" stroke-width="1" fill="none"/><rect x="-4" y="-1" width="8" height="7" rx="1" fill="rgba(197,160,89,0.3)"/></g>
-        <!-- animated dots -->
-        <circle r="3.5" fill="
-#C5A059" opacity="0.9"><animateMotion dur="2.5s" repeatCount="indefinite" path="M570,200 Q680,130 728,108"/></circle>
-        <circle r="3.5" fill="
-#C5A059" opacity="0.9"><animateMotion dur="2s" repeatCount="indefinite" begin="0.8s" path="M570,240 L728,240"/></circle>
-        <circle r="3.5" fill="
-#C5A059" opacity="0.9"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0.4s" path="M570,280 Q680,340 728,372"/></circle>
-      </g>
-      <!-- Central Arena hub -->
-      <ellipse cx="390" cy="240" rx="100" ry="100" fill="url(#hubgrad)" stroke="rgba(197,160,89,0.3)" stroke-width="1" filter="url(#softglow)"/>
-      <ellipse cx="390" cy="240" rx="78" ry="78" fill="rgba(27,38,59,0.6)" stroke="rgba(197,160,89,0.5)" stroke-width="1.5"/>
-      <text x="390" y="233" text-anchor="middle" fill="
-#C5A059" font-size="13" font-family="DM Mono,monospace" letter-spacing="2">THE</text>
-      <text x="390" y="250" text-anchor="middle" fill="
-#C5A059" font-size="13" font-family="DM Mono,monospace" letter-spacing="2">ARENA</text>
-      <text x="390" y="266" text-anchor="middle" fill="rgba(180,194,212,0.5)" font-size="8" font-family="Outfit,sans-serif">Master Manifest</text>
-      <!-- Three pillar nodes -->
-      <!-- Performance -->
-      <g>
-        <circle cx="200" cy="100" r="52" fill="rgba(27,38,59,0.85)" stroke="rgba(197,160,89,0.45)" stroke-width="1.5"/>
-        <path d="M176,100 L181,86 L186,104 L191,92 L196,104 L201,86 L206,100 L211,86 L216,104 L221,92 L224,100" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-        <text x="200" y="120" text-anchor="middle" fill="rgba(180,194,212,0.9)" font-size="10" font-family="Outfit,sans-serif" font-weight="500">Performance</text>
-        <text x="200" y="133" text-anchor="middle" fill="rgba(139,156,181,0.7)" font-size="8" font-family="Outfit,sans-serif">Centre</text>
-      </g>
-      <!-- Welfare -->
-      <g>
-        <circle cx="200" cy="380" r="52" fill="rgba(27,38,59,0.85)" stroke="rgba(197,160,89,0.45)" stroke-width="1.5"/>
-        <path d="M200,358 c-14,0,-24,10,-24,22 c0,20,24,32,24,32 c0,0,24,-12,24,-32 c0,-12,-10,-22,-24,-22 z" stroke="
-#C5A059" stroke-width="1.5" fill="rgba(197,160,89,0.1)"/>
-        <text x="200" y="405" text-anchor="middle" fill="rgba(180,194,212,0.9)" font-size="10" font-family="Outfit,sans-serif" font-weight="500">Welfare</text>
-        <text x="200" y="418" text-anchor="middle" fill="rgba(139,156,181,0.7)" font-size="8" font-family="Outfit,sans-serif">Suite</text>
-      </g>
-      <!-- Kit Room -->
-      <g>
-        <circle cx="70" cy="240" r="52" fill="rgba(27,38,59,0.85)" stroke="rgba(197,160,89,0.45)" stroke-width="1.5"/>
-        <circle cx="70" cy="234" r="12" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-        <path d="M55,222 a18,18,0,0,1,30,0" stroke="
-#C5A059" stroke-width="1.5" fill="none"/>
-        <path d="M46,214 a28,28,0,0,1,48,0" stroke="rgba(197,160,89,0.4)" stroke-width="1.5" fill="none"/>
-        <text x="70" y="262" text-anchor="middle" fill="rgba(180,194,212,0.9)" font-size="10" font-family="Outfit,sans-serif" font-weight="500">Kit Room</text>
-        <text x="70" y="275" text-anchor="middle" fill="rgba(139,156,181,0.7)" font-size="8" font-family="Outfit,sans-serif">Vocational AI</text>
-      </g>
-      <!-- Pillar to Arena flow lines -->
-      <path d="M252,130 L318,188" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowOut)"/>
-      <path d="M252,350 L318,290" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowOut)"/>
-      <path d="M122,240 L312,240" stroke="rgba(197,160,89,0.5)" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowOut)"/>
-      <!-- animated inward dots -->
-      <circle r="3" fill="
-#C5A059" opacity="0.7"><animateMotion dur="1.8s" repeatCount="indefinite" path="M252,130 L318,188"/></circle>
-      <circle r="3" fill="
-#C5A059" opacity="0.7"><animateMotion dur="2.1s" repeatCount="indefinite" begin="0.6s" path="M252,350 L318,290"/></circle>
-      <circle r="3" fill="
-#C5A059" opacity="0.7"><animateMotion dur="1.6s" repeatCount="indefinite" begin="1.1s" path="M122,240 L312,240"/></circle>
-      <!-- Arena to output edge -->
-      <path d="M468,240 L560,240" stroke="rgba(197,160,89,0.4)" stroke-width="2" stroke-dasharray="6,3" fill="none" marker-end="url(#arrowOut)"/>
-      <circle r="4" fill="
-#C5A059" opacity="0.9"><animateMotion dur="1.5s" repeatCount="indefinite" path="M468,240 L560,240"/></circle>
-      <!-- Encrypted label -->
-      <text x="514" y="230" text-anchor="middle" fill="rgba(197,160,89,0.6)" font-size="8" font-family="DM Mono,monospace" letter-spacing="1">ENCRYPTED</text>
-    </svg>
-    <p style="text-align:center;font-size:13px;color:var(--slate);margin-top:16px;font-style:italic;">Each pillar feeds evidence into the Arena's central controller. The Arena encrypts and packages that data, then delivers it outward — to Local Authorities, Ofsted, and legal proceedings — only what each recipient is authorised to see.</p>
-  </div>
-</section>
-<div class="section-divider"></div>
-<!-- ROLE MAP -->
-<section class="role-section">
-  <p class="section-eyebrow reveal">Who Sees What — Access Architecture</p>
-  <h2 class="section-title reveal">The right people see<br>exactly the right things.</h2>
-  <p class="section-lead reveal">Access in the Arena is not set manually — it is built into the system from the moment a school deploys. Every person is given a role, and that role determines precisely what they can see, edit, or manage. There is no guesswork, no accidental access, no admin overhead.</p>
-  <div class="reveal" style="margin-top:56px;">
-    <div style="display:flex;flex-direction:column;align-items:center;gap:0;position:relative;">
-      <!-- Connecting line -->
-      <div style="position:absolute;left:50%;top:40px;bottom:40px;width:2px;background:linear-gradient(to bottom,rgba(197,160,89,0.6),rgba(197,160,89,0.1));transform:translateX(-50%);z-index:0;"></div>
-      <!-- Role nodes -->
-      <!-- The Arena Hub Ltd -->
-      <div style="display:flex;align-items:center;gap:24px;width:100%;max-width:700px;margin-bottom:16px;position:relative;z-index:1;">
-        <div style="flex:1;text-align:right;">
-          <div style="font-size:14px;font-weight:600;color:var(--white);">The Arena Hub Ltd</div>
-          <div style="font-size:12px;color:var(--slate);">System creator & licensor</div>
-        </div>
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(197,160,89,0.15);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/><circle cx="19" cy="7" r="3" fill="rgba(197,160,89,0.2)"/><path d="M17 7h4M19 5v4"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="padding:3px 8px;background:rgba(197,160,89,0.15);border:1px solid rgba(197,160,89,0.4);border-radius:4px;font-size:10px;color:var(--gold);">All pillars</span>
-            <span style="padding:3px 8px;background:rgba(197,160,89,0.15);border:1px solid rgba(197,160,89,0.4);border-radius:4px;font-size:10px;color:var(--gold);">All deployments</span>
-            <span style="padding:3px 8px;background:rgba(197,160,89,0.15);border:1px solid rgba(197,160,89,0.4);border-radius:4px;font-size:10px;color:var(--gold);">Full control</span>
-          </div>
-        </div>
-      </div>
-      <!-- DSL -->
-      <div style="display:flex;align-items:center;gap:24px;width:100%;max-width:700px;margin-bottom:16px;position:relative;z-index:1;">
-        <div style="flex:1;text-align:right;">
-          <div style="font-size:14px;font-weight:600;color:var(--white);">Designated Safeguarding Lead</div>
-          <div style="font-size:12px;color:var(--slate);">The most trusted role in the school</div>
-        </div>
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(74,222,128,0.08);border:2px solid rgba(74,222,128,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="
-#4ADE80" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="padding:3px 8px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:4px;font-size:10px;color:
-#86EFAC;">Performance</span>
-            <span style="padding:3px 8px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:4px;font-size:10px;color:
-#86EFAC;">Welfare ✓</span>
-            <span style="padding:3px 8px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.3);border-radius:4px;font-size:10px;color:
-#86EFAC;">Kit Room</span>
-          </div>
-        </div>
-      </div>
-      <!-- Headteacher -->
-      <div style="display:flex;align-items:center;gap:24px;width:100%;max-width:700px;margin-bottom:16px;position:relative;z-index:1;">
-        <div style="flex:1;text-align:right;">
-          <div style="font-size:14px;font-weight:600;color:var(--white);">Headteacher</div>
-          <div style="font-size:12px;color:var(--slate);">Strategic oversight — no welfare access</div>
-        </div>
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(59,130,246,0.08);border:2px solid rgba(59,130,246,0.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="
-#93C5FD" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/><line x1="18" y1="4" x2="18" y2="10"/><line x1="21" y1="7" x2="15" y2="7"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="padding:3px 8px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:10px;color:
-#93C5FD;">Performance</span>
-            <span style="padding:3px 8px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:4px;font-size:10px;color:
-#FCA5A5;">Welfare ✗</span>
-            <span style="padding:3px 8px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);border-radius:4px;font-size:10px;color:
-#93C5FD;">Kit Room</span>
-          </div>
-        </div>
-      </div>
-      <!-- Staff -->
-      <div style="display:flex;align-items:center;gap:24px;width:100%;max-width:700px;margin-bottom:16px;position:relative;z-index:1;">
-        <div style="flex:1;text-align:right;">
-          <div style="font-size:14px;font-weight:600;color:var(--white);">Teaching Staff & Vocational Leads</div>
-          <div style="font-size:12px;color:var(--slate);">Day-to-day evidence entry</div>
-        </div>
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(148,163,184,0.08);border:2px solid rgba(148,163,184,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="
-#94A3B8" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="padding:3px 8px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:4px;font-size:10px;color:
-#94A3B8;">Performance</span>
-            <span style="padding:3px 8px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.3);border-radius:4px;font-size:10px;color:
-#FCA5A5;">Welfare ✗</span>
-            <span style="padding:3px 8px;background:rgba(148,163,184,0.08);border:1px solid rgba(148,163,184,0.2);border-radius:4px;font-size:10px;color:
-#94A3B8;">Kit Room</span>
-          </div>
-        </div>
-      </div>
-      <!-- Ofsted -->
-      <div style="display:flex;align-items:center;gap:24px;width:100%;max-width:700px;position:relative;z-index:1;">
-        <div style="flex:1;text-align:right;">
-          <div style="font-size:14px;font-weight:600;color:var(--white);">Ofsted / External Auditor</div>
-          <div style="font-size:12px;color:var(--slate);">Read-only — curated view only</div>
-        </div>
-        <div style="width:52px;height:52px;border-radius:50%;background:rgba(148,163,184,0.05);border:2px solid rgba(148,163,184,0.2);border-style:dashed;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(148,163,184,0.6)" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div style="flex:1;">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span style="padding:3px 8px;background:rgba(148,163,184,0.05);border:1px solid rgba(148,163,184,0.15);border-radius:4px;font-size:10px;color:rgba(148,163,184,0.7);">Performance (view)</span>
-            <span style="padding:3px 8px;background:rgba(148,163,184,0.05);border:1px solid rgba(148,163,184,0.15);border-radius:4px;font-size:10px;color:rgba(148,163,184,0.7);">Curated only</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">
-  <img src="arena-logo.png" class="footer-logo-badge" alt="The Arena Hub Ltd"/>
-    <div>
-      <div class="footer-brand-text">The Arena</div>
-    </div>
-  </div>
-  <p class="footer-copy">The Arena Hub Ltd &nbsp;·&nbsp; Clinical Infrastructure for UK Alternative Provision &amp; SEND<br>
-  Evidence Integrity Infrastructure — v7.0.0<br>
-  &copy; 2026 The Arena Hub Ltd. All rights reserved.</p>
-  <p style="margin-top:20px;">
-    <a href="genesis.html" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.12em;color:var(--gold);text-decoration:none;text-transform:uppercase;padding:8px 20px;border:1px solid var(--gold-border);border-radius:5px;transition:all 0.2s;" onmouseover="this.style.background='rgba(197,160,89,0.1)'" onmouseout="this.style.background='transparent'">Support the Campaign →</a>
-  </p>
-</footer>
-<script>
-  /* ── NAVIGATION ── */
-  function navTo(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
- 
-  /* ── STACK ACCORDION ── */
-  function toggleLayer(id) {
-    const layer = document.getElementById(id);
-    if (!layer) return;
-    const isActive = layer.classList.contains('active');
-    document.querySelectorAll('.stack-layer').forEach(l => l.classList.remove('active'));
-    if (!isActive) layer.classList.add('active');
-  }
- 
-  /* ── PILLAR EXPAND ── */
-  document.querySelectorAll('.pillar-card').forEach((card, i) => {
-    const btn = card.querySelector('.pillar-expand-btn');
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isExpanded = card.classList.contains('expanded');
-        document.querySelectorAll('.pillar-card').forEach(c => {
-          c.classList.remove('expanded');
-          const b = c.querySelector('.pillar-expand-btn');
-          if (b) b.innerHTML = b.innerHTML.replace('Collapse', 'Explore');
-        });
-        if (!isExpanded) {
-          card.classList.add('expanded');
-          btn.innerHTML = btn.innerHTML.replace('Explore', 'Collapse');
+    </footer>
+
+    <!-- SERVICE WORKER REGISTRATION -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').catch(function() {
+                    // Service worker registration failed - app still works without PWA features
+                });
+            });
         }
-      });
-    }
-  });
- 
-  /* ── INTERSECTION OBSERVER — scroll reveals ── */
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
- 
-  /* ── TRAJECTORY ITEMS ── */
-  const trajObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.trajectory-item').forEach(el => trajObs.observe(el));
- 
-  /* ── LUCIDE ICONS ── */
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-</script>
+
+        // Simple analytics tracking (optional - remove if not needed)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track tile clicks
+            document.querySelectorAll('.tile-button').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const role = this.closest('.tile-card').querySelector('.tile-title').textContent;
+                    console.log('User navigating to:', role);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
