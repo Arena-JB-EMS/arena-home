@@ -931,7 +931,8 @@
 
   <script>
     // ===== CONFIG & STATE =====
-    const ARENA_API_URL = '';
+    const ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
+    let ARENA_API_URL = ''; // Loaded dynamically from ARENA_HUB_CONFIG
     let state = {
       selectedGroup: null,
       selectedSlot: null,
@@ -943,8 +944,21 @@
       sortDirection: 'asc'
     };
 
+    async function loadConfig() {
+      try {
+        const resp = await fetch(ARENA_HUB_CONFIG_URL);
+        const data = await resp.json();
+        if (data.success && data.config && data.config.ARENA_PC_SCRIPTS_URL) {
+          ARENA_API_URL = data.config.ARENA_PC_SCRIPTS_URL;
+        }
+      } catch(e) {
+        console.warn('Arena Hub config load failed:', e);
+      }
+    }
+
     // ===== INITIALIZATION =====
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadConfig();
       updateCurrentDate();
       loadAdminData();
     });

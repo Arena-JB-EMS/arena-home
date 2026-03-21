@@ -862,7 +862,8 @@
 
     <script>
         // ===== CONFIGURATION =====
-        const ARENA_API_URL = ''; // Populated by admin during setup
+        const ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
+        let ARENA_API_URL = ''; // Loaded dynamically from ARENA_HUB_CONFIG
         const STUDENT_ID = new URLSearchParams(window.location.search).get('studentId') || 'DEMO_001';
 
         // ===== DEMO DATA =====
@@ -902,7 +903,20 @@
         };
 
         // ===== INITIALIZE =====
-        document.addEventListener('DOMContentLoaded', () => {
+        async function loadConfig() {
+            try {
+                const resp = await fetch(ARENA_HUB_CONFIG_URL);
+                const data = await resp.json();
+                if (data.success && data.config && data.config.ARENA_PC_SCRIPTS_URL) {
+                    ARENA_API_URL = data.config.ARENA_PC_SCRIPTS_URL;
+                }
+            } catch(e) {
+                console.warn('Arena Hub config load failed:', e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadConfig();
             if (!ARENA_API_URL) {
                 showDemoMode();
             } else {
