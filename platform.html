@@ -14,285 +14,340 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <title>JB-EMS: The Arena — Select Your Role</title>
+    <title>Enter The Arena — Select Your Role</title>
     <style>
         /* =======================================================
            GLOBAL RESET & BASE
            ======================================================= */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; }
-
-        body {
+        html, body {
+            height: 100%;
             font-family: 'Source Sans 3', sans-serif;
-            background-color: #F4F5F7;
-            color: #2C3E50;
-            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         h1, h2, h3 {
             font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
 
         /* =======================================================
-           HEADER / NAV BAR
+           HEADER BAR
            ======================================================= */
         .top-bar {
             background: #1B263B;
-            padding: 0.85rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             border-bottom: 2px solid rgba(197,160,89,0.3);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .top-bar-logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            text-decoration: none;
-            letter-spacing: 0.5px;
-        }
-
-        .top-bar-logo span { color: #C5A059; }
-
-        .top-bar-back {
-            font-size: 0.9rem;
-            color: #A8B5C2;
-            text-decoration: none;
+        .top-bar-inner {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: color 0.2s;
-        }
-
-        .top-bar-back:hover { color: #C5A059; }
-
-        /* =======================================================
-           HERO
-           ======================================================= */
-        .hero {
-            background: linear-gradient(135deg, #1B263B 0%, #243447 100%);
-            color: #FFFFFF;
-            padding: 3.5rem 2rem 3rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 20% 50%, rgba(197,160,89,0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(197,160,89,0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
+            justify-content: space-between;
+            padding: 0.7rem 2rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .hero-eyebrow {
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 1rem;
+        /* Left: company logo + "Welcome to the Arena" */
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
         }
 
-        .hero h1 {
-            font-size: 2.8rem;
-            line-height: 1.1;
-            margin-bottom: 0.75rem;
+        /* Company logo — clickable, goes to company.html */
+        .top-bar-logo-img {
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+            transition: opacity 0.2s;
         }
 
-        .hero-sub {
-            font-size: 1.1rem;
-            color: #A8B5C2;
-            margin-bottom: 0;
-        }
+        .top-bar-logo-img:hover { opacity: 0.85; }
 
-        /* =======================================================
-           ROLE GRID
-           ======================================================= */
-        .role-section {
-            max-width: 1100px;
-            margin: 3.5rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-label {
+        .top-bar-welcome {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 0.8rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #8A9AAA;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #E0E3E8;
+            color: #FFFFFF;
+            letter-spacing: 0.3px;
         }
 
-        .tile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3.5rem;
-        }
+        .top-bar-welcome span { color: #C5A059; }
 
-        @media (min-width: 900px) {
-            .tile-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        /* =======================================================
-           TILE CARDS
-           ======================================================= */
-        .tile-card {
-            background: #FFFFFF;
-            border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(27,38,59,0.07);
-            border: 2px solid transparent;
+        /* Right: Back button */
+        .top-bar-right {
             display: flex;
             flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            animation: fadeInUp 0.55s ease-out both;
+            align-items: center;
+            gap: 0.3rem;
         }
 
-        .tile-card:hover,
-        .tile-card:focus {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 28px rgba(27,38,59,0.13);
-            border-color: #C5A059;
-            outline: none;
-        }
-
-        .tile-card:nth-child(1) { animation-delay: 0.05s; }
-        .tile-card:nth-child(2) { animation-delay: 0.12s; }
-        .tile-card:nth-child(3) { animation-delay: 0.19s; }
-        .tile-card:nth-child(4) { animation-delay: 0.26s; }
-
-        .tile-icon {
-            font-size: 2.4rem;
-            color: #C5A059;
-            margin-bottom: 1.2rem;
-        }
-
-        .tile-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.45rem;
-            font-weight: 700;
-            color: #1B263B;
-            margin-bottom: 0.5rem;
-        }
-
-        .tile-desc {
-            font-size: 0.95rem;
-            color: #5A6C7D;
-            margin-bottom: 0.75rem;
-            flex-grow: 1;
-        }
-
-        .tile-roles {
-            font-size: 0.82rem;
-            color: #9AAAB8;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-
-        .tile-btn {
-            align-self: flex-start;
-            display: inline-block;
-            padding: 10px 22px;
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
             background: #C5A059;
-            border: 2px solid #C5A059;
-            border-radius: 4px;
-            color: #FFFFFF;
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
+            border-radius: 6px;
+            color: #1B263B;
+            font-size: 1.1rem;
             text-decoration: none;
             transition: background 0.2s, transform 0.15s;
         }
 
-        .tile-btn:hover,
-        .tile-btn:focus {
-            background: #B09047;
-            border-color: #B09047;
-            transform: translateY(-1px);
-            outline: none;
+        .back-btn:hover { background: #B09047; transform: translateY(-1px); }
+
+        .back-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #A8B5C2;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* =======================================================
-           STUDENT TILE — distinct styling
+           ROLE GATE — Three vertical tiles
            ======================================================= */
-        .tile-card.tile-student {
-            background: linear-gradient(135deg, #1B263B 0%, #243447 100%);
-            color: #FFFFFF;
-            border-color: rgba(197,160,89,0.3);
+        .role-gate {
+            display: flex;
+            flex-direction: row;
+            min-height: calc(100vh - 62px); /* subtract header height */
         }
 
-        .tile-student .tile-title { color: #FFFFFF; }
-        .tile-student .tile-desc  { color: #A8B5C2; }
-        .tile-student .tile-roles { color: #6A7E8F; }
+        @media (max-width: 768px) {
+            .role-gate { flex-direction: column; min-height: auto; }
+        }
 
-        .tile-student .tile-btn {
-            background: transparent;
-            border-color: #C5A059;
+        /* ── Shared tile ────────────────────────────────────── */
+        .role-tile {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3.5rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            transition: flex 0.35s ease;
+            min-height: 280px;
+        }
+
+        .role-tile:hover { flex: 1.2; }
+
+        @media (max-width: 768px) {
+            .role-tile { flex: none; min-height: 240px; }
+            .role-tile:hover { flex: none; }
+        }
+
+        .role-tile::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .role-tile:hover::before { opacity: 1; }
+
+        .tile-inner {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 280px;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .tile-icon-wrap {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.9rem;
+            transition: transform 0.3s;
+        }
+
+        .role-tile:hover .tile-icon-wrap { transform: scale(1.08); }
+
+        .tile-role-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .tile-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .tile-desc {
+            font-size: 0.98rem;
+            line-height: 1.55;
+            margin-bottom: 2rem;
+        }
+
+        .tile-cta {
+            display: inline-block;
+            padding: 12px 32px;
+            border: 2px solid;
+            border-radius: 4px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            letter-spacing: 0.3px;
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+        }
+
+        .role-tile:hover .tile-cta { transform: translateY(-2px); }
+
+        /* Vertical dividers between tiles */
+        .tile-divider {
+            width: 1px;
+            background: rgba(255,255,255,0.08);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .tile-divider { width: 100%; height: 1px; }
+        }
+
+        /* =======================================================
+           TILE 1 — STAFF
+           Navy background · white text · gold button
+           (matches the existing Student Hub dark tile pattern)
+           ======================================================= */
+        .tile-staff {
+            background: linear-gradient(160deg, #1B263B 0%, #243447 100%);
+            color: #FFFFFF;
+        }
+
+        .tile-staff::before {
+            background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.1) 0%, transparent 65%);
+        }
+
+        .tile-staff .tile-icon-wrap {
+            background: rgba(197,160,89,0.12);
+            border: 1px solid rgba(197,160,89,0.3);
             color: #C5A059;
         }
 
-        .tile-student:hover .tile-btn,
-        .tile-student:focus .tile-btn {
+        .tile-staff .tile-role-label { color: rgba(197,160,89,0.7); }
+        .tile-staff .tile-title      { color: #FFFFFF; }
+        .tile-staff .tile-desc       { color: #A8B5C2; }
+
+        .tile-staff .tile-cta {
             background: #C5A059;
+            border-color: #C5A059;
             color: #1B263B;
         }
 
+        .tile-staff:hover .tile-cta {
+            background: #B09047;
+            border-color: #B09047;
+            color: #FFFFFF;
+        }
+
         /* =======================================================
-           FOOTER
+           TILE 2 — STUDENT
+           White background · navy text · gold button
            ======================================================= */
-        footer {
-            background: #1B263B;
-            color: #A8B5C2;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.9rem;
-            border-top: 2px solid rgba(197,160,89,0.15);
+        .tile-student {
+            background: #FFFFFF;
+            color: #1B263B;
         }
 
-        footer a {
+        .tile-student::before {
+            background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.06) 0%, transparent 60%);
+        }
+
+        .tile-student .tile-icon-wrap {
+            background: rgba(197,160,89,0.1);
+            border: 1px solid rgba(197,160,89,0.25);
             color: #C5A059;
-            text-decoration: none;
         }
 
-        footer a:hover { text-decoration: underline; }
+        .tile-student .tile-role-label { color: #8A9AAA; }
+        .tile-student .tile-title      { color: #1B263B; }
+        .tile-student .tile-desc       { color: #5A6C7D; }
+
+        .tile-student .tile-cta {
+            background: #C5A059;
+            border-color: #C5A059;
+            color: #FFFFFF;
+        }
+
+        .tile-student:hover .tile-cta {
+            background: #B09047;
+            border-color: #B09047;
+        }
+
+        /* =======================================================
+           TILE 3 — PARENT
+           Gold background · navy text · white button
+           ======================================================= */
+        .tile-parent {
+            background: linear-gradient(160deg, #C5A059 0%, #B09047 100%);
+            color: #1B263B;
+        }
+
+        .tile-parent::before {
+            background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12) 0%, transparent 60%);
+        }
+
+        .tile-parent .tile-icon-wrap {
+            background: rgba(27,38,59,0.1);
+            border: 1px solid rgba(27,38,59,0.2);
+            color: #1B263B;
+        }
+
+        .tile-parent .tile-role-label { color: rgba(27,38,59,0.6); }
+        .tile-parent .tile-title      { color: #1B263B; }
+        .tile-parent .tile-desc       { color: rgba(27,38,59,0.75); }
+
+        .tile-parent .tile-cta {
+            background: #FFFFFF;
+            border-color: #FFFFFF;
+            color: #1B263B;
+        }
+
+        .tile-parent:hover .tile-cta {
+            background: rgba(255,255,255,0.88);
+            border-color: rgba(255,255,255,0.88);
+        }
 
         /* =======================================================
            ANIMATION
            ======================================================= */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(18px); }
+            from { opacity: 0; transform: translateY(20px); }
             to   { opacity: 1; transform: translateY(0); }
         }
+
+        .tile-staff  .tile-inner { animation-delay: 0.05s; }
+        .tile-student .tile-inner { animation-delay: 0.15s; }
+        .tile-parent .tile-inner { animation-delay: 0.25s; }
 
         /* =======================================================
            ACCESSIBILITY
@@ -311,117 +366,180 @@
 
         .skip-link:focus { top: 0; }
 
-        a:focus-visible {
-            outline: 2px solid #C5A059;
-            outline-offset: 2px;
-        }
+        a:focus-visible { outline: 2px solid #C5A059; outline-offset: 2px; }
 
         /* =======================================================
-           RESPONSIVE
+           FOOTER
            ======================================================= */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.1rem; }
-            .tile-grid { grid-template-columns: 1fr; }
+        .page-footer {
+            background: #1B263B;
+            color: #6A7E8F;
+            text-align: center;
+            padding: 1.25rem 2rem;
+            font-size: 0.82rem;
+            border-top: 1px solid rgba(197,160,89,0.12);
         }
+
+        .page-footer a { color: #C5A059; text-decoration: none; }
+        .page-footer a:hover { color: #FFFFFF; }
     </style>
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
 
-    <!-- TOP BAR -->
-    <nav class="top-bar" aria-label="Site navigation">
-        <a href="index.html" class="top-bar-logo">JB-EMS: <span>THE ARENA</span></a>
-        <a href="index.html" class="top-bar-back" aria-label="Back to home">
-            <i class="fas fa-chevron-left" aria-hidden="true"></i> Back
-        </a>
+    <!-- ═══════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════ -->
+    <nav class="top-bar" role="navigation" aria-label="Site navigation">
+        <div class="top-bar-inner">
+
+            <!-- Left: logo image (→ company.html) + "Welcome to the Arena" text -->
+            <div style="display:flex; align-items:center; gap:0.85rem;">
+                <a href="company.html" aria-label="Go to The Arena Hub company website">
+                    <!-- Company_Icon.jpg — push to GitHub repo root -->
+                    <img src="Company_Icon.jpg"
+                         alt="The Arena Hub"
+                         class="top-bar-logo-img">
+                </a>
+                <div class="top-bar-welcome">
+                    Welcome to <span>The Arena</span>
+                </div>
+            </div>
+
+            <!-- Right: Back button -->
+            <div class="top-bar-right">
+                <a href="index.html" class="back-btn" aria-label="Back to home">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <span class="back-label">Back</span>
+            </div>
+
+        </div>
     </nav>
 
-    <!-- HERO -->
-    <header class="hero" role="banner">
-        <div class="hero-inner">
-            <div class="hero-eyebrow">JB-EMS: The Arena</div>
-            <h1>Select Your Role</h1>
-            <p class="hero-sub">Access the tools built for your role within your school&rsquo;s Arena</p>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
+    <!-- ═══════════════════════════════════════════════════
+         ROLE GATE — Three vertical tiles
+         ═══════════════════════════════════════════════════ -->
     <main id="main" role="main">
-        <section class="role-section" aria-label="Role selection">
+        <div class="role-gate">
 
-            <!-- Staff tools -->
-            <div class="section-label">Staff &amp; Leadership</div>
-            <div class="tile-grid">
+            <!-- ── STAFF tile ──────────────────────────────── -->
+            <!-- href populated by JS from ARENA_HUB_CONFIG -->
+            <a href="#" id="staff-tile" class="role-tile tile-staff" aria-label="Staff login — enter the Arena platform">
+                <div class="tile-inner">
+                    <div class="tile-icon-wrap">
+                        <i class="fas fa-briefcase" aria-hidden="true"></i>
+                    </div>
+                    <div class="tile-role-label">Arena Staff</div>
+                    <h1 class="tile-title">Staff</h1>
+                    <p class="tile-desc">
+                        Access the Performance Centre, Welfare Suite, and Kit Room.
+                        Your tools load based on your role once you log in.
+                    </p>
+                    <span class="tile-cta">Enter as Staff &rarr;</span>
+                </div>
+            </a>
 
-                <!-- Performance Centre -->
-                <a href="https://script.google.com/macros/s/AKfycbzvogWFEUvhqdQgbdsbvlekxeVkhSw9Ygje6fgS-b7rjGt5f7cqEzznVxRIg3qc9C8kGw/exec"
-                   class="tile-card"
-                   aria-label="Enter Performance Centre">
-                    <div class="tile-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
-                    <h2 class="tile-title">Performance Centre</h2>
-                    <p class="tile-desc">Daily register, FIFA scoring, HT Command, attendance tracking, morning reports and player cards.</p>
-                    <p class="tile-roles">HT &bull; SLT &bull; Teachers &bull; Coaches &bull; LSA &bull; TA</p>
-                    <span class="tile-btn">Enter Performance Centre &rarr;</span>
-                </a>
+            <div class="tile-divider" aria-hidden="true"></div>
 
-                <!-- Welfare Suite -->
-                <a href="https://script.google.com/macros/s/AKfycbwBEK2FL6OQVE2GRw4PaaCMEN3HsbG2kaCAfkFoxvnGN9vDW1nDY4Zg-J2GTzDRX55zGA/exec"
-                   class="tile-card"
-                   aria-label="Enter Welfare Suite">
-                    <div class="tile-icon"><i class="fas fa-shield-heart" aria-hidden="true"></i></div>
-                    <h2 class="tile-title">Welfare Suite</h2>
-                    <p class="tile-desc">DSL dashboard, incident management, NODE correlation engine, safeguarding chronology and audit trail.</p>
-                    <p class="tile-roles">DSL &bull; SLT &bull; HT</p>
-                    <span class="tile-btn">Enter Welfare Suite &rarr;</span>
-                </a>
+            <!-- ── STUDENT tile ─────────────────────────────── -->
+            <a href="student-hub.html" class="role-tile tile-student" aria-label="Student login — enter the Student Hub">
+                <div class="tile-inner">
+                    <div class="tile-icon-wrap">
+                        <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+                    </div>
+                    <div class="tile-role-label">Arena Student</div>
+                    <h1 class="tile-title">Student</h1>
+                    <p class="tile-desc">
+                        Your FIFA card, live schedule, Plug the Gaps learning journey,
+                        and personal trophy cabinet.
+                    </p>
+                    <span class="tile-cta">Enter as Student &rarr;</span>
+                </div>
+            </a>
 
-                <!-- Kit Room -->
-                <a href="https://script.google.com/macros/s/AKfycbwN38RQZntwWCKZCXWz9akGdFNSGVTNbwGOz3jtnMJluCdkqtA0Bht1nlprJIGTwCm9/exec"
-                   class="tile-card"
-                   aria-label="Enter Kit Room">
-                    <div class="tile-icon"><i class="fas fa-toolbox" aria-hidden="true"></i></div>
-                    <h2 class="tile-title">Kit Room</h2>
-                    <p class="tile-desc">Resource Bible, curriculum units, partner management, ticker board and opportunity reports.</p>
-                    <p class="tile-roles">Kit Manager &bull; HT &bull; Teachers &bull; Coaches</p>
-                    <span class="tile-btn">Enter Kit Room &rarr;</span>
-                </a>
+            <div class="tile-divider" aria-hidden="true"></div>
 
-            </div>
+            <!-- ── PARENT tile ──────────────────────────────── -->
+            <a href="parent-home.html" class="role-tile tile-parent" aria-label="Parent login — access your child's progress">
+                <div class="tile-inner">
+                    <div class="tile-icon-wrap">
+                        <i class="fas fa-house-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="tile-role-label">Parent / Guardian</div>
+                    <h1 class="tile-title">Parent</h1>
+                    <p class="tile-desc">
+                        View your child&rsquo;s progress, performance data, and school
+                        communications in real time.
+                    </p>
+                    <span class="tile-cta">Enter as Parent &rarr;</span>
+                </div>
+            </a>
 
-            <!-- Student -->
-            <div class="section-label">Students</div>
-            <div class="tile-grid">
-
-                <!-- Student Hub -->
-                <a href="student-hub.html"
-                   class="tile-card tile-student"
-                   aria-label="Enter Student Hub">
-                    <div class="tile-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
-                    <h2 class="tile-title">Student Hub</h2>
-                    <p class="tile-desc">Your FIFA card, live schedule, Plug the Gaps learning journey, and your personal trophy cabinet.</p>
-                    <p class="tile-roles">Students</p>
-                    <span class="tile-btn">My Hub &rarr;</span>
-                </a>
-
-            </div>
-
-        </section>
+        </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer role="contentinfo">
-        <p>JB-EMS: The Arena &mdash; <a href="https://thearenahub.co.uk">thearenahub.co.uk</a></p>
-        <p style="margin-top:0.4rem; font-size:0.8rem;">
-            Not your school&rsquo;s platform? <a href="index.html">Return to the home page.</a>
+    <!-- ═══════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════ -->
+    <footer class="page-footer" role="contentinfo">
+        <p>
+            JB-EMS: The Arena &mdash;
+            <a href="https://thearenahub.co.uk">thearenahub.co.uk</a>
+            &nbsp;&bull;&nbsp;
+            Not your school&rsquo;s platform?
+            <a href="index.html">Return to the home page.</a>
         </p>
     </footer>
 
-    <!-- Service Worker -->
+    <!-- ═══════════════════════════════════════════════════
+         SCRIPT — Load Staff URL from ARENA_HUB_CONFIG
+         ═══════════════════════════════════════════════════ -->
     <script>
+        'use strict';
+
+        // Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('sw.js').catch(function () {});
             });
+        }
+
+        // ── Staff URL from ARENA_HUB_CONFIG ─────────────────
+        // The Staff tile links to ARENA_PC_SCRIPTS.
+        // The URL is loaded dynamically from the Arena Hub Master Sheet
+        // via the ARENA_HUB_CONFIG endpoint so it only needs updating in one place.
+        //
+        var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
+
+        // Fallback URL in case config fetch fails
+        var STAFF_URL_FALLBACK = 'https://script.google.com/macros/s/AKfycbzjWOX4tv5Rq7uCtzm6ABC3hDYeAuITXG0dEEqKVYJ7rsldSKnUfjp0Sg96-SIOR_f6VA/exec';
+
+        function loadStaffUrl() {
+            var staffTile = document.getElementById('staff-tile');
+            if (!staffTile) return;
+
+            // Set fallback immediately so the tile is always clickable
+            staffTile.href = STAFF_URL_FALLBACK;
+
+            if (!ARENA_HUB_CONFIG_URL) return;
+
+            fetch(ARENA_HUB_CONFIG_URL)
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.success && data.config && data.config.ARENA_PC_SCRIPTS_URL) {
+                        staffTile.href = data.config.ARENA_PC_SCRIPTS_URL;
+                    }
+                })
+                .catch(function () {
+                    // Fallback already set — silently continue
+                });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadStaffUrl);
+        } else {
+            loadStaffUrl();
         }
     </script>
 </body>

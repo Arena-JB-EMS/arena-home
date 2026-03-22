@@ -35,9 +35,7 @@
         }
 
         @media (min-width: 768px) {
-            .gate {
-                flex-direction: row;
-            }
+            .gate { flex-direction: row; }
         }
 
         /* ── Shared panel styles ───────────────────────────── */
@@ -56,15 +54,10 @@
         }
 
         @media (min-width: 768px) {
-            .panel {
-                min-height: 100vh;
-            }
+            .panel { min-height: 100vh; }
         }
 
-        .panel:hover, .panel:focus {
-            flex: 1.18;
-            outline: none;
-        }
+        .panel:hover, .panel:focus { flex: 1.18; outline: none; }
 
         .panel::before {
             content: '';
@@ -76,10 +69,7 @@
             pointer-events: none;
         }
 
-        .panel:hover::before,
-        .panel:focus::before {
-            opacity: 1;
-        }
+        .panel:hover::before, .panel:focus::before { opacity: 1; }
 
         /* ── Left panel — Company site ─────────────────────── */
         .panel-company {
@@ -116,19 +106,40 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: #C5A059;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             opacity: 0.8;
         }
 
-        .panel-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+        /* ── Image icons replacing old emoji ────────────────── */
+        .panel-icon-img {
             display: block;
-            line-height: 1;
+            margin: 0 auto 1.5rem;
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .panel-icon-company { color: #C5A059; }
-        .panel-icon-arena   { color: #C5A059; }
+        .panel:hover .panel-icon-img,
+        .panel:focus .panel-icon-img {
+            transform: scale(1.06);
+            box-shadow: 0 6px 28px rgba(197,160,89,0.25);
+        }
+
+        /* Arena logo has no border-radius (it's a logo with transparent bg) */
+        .panel-icon-img.arena-logo {
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+            object-fit: contain;
+        }
+
+        .panel:hover .panel-icon-img.arena-logo,
+        .panel:focus .panel-icon-img.arena-logo {
+            box-shadow: none;
+        }
 
         .panel-title {
             font-family: 'Rajdhani', sans-serif;
@@ -147,9 +158,7 @@
             margin-bottom: 2.5rem;
         }
 
-        .panel-subtitle strong {
-            color: #D4C5B9;
-        }
+        .panel-subtitle strong { color: #D4C5B9; }
 
         .panel-cta {
             display: inline-block;
@@ -167,29 +176,25 @@
             cursor: pointer;
         }
 
-        .panel:hover .panel-cta,
-        .panel:focus .panel-cta {
+        .panel:hover .panel-cta, .panel:focus .panel-cta {
             background: #C5A059;
             color: #1B263B;
             transform: translateY(-2px);
         }
 
-        /* ── Arena panel: filled gold CTA to draw the eye ──── */
+        /* ── Arena panel: filled gold CTA ───────────────────── */
         .panel-arena .panel-cta {
             background: #C5A059;
             color: #1B263B;
         }
 
-        .panel-arena:hover .panel-cta,
-        .panel-arena:focus .panel-cta {
+        .panel-arena:hover .panel-cta, .panel-arena:focus .panel-cta {
             background: #B09047;
             color: #FFFFFF;
         }
 
         /* ── Divider strip on desktop ───────────────────────── */
-        .divider {
-            display: none;
-        }
+        .divider { display: none; }
 
         @media (min-width: 768px) {
             .divider {
@@ -201,7 +206,6 @@
                 background: rgba(197,160,89,0.25);
                 flex-shrink: 0;
             }
-
             .divider-dot {
                 width: 8px;
                 height: 8px;
@@ -227,24 +231,16 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .panel-company .panel-inner {
-            animation: fadeInLeft 0.7s ease-out both;
-        }
-
-        .panel-arena .panel-inner {
-            animation: fadeInRight 0.7s ease-out 0.15s both;
-        }
+        .panel-company .panel-inner { animation: fadeInLeft 0.7s ease-out both; }
+        .panel-arena .panel-inner   { animation: fadeInRight 0.7s ease-out 0.15s both; }
 
         @media (max-width: 767px) {
             .panel-company .panel-inner { animation: fadeInUp 0.6s ease-out both; }
             .panel-arena .panel-inner   { animation: fadeInUp 0.6s ease-out 0.15s both; }
         }
 
-        /* ── Keyboard / accessibility ───────────────────────── */
-        a:focus-visible {
-            outline: 3px solid #C5A059;
-            outline-offset: 4px;
-        }
+        /* ── Accessibility ──────────────────────────────────── */
+        a:focus-visible { outline: 3px solid #C5A059; outline-offset: 4px; }
 
         .skip-link {
             position: absolute;
@@ -259,9 +255,7 @@
             border-radius: 0 0 4px 0;
         }
 
-        .skip-link:focus {
-            top: 0;
-        }
+        .skip-link:focus { top: 0; }
     </style>
 </head>
 <body>
@@ -274,7 +268,11 @@
             <div class="panel-inner">
                 <div class="panel-logo">The Arena Hub</div>
 
-                <span class="panel-icon panel-icon-company" aria-hidden="true">&#127968;</span>
+                <!-- Company_Icon.jpg — push to GitHub repo root -->
+                <img src="Company_Icon.jpg"
+                     alt="The Arena Hub"
+                     class="panel-icon-img"
+                     width="90" height="90">
 
                 <h1 class="panel-title">Arena Hub<br>Company Site</h1>
                 <p class="panel-subtitle">
@@ -298,7 +296,11 @@
             <div class="panel-inner">
                 <div class="panel-logo">JB-EMS</div>
 
-                <span class="panel-icon panel-icon-arena" aria-hidden="true">&#9878;</span>
+                <!-- arena-logo.png — already on GitHub -->
+                <img src="arena-logo.png"
+                     alt="Enter The Arena"
+                     class="panel-icon-img arena-logo"
+                     width="90" height="90">
 
                 <h1 class="panel-title">Enter<br>The Arena</h1>
                 <p class="panel-subtitle">
