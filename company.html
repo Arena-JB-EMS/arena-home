@@ -309,6 +309,20 @@
         }
         .pillar-hero-card:hover img { transform: scale(1.06); }
 
+        /* Tech-mode pillar images — hidden by default, overlaid absolute */
+        .pillar-tech-img {
+            position: absolute;
+            inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: none !important;
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+        body.mode-tech .pillar-plain-img { display: none !important; }
+        body.mode-tech .pillar-tech-img  { display: block !important; }
+        body.mode-tech .pillar-hero-card:hover .pillar-tech-img { transform: scale(1.06); }
+
         /* Image placeholder for Substack images not yet assigned */
         .pillar-img-placeholder {
             width: 100%; height: 100%;
@@ -783,7 +797,8 @@
                  onclick="this.classList.toggle('active')"
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')">
 
-                <img src="performance-centre-card.jpg" alt="Progress tracking for AP students" loading="lazy">
+                <img src="performance-centre-card.jpg" alt="Progress tracking for AP students" loading="lazy" class="pillar-plain-img">
+                <img src="PC_Pillar_Image.jpg" alt="Performance Centre — system architecture" loading="lazy" class="pillar-tech-img">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
                 <!-- Always-visible label at bottom -->
@@ -860,7 +875,8 @@
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')"
                  style="border-left:1px solid rgba(197,160,89,0.12); border-right:1px solid rgba(197,160,89,0.12);">
 
-                <img src="welfare-suite-card.jpg" alt="Safeguarding and welfare management" loading="lazy">
+                <img src="welfare-suite-card.jpg" alt="Safeguarding and welfare management" loading="lazy" class="pillar-plain-img">
+                <img src="WS_Pillar_Image.jpg" alt="Welfare Suite — system architecture" loading="lazy" class="pillar-tech-img">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
                 <div class="pillar-hero-label">
@@ -935,7 +951,8 @@
                  onclick="this.classList.toggle('active')"
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')">
 
-                <img src="kit-room-card.jpg" alt="Vocational resources and courses" loading="lazy">
+                <img src="kit-room-card.jpg" alt="Vocational resources and courses" loading="lazy" class="pillar-plain-img">
+                <img src="KR_Pillar_Image.jpg" alt="Kit Room — system architecture" loading="lazy" class="pillar-tech-img">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
                 <div class="pillar-hero-label">
