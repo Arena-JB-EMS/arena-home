@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1B263B">
-    <meta name="description" content="The Arena Hub — Enterprise Education Management for UK Alternative Provision. Clinical-grade infrastructure for schools that refuse to give up on their students.">
+    <meta name="description" content="The Arena Hub — A management system built for Alternative Provision schools. Attendance, safeguarding, qualifications and resources in one place.">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="The Arena Hub">
@@ -14,22 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <title>The Arena Hub — Enterprise Education Management for Alternative Provision</title>
-
-    <!--
-    ═══════════════════════════════════════════════════════════════
-    ARENA_HUB_CONFIG dynamic injection
-    Reads from: ARENA_HUB_CONFIG_URL (set in JS block below)
-    Populates:
-      - #dynamic-article-btn     latest Substack article button
-      - Pillar section images & hover content (already hardcoded)
-      - Pricing modal: Pilot_Status, AP_Founder_Partner, LA_Founder_Partner
-      - Article panel: LATEST_ARTICLE_URL, LATEST_ARTICLE_LABEL, LATEST_ARTICLE_IMAGE
-      - Footer social links
-    Note: Add LATEST_ARTICLE_IMAGE key to SITE_CONFIG sheet (row 6 recommended)
-          with the SM thumbnail URL for the article preview panel.
-    ═══════════════════════════════════════════════════════════════
-    -->
+    <title>The Arena Hub — Built for Alternative Provision Schools</title>
 
     <style>
         /* =======================================================
@@ -76,29 +61,115 @@
             transition: background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
             white-space: nowrap;
         }
-
         .btn-gold { background: #C5A059; color: #FFFFFF; }
         .btn-gold:hover, .btn-gold:focus {
             background: #B09047; border-color: #B09047; color: #FFFFFF;
             transform: translateY(-2px); box-shadow: 0 4px 12px rgba(197,160,89,0.3); outline: none;
         }
-
         .btn-outline { background: transparent; color: #C5A059; }
         .btn-outline:hover, .btn-outline:focus {
             background: #C5A059; color: #FFFFFF; transform: translateY(-2px); outline: none;
         }
-
         .btn-ghost { background: transparent; border-color: rgba(255,255,255,0.4); color: #FFFFFF; }
         .btn-ghost:hover, .btn-ghost:focus {
             background: rgba(255,255,255,0.1); border-color: #C5A059; color: #C5A059; outline: none;
         }
-
         .btn-sm { padding: 8px 18px; font-size: 0.87rem; }
 
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0;
             margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;
         }
+
+        /* =======================================================
+           ── SPEAK TOGGLE — The Plain / Under the Hood switcher ──
+           ======================================================= */
+
+        /* The pill widget in the header */
+        .speak-toggle {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(197,160,89,0.35);
+            border-radius: 100px;
+            padding: 3px;
+            flex-shrink: 0;
+        }
+
+        .speak-btn {
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            padding: 5px 13px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: background 0.22s, color 0.22s;
+            white-space: nowrap;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .speak-btn.active {
+            background: #C5A059;
+            color: #1B263B;
+        }
+        .speak-btn:hover:not(.active) { color: #FFFFFF; }
+        .speak-btn .speak-icon { font-size: 0.85rem; }
+
+        /* Mode label badge on banner */
+        .mode-badge {
+            display: inline-block;
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.4);
+            color: #C5A059;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+            transition: opacity 0.2s;
+        }
+        /* Hidden by default — appears in tech mode */
+        .mode-badge { opacity: 0; pointer-events: none; }
+        body.mode-tech .mode-badge { opacity: 1; }
+
+        /* ── Content visibility rules ────────────────────────── */
+        /* Default: plain visible, tech hidden */
+        .speak-tech { display: none; }
+        .speak-plain { display: block; }
+
+        /* For inline spans */
+        span.speak-plain { display: inline; }
+        span.speak-tech  { display: none; }
+
+        /* Fade-out during transition */
+        body.mode-switching [class*="speak-"] {
+            opacity: 0;
+            transition: opacity 0.12s ease;
+        }
+
+        /* Tech mode: flip visibility */
+        body.mode-tech .speak-plain   { display: none !important; }
+        body.mode-tech .speak-tech    { display: block !important; }
+        body.mode-tech span.speak-plain { display: none !important; }
+        body.mode-tech span.speak-tech  { display: inline !important; }
+
+        /* Subtle page tint in tech mode */
+        body.mode-tech .hero {
+            background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%);
+        }
+        body.mode-tech .infra-banner {
+            background: #1B263B;
+            border-bottom: 2px solid rgba(197,160,89,0.3);
+        }
+        body.mode-tech .infra-banner p { color: #C5A059; }
 
         /* =======================================================
            HEADER / NAV
@@ -121,34 +192,24 @@
             margin: 0 auto;
         }
 
-        /* Logo area — image + wordmark, no click action on company.html */
         .site-logo {
             display: flex;
             align-items: center;
             gap: 0.7rem;
             text-decoration: none;
-            cursor: default; /* no navigation — you're already here */
+            cursor: default;
         }
-
         .site-logo-img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
+            width: 40px; height: 40px;
+            object-fit: cover; border-radius: 6px; flex-shrink: 0;
         }
-
         .site-logo-text {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            flex-shrink: 0;
+            font-size: 1.5rem; font-weight: 700;
+            color: #FFFFFF; flex-shrink: 0;
         }
-
         .site-logo-text span { color: #C5A059; }
 
-        /* Nav cluster — right side */
         .header-actions {
             display: flex;
             align-items: center;
@@ -157,11 +218,27 @@
             justify-content: flex-end;
         }
 
-        /* Dynamic article button — hidden until JS loads config */
         #dynamic-article-btn { display: none; }
-
-        /* Support Campaign — temporarily hidden (preserve for re-enable) */
         #support-campaign-btn { display: none; }
+
+        /* =======================================================
+           INFRA BANNER
+           ======================================================= */
+        .infra-banner {
+            background: #C5A059;
+            padding: 1.1rem 2rem;
+            text-align: center;
+            transition: background 0.4s ease;
+        }
+        .infra-banner p {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #1B263B;
+            margin: 0;
+            transition: color 0.4s ease;
+        }
 
         /* =======================================================
            HERO
@@ -173,26 +250,21 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background 0.4s ease;
         }
-
         .hero::before {
             content: '';
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background:
                 radial-gradient(ellipse at 15% 50%, rgba(197,160,89,0.09) 0%, transparent 55%),
                 radial-gradient(ellipse at 85% 20%, rgba(197,160,89,0.06) 0%, transparent 50%);
             pointer-events: none;
         }
-
         .hero-inner {
-            position: relative;
-            z-index: 1;
-            max-width: 860px;
-            margin: 0 auto;
+            position: relative; z-index: 1;
+            max-width: 860px; margin: 0 auto;
             animation: fadeInUp 0.75s ease-out both;
         }
-
         .hero-badge {
             display: inline-block;
             background: rgba(197,160,89,0.12);
@@ -200,216 +272,139 @@
             color: #C5A059;
             padding: 0.45rem 1.1rem;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.85rem; font-weight: 600;
             letter-spacing: 1px;
             margin-bottom: 1.8rem;
         }
-
         .hero h1 {
             font-size: clamp(2.4rem, 5vw, 4rem);
-            line-height: 1.08;
-            margin-bottom: 1.2rem;
+            line-height: 1.08; margin-bottom: 1.2rem;
         }
-
         .hero h1 span { color: #C5A059; }
-
         .hero-tagline {
-            font-size: 1.2rem;
-            color: #C4CDDA;
-            max-width: 620px;
-            margin: 0 auto 3rem;
-            line-height: 1.55;
+            font-size: 1.2rem; color: #C4CDDA;
+            max-width: 650px; margin: 0 auto 3rem;
+            line-height: 1.6;
         }
 
         /* =======================================================
-           PILLAR HOVER CARDS (hero area, replacing CTA buttons)
-           Three image cards; on hover content slides up
+           PILLAR HOVER CARDS
            ======================================================= */
         .pillar-strip {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            width: 100%;
-            margin-top: 0;
+            gap: 0; width: 100%; margin-top: 0;
         }
-
-        @media (max-width: 768px) {
-            .pillar-strip { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { .pillar-strip { grid-template-columns: 1fr; } }
 
         .pillar-hero-card {
-            position: relative;
-            height: 340px;
-            overflow: hidden;
-            cursor: pointer;
+            position: relative; height: 360px;
+            overflow: hidden; cursor: pointer;
         }
-
-        @media (max-width: 768px) {
-            .pillar-hero-card { height: 260px; }
-        }
+        @media (max-width: 768px) { .pillar-hero-card { height: 280px; } }
 
         .pillar-hero-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-            display: block;
+            width: 100%; height: 100%;
+            object-fit: cover; transition: transform 0.5s ease; display: block;
         }
-
         .pillar-hero-card:hover img { transform: scale(1.06); }
 
-        /* Gradient overlay — always visible, dims on hover */
+        /* Image placeholder for Substack images not yet assigned */
+        .pillar-img-placeholder {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: rgba(197,160,89,0.5);
+            transition: transform 0.5s ease;
+        }
+        .pillar-hero-card:hover .pillar-img-placeholder { transform: scale(1.06); }
+
         .pillar-hero-base {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: linear-gradient(to top,
-                rgba(27,38,59,0.92) 0%,
-                rgba(27,38,59,0.45) 45%,
-                rgba(27,38,59,0.15) 100%);
+                rgba(27,38,59,0.95) 0%, rgba(27,38,59,0.5) 45%, rgba(27,38,59,0.15) 100%);
             transition: background 0.35s ease;
         }
+        .pillar-hero-card:hover .pillar-hero-base { background: rgba(27,38,59,0.15); }
 
-        .pillar-hero-card:hover .pillar-hero-base {
-            background: rgba(27,38,59,0.15);
-        }
-
-        /* Name label — always visible at bottom */
         .pillar-hero-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 1.5rem 1.25rem;
-            z-index: 2;
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 1.5rem 1.5rem 1.25rem; z-index: 2;
             transition: opacity 0.25s ease, transform 0.35s ease;
         }
-
-        .pillar-hero-card:hover .pillar-hero-label {
-            opacity: 0;
-            transform: translateY(8px);
-        }
+        .pillar-hero-card:hover .pillar-hero-label { opacity: 0; transform: translateY(8px); }
 
         .pillar-hero-label h3 {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 0.2rem;
+            font-size: 1.5rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.2rem;
         }
-
         .pillar-hero-label .pillar-eyebrow {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #C5A059;
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase; color: #C5A059;
         }
 
-        /* Content overlay — slides up on hover */
         .pillar-hero-content {
-            position: absolute;
-            inset: 0;
-            background: #1B263B;
-            color: #FFFFFF;
+            position: absolute; inset: 0;
+            background: #1B263B; color: #FFFFFF;
             padding: 2rem 1.75rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: flex; flex-direction: column; justify-content: center;
             transform: translateY(100%);
             transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 3;
-            overflow-y: auto;
+            z-index: 3; overflow-y: auto;
         }
-
         .pillar-hero-card:hover .pillar-hero-content,
-        .pillar-hero-card.active .pillar-hero-content {
-            transform: translateY(0);
-        }
+        .pillar-hero-card.active .pillar-hero-content { transform: translateY(0); }
 
-        .pillar-hero-content h3 {
-            font-size: 1.3rem;
-            color: #FFFFFF;
-            margin-bottom: 0.3rem;
-        }
-
+        .pillar-hero-content h3 { font-size: 1.3rem; color: #FFFFFF; margin-bottom: 0.3rem; }
         .pillar-hero-content .pillar-eyebrow {
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 1rem;
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
         }
-
-        .pillar-content-section {
-            margin-bottom: 0.85rem;
-        }
-
+        .pillar-content-section { margin-bottom: 0.85rem; }
         .pillar-content-section h4 {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 0.4rem;
+            font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 0.4rem;
         }
-
-        .pillar-content-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
+        .pillar-content-section ul { list-style: none; padding: 0; }
         .pillar-content-section ul li {
-            font-size: 0.85rem;
-            color: #C4CDDA;
-            padding: 0.2rem 0;
-            padding-left: 1rem;
-            position: relative;
-            line-height: 1.4;
+            font-size: 0.85rem; color: #C4CDDA;
+            padding: 0.2rem 0 0.2rem 1rem;
+            position: relative; line-height: 1.4;
         }
-
         .pillar-content-section ul li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #C5A059;
-            font-size: 0.75rem;
+            content: '▸'; position: absolute; left: 0;
+            color: #C5A059; font-size: 0.75rem;
         }
+        .pillar-hero-content em { font-style: normal; color: #C5A059; font-weight: 600; }
 
-        /* Key terms highlighted in gold */
-        .pillar-hero-content em {
-            font-style: normal;
-            color: #C5A059;
-            font-weight: 600;
-        }
-
-        /* Mobile: click to toggle instead of hover */
         @media (hover: none) {
             .pillar-hero-card:hover .pillar-hero-content { transform: translateY(100%); }
             .pillar-hero-card:hover img { transform: scale(1); }
+            .pillar-hero-card:hover .pillar-img-placeholder { transform: scale(1); }
             .pillar-hero-card:hover .pillar-hero-label { opacity: 1; transform: none; }
-            .pillar-hero-card:hover .pillar-hero-base { background: linear-gradient(to top, rgba(27,38,59,0.92) 0%, rgba(27,38,59,0.45) 45%, rgba(27,38,59,0.15) 100%); }
+            .pillar-hero-card:hover .pillar-hero-base { background: linear-gradient(to top, rgba(27,38,59,0.95) 0%, rgba(27,38,59,0.5) 45%, rgba(27,38,59,0.15) 100%); }
         }
 
         /* =======================================================
-           CLINICAL INFRASTRUCTURE BANNER
+           BANNER STRIP (below hero)
            ======================================================= */
-        .infra-banner {
-            background: #C5A059;
-            padding: 1.1rem 2rem;
+        .sub-banner {
+            background: #FFFFFF;
+            border-bottom: 1px solid rgba(197,160,89,0.15);
+            padding: 1.5rem 2rem;
             text-align: center;
         }
-
-        .infra-banner p {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #1B263B;
+        .sub-banner p {
+            font-size: 1rem;
+            color: #5A6C7D;
             margin: 0;
+            line-height: 1.6;
         }
+        .sub-banner strong { color: #1B263B; }
 
         /* =======================================================
            SECTION SHARED STYLES
@@ -419,711 +414,256 @@
         .section-dark { background: #1B263B; color: #FFFFFF; }
 
         .section-heading { text-align: center; margin-bottom: 3.5rem; }
-
         .section-heading .eyebrow {
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #C5A059;
-            display: block;
-            margin-bottom: 0.75rem;
+            font-size: 0.8rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #C5A059; display: block; margin-bottom: 0.75rem;
         }
-
         .section-heading h2 {
             font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            color: #1B263B;
-            margin-bottom: 0.75rem;
+            color: #1B263B; margin-bottom: 0.75rem;
         }
-
         .section-dark .section-heading h2 { color: #FFFFFF; }
-
-        .section-heading p {
-            font-size: 1.05rem;
-            color: #5A6C7D;
-            max-width: 580px;
-            margin: 0 auto;
-        }
-
+        .section-heading p { font-size: 1.05rem; color: #5A6C7D; max-width: 580px; margin: 0 auto; }
         .section-dark .section-heading p { color: #A8B5C2; }
 
         /* =======================================================
-           FEATURE LIST (Why Arena section — KEPT)
+           "HOW IT HELPS" IMAGE EXPLAINER SECTION
+           ======================================================= */
+        .explainer-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        @media (max-width: 768px) { .explainer-strip { grid-template-columns: 1fr; } }
+
+        .explainer-card {
+            background: #FFFFFF;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(197,160,89,0.12);
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .explainer-card:hover {
+            box-shadow: 0 8px 30px rgba(27,38,59,0.1);
+            transform: translateY(-3px);
+        }
+        .explainer-img-wrap {
+            height: 200px; overflow: hidden; position: relative;
+            background: linear-gradient(135deg, #1B263B 0%, #243447 100%);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .explainer-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        /* Placeholder styling when image not yet available */
+        .explainer-img-placeholder {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            width: 100%; height: 100%;
+            gap: 0.75rem;
+        }
+        .explainer-img-placeholder i {
+            font-size: 2.5rem; color: rgba(197,160,89,0.35);
+        }
+        .explainer-img-placeholder span {
+            font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(197,160,89,0.35); text-align: center; padding: 0 1rem;
+        }
+        .explainer-body { padding: 1.5rem; }
+        .explainer-eyebrow {
+            font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 0.5rem;
+        }
+        .explainer-body h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.3rem; font-weight: 700;
+            color: #1B263B; margin-bottom: 0.6rem;
+        }
+        .explainer-body p {
+            font-size: 0.92rem; color: #5A6C7D; line-height: 1.6; margin: 0;
+        }
+
+        /* =======================================================
+           FEATURE LIST (Why Arena section)
            ======================================================= */
         .feature-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.75rem;
         }
-
         @media (min-width: 900px) { .feature-list { grid-template-columns: repeat(2, 1fr); } }
 
         .feature-item { display: flex; gap: 1.1rem; align-items: flex-start; }
-
-        .feature-item-icon {
-            font-size: 1.5rem;
-            color: #C5A059;
-            flex-shrink: 0;
-            margin-top: 0.15rem;
-        }
-
-        .feature-item h4 {
-            font-size: 1.05rem;
-            color: #1B263B;
-            margin-bottom: 0.3rem;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-        }
-
+        .feature-item-icon { font-size: 1.5rem; color: #C5A059; flex-shrink: 0; margin-top: 0.15rem; }
+        .feature-item h4 { font-size: 1.05rem; color: #1B263B; margin-bottom: 0.3rem; font-family: 'Rajdhani', sans-serif; font-weight: 700; }
         .section-dark .feature-item h4 { color: #FFFFFF; }
-
         .feature-item p { font-size: 0.9rem; color: #5A6C7D; margin: 0; }
         .section-dark .feature-item p { color: #A8B5C2; }
 
         /* =======================================================
-           ARTICLE PREVIEW PANEL (replaces pricing cards)
+           ARTICLE PREVIEW PANEL
            ======================================================= */
-        .article-panel {
-            display: none; /* shown by JS when data loads */
-            max-width: 860px;
-            margin: 0 auto;
-        }
-
+        .article-panel { display: none; max-width: 860px; margin: 0 auto; }
         .article-panel.loaded { display: block; }
 
         .article-card {
-            display: flex;
-            align-items: stretch;
+            display: flex; align-items: stretch;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(197,160,89,0.25);
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 10px; overflow: hidden;
             text-decoration: none;
-            color: inherit;
-            transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
         }
-
-        .article-card:hover {
-            border-color: #C5A059;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-        }
+        .article-card:hover { border-color: #C5A059; box-shadow: 0 8px 30px rgba(197,160,89,0.12); transform: translateY(-2px); }
 
         .article-thumbnail {
-            width: 280px;
-            min-height: 200px;
-            flex-shrink: 0;
-            overflow: hidden;
-            position: relative;
+            width: 200px; flex-shrink: 0;
+            background: rgba(255,255,255,0.04);
+            overflow: hidden; position: relative;
         }
-
-        @media (max-width: 700px) { .article-thumbnail { display: none; } }
-
-        .article-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s;
-        }
-
-        .article-card:hover .article-thumbnail img { transform: scale(1.04); }
-
-        /* Fallback when no image */
+        @media (max-width: 600px) { .article-thumbnail { display: none; } }
+        .article-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
         .article-thumbnail-placeholder {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #243447 0%, #1B263B 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: rgba(197,160,89,0.3);
+            width: 100%; height: 100%; min-height: 160px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: rgba(197,160,89,0.3);
         }
-
-        .article-body {
-            padding: 2rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .article-eyebrow {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 0.75rem;
-        }
-
-        .article-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(1.5rem, 2.5vw, 2rem);
-            font-weight: 700;
-            color: #FFFFFF;
-            line-height: 1.2;
-            margin-bottom: 0.75rem;
-        }
-
-        .article-excerpt {
-            font-size: 0.95rem;
-            color: #A8B5C2;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .article-read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #C5A059;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: gap 0.2s;
-        }
-
-        .article-card:hover .article-read-more { gap: 0.75rem; }
+        .article-body { padding: 1.75rem 2rem; display: flex; flex-direction: column; justify-content: center; }
+        .article-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #C5A059; margin-bottom: 0.75rem; }
+        .article-title { font-family: 'Rajdhani', sans-serif; font-size: 1.55rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.85rem; line-height: 1.25; }
+        .article-excerpt { font-size: 0.92rem; color: #A8B5C2; line-height: 1.6; margin-bottom: 1.25rem; }
+        .article-read-more { font-size: 0.88rem; font-weight: 600; color: #C5A059; display: flex; align-items: center; gap: 0.4rem; }
 
         /* =======================================================
-           MODALS — shared
+           PRICING MODAL
            ======================================================= */
         .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(27,38,59,0.75);
-            z-index: 500;
-            align-items: center;
-            justify-content: center;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 500; display: none;
+            align-items: center; justify-content: center;
             padding: 1.5rem;
             backdrop-filter: blur(4px);
-            overflow-y: auto;
         }
-
         .modal-overlay.active { display: flex; }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #8A9AAA;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0.25rem;
-            transition: color 0.2s;
-            z-index: 10;
-        }
-
-        .modal-close:hover { color: #FFFFFF; }
-
-        @keyframes modalIn {
-            from { opacity:0; transform: scale(0.95) translateY(16px); }
-            to   { opacity:1; transform: scale(1) translateY(0); }
-        }
-
-        /* =======================================================
-           EMAIL ARENA MODAL
-           ======================================================= */
-        .email-modal-box {
-            background: #FFFFFF;
-            border-radius: 8px;
-            padding: 2.5rem 2.5rem 2rem;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalIn 0.3s ease-out both;
-            position: relative;
-        }
-
-        .email-modal-box .modal-close { color: #8A9AAA; }
-        .email-modal-box .modal-close:hover { color: #1B263B; }
-
-        .modal-icon { font-size: 2.5rem; color: #1B263B; margin-bottom: 1rem; }
-
-        .email-modal-box h3 { font-size: 1.6rem; color: #1B263B; margin-bottom: 0.5rem; }
-        .email-modal-box p  { font-size: 0.95rem; color: #5A6C7D; margin-top: 0.4rem; }
-
-        .email-select {
-            width: 100%;
-            padding: 10px 14px;
-            margin: 1.2rem 0;
-            border: 2px solid #E0E3E8;
-            border-radius: 4px;
-            font-family: 'Source Sans 3', sans-serif;
-            font-size: 1rem;
-            color: #2C3E50;
-            background: #F9FAFB;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23C5A059' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 14px center;
-            padding-right: 38px;
-        }
-
-        .email-select:focus { border-color: #C5A059; outline: none; }
-
-        /* =======================================================
-           PRICING MODAL — wide, professional, dark
-           ======================================================= */
-        #pricing-modal {
-            align-items: flex-start;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
 
         .pricing-modal-box {
             background: #1B263B;
-            border-radius: 10px;
-            max-width: 1020px;
-            width: 100%;
+            border: 1px solid rgba(197,160,89,0.2);
+            border-radius: 12px;
+            max-width: 860px; width: 100%;
+            max-height: 90vh; overflow-y: auto;
             position: relative;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-            animation: modalIn 0.35s ease-out both;
-            overflow: hidden;
-            margin: auto;
+            animation: fadeInUp 0.3s ease-out both;
         }
-
-        /* Hero image banner */
-        .pricing-modal-hero {
-            position: relative;
-            width: 100%;
-            height: 220px;
-            overflow: hidden;
-            background: #0F1924;
+        .modal-close {
+            position: sticky; top: 1rem;
+            float: right; margin: 0.75rem 1rem 0 0;
+            background: transparent; border: none;
+            font-size: 1.6rem; color: #A8B5C2;
+            cursor: pointer; transition: color 0.2s;
+            z-index: 10; line-height: 1;
         }
-
-        @media (max-width: 600px) { .pricing-modal-hero { height: 140px; } }
-
-        .pricing-modal-hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 30%;
-            opacity: 0.85;
-        }
-
+        .modal-close:hover { color: #FFFFFF; }
+        .pricing-modal-hero { position: relative; height: 180px; overflow: hidden; background: #0f1825; }
+        .pricing-modal-hero img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
         .pricing-modal-hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, rgba(27,38,59,0.2) 0%, rgba(27,38,59,0.85) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding: 1.5rem 2rem;
-            text-align: center;
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 1.5rem; text-align: center;
         }
-
-        .pricing-modal-hero-overlay h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(1.4rem, 3vw, 2rem);
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: 1px;
-        }
-
         .pricing-modal-hero-overlay .eyebrow {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 0.5rem;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: #C5A059; margin-bottom: 0.6rem;
         }
+        .pricing-modal-hero-overlay h2 { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: 700; color: #FFFFFF; }
 
-        /* Modal body */
-        .pricing-modal-body {
-            padding: 2.5rem 2rem 2rem;
-            position: relative;
-        }
+        .pricing-modal-body { padding: 2rem 2rem 2.5rem; }
 
-        /* Pilot section — conditional (hidden if OFF) */
         .pilot-section {
-            background: rgba(197,160,89,0.07);
-            border: 1px solid rgba(197,160,89,0.25);
-            border-radius: 8px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 2rem;
+            background: rgba(197,160,89,0.06);
+            border: 1px solid rgba(197,160,89,0.2);
+            border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;
         }
+        .pilot-section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+        .pilot-section-header h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 700; color: #FFFFFF; }
+        .pilot-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: #C5A059; color: #1B263B; padding: 3px 9px; border-radius: 20px; }
 
-        .pilot-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 0.85rem;
-        }
+        .founder-scoreboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0; }
+        .founder-slot { background: rgba(255,255,255,0.04); border: 1px solid rgba(197,160,89,0.15); border-radius: 6px; padding: 1rem; text-align: center; position: relative; }
+        .founder-slot-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #A8B5C2; margin-bottom: 0.35rem; }
+        .founder-slot-count { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; color: #C5A059; line-height: 1; }
+        .founder-slot-max { font-size: 0.8rem; color: #6A7E8F; margin-top: 0.2rem; }
+        .founder-slot-full { position: absolute; inset: 0; background: rgba(27,38,59,0.85); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FF6B6B; letter-spacing: 2px; }
 
-        .pilot-section-header h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #C5A059;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin: 0;
-        }
-
-        .pilot-badge {
-            background: rgba(197,160,89,0.15);
-            border: 1px solid #C5A059;
-            color: #C5A059;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            padding: 3px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        /* Founder scoreboard */
-        .founder-scoreboard {
-            display: flex;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .founder-slot {
-            flex: 1;
-            min-width: 180px;
-            background: rgba(27,38,59,0.5);
-            border: 1px solid rgba(197,160,89,0.15);
-            border-radius: 6px;
-            padding: 0.85rem 1rem;
-            position: relative;
-        }
-
-        .founder-slot-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #A8B5C2;
-            margin-bottom: 0.35rem;
-        }
-
-        .founder-slot-count {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #C5A059;
-            line-height: 1;
-        }
-
-        .founder-slot-max {
-            font-size: 0.8rem;
-            color: #6A7E8F;
-            margin-top: 0.2rem;
-        }
-
-        .founder-slot-full {
-            position: absolute;
-            inset: 0;
-            background: rgba(27,38,59,0.85);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #FF6B6B;
-            letter-spacing: 2px;
-        }
-
-        /* Pricing tiers grid */
-        .pricing-tiers-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-        }
-
+        .pricing-tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
         @media (max-width: 860px) { .pricing-tiers-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 520px)  { .pricing-tiers-grid { grid-template-columns: 1fr; } }
 
-        /* Individual tier tile */
-        .tier-tile {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(197,160,89,0.18);
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            transition: border-color 0.25s, box-shadow 0.25s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tier-tile:hover {
-            border-color: #C5A059;
-            box-shadow: 0 8px 30px rgba(197,160,89,0.12);
-        }
-
-        .tier-tile-top {
-            padding: 1.5rem 1.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .tier-icon {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .tier-badge {
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 0.4rem;
-        }
-
-        .tier-name {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 0.3rem;
-        }
-
-        .tier-price {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #C5A059;
-            margin-bottom: 0.2rem;
-        }
-
-        .tier-contract {
-            font-size: 0.75rem;
-            color: #6A7E8F;
-        }
-
-        /* Hover-reveal content area */
-        .tier-hover-content {
-            flex: 1;
-            background: rgba(197,160,89,0.04);
-            border-top: 1px solid rgba(197,160,89,0.1);
-            padding: 1rem 1.25rem 0.75rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease;
-        }
-
-        .tier-tile:hover .tier-hover-content {
-            max-height: 400px;
-            padding: 1rem 1.25rem 0.75rem;
-        }
-
-        .tier-hover-content ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 0.5rem;
-        }
-
-        .tier-hover-content ul li {
-            font-size: 0.82rem;
-            color: #C4CDDA;
-            padding: 0.25rem 0 0.25rem 1rem;
-            position: relative;
-            line-height: 1.4;
-        }
-
-        .tier-hover-content ul li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: #C5A059;
-            font-size: 0.72rem;
-        }
-
-        .tier-hover-content .tier-note {
-            font-size: 0.78rem;
-            color: #C5A059;
-            font-style: italic;
-            border-top: 1px solid rgba(197,160,89,0.15);
-            padding-top: 0.6rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Contact email button — always visible at bottom of tile */
-        .tier-contact {
-            padding: 0.75rem 1.25rem 1rem;
-            text-align: center;
-        }
-
-        .tier-contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 7px 16px;
-            background: transparent;
-            border: 1px solid rgba(197,160,89,0.35);
-            border-radius: 4px;
-            color: #C5A059;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
+        .tier-tile { background: rgba(255,255,255,0.04); border: 1px solid rgba(197,160,89,0.18); border-radius: 8px; overflow: hidden; position: relative; transition: border-color 0.25s, box-shadow 0.25s; display: flex; flex-direction: column; }
+        .tier-tile:hover { border-color: #C5A059; box-shadow: 0 8px 30px rgba(197,160,89,0.12); }
+        .tier-tile-top { padding: 1.5rem 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .tier-icon { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        .tier-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #C5A059; margin-bottom: 0.4rem; }
+        .tier-name { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.3rem; }
+        .tier-price { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; color: #C5A059; margin-bottom: 0.2rem; }
+        .tier-contract { font-size: 0.75rem; color: #6A7E8F; }
+        .tier-hover-content { flex: 1; background: rgba(197,160,89,0.04); border-top: 1px solid rgba(197,160,89,0.1); padding: 1rem 1.25rem 0.75rem; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .tier-tile:hover .tier-hover-content { max-height: 400px; padding: 1rem 1.25rem 0.75rem; }
+        .tier-hover-content ul { list-style: none; padding: 0; margin-bottom: 0.5rem; }
+        .tier-hover-content ul li { font-size: 0.82rem; color: #C4CDDA; padding: 0.25rem 0 0.25rem 1rem; position: relative; line-height: 1.4; }
+        .tier-hover-content ul li::before { content: '▸'; position: absolute; left: 0; color: #C5A059; font-size: 0.72rem; }
+        .tier-hover-content .tier-note { font-size: 0.78rem; color: #C5A059; font-style: italic; border-top: 1px solid rgba(197,160,89,0.15); padding-top: 0.6rem; margin-top: 0.5rem; }
+        .tier-contact { padding: 0.75rem 1.25rem 1rem; text-align: center; }
+        .tier-contact-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 7px 16px; background: transparent; border: 1px solid rgba(197,160,89,0.35); border-radius: 4px; color: #C5A059; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
         .tier-contact-btn:hover { background: rgba(197,160,89,0.1); border-color: #C5A059; color: #C5A059; }
-
-        /* Pilot banner note */
-        .pilot-start-note {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #6A7E8F;
-        }
-
+        .pilot-start-note { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: #6A7E8F; }
         .pilot-start-note span { color: #C5A059; font-weight: 600; }
+
+        /* =======================================================
+           EMAIL MODAL
+           ======================================================= */
+        .email-modal-box { background: #1B263B; border: 1px solid rgba(197,160,89,0.2); border-radius: 12px; max-width: 480px; width: 100%; padding: 2.5rem 2rem; position: relative; animation: fadeInUp 0.3s ease-out both; }
+        .modal-icon { font-size: 2.5rem; color: #C5A059; text-align: center; margin-bottom: 1rem; }
+        .email-modal-box h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; color: #FFFFFF; text-align: center; margin-bottom: 0.6rem; }
+        .email-modal-box p { font-size: 0.95rem; color: #A8B5C2; text-align: center; margin-bottom: 1.5rem; }
+        .email-select { width: 100%; padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(197,160,89,0.25); border-radius: 4px; color: #FFFFFF; font-family: 'Source Sans 3', sans-serif; font-size: 0.92rem; margin-bottom: 1rem; cursor: pointer; }
+        .email-select option { background: #1B263B; }
 
         /* =======================================================
            FOOTER
            ======================================================= */
-        .site-footer {
-            background: #1B263B;
-            color: #A8B5C2;
-            padding: 4rem 2rem 2rem;
-            border-top: 2px solid rgba(197,160,89,0.2);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2.5rem;
-            max-width: 1140px;
-            margin: 0 auto 3rem;
-        }
-
+        .site-footer { background: #1B263B; color: #A8B5C2; padding: 4rem 2rem 2rem; border-top: 2px solid rgba(197,160,89,0.2); }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1140px; margin: 0 auto 3rem; }
         @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; } }
-
-        .footer-brand .logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 0.6rem;
-        }
-
+        .footer-brand .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.6rem; }
         .footer-brand .logo span { color: #C5A059; }
-
         .footer-brand p { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0; }
-
-        .footer-col h4 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: #C5A059;
-            margin-bottom: 1rem;
-        }
-
+        .footer-col h4 { font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #C5A059; margin-bottom: 1rem; }
         .footer-col ul { list-style: none; }
         .footer-col ul li { margin-bottom: 0.6rem; }
-
-        .footer-col ul li a {
-            color: #A8B5C2;
-            text-decoration: none;
-            font-size: 0.92rem;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .footer-col ul li a { color: #A8B5C2; text-decoration: none; font-size: 0.92rem; transition: color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
         .footer-col ul li a:hover { color: #C5A059; }
-
-        .footer-col ul li a i {
-            width: 16px;
-            text-align: center;
-            font-size: 0.95rem;
-            color: #6A7E8F;
-            transition: color 0.2s;
-        }
-
+        .footer-col ul li a i { width: 16px; text-align: center; font-size: 0.95rem; color: #6A7E8F; transition: color 0.2s; }
         .footer-col ul li a:hover i { color: #C5A059; }
-
-        .footer-phone {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #C5A059;
-            font-size: 1.05rem;
-            font-weight: 600;
-            text-decoration: none;
-            margin-bottom: 1rem;
-            margin-top: 1rem;
-            transition: color 0.2s;
-        }
-
+        .footer-phone { display: flex; align-items: center; gap: 0.5rem; color: #C5A059; font-size: 1.05rem; font-weight: 600; text-decoration: none; margin-bottom: 1rem; margin-top: 1rem; transition: color 0.2s; }
         .footer-phone:hover { color: #FFFFFF; }
-
-        .footer-email-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 8px 18px;
-            background: rgba(197,160,89,0.1);
-            border: 1px solid rgba(197,160,89,0.35);
-            border-radius: 4px;
-            color: #C5A059;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-            font-family: 'Source Sans 3', sans-serif;
-            text-decoration: none;
-        }
-
+        .footer-email-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 8px 18px; background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.35); border-radius: 4px; color: #C5A059; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: background 0.2s, border-color 0.2s; font-family: 'Source Sans 3', sans-serif; text-decoration: none; }
         .footer-email-btn:hover { background: rgba(197,160,89,0.18); border-color: #C5A059; color: #C5A059; }
-
-        .footer-divider {
-            border: none;
-            border-top: 1px solid rgba(197,160,89,0.12);
-            margin: 0 auto 1.5rem;
-            max-width: 1140px;
-        }
-
-        .footer-bottom {
-            max-width: 1140px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
+        .footer-divider { border: none; border-top: 1px solid rgba(197,160,89,0.12); margin: 0 auto 1.5rem; max-width: 1140px; }
+        .footer-bottom { max-width: 1140px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
         .footer-bottom p { font-size: 0.82rem; margin: 0; }
 
         /* =======================================================
            SKIP LINK & ACCESSIBILITY
            ======================================================= */
-        .skip-link {
-            position: absolute; top: -50px; left: 0;
-            background: #C5A059; color: #1B263B;
-            padding: 10px 18px; font-weight: 700;
-            text-decoration: none; z-index: 300;
-        }
-
+        .skip-link { position: absolute; top: -50px; left: 0; background: #C5A059; color: #1B263B; padding: 10px 18px; font-weight: 700; text-decoration: none; z-index: 300; }
         .skip-link:focus { top: 0; }
-
         a:focus-visible { outline: 2px solid #C5A059; outline-offset: 2px; }
 
         /* =======================================================
@@ -1134,6 +674,7 @@
             to   { opacity:1; transform: translateY(0); }
         }
 
+
         /* =======================================================
            RESPONSIVE
            ======================================================= */
@@ -1142,6 +683,8 @@
             .header-actions { gap: 0.5rem; }
             .btn { padding: 9px 18px; font-size: 0.9rem; }
             .hero { padding: 3.5rem 1.5rem 0; }
+            .speak-btn { font-size: 0.7rem; padding: 4px 10px; }
+            .speak-btn .speak-icon { display: none; }
         }
     </style>
 </head>
@@ -1150,49 +693,53 @@
 
     <!-- ═══════════════════════════════════════════════════
          HEADER
-         (Logo + wordmark — no click action on this page)
          ═══════════════════════════════════════════════════ -->
     <header class="site-header" role="banner">
         <div class="header-inner">
 
-            <!-- Logo: no navigation on company.html (you're already here) -->
             <span class="site-logo" aria-label="The Arena Hub" role="img">
-                <!-- Company_Icon.jpg — push to GitHub repo root -->
-                <img src="Company_Icon.jpg"
-                     alt=""
-                     class="site-logo-img"
-                     aria-hidden="true">
+                <img src="Company_Icon.jpg" alt="" class="site-logo-img" aria-hidden="true">
                 <span class="site-logo-text">The <span>Arena Hub</span></span>
             </span>
 
             <div class="header-actions">
-                <!-- Dynamic article button — populated by ARENA_HUB_CONFIG JS -->
+                <!-- Dynamic article button — populated by JS -->
                 <a href="#" id="dynamic-article-btn" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
                     <span id="dynamic-article-label">Latest Article</span>
                 </a>
 
-                <!-- Explore Prices — opens full pricing modal -->
+                <!-- Explore Prices -->
                 <button class="btn btn-sm btn-outline" onclick="openModal('pricing-modal')" aria-haspopup="dialog">
                     Explore Prices
                 </button>
 
-                <!-- Support the Campaign — TEMPORARILY HIDDEN -->
-                <!-- Re-enable by removing the id or setting display:inline-block -->
-                <a href="https://thearenahub.substack.com"
-                   target="_blank" rel="noopener"
-                   class="btn btn-sm btn-gold"
-                   id="support-campaign-btn">
-                    Support the Campaign
-                </a>
+                <!-- ── THE SPEAK TOGGLE ── -->
+                <div class="speak-toggle" role="group" aria-label="Reading mode">
+                    <button class="speak-btn active" id="btn-plain" onclick="setMode('plain')" aria-pressed="true">
+                        <span class="speak-icon">💬</span> Plain English
+                    </button>
+                    <button class="speak-btn" id="btn-tech" onclick="setMode('tech')" aria-pressed="false">
+                        <span class="speak-icon">⚙️</span> Under the Hood
+                    </button>
+                </div>
             </div>
+
         </div>
     </header>
 
     <!-- ═══════════════════════════════════════════════════
-         CLINICAL INFRASTRUCTURE BANNER
+         BANNER STRIP
          ═══════════════════════════════════════════════════ -->
     <div class="infra-banner" role="complementary" aria-label="Product tagline">
-        <p>Arena Hub Ltd &mdash; Clinical Infrastructure for Alternative Provision</p>
+        <p>
+            <span class="speak-plain">
+                The Arena Hub Ltd &mdash; A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them
+            </span>
+            <span class="speak-tech">
+                Arena Hub Ltd &mdash; Clinical Infrastructure for Alternative Provision
+                <span class="mode-badge">Under the Hood Mode</span>
+            </span>
+        </p>
     </div>
 
     <!-- ═══════════════════════════════════════════════════
@@ -1200,18 +747,35 @@
          ═══════════════════════════════════════════════════ -->
     <section class="hero" aria-labelledby="hero-heading">
         <div class="hero-inner">
-            <div class="hero-badge">JB-EMS: The Arena &mdash; v5.1 Enterprise Evolution</div>
-            <h1 id="hero-heading">The EMS Built for<br><span>Schools That Don&rsquo;t Give Up</span></h1>
+
+            <div class="hero-badge">
+                <span class="speak-plain">Alternative Provision &middot; UK-Built &middot; Pilot Opens March 2026</span>
+                <span class="speak-tech">JB-EMS: The Arena &mdash; v5.1 Enterprise Evolution</span>
+            </div>
+
+            <h1 id="hero-heading">
+                <span class="speak-plain">The Platform Built for <span>Schools Like Yours</span></span>
+                <span class="speak-tech">The EMS Built for <span>Schools That Don&rsquo;t Give Up</span></span>
+            </h1>
+
             <p class="hero-tagline">
-                Clinical-grade education management infrastructure for UK Alternative Provision.
-                Performance, welfare and curriculum &mdash; unified under one sovereign platform.
+                <span class="speak-plain">
+                    One system that handles progress tracking, safeguarding, qualifications, and resources &mdash;
+                    built from the ground up for UK Alternative Provision.
+                    Your staff focus on the young people. Arena handles the rest.
+                </span>
+                <span class="speak-tech">
+                    Clinical-grade education management infrastructure for UK Alternative Provision.
+                    Performance, welfare and curriculum &mdash; unified under one sovereign platform.
+                </span>
             </p>
+
         </div>
 
-        <!-- Three pillar image cards — hover to reveal content -->
+        <!-- Three pillar cards — hover to reveal -->
         <div class="pillar-strip" role="list" aria-label="Platform pillars">
 
-            <!-- PERFORMANCE CENTRE -->
+            <!-- ── PERFORMANCE CENTRE ── -->
             <div class="pillar-hero-card"
                  role="listitem"
                  tabindex="0"
@@ -1219,16 +783,49 @@
                  onclick="this.classList.toggle('active')"
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')">
 
-                <!-- PC_Pillar_Image.jpg — push to GitHub repo root -->
-                <img src="PC_Pillar_Image.jpg" alt="Performance Centre" loading="lazy">
+                <img src="performance-centre-card.jpg" alt="Progress tracking for AP students" loading="lazy">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
+                <!-- Always-visible label at bottom -->
                 <div class="pillar-hero-label">
-                    <div class="pillar-eyebrow">Pillar One</div>
-                    <h3>Performance Centre</h3>
+                    <div class="pillar-eyebrow">
+                        <span class="speak-plain">Track Progress</span>
+                        <span class="speak-tech">Pillar One</span>
+                    </div>
+                    <h3>
+                        <span class="speak-plain">Know Where Every Student Stands</span>
+                        <span class="speak-tech">Performance Centre</span>
+                    </h3>
                 </div>
 
-                <div class="pillar-hero-content" aria-hidden="true">
+                <!-- Hover-reveal content — PLAIN version -->
+                <div class="pillar-hero-content speak-plain" aria-hidden="true">
+                    <div class="pillar-eyebrow">Progress Tracking</div>
+                    <h3>Know Where Every Student Stands</h3>
+                    <p style="font-size:0.88rem; color:#C4CDDA; margin-bottom:1.2rem; line-height:1.6;">
+                        See at a glance who&rsquo;s on track, who needs support, and what your team needs to do — before a small gap becomes a big problem.
+                    </p>
+                    <div class="pillar-content-section">
+                        <h4>For your school</h4>
+                        <ul>
+                            <li>Clear evidence of every student&rsquo;s progress, ready for Ofsted at any moment</li>
+                            <li>Quickly spot which qualifications are at risk — and act before it&rsquo;s too late</li>
+                            <li>Solid proof for EHCP reviews and statutory reporting, without the Sunday-night scramble</li>
+                            <li>One place to see how funding is translating into actual outcomes</li>
+                        </ul>
+                    </div>
+                    <div class="pillar-content-section">
+                        <h4>For your team</h4>
+                        <ul>
+                            <li><em>Staff:</em> Less time on paperwork. More time with young people.</li>
+                            <li><em>Students:</em> Every achievement gets recorded. Every win counts.</li>
+                            <li><em>Parents:</em> Real-time visibility into their child&rsquo;s progress.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hover-reveal content — TECH version -->
+                <div class="pillar-hero-content speak-tech" aria-hidden="true">
                     <div class="pillar-eyebrow">Performance Centre</div>
                     <h3>The Outcome Visibility Engine</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
@@ -1254,7 +851,7 @@
                 </div>
             </div>
 
-            <!-- WELFARE SUITE -->
+            <!-- ── WELFARE SUITE ── -->
             <div class="pillar-hero-card"
                  role="listitem"
                  tabindex="0"
@@ -1263,16 +860,48 @@
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')"
                  style="border-left:1px solid rgba(197,160,89,0.12); border-right:1px solid rgba(197,160,89,0.12);">
 
-                <!-- WS_Pillar_Image.jpg — push to GitHub repo root -->
-                <img src="WS_Pillar_Image.jpg" alt="Welfare Suite" loading="lazy">
+                <img src="welfare-suite-card.jpg" alt="Safeguarding and welfare management" loading="lazy">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
                 <div class="pillar-hero-label">
-                    <div class="pillar-eyebrow">Pillar Two</div>
-                    <h3>Welfare Suite</h3>
+                    <div class="pillar-eyebrow">
+                        <span class="speak-plain">Safeguarding</span>
+                        <span class="speak-tech">Pillar Two</span>
+                    </div>
+                    <h3>
+                        <span class="speak-plain">Your DSL&rsquo;s Digital Welfare File</span>
+                        <span class="speak-tech">Welfare Suite</span>
+                    </h3>
                 </div>
 
-                <div class="pillar-hero-content" aria-hidden="true">
+                <!-- Hover content — PLAIN -->
+                <div class="pillar-hero-content speak-plain" aria-hidden="true">
+                    <div class="pillar-eyebrow">Safeguarding</div>
+                    <h3>Your DSL&rsquo;s Digital Welfare File</h3>
+                    <p style="font-size:0.88rem; color:#C4CDDA; margin-bottom:1.2rem; line-height:1.6;">
+                        A secure, properly organised place for everything welfare-related. Every concern, every conversation, every incident — logged and ready when you need it.
+                    </p>
+                    <div class="pillar-content-section">
+                        <h4>For your school</h4>
+                        <ul>
+                            <li>Your data stays in your own Google Drive — nobody else can read it, including us</li>
+                            <li>Flags early warning signs before concerns escalate into crises</li>
+                            <li>Builds a clear, defensible welfare history for any statutory review</li>
+                            <li>A solid audit trail that protects your school, your staff, and your students</li>
+                        </ul>
+                    </div>
+                    <div class="pillar-content-section">
+                        <h4>For your team</h4>
+                        <ul>
+                            <li><em>DSL:</em> Spend less time logging, more time acting on what matters.</li>
+                            <li><em>Students:</em> A whole-child view. Early flags, not late reactions.</li>
+                            <li><em>Parents:</em> Reassurance that their child&rsquo;s safety is taken seriously.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hover content — TECH -->
+                <div class="pillar-hero-content speak-tech" aria-hidden="true">
                     <div class="pillar-eyebrow">Welfare Suite</div>
                     <h3>The NODE Engine &amp; Safeguarding Vault</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
@@ -1298,7 +927,7 @@
                 </div>
             </div>
 
-            <!-- KIT ROOM -->
+            <!-- ── KIT ROOM ── -->
             <div class="pillar-hero-card"
                  role="listitem"
                  tabindex="0"
@@ -1306,27 +935,59 @@
                  onclick="this.classList.toggle('active')"
                  onkeydown="if(event.key==='Enter')this.classList.toggle('active')">
 
-                <!-- KR_Pillar_Image.jpg — push to GitHub repo root -->
-                <img src="KR_Pillar_Image.jpg" alt="Kit Room" loading="lazy">
+                <img src="kit-room-card.jpg" alt="Vocational resources and courses" loading="lazy">
                 <div class="pillar-hero-base" aria-hidden="true"></div>
 
                 <div class="pillar-hero-label">
-                    <div class="pillar-eyebrow">Pillar Three</div>
-                    <h3>Kit Room</h3>
+                    <div class="pillar-eyebrow">
+                        <span class="speak-plain">Resources &amp; Courses</span>
+                        <span class="speak-tech">Pillar Three</span>
+                    </div>
+                    <h3>
+                        <span class="speak-plain">Manage What You Have. Prove What You Deliver.</span>
+                        <span class="speak-tech">Kit Room</span>
+                    </h3>
                 </div>
 
-                <div class="pillar-hero-content" aria-hidden="true">
+                <!-- Hover content — PLAIN -->
+                <div class="pillar-hero-content speak-plain" aria-hidden="true">
+                    <div class="pillar-eyebrow">Resources &amp; Courses</div>
+                    <h3>Manage What You Have.<br>Prove What You Deliver.</h3>
+                    <p style="font-size:0.88rem; color:#C4CDDA; margin-bottom:1.2rem; line-height:1.6;">
+                        Track equipment, manage vocational programmes, and build a clear picture of how hands-on learning leads to real qualifications and real futures.
+                    </p>
+                    <div class="pillar-content-section">
+                        <h4>For your school</h4>
+                        <ul>
+                            <li>Live inventory tracking — always know what you have and where it is</li>
+                            <li>Map non-standard qualifications clearly, so &ldquo;Alternative&rdquo; never means &ldquo;less than&rdquo;</li>
+                            <li>Solid proof of how equipment and staffing ratios deliver for students</li>
+                            <li>Scales across multiple sites or an LA-wide portfolio without starting again</li>
+                        </ul>
+                    </div>
+                    <div class="pillar-content-section">
+                        <h4>For your team</h4>
+                        <ul>
+                            <li><em>Staff:</em> Simple tracking of physical assets and vocational skills.</li>
+                            <li><em>Students:</em> A clear ladder from hands-on skills to real career pathways.</li>
+                            <li><em>Parents:</em> Confidence that the alternative path has structure and purpose.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hover content — TECH -->
+                <div class="pillar-hero-content speak-tech" aria-hidden="true">
                     <div class="pillar-eyebrow">Kit Room</div>
                     <h3>Vocational Taxonomy &amp; Resource Manager</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
-                        The technical backbone for <em>specialized training</em> and resource-heavy Alternative Provision.
+                        The technical backbone for <em>specialised training</em> and resource-heavy Alternative Provision.
                     </p>
                     <div class="pillar-content-section">
                         <h4>Institution Led</h4>
                         <ul>
-                            <li><em>Resource Optimization:</em> Real-time inventory audit and allocation tracking.</li>
-                            <li><em>Taxonomy Precision:</em> Standardizes non-standard qualifications — Alternative doesn&rsquo;t mean Lower Quality.</li>
-                            <li><em>Budgetary Defense:</em> Forensic proof of how equipment and staff ratios drive student growth.</li>
+                            <li><em>Resource Optimisation:</em> Real-time inventory audit and allocation tracking.</li>
+                            <li><em>Taxonomy Precision:</em> Standardises non-standard qualifications — Alternative doesn&rsquo;t mean Lower Quality.</li>
+                            <li><em>Budgetary Defence:</em> Forensic proof of how equipment and staff ratios drive student growth.</li>
                             <li><em>Multi-Site Scalability:</em> Consistent vocational standards across Trust or LA.</li>
                         </ul>
                     </div>
@@ -1349,80 +1010,200 @@
          ═══════════════════════════════════════════════════ -->
     <main id="main" role="main">
 
-        <!-- WHY ARENA — PLATFORM FEATURES (KEPT) -->
-        <section class="section section-alt" aria-labelledby="features-heading">
+        <!-- ── SUB-BANNER (plain only) ──────────────────────── -->
+        <div class="sub-banner speak-plain">
+            <p>
+                <strong>Used by AP schools and specialist provisions across England.</strong>
+                Built on Google Workspace &mdash; nothing new to install, nobody new to call.
+                Most schools are up and running in under an hour.
+            </p>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             "HOW IT HELPS" IMAGE EXPLAINER — PLAIN ONLY
+             ★ Swap placeholder images for Substack images below
+             ══════════════════════════════════════════════════ -->
+        <section class="section section-alt speak-plain" aria-labelledby="explainer-heading">
             <div class="container">
                 <div class="section-heading">
-                    <span class="eyebrow">Why Arena</span>
-                    <h2 id="features-heading">Purpose-Built for Your Context</h2>
-                    <p>Not adapted. Not repurposed. Designed from day one for the realities of Alternative Provision.</p>
+                    <span class="eyebrow">What The Arena Does</span>
+                    <h2 id="explainer-heading">Less Admin. More Impact.</h2>
+                    <p>Three tools that work together so your team spends more time with young people and less time fighting systems.</p>
                 </div>
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Sovereign Data Architecture</h4>
-                            <p>Your welfare data stays under DSL control. No third-party access. No cloud-first compromise. The Arena Hub cannot read your clinical records.</p>
+                <div class="explainer-strip">
+
+                    <!-- Card 1 — Progress Tracking -->
+                    <div class="explainer-card">
+                        <div class="explainer-img-wrap">
+                            <img src="performance-centre-card.jpg" alt="Student progress tracking in AP">
+                        </div>
+                        <div class="explainer-body">
+                            <div class="explainer-eyebrow">Performance Centre</div>
+                            <h3>Every student&rsquo;s journey, visible in one place</h3>
+                            <p>Daily registers, qualification tracking, and intervention records — all connected. No more chasing spreadsheets before an Ofsted visit.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Provider-Agnostic AI</h4>
-                            <p>Human teachers and AI agents are treated identically within your ecosystem. Evidence assessment, letter drafting, NODE correlation — all transparent and auditable.</p>
+
+                    <!-- Card 2 — Safeguarding -->
+                    <div class="explainer-card">
+                        <div class="explainer-img-wrap">
+                            <img src="welfare-suite-card.jpg" alt="Safeguarding and welfare support">
+                        </div>
+                        <div class="explainer-body">
+                            <div class="explainer-eyebrow">Welfare Suite</div>
+                            <h3>Safeguarding that protects your students and your school</h3>
+                            <p>A secure digital welfare file your DSL actually wants to use. Everything logged, time-stamped, and defensible — whenever it&rsquo;s needed.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-code-branch" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Hybrid Infrastructure</h4>
-                            <p>Google Workspace backbone with Cloud Run orchestration. No new logins for your team. Deploys into your existing environment in under an hour.</p>
+
+                    <!-- Card 3 — Resources -->
+                    <div class="explainer-card">
+                        <div class="explainer-img-wrap">
+                            <img src="kit-room-card.jpg" alt="Vocational skills and resources">
+                        </div>
+                        <div class="explainer-body">
+                            <div class="explainer-eyebrow">Kit Room</div>
+                            <h3>Show exactly how your resources deliver for young people</h3>
+                            <p>Track equipment, manage vocational programmes, and prove that what happens in your workshops translates to real qualifications and real futures.</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>2FA Everywhere It Counts</h4>
-                            <p>Clinical threshold changes, welfare data access, and admin actions are all protected by two-factor authentication — built in, not bolted on.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-sitemap" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>LA Partner Ready</h4>
-                            <p>Designed for multi-site deployment and Local Authority partnership from the ground up. Roll out across your entire portfolio of schools.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-item-icon"><i class="fas fa-puzzle-piece" aria-hidden="true"></i></div>
-                        <div>
-                            <h4>Tiered &amp; Feature-Flagged</h4>
-                            <p>Enterprise, Professional, and Foundations tiers — every feature flag individually controlled so your deployment matches your school&rsquo;s exact needs.</p>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </section>
 
-        <!-- LATEST INSIGHTS — article preview panel (replaces pricing cards) -->
+        <!-- ══════════════════════════════════════════════════
+             WHY ARENA — plain/tech toggleable per item
+             ══════════════════════════════════════════════════ -->
+        <section class="section" aria-labelledby="features-heading">
+            <div class="container">
+                <div class="section-heading">
+                    <span class="eyebrow">
+                        <span class="speak-plain">Why Schools Choose Arena</span>
+                        <span class="speak-tech">Why Arena</span>
+                    </span>
+                    <h2 id="features-heading">
+                        <span class="speak-plain">Built Around the Realities of AP</span>
+                        <span class="speak-tech">Purpose-Built for Your Context</span>
+                    </h2>
+                    <p>
+                        <span class="speak-plain">Not a mainstream school system stretched to fit. Not a generic safeguarding tool bolted together. Built from day one for Alternative Provision.</span>
+                        <span class="speak-tech">Not adapted. Not repurposed. Designed from day one for the realities of Alternative Provision.</span>
+                    </p>
+                </div>
+
+                <div class="feature-list">
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-lock" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">Your data stays in your school&rsquo;s hands</span>
+                                <span class="speak-tech">Sovereign Data Architecture</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Everything is stored in your own Google Drive. We build the tools and provide the engine — but your students&rsquo; records and welfare files live in your system, not ours. Arena Hub cannot access your school&rsquo;s data.</span>
+                                <span class="speak-tech">Your welfare data stays under DSL control. No third-party access. No cloud-first compromise. The Arena Hub cannot read your clinical records.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">AI that works for your staff, not instead of them</span>
+                                <span class="speak-tech">Provider-Agnostic AI</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Arena uses AI to help write letters, spot welfare patterns, and flag concerns early. But your staff are always in charge. Every AI action is logged, transparent, and reversible.</span>
+                                <span class="speak-tech">Human teachers and AI agents are treated identically within your ecosystem. Evidence assessment, letter drafting, NODE correlation — all transparent and auditable.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-code-branch" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">Works with Google — nothing new to learn</span>
+                                <span class="speak-tech">Hybrid Infrastructure</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Arena runs on Google Workspace, which your team already uses. No new logins to remember, no new systems to train up on. Most schools are up and running within an hour of receiving their link.</span>
+                                <span class="speak-tech">Google Workspace backbone with Cloud Run orchestration. No new logins for your team. Deploys into your existing environment in under an hour.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">Extra security on the things that matter most</span>
+                                <span class="speak-tech">2FA Everywhere It Counts</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Welfare records, clinical settings, and admin actions all require a second verification step before changes can be made. Security that&rsquo;s built in from day one — not bolted on as an afterthought.</span>
+                                <span class="speak-tech">Clinical threshold changes, welfare data access, and admin actions are all protected by two-factor authentication — built in, not bolted on.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-sitemap" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">Grows with you — one school or a whole LA</span>
+                                <span class="speak-tech">LA Partner Ready</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Whether you run a single AP unit or sit across a Local Authority portfolio, Arena is built to scale from the ground up. Add sites, add teams, expand provision — without starting over.</span>
+                                <span class="speak-tech">Designed for multi-site deployment and Local Authority partnership from the ground up. Roll out across your entire portfolio of schools.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-item">
+                        <div class="feature-item-icon"><i class="fas fa-puzzle-piece" aria-hidden="true"></i></div>
+                        <div>
+                            <h4>
+                                <span class="speak-plain">Only pay for what you actually need</span>
+                                <span class="speak-tech">Tiered &amp; Feature-Flagged</span>
+                            </h4>
+                            <p>
+                                <span class="speak-plain">Three clearly priced tiers, with every feature individually switchable. You&rsquo;re not buying a system packed with things you&rsquo;ll never use — you get exactly what fits your school.</span>
+                                <span class="speak-tech">Enterprise, Professional, and Foundations tiers — every feature flag individually controlled so your deployment matches your school&rsquo;s exact needs.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ── LATEST INSIGHTS ──────────────────────────────── -->
         <section id="insights" class="section section-dark" aria-labelledby="insights-heading">
             <div class="container">
                 <div class="section-heading">
                     <span class="eyebrow">Latest Insights</span>
                     <h2 id="insights-heading" id="article-section-heading">From The Arena Hub</h2>
-                    <p id="article-section-sub">Our latest thinking on Alternative Provision, statutory data, and the future of education.</p>
+                    <p id="article-section-sub">
+                        <span class="speak-plain">Our thinking on Alternative Provision, student welfare, and what better looks like for the young people who need it most.</span>
+                        <span class="speak-tech">Our latest thinking on Alternative Provision, statutory data, and the future of education.</span>
+                    </p>
                 </div>
 
-                <!-- Article preview panel — populated by JS from ARENA_HUB_CONFIG -->
                 <div class="article-panel" id="article-panel">
                     <a href="#" id="article-link" class="article-card" target="_blank" rel="noopener">
-                        <div class="article-thumbnail" id="article-thumbnail-wrap">
-                            <!-- Populated by JS -->
-                        </div>
+                        <div class="article-thumbnail" id="article-thumbnail-wrap"></div>
                         <div class="article-body">
                             <div class="article-eyebrow">Latest from The Arena Hub</div>
                             <h3 class="article-title" id="article-title">Loading&hellip;</h3>
-                            <p class="article-excerpt" id="article-excerpt">Read the latest thinking from the team building the Arena — designed for practitioners, by practitioners.</p>
+                            <p class="article-excerpt" id="article-excerpt">
+                                <span class="speak-plain">Read the latest from the team — written for people who work in AP, not around it.</span>
+                                <span class="speak-tech">Read the latest thinking from the team building the Arena — designed for practitioners, by practitioners.</span>
+                            </p>
                             <div class="article-read-more">
                                 Read on Substack <i class="fas fa-arrow-right" aria-hidden="true"></i>
                             </div>
@@ -1430,13 +1211,11 @@
                     </a>
                 </div>
 
-                <!-- Fallback when no config loaded -->
                 <div id="article-fallback" style="text-align:center; display:none;">
                     <a href="https://thearenahub.substack.com" target="_blank" rel="noopener" class="btn btn-outline">
                         Read on Substack &rarr;
                     </a>
                 </div>
-
             </div>
         </section>
 
@@ -1448,10 +1227,12 @@
     <footer class="site-footer" role="contentinfo">
         <div class="footer-grid">
 
-            <!-- Brand column -->
             <div class="footer-brand">
                 <div class="logo">The <span>Arena Hub</span></div>
-                <p>Enterprise Education Management Infrastructure for UK Alternative Provision.</p>
+                <p>
+                    <span class="speak-plain">A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them.</span>
+                    <span class="speak-tech">Enterprise Education Management Infrastructure for UK Alternative Provision.</span>
+                </p>
                 <a href="tel:01618702916" class="footer-phone">
                     <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
                 </a>
@@ -1460,7 +1241,6 @@
                 </button>
             </div>
 
-            <!-- Substack / content -->
             <div class="footer-col">
                 <h4>Read</h4>
                 <ul>
@@ -1479,52 +1259,22 @@
                 </ul>
             </div>
 
-            <!-- Social -->
             <div class="footer-col">
                 <h4>Connect</h4>
                 <ul>
-                    <li>
-                        <a id="footer-linkedin" href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-bluesky" href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener">
-                            <i class="fas fa-cloud" aria-hidden="true"></i> BlueSky
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-twitter" href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-facebook" href="https://facebook.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-facebook" aria-hidden="true"></i> Facebook
-                        </a>
-                    </li>
+                    <li><a id="footer-linkedin" href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+                    <li><a id="footer-bluesky" href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener"><i class="fas fa-cloud" aria-hidden="true"></i> BlueSky</a></li>
+                    <li><a id="footer-twitter" href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter</a></li>
+                    <li><a id="footer-facebook" href="https://facebook.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
                 </ul>
             </div>
 
-            <!-- More social -->
             <div class="footer-col">
                 <h4>Also On</h4>
                 <ul>
-                    <li>
-                        <a id="footer-instagram" href="https://instagram.com/TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-threads" href="https://threads.net/@TheArenaHubUK" target="_blank" rel="noopener">
-                            <i class="fab fa-threads" aria-hidden="true"></i> Threads
-                        </a>
-                    </li>
-                    <li>
-                        <a id="footer-reddit" href="https://reddit.com/r/TheArenaHub" target="_blank" rel="noopener">
-                            <i class="fab fa-reddit" aria-hidden="true"></i> Reddit
-                        </a>
-                    </li>
+                    <li><a id="footer-instagram" href="https://instagram.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+                    <li><a id="footer-threads" href="https://threads.net/@TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-threads" aria-hidden="true"></i> Threads</a></li>
+                    <li><a id="footer-reddit" href="https://reddit.com/r/TheArenaHub" target="_blank" rel="noopener"><i class="fab fa-reddit" aria-hidden="true"></i> Reddit</a></li>
                 </ul>
             </div>
 
@@ -1542,54 +1292,66 @@
     </footer>
 
     <!-- ═══════════════════════════════════════════════════
-         PRICING MODAL — Full professional pricing
+         PRICING MODAL
          ═══════════════════════════════════════════════════ -->
     <div id="pricing-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
         <div class="pricing-modal-box">
             <button class="modal-close" onclick="closeModal('pricing-modal')" aria-label="Close pricing modal" style="color:#A8B5C2;">&times;</button>
 
-            <!-- Hero image banner -->
             <div class="pricing-modal-hero">
-                <!-- Company_Main_Price_List.jpg — push to GitHub repo root -->
-                <img src="Company_Main_Price_List.jpg" alt="The Arena Hub Pricing Matrix" loading="lazy">
+                <img src="Company_Main_Price_List.jpg" alt="The Arena Hub Pricing" loading="lazy">
                 <div class="pricing-modal-hero-overlay">
-                    <p class="eyebrow">Forensic Evidence Infrastructure</p>
-                    <h2 id="pricing-modal-title">Transparent Pricing &mdash; Flexible Tiers</h2>
+                    <p class="eyebrow">
+                        <span class="speak-plain">Clear Pricing, No Surprises</span>
+                        <span class="speak-tech">Forensic Evidence Infrastructure</span>
+                    </p>
+                    <h2 id="pricing-modal-title">
+                        <span class="speak-plain">Simple Tiers &mdash; One Licence Fee</span>
+                        <span class="speak-tech">Transparent Pricing &mdash; Flexible Tiers</span>
+                    </h2>
                 </div>
             </div>
 
             <div class="pricing-modal-body">
 
-                <!-- ── PILOT SECTION (conditional — hidden if Pilot_Status=OFF) ── -->
                 <div class="pilot-section" id="pilot-section">
                     <div class="pilot-section-header">
-                        <h3>&#9654; The 6-Week Forensic Pilot</h3>
+                        <h3>
+                            <span class="speak-plain">&#9654; Start With a 6-Week Pilot</span>
+                            <span class="speak-tech">&#9654; The 6-Week Forensic Pilot</span>
+                        </h3>
                         <span class="pilot-badge" id="pilot-status-badge">Active</span>
                     </div>
                     <p style="font-size:0.87rem; color:#C4CDDA; margin-bottom:1rem; line-height:1.55;">
-                        <strong style="color:#C5A059;">Grant-Funded &amp; Zero-Risk Entry.</strong>
-                        A surgical, 6-week &ldquo;Sovereign Wrap&rdquo; of your existing data environment.
-                        Priced at <strong style="color:#C5A059;">&pound;495</strong>, mapped to DfE EdTech Testbed / High Needs Block funding streams.
-                        The <strong style="color:#C5A059;">full pilot fee is credited</strong> toward your platform purchase on completion.
-                        Pilots begin <strong style="color:#C5A059;">30th March 2026</strong>.
+                        <span class="speak-plain">
+                            <strong style="color:#C5A059;">Low risk. Grant-eligible. Fully credited.</strong>
+                            Try Arena in your school for 6 weeks before committing &mdash; with a weekly 30-minute check-in throughout.
+                            Priced at <strong style="color:#C5A059;">&pound;495</strong> (mappable to DfE EdTech Testbed or High Needs Block funding &mdash; effectively free to most schools).
+                            At the end of 6 weeks, you receive a full Impact Presentation for Governors or your LA, built from real data.
+                            The &pound;495 is fully credited against Year 1 of your licence if you go ahead.
+                            Pilots open <strong style="color:#C5A059;">week commencing 30th March 2026</strong>.
+                        </span>
+                        <span class="speak-tech">
+                            <strong style="color:#C5A059;">The Founding Partner Pilot &mdash; Diagnostic Wedge Entry.</strong>
+                            A 6-week Forensic Audit &amp; 48-Hour Outcome Map deployed within the school&rsquo;s existing Google Workspace.
+                            One-time Diagnostic Fee: <strong style="color:#C5A059;">&pound;495</strong> &mdash; pre-qualified for DfE EdTech Testbed / High Needs Block funding streams.
+                            Includes weekly 30-minute clinical check-in. Concludes with a final Impact Presentation for Governors / LA.
+                            100% of the &pound;495 Diagnostic Fee is credited toward Year 1 Contract on conversion.
+                            Pilot window opens <strong style="color:#C5A059;">w/c 30th March 2026</strong>.
+                        </span>
                     </p>
 
-                    <!-- Founding Partner Scoreboard -->
                     <div class="founder-scoreboard">
-                        <!-- AP Founding Partners — data from config -->
                         <div class="founder-slot" id="ap-slot">
                             <div class="founder-slot-label">AP Founding Partners</div>
                             <div class="founder-slot-count" id="ap-count">0</div>
                             <div class="founder-slot-max">of 5 places</div>
-                            <!-- FULL overlay — shown by JS when maxed -->
                             <div class="founder-slot-full" id="ap-full" style="display:none;">PLACES FULL</div>
                         </div>
-                        <!-- LA Founding Partners — data from config -->
                         <div class="founder-slot" id="la-slot">
                             <div class="founder-slot-label">LA Founding Partners</div>
                             <div class="founder-slot-count" id="la-count">0</div>
                             <div class="founder-slot-max">of 3 places</div>
-                            <!-- FULL overlay — shown by JS when maxed -->
                             <div class="founder-slot-full" id="la-full" style="display:none;">PLACES FULL</div>
                         </div>
                     </div>
@@ -1602,93 +1364,139 @@
                     </div>
                 </div>
 
-                <!-- ── TIER GRID ─────────────────────────────────── -->
+                <!-- Tier grid — plain/tech copy toggles on tier titles and notes -->
                 <div class="pricing-tiers-grid">
 
-                    <!-- FOUNDATIONS TIER -->
                     <div class="tier-tile">
                         <div class="tier-tile-top">
-                            <!-- Foundation_Tier_Icon.jpg — push to GitHub repo root -->
                             <img src="Foundation_Tier_Icon.jpg" alt="Foundations Tier" class="tier-icon">
-                            <div class="tier-badge">Tier 3</div>
+                            <div class="tier-badge">
+                                <span class="speak-plain">Single Site</span>
+                                <span class="speak-tech">Tier 3</span>
+                            </div>
                             <div class="tier-name">Foundations</div>
-                            <div class="tier-price">&pound;7,750</div>
-                            <div class="tier-contract">24-Month Contract</div>
+                            <div class="tier-price">&pound;7,750<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;">/yr</span></div>
+                            <div class="tier-contract">+ &pound;1,200/yr maintenance &middot; 24-Month Licence</div>
                         </div>
                         <div class="tier-hover-content">
                             <ul>
-                                <li>Automated mapping of daily interventions to statutory goals</li>
-                                <li><em style="color:#C5A059;">The 12-Minute Pack</em> — rapid evidence for EHCP &amp; Ofsted</li>
-                                <li>Immutable Audit Logs — provider-agnostic, total defensibility</li>
-                                <li>Core NODE Engine — basic safeguarding chronology batching</li>
-                                <li>Direct DSL Sovereignty — MFA and internal encryption</li>
+                                <li>
+                                    <span class="speak-plain">Best for: single-site AP units and small specialist schools</span>
+                                    <span class="speak-tech">Best For: Single-site Alternative Provisions or Small Specialist Schools</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Automatic linking of daily work to EHCP goals — no manual mapping</span>
+                                    <span class="speak-tech">Automated mapping of daily interventions to statutory goals</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Evidence packs for Ofsted and EHCP reviews, ready in minutes</span>
+                                    <span class="speak-tech"><em style="color:#C5A059;">The 12-Minute Pack</em> — rapid evidence for EHCP &amp; Ofsted</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Secure welfare records — protected, permanent, and always available</span>
+                                    <span class="speak-tech">Immutable Audit Logs — provider-agnostic, total defensibility</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Basic safeguarding chronology — everything in one organised timeline</span>
+                                    <span class="speak-tech">Core NODE Engine — basic safeguarding chronology batching (VAR Sentry)</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">DSL-only access to welfare data — secured with two-factor login</span>
+                                    <span class="speak-tech">Direct DSL Sovereignty — MFA and internal encryption</span>
+                                </li>
                             </ul>
-                            <p class="tier-note">
-                                Founding Partner: first 5 single-site clients receive 25% lifetime discount on all licensing.
-                            </p>
+                            <p class="tier-note">&#11088; Founding Partner: first 5 sites receive a 25% lifetime discount on all fees.</p>
                         </div>
                         <div class="tier-contact">
                             <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                sales@thearenahub.co.uk
+                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
                             </a>
                         </div>
                     </div>
 
-                    <!-- PROFESSIONAL TIER -->
                     <div class="tier-tile">
                         <div class="tier-tile-top">
-                            <!-- Professional_Tier.jpg — push to GitHub repo root -->
                             <img src="Professional_Tier.jpg" alt="Professional Tier" class="tier-icon">
-                            <div class="tier-badge">Tier 2</div>
+                            <div class="tier-badge">
+                                <span class="speak-plain">Regional &amp; Specialist</span>
+                                <span class="speak-tech">Tier 2</span>
+                            </div>
                             <div class="tier-name">Professional</div>
-                            <div class="tier-price">&pound;8,500</div>
-                            <div class="tier-contract">24-Month Contract</div>
+                            <div class="tier-price">&pound;8,500<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;">/yr</span></div>
+                            <div class="tier-contract">+ &pound;1,500/yr maintenance &middot; 24-Month Licence</div>
                         </div>
                         <div class="tier-hover-content">
                             <ul>
-                                <li>Includes all Foundations features</li>
-                                <li><em style="color:#C5A059;">Enhanced FIFA Scores</em> — deep-dive engagement &amp; Flight-Path analytics</li>
-                                <li>Advanced NODE Processing — AI-augmented Welfare Friction identification</li>
-                                <li>Vocational Taxonomy — custom mapping for non-standard qualifications</li>
-                                <li>Priority Patching — early access to v5.1+ modular upgrades</li>
-                                <li>Automated <em style="color:#C5A059;">Reintegration Maps</em> — forensic proof of mainstream readiness</li>
+                                <li>
+                                    <span class="speak-plain">Best for: large specialist settings and schools with high reintegration caseloads</span>
+                                    <span class="speak-tech">Best For: Large specialist settings or schools with high reintegration rates</span>
+                                </li>
+                                <li>Everything in Foundations, plus:</li>
+                                <li>
+                                    <span class="speak-plain">Six-pillar student scores covering engagement, attendance, and progress in one view</span>
+                                    <span class="speak-tech"><em style="color:#C5A059;">Enhanced FIFA Scores</em> — deep-dive engagement &amp; Flight-Path analytics</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">AI-assisted welfare pattern spotting — flags clusters of concern before they escalate</span>
+                                    <span class="speak-tech">Advanced NODE Engine — AI-augmented Welfare Prediction and Friction identification</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Custom qualification mapping for non-standard AP courses</span>
+                                    <span class="speak-tech">Vocational Taxonomy — custom mapping for non-standard qualifications</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Structured, evidence-based readiness reports for reintegration into mainstream</span>
+                                    <span class="speak-tech">Automated <em style="color:#C5A059;">Reintegration Readiness Maps</em> — forensic proof of mainstream readiness</span>
+                                </li>
                             </ul>
                         </div>
                         <div class="tier-contact">
                             <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                sales@thearenahub.co.uk
+                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
                             </a>
                         </div>
                     </div>
 
-                    <!-- ENTERPRISE TIER -->
                     <div class="tier-tile">
                         <div class="tier-tile-top">
-                            <!-- Enterprise_Icon.jpg — push to GitHub repo root -->
                             <img src="Enterprise_Icon.jpg" alt="Enterprise Tier" class="tier-icon">
-                            <div class="tier-badge">Tier 1</div>
+                            <div class="tier-badge">
+                                <span class="speak-plain">LA &amp; MAT</span>
+                                <span class="speak-tech">Tier 1</span>
+                            </div>
                             <div class="tier-name">Enterprise</div>
-                            <div class="tier-price">&pound;10,500</div>
-                            <div class="tier-contract">24-Month Contract</div>
+                            <div class="tier-price">&pound;10,500<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;">/site/yr</span></div>
+                            <div class="tier-contract">+ &pound;2,000/yr maintenance &middot; 24-Month Licence</div>
                         </div>
                         <div class="tier-hover-content">
                             <ul>
-                                <li>Includes all Professional features</li>
-                                <li><em style="color:#C5A059;">The Arena Advisory Circle</em> — monthly strategic 1:1 sessions guiding the Arena Roadmap</li>
-                                <li>Multi-Site Aggregation — cross-provision visibility for LA Leads and Trust Executives</li>
-                                <li>Custom Threshold Logic — bespoke FIFA and NODE triggers for LA Safety Valve goals</li>
-                                <li>API White-Glove Support — dedicated technical architect</li>
+                                <li>
+                                    <span class="speak-plain">Best for: Local Authorities and Multi-Academy Trusts managing multiple provisions</span>
+                                    <span class="speak-tech">Best For: Local Authorities (LAs) and Multi-Academy Trusts</span>
+                                </li>
+                                <li>Everything in Professional, plus:</li>
+                                <li>
+                                    <span class="speak-plain">Monthly sessions giving you direct input into Arena&rsquo;s development roadmap</span>
+                                    <span class="speak-tech"><em style="color:#C5A059;">The Arena Advisory Circle</em> &mdash; Seat at the Design Table: monthly strategic roadmap input</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Single dashboard across all your provisions &mdash; for LA leads and Trust executives</span>
+                                    <span class="speak-tech">Multi-Site Aggregation &mdash; cross-provision visibility for LA Leads and Trust Executives</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Bespoke alert thresholds tailored to your LA&rsquo;s own Safety Valve priorities</span>
+                                    <span class="speak-tech">Custom Safety Valve Reporting &mdash; bespoke FIFA and NODE triggers for LA Safety Valve goals</span>
+                                </li>
+                                <li>
+                                    <span class="speak-plain">Dedicated technical support directly from the Arena team</span>
+                                    <span class="speak-tech">API White-Glove Support &mdash; dedicated technical architect</span>
+                                </li>
                             </ul>
-                            <p class="tier-note">
-                                Founding LA Opportunity: first 3 Local Authorities receive permanent Advisory Circle membership.
-                            </p>
+                            <p class="tier-note">&#11088; Founding LA Opportunity: first 3 Local Authorities receive a permanent seat on the Advisory Circle &mdash; shaping the platform&rsquo;s future.</p>
                         </div>
                         <div class="tier-contact">
                             <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i>
-                                sales@thearenahub.co.uk
+                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
                             </a>
                         </div>
                     </div>
@@ -1696,26 +1504,24 @@
                 </div>
 
                 <p class="pilot-start-note">
-                    Pilot window opens <span>30th March 2026</span>.
-                    All tier prices are one-off licence fees — no per-pupil charges, no hidden costs.
+                    Pilot window opens <span>w/c 30th March 2026</span>.
+                    Annual licence fees &mdash; no per-pupil charges, no hidden costs.
+                    24-month contracts aligned to the 2026 SEND Reform long-term outcomes requirement.
                 </p>
 
-            </div><!-- /pricing-modal-body -->
-        </div><!-- /pricing-modal-box -->
+            </div>
+        </div>
     </div>
 
     <!-- ═══════════════════════════════════════════════════
-         EMAIL ARENA MODAL
+         EMAIL MODAL
          ═══════════════════════════════════════════════════ -->
     <div id="email-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="email-modal-title">
         <div class="email-modal-box">
             <button class="modal-close" onclick="closeModal('email-modal')" aria-label="Close email modal">&times;</button>
-            <div class="modal-icon">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-            </div>
+            <div class="modal-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
             <h3 id="email-modal-title">Email The Arena Hub</h3>
             <p>Select the team you&rsquo;d like to contact. We&rsquo;ll open your email client ready to go.</p>
-
             <label for="email-alias-select" class="sr-only">Select department</label>
             <select id="email-alias-select" class="email-select" aria-label="Select department to email">
                 <option value="">-- Select a department --</option>
@@ -1727,15 +1533,7 @@
                 <option value="safeguarding">Safeguarding — safeguarding@thearenahub.co.uk</option>
                 <option value="data-protection">Data Protection — data-protection@thearenahub.co.uk</option>
                 <option value="compliance">Compliance — compliance@thearenahub.co.uk</option>
-                <option value="security">Security — security@thearenahub.co.uk</option>
-                <option value="press">Press &amp; Media — press@thearenahub.co.uk</option>
-                <option value="careers">Careers — careers@thearenahub.co.uk</option>
-                <option value="legal">Legal — legal@thearenahub.co.uk</option>
-                <option value="policy">Policy — policy@thearenahub.co.uk</option>
-                <option value="admin">Administration — admin@thearenahub.co.uk</option>
-                <option value="help">Help Desk — help@thearenahub.co.uk</option>
             </select>
-
             <button class="btn btn-gold" onclick="sendEmail()" style="width:100%;">
                 Open in Email Client &rarr;
             </button>
@@ -1743,7 +1541,7 @@
     </div>
 
     <!-- ═══════════════════════════════════════════════════
-         SCRIPTS — Service Worker + Modals + Dynamic Config
+         SCRIPTS
          ═══════════════════════════════════════════════════ -->
     <script>
         'use strict';
@@ -1753,6 +1551,43 @@
             window.addEventListener('load', function () {
                 navigator.serviceWorker.register('sw.js').catch(function () {});
             });
+        }
+
+        // ═══════════════════════════════════════════════════
+        // SPEAK TOGGLE — Plain English / Under the Hood
+        // ═══════════════════════════════════════════════════
+        var currentMode = 'plain';
+
+        function setMode(mode) {
+            if (mode === currentMode) return;
+            currentMode = mode;
+
+            var body     = document.body;
+            var btnPlain = document.getElementById('btn-plain');
+            var btnTech  = document.getElementById('btn-tech');
+
+            // Step 1: fade everything out
+            body.classList.add('mode-switching');
+
+            setTimeout(function () {
+                // Step 2: swap classes
+                if (mode === 'tech') {
+                    body.classList.add('mode-tech');
+                    btnTech.classList.add('active');
+                    btnTech.setAttribute('aria-pressed', 'true');
+                    btnPlain.classList.remove('active');
+                    btnPlain.setAttribute('aria-pressed', 'false');
+                } else {
+                    body.classList.remove('mode-tech');
+                    btnPlain.classList.add('active');
+                    btnPlain.setAttribute('aria-pressed', 'true');
+                    btnTech.classList.remove('active');
+                    btnTech.setAttribute('aria-pressed', 'false');
+                }
+
+                // Step 3: fade back in
+                body.classList.remove('mode-switching');
+            }, 130);
         }
 
         // ── Modal helpers ───────────────────────────────────
@@ -1784,15 +1619,11 @@
             }
         });
 
-        // ── Email Arena modal ───────────────────────────────
+        // ── Email modal ─────────────────────────────────────
         function sendEmail() {
             var select = document.getElementById('email-alias-select');
             var alias  = select.value;
-            if (!alias) {
-                select.focus();
-                select.style.borderColor = '#C5A059';
-                return;
-            }
+            if (!alias) { select.focus(); select.style.borderColor = '#C5A059'; return; }
             window.location.href = 'mailto:' + alias + '@thearenahub.co.uk';
             closeModal('email-modal');
         }
@@ -1804,19 +1635,19 @@
         // ── Dynamic config from ARENA_HUB_CONFIG ─────────────
         var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
 
+        function showArticleFallback() {
+            var fallback = document.getElementById('article-fallback');
+            if (fallback) fallback.style.display = 'block';
+        }
+
         function loadSiteConfig() {
             if (!ARENA_HUB_CONFIG_URL) return;
-
             fetch(ARENA_HUB_CONFIG_URL)
                 .then(function (r) { return r.json(); })
                 .then(function (data) {
-                    if (!data.success || !data.config) {
-                        showArticleFallback();
-                        return;
-                    }
+                    if (!data.success || !data.config) { showArticleFallback(); return; }
                     var cfg = data.config;
 
-                    // ── Dynamic article button in header ────
                     var articleBtn   = document.getElementById('dynamic-article-btn');
                     var articleLabel = document.getElementById('dynamic-article-label');
                     var artUrl    = cfg['LATEST_ARTICLE_URL'];
@@ -1828,119 +1659,62 @@
                         articleBtn.style.display = 'inline-block';
                     }
 
-                    // ── Article preview panel ───────────────
                     if (artUrl && artActive !== 'FALSE' && artActive !== false) {
                         var panel     = document.getElementById('article-panel');
                         var link      = document.getElementById('article-link');
                         var title     = document.getElementById('article-title');
                         var thumbWrap = document.getElementById('article-thumbnail-wrap');
                         var artImg    = cfg['LATEST_ARTICLE_IMAGE'];
-
                         link.href = artUrl;
                         if (artLabel) title.textContent = artLabel;
-
-                        // Update section heading
                         var h2 = document.getElementById('article-section-heading');
                         if (h2 && artLabel) h2.textContent = artLabel;
-
-                        // Thumbnail
                         if (artImg) {
                             var img = document.createElement('img');
-                            img.src = artImg;
-                            img.alt = artLabel || 'Article thumbnail';
-                            img.loading = 'lazy';
+                            img.src = artImg; img.alt = artLabel || 'Article thumbnail'; img.loading = 'lazy';
                             thumbWrap.appendChild(img);
                         } else {
-                            // Placeholder
                             var ph = document.createElement('div');
                             ph.className = 'article-thumbnail-placeholder';
                             ph.innerHTML = '<i class="fas fa-newspaper"></i>';
                             thumbWrap.appendChild(ph);
                         }
-
                         panel.classList.add('loaded');
                     } else {
                         showArticleFallback();
                     }
 
-                    // ── Pilot section in pricing modal ──────
                     var pilotSection = document.getElementById('pilot-section');
-                    var pilotStatus  = cfg['Pilot_Status'];
-
                     if (pilotSection) {
-                        if (pilotStatus === 'OFF' || pilotStatus === false) {
-                            pilotSection.style.display = 'none';
-                        } else {
-                            pilotSection.style.display = '';
-                        }
+                        var pilotStatus = cfg['Pilot_Status'];
+                        pilotSection.style.display = (pilotStatus === 'OFF' || pilotStatus === false) ? 'none' : '';
                     }
 
-                    // AP Founding Partners count
                     var apCount = parseInt(cfg['AP_Founder_Partner'] || 0, 10);
                     var laCount = parseInt(cfg['LA_Founder_Partner'] || 0, 10);
-
-                    var apCountEl  = document.getElementById('ap-count');
-                    var laCountEl  = document.getElementById('la-count');
-                    var apFullEl   = document.getElementById('ap-full');
-                    var laFullEl   = document.getElementById('la-full');
-
+                    var apCountEl = document.getElementById('ap-count');
+                    var laCountEl = document.getElementById('la-count');
+                    var apFullEl  = document.getElementById('ap-full');
+                    var laFullEl  = document.getElementById('la-full');
                     if (apCountEl) apCountEl.textContent = apCount;
                     if (laCountEl) laCountEl.textContent = laCount;
-
-                    // Show FULL overlay if maxed
                     if (apFullEl) apFullEl.style.display = (apCount >= 5) ? 'flex' : 'none';
                     if (laFullEl) laFullEl.style.display = (laCount >= 3) ? 'flex' : 'none';
 
-                    // ── Footer social links ─────────────────
                     var linkMap = {
-                        'LINKEDIN_URL':   'footer-linkedin',
-                        'BLUESKY_URL':    'footer-bluesky',
-                        'TWITTER_URL':    'footer-twitter',
-                        'FACEBOOK_URL':   'footer-facebook',
-                        'INSTAGRAM_URL':  'footer-instagram',
-                        'THREADS_URL':    'footer-threads',
-                        'REDDIT_URL':     'footer-reddit',
-                        'SUBSTACK_URL_1': 'footer-substack-1',
-                        'SUBSTACK_URL_2': 'footer-substack-2'
+                        'LINKEDIN_URL': 'footer-linkedin', 'BLUESKY_URL': 'footer-bluesky',
+                        'TWITTER_URL': 'footer-twitter',   'FACEBOOK_URL': 'footer-facebook',
+                        'INSTAGRAM_URL': 'footer-instagram','THREADS_URL': 'footer-threads',
+                        'REDDIT_URL': 'footer-reddit'
                     };
-
                     Object.keys(linkMap).forEach(function (key) {
-                        var val = cfg[key];
-                        var el  = document.getElementById(linkMap[key]);
-                        if (val && el) el.href = val;
+                        var el = document.getElementById(linkMap[key]);
+                        if (el && cfg[key]) el.href = cfg[key];
                     });
-
-                    if (cfg['SUBSTACK_LABEL_1']) {
-                        var sl1 = document.getElementById('footer-substack-1-label');
-                        if (sl1) sl1.textContent = cfg['SUBSTACK_LABEL_1'];
-                    }
-                    if (cfg['SUBSTACK_LABEL_2']) {
-                        var sl2 = document.getElementById('footer-substack-2-label');
-                        if (sl2) sl2.textContent = cfg['SUBSTACK_LABEL_2'];
-                    }
-
-                    // ── Phone ───────────────────────────────
-                    if (cfg['PHONE']) {
-                        var phoneEl = document.querySelector('.footer-phone');
-                        if (phoneEl) {
-                            phoneEl.href = 'tel:' + cfg['PHONE'].replace(/\s/g,'');
-                            var textNodes = Array.from(phoneEl.childNodes)
-                                .filter(function(n){ return n.nodeType === 3; });
-                            if (textNodes.length) textNodes[0].nodeValue = ' ' + cfg['PHONE'];
-                        }
-                    }
                 })
-                .catch(function () {
-                    showArticleFallback();
-                });
+                .catch(function () { showArticleFallback(); });
         }
 
-        function showArticleFallback() {
-            var fallback = document.getElementById('article-fallback');
-            if (fallback) fallback.style.display = 'block';
-        }
-
-        // Run on DOM ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', loadSiteConfig);
         } else {
