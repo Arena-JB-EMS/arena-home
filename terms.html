@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1B263B">
+    <meta name="description" content="Terms of Service — The Arena Hub Ltd. Subscription terms, pilot conditions, and cancellation policy.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Terms of Service — The Arena Hub</title>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #F4F5F7;
+            color: #2C3E50;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        a { color: #C5A059; }
+        a:hover { color: #B09047; }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: #1B263B;
+            border-bottom: 2px solid rgba(197,160,89,0.25);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header-inner {
+            max-width: 1140px; margin: 0 auto;
+            padding: 0 2rem; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .site-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            text-decoration: none;
+        }
+        .site-logo-img {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(197,160,89,0.4);
+        }
+        .site-logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem; font-weight: 700;
+            color: #FFFFFF;
+        }
+        .site-logo-text span { color: #C5A059; }
+        .header-back {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem; text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-back:hover { color: #C5A059; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%);
+            color: #FFFFFF;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+        }
+        .page-hero .eyebrow {
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .page-hero .subtitle {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem; max-width: 560px; margin: 0 auto;
+        }
+        .page-hero .meta {
+            margin-top: 1.5rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ── CONTENT ── */
+        .content-wrap {
+            max-width: 820px; margin: 0 auto;
+            padding: 3.5rem 2rem 5rem;
+        }
+
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+
+        .policy-section h2 {
+            font-size: 1.5rem;
+            color: #1B263B;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(197,160,89,0.3);
+        }
+
+        .policy-section h3 {
+            font-size: 1.1rem;
+            color: #1B263B;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .policy-section p {
+            margin-bottom: 1rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul {
+            margin: 0.75rem 0 1rem 1.5rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        .highlight-box {
+            background: #FFFFFF;
+            border-left: 4px solid #C5A059;
+            border-radius: 0 6px 6px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+        }
+        .highlight-box p { margin-bottom: 0; color: #2C3E50; }
+        .highlight-box strong { color: #1B263B; }
+
+        .pilot-table {
+            width: 100%; border-collapse: collapse;
+            margin: 1.25rem 0 1.5rem;
+            font-size: 0.92rem;
+            background: #FFFFFF;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+        }
+        .pilot-table thead {
+            background: #1B263B;
+            color: #FFFFFF;
+        }
+        .pilot-table thead th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .pilot-table tbody tr:nth-child(even) { background: #F8F9FA; }
+        .pilot-table tbody td {
+            padding: 0.7rem 1rem;
+            color: #3a4a5a;
+            border-bottom: 1px solid rgba(27,38,59,0.07);
+        }
+        .pilot-table tbody td:first-child {
+            font-weight: 600;
+            color: #1B263B;
+        }
+
+        .contact-card {
+            background: #1B263B;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .contact-card h3 { color: #C5A059; margin-bottom: 0.75rem; }
+        .contact-card p { color: rgba(255,255,255,0.75); margin-bottom: 0.4rem; }
+        .contact-card a { color: #C5A059; }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            background: #1B263B; color: #A8B5C2;
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(197,160,89,0.2);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1fr;
+            gap: 2.5rem; max-width: 1140px;
+            margin: 0 auto 3rem;
+        }
+        @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; } }
+        .footer-brand .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: #FFFFFF; margin-bottom: 0.6rem;
+        }
+        .footer-brand .logo span { color: #C5A059; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem; }
+        .footer-col h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.6rem; }
+        .footer-col ul li a {
+            color: #A8B5C2; text-decoration: none;
+            font-size: 0.9rem; transition: color 0.2s;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .footer-col ul li a:hover { color: #C5A059; }
+        .footer-divider {
+            border: none; border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 0 auto 1.5rem; max-width: 1140px;
+        }
+        .footer-bottom {
+            max-width: 1140px; margin: 0 auto;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap; gap: 0.75rem;
+        }
+        .footer-bottom p { font-size: 0.82rem; margin: 0; }
+        .footer-bottom a { color: #A8B5C2; text-decoration: none; }
+        .footer-bottom a:hover { color: #C5A059; }
+        .footer-phone, .footer-email-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: #A8B5C2; font-size: 0.9rem;
+            text-decoration: none; transition: color 0.2s;
+            background: none; border: none; cursor: pointer;
+            padding: 0; font-family: inherit; margin-right: 0.75rem;
+        }
+        .footer-phone:hover, .footer-email-btn:hover { color: #C5A059; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════ -->
+    <header class="site-header" role="banner">
+        <div class="header-inner">
+            <a href="company.html" class="site-logo">
+                <img src="Company_Icon.jpg" alt="" class="site-logo-img" aria-hidden="true">
+                <span class="site-logo-text">The <span>Arena Hub</span></span>
+            </a>
+            <a href="company.html" class="header-back">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to main site
+            </a>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════
+         PAGE HERO
+         ═══════════════════════════════════════════════════ -->
+    <div class="page-hero">
+        <p class="eyebrow">Legal</p>
+        <h1>Terms of Service</h1>
+        <p class="subtitle">The rules of engagement for using The Arena Hub platform and services.</p>
+        <p class="meta">Last updated: 24 March 2026 &nbsp;&bull;&nbsp; The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         CONTENT
+         ═══════════════════════════════════════════════════ -->
+    <main id="main">
+        <div class="content-wrap">
+
+            <div class="highlight-box">
+                <p><strong>Plain English summary:</strong> By using The Arena Hub, you agree to use it for its intended purpose — supporting Alternative Provision schools. The £495 pilot gives you 6 weeks of full access. After that, if you continue, a subscription begins. You can cancel before conversion. We&rsquo;re responsible for the platform working — you&rsquo;re responsible for the data you put into it.</p>
+            </div>
+
+            <!-- 1. Who This Agreement Is With -->
+            <div class="policy-section">
+                <h2>1. Who This Agreement Is With</h2>
+                <p>These Terms of Service (&ldquo;Terms&rdquo;) constitute a legally binding agreement between <strong>The Arena Hub Ltd</strong> (Company No. CH#1708605, registered in England and Wales — &ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) and the organisation or individual (&ldquo;you&rdquo;, &ldquo;the Customer&rdquo;, &ldquo;the School&rdquo;) accessing or using the Arena Hub platform and associated services.</p>
+                <p>By accessing our website, signing up for a pilot, or activating a subscription, you confirm that you are authorised to bind your organisation to these Terms and that you accept them in full.</p>
+                <p>If you do not accept these Terms, you must not use the Arena Hub platform or services.</p>
+            </div>
+
+            <!-- 2. The Service -->
+            <div class="policy-section">
+                <h2>2. The Service</h2>
+                <p>The Arena Hub is a cloud-based Education Management System (EMS) built specifically for Alternative Provision (AP) settings in the United Kingdom. It comprises three integrated pillars:</p>
+                <ul>
+                    <li><strong>Performance Centre</strong> — student registration, attendance, FIFA-style progress scoring, EHCP evidence tracking, and reporting.</li>
+                    <li><strong>Welfare Suite</strong> — DSL-grade safeguarding case management, welfare chronology, and AI-assisted letter drafting.</li>
+                    <li><strong>Kit Room</strong> — physical resource management, vocational qualification tracking, and partner course registration.</li>
+                </ul>
+                <p>The platform runs on Google Apps Script, with school data stored within your organisation&rsquo;s own Google Workspace environment. Access tiers determine which pillars are available to your school.</p>
+                <p>We reserve the right to update, improve, or modify the platform at any time. We will provide reasonable notice of any changes that materially affect your use of the service.</p>
+            </div>
+
+            <!-- 3. The Founding Partner Pilot -->
+            <div class="policy-section">
+                <h2>3. The Founding Partner Pilot</h2>
+                <p>The Arena Hub offers a structured 6-week Founding Partner Pilot as the primary entry point for new schools. The following terms apply:</p>
+
+                <table class="pilot-table">
+                    <thead>
+                        <tr>
+                            <th>Term</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Pilot Fee</td>
+                            <td>£495 + VAT (one-off, non-refundable after deployment)</td>
+                        </tr>
+                        <tr>
+                            <td>Duration</td>
+                            <td>6 weeks from the date of successful platform deployment</td>
+                        </tr>
+                        <tr>
+                            <td>Access</td>
+                            <td>Full T3 (Enterprise) access across all three pillars for the pilot period</td>
+                        </tr>
+                        <tr>
+                            <td>Deliverables</td>
+                            <td>Platform deployment, school onboarding, 6-week success roadmap, and a Pilot Diagnostic Report at close</td>
+                        </tr>
+                        <tr>
+                            <td>Conversion</td>
+                            <td>At week 5, you will be presented with subscription options. Conversion is entirely your choice.</td>
+                        </tr>
+                        <tr>
+                            <td>Non-conversion</td>
+                            <td>If you choose not to convert, your access will cease at the end of week 6. Your data remains in your Google Drive.</td>
+                        </tr>
+                        <tr>
+                            <td>Payment</td>
+                            <td>The pilot fee is processed via Stripe at the point of booking. Payment confirms your place.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The pilot fee covers deployment, onboarding, and the diagnostic report. It is not a deposit against future subscription costs. Schools that convert to a subscription do so at the standard rates applicable at the time of conversion.</p>
+            </div>
+
+            <!-- 4. Subscription Tiers and Pricing -->
+            <div class="policy-section">
+                <h2>4. Subscription Tiers and Pricing</h2>
+                <p>Following a successful pilot, schools may choose to subscribe to one of the following tiers. Pricing is subject to change; the rates applicable at the time of your subscription agreement will be confirmed in writing before activation.</p>
+
+                <h3>4.1 Tier Structure</h3>
+                <table class="pilot-table">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Pillars Included</th>
+                            <th>Suitable For</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Foundations (T1)</td>
+                            <td>Performance Centre only</td>
+                            <td>Small AP providers focusing on attendance and progress</td>
+                        </tr>
+                        <tr>
+                            <td>Professional (T2)</td>
+                            <td>Performance Centre + Welfare Suite or Kit Room</td>
+                            <td>Schools with active DSL safeguarding needs or vocational delivery</td>
+                        </tr>
+                        <tr>
+                            <td>Enterprise (T3)</td>
+                            <td>All three pillars</td>
+                            <td>Full AP schools requiring end-to-end management infrastructure</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>4.2 Subscription Terms</h3>
+                <ul>
+                    <li>Subscriptions are annual, invoiced on the anniversary of your activation date.</li>
+                    <li>An annual platform maintenance fee applies in addition to the licence fee. This covers platform updates, security patching, and Google infrastructure costs.</li>
+                    <li>All prices are quoted exclusive of VAT. VAT will be applied at the prevailing UK rate at the time of invoicing.</li>
+                    <li>Subscription fees are processed via Stripe. By activating a subscription, you authorise recurring annual charges to your nominated payment method.</li>
+                    <li>Invoices will be issued 14 days before the renewal date. Payment is due within 14 days of the invoice date.</li>
+                </ul>
+
+                <h3>4.3 Price Changes</h3>
+                <p>We reserve the right to adjust subscription pricing at renewal. We will provide a minimum of 60 days&rsquo; written notice of any price increase. You may cancel before the renewal date if you do not accept the new pricing.</p>
+            </div>
+
+            <!-- 5. Payment Terms -->
+            <div class="policy-section">
+                <h2>5. Payment Terms</h2>
+                <p>All payments are processed securely via <strong>Stripe Payments Europe Ltd</strong>. By making a payment, you agree to Stripe&rsquo;s <a href="https://stripe.com/gb/legal" target="_blank" rel="noopener">Terms of Service</a> in addition to these Terms.</p>
+                <ul>
+                    <li>Pilot fees are due in full at the point of booking and are non-refundable once platform deployment has commenced.</li>
+                    <li>Annual subscription fees are due in full at the start of each subscription year.</li>
+                    <li>Overdue payments may result in suspension of platform access after 14 days and termination after 30 days.</li>
+                    <li>We do not store your payment card details. All card data is held by Stripe under PCI DSS Level 1 certification.</li>
+                    <li>Receipts and invoices will be provided for all payments.</li>
+                </ul>
+            </div>
+
+            <!-- 6. Cancellation Policy -->
+            <div class="policy-section">
+                <h2>6. Cancellation Policy</h2>
+
+                <h3>6.1 Pilot Cancellation</h3>
+                <p>The pilot fee of £495 + VAT is non-refundable once your platform has been deployed and your school has completed the onboarding process. If you cancel before deployment has commenced, a full refund will be issued within 14 working days.</p>
+
+                <h3>6.2 Subscription Cancellation</h3>
+                <ul>
+                    <li>You may cancel your subscription at any time by contacting us in writing at <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a>.</li>
+                    <li>Cancellations received more than 30 days before your renewal date will prevent the next charge from being taken.</li>
+                    <li>Cancellations received less than 30 days before renewal will take effect at the end of the current subscription year. No partial refunds are issued for mid-year cancellations.</li>
+                    <li>On cancellation, your access to the platform will cease at the end of the paid period. Your data remains in your Google Drive and is not deleted by us.</li>
+                </ul>
+
+                <h3>6.3 Cancellation by The Arena Hub</h3>
+                <p>We reserve the right to suspend or terminate your access immediately, without refund, in the event of: a material breach of these Terms; misuse of the platform; or non-payment after reasonable notice. We will provide written notice of any such action.</p>
+            </div>
+
+            <!-- 7. Acceptable Use -->
+            <div class="policy-section">
+                <h2>7. Acceptable Use</h2>
+                <p>You agree to use the Arena Hub platform only for its intended purpose: the management and support of students within UK Alternative Provision educational settings. You must not:</p>
+                <ul>
+                    <li>Use the platform to process data for any purpose other than the legitimate educational management of your school&rsquo;s students and staff.</li>
+                    <li>Attempt to reverse-engineer, copy, or redistribute any part of the platform.</li>
+                    <li>Share access credentials with individuals outside your school&rsquo;s authorised staff.</li>
+                    <li>Input false, fraudulent, or third-party data not relating to your school.</li>
+                    <li>Attempt to circumvent platform security mechanisms, access controls, or Google OAuth protections.</li>
+                    <li>Use the platform in any way that violates applicable UK law, including the UK GDPR and the Children Act 1989.</li>
+                </ul>
+            </div>
+
+            <!-- 8. Data Responsibilities -->
+            <div class="policy-section">
+                <h2>8. Data Responsibilities</h2>
+                <p>You, as the school, act as the <strong>Data Controller</strong> for all pupil and staff data uploaded into the Arena Hub. We act as your <strong>Data Processor</strong> in accordance with our Data Processing Agreement (DPA), which forms part of the service agreement.</p>
+                <ul>
+                    <li>You are responsible for ensuring you have the lawful basis to process pupil and staff data through the platform.</li>
+                    <li>You are responsible for conducting your own Data Protection Impact Assessment (DPIA) where required under UK GDPR.</li>
+                    <li>You are responsible for informing pupils, parents, and staff of the use of the Arena Hub in your school&rsquo;s privacy notices.</li>
+                    <li>We will process data only on your instruction and in accordance with our Privacy Policy at <a href="privacy.html">thearenahub.co.uk/privacy</a>.</li>
+                </ul>
+                <p>For our full Privacy Policy, including details of how Stripe processes payment data, visit <a href="privacy.html">thearenahub.co.uk/privacy</a>.</p>
+            </div>
+
+            <!-- 9. Intellectual Property -->
+            <div class="policy-section">
+                <h2>9. Intellectual Property</h2>
+                <p>All intellectual property in the Arena Hub platform, including its code, architecture, design, naming, and documentation, is owned exclusively by The Arena Hub Ltd.</p>
+                <p>We grant you a limited, non-exclusive, non-transferable licence to use the platform for the duration of your active pilot or subscription. This licence does not include any right to copy, modify, or distribute any part of the platform.</p>
+                <p>Your school&rsquo;s data (pupil records, welfare notes, qualification records, etc.) remains your property at all times.</p>
+            </div>
+
+            <!-- 10. Liability -->
+            <div class="policy-section">
+                <h2>10. Liability Limitations</h2>
+
+                <h3>10.1 Our Liability</h3>
+                <p>The Arena Hub platform is provided &ldquo;as is&rdquo;. While we take every reasonable step to maintain a reliable, secure service, we do not warrant that the platform will be uninterrupted, error-free, or free from data loss in all circumstances.</p>
+                <p>To the fullest extent permitted by law, our total liability to you in connection with these Terms or the use of the platform shall not exceed the total fees paid by you in the 12 months preceding the claim.</p>
+                <p>We shall not be liable for: indirect or consequential losses; loss of profits or revenue; loss of data arising from your own actions or omissions; or events outside our reasonable control (force majeure), including Google infrastructure outages.</p>
+
+                <h3>10.2 Your Liability</h3>
+                <p>You are responsible for ensuring that your use of the platform complies with all applicable laws, including safeguarding obligations, UK GDPR, and education sector regulations. You indemnify The Arena Hub Ltd against any claims arising from your misuse of the platform or breach of these Terms.</p>
+
+                <h3>10.3 Nothing in These Terms Excludes</h3>
+                <p>Nothing in these Terms excludes or limits liability for death or personal injury caused by negligence, fraud, or any other liability that cannot be excluded by law.</p>
+            </div>
+
+            <!-- 11. Availability and Support -->
+            <div class="policy-section">
+                <h2>11. Availability and Support</h2>
+                <p>We aim to maintain platform availability during UK school term times. Planned maintenance will be scheduled outside of core school hours (7am–6pm GMT/BST, Monday–Friday) where possible.</p>
+                <p>Support is provided by email at <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a> and by phone at <a href="tel:01618702916">01618702916</a>. Response times and support scope are detailed in your Service Level Agreement, which forms part of your subscription package.</p>
+            </div>
+
+            <!-- 12. Governing Law -->
+            <div class="policy-section">
+                <h2>12. Governing Law and Disputes</h2>
+                <p>These Terms are governed by and construed in accordance with the laws of <strong>England and Wales</strong>. Any disputes arising from these Terms or your use of the Arena Hub shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+                <p>Before initiating any legal proceedings, the parties agree to attempt resolution through good-faith negotiation for a period of 30 days.</p>
+            </div>
+
+            <!-- 13. Changes to Terms -->
+            <div class="policy-section">
+                <h2>13. Changes to These Terms</h2>
+                <p>We may update these Terms from time to time to reflect changes in the platform, pricing, or applicable law. We will notify active subscribers of any material changes by email with a minimum of 30 days&rsquo; notice. Continued use of the platform after the effective date of updated Terms constitutes acceptance.</p>
+                <p>The date of the most recent update is shown at the top of this page.</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="contact-card">
+                <h3>Questions About These Terms?</h3>
+                <p>The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+                <p>Email: <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a></p>
+                <p>Phone: <a href="tel:01618702916">01618702916</a></p>
+                <p>Governing Law: England and Wales</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════ -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <div class="logo">The <span>Arena Hub</span></div>
+                <p>A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them.</p>
+                <a href="tel:01618702916" class="footer-phone">
+                    <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
+                </a>
+                <a href="mailto:j.baguley@thearenahub.co.uk" class="footer-email-btn">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> j.baguley@thearenahub.co.uk
+                </a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Read</h4>
+                <ul>
+                    <li><a href="https://thearenahub.substack.com" target="_blank" rel="noopener"><i class="fas fa-rss" aria-hidden="true"></i> Arena Hub on Substack</a></li>
+                    <li><a href="https://thearenahub.substack.com/p/the-2026-send-reform-why-the-legacy?r=7y2kri" target="_blank" rel="noopener"><i class="fas fa-file-alt" aria-hidden="true"></i> The 2026 SEND Reform</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+                    <li><a href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener"><i class="fas fa-cloud" aria-hidden="true"></i> BlueSky</a></li>
+                    <li><a href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Terms of Service</a></li>
+                    <li><a href="company.html"><i class="fas fa-building" aria-hidden="true"></i> About The Arena Hub</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Arena Hub Ltd &mdash; CH#1708605 &mdash; All rights reserved.</p>
+            <p>
+                <a href="privacy.html">Privacy</a> &nbsp;&bull;&nbsp;
+                <a href="terms.html">Terms</a> &nbsp;&bull;&nbsp;
+                <a href="company.html">Home</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

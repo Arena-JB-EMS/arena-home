@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1B263B">
+    <meta name="description" content="Privacy Policy — The Arena Hub Ltd. How we collect, store and protect your data.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Privacy Policy — The Arena Hub</title>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #F4F5F7;
+            color: #2C3E50;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        a { color: #C5A059; }
+        a:hover { color: #B09047; }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: #1B263B;
+            border-bottom: 2px solid rgba(197,160,89,0.25);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header-inner {
+            max-width: 1140px; margin: 0 auto;
+            padding: 0 2rem; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .site-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            text-decoration: none;
+        }
+        .site-logo-img {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(197,160,89,0.4);
+        }
+        .site-logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem; font-weight: 700;
+            color: #FFFFFF;
+        }
+        .site-logo-text span { color: #C5A059; }
+        .header-back {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem; text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-back:hover { color: #C5A059; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%);
+            color: #FFFFFF;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+        }
+        .page-hero .eyebrow {
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .page-hero .subtitle {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem; max-width: 560px; margin: 0 auto;
+        }
+        .page-hero .meta {
+            margin-top: 1.5rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ── CONTENT ── */
+        .content-wrap {
+            max-width: 820px; margin: 0 auto;
+            padding: 3.5rem 2rem 5rem;
+        }
+
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+
+        .policy-section h2 {
+            font-size: 1.5rem;
+            color: #1B263B;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(197,160,89,0.3);
+        }
+
+        .policy-section h3 {
+            font-size: 1.1rem;
+            color: #1B263B;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .policy-section p {
+            margin-bottom: 1rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul {
+            margin: 0.75rem 0 1rem 1.5rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        .highlight-box {
+            background: #FFFFFF;
+            border-left: 4px solid #C5A059;
+            border-radius: 0 6px 6px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+        }
+        .highlight-box p { margin-bottom: 0; color: #2C3E50; }
+        .highlight-box strong { color: #1B263B; }
+
+        .contact-card {
+            background: #1B263B;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .contact-card h3 { color: #C5A059; margin-bottom: 0.75rem; }
+        .contact-card p { color: rgba(255,255,255,0.75); margin-bottom: 0.4rem; }
+        .contact-card a { color: #C5A059; }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            background: #1B263B; color: #A8B5C2;
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(197,160,89,0.2);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1fr;
+            gap: 2.5rem; max-width: 1140px;
+            margin: 0 auto 3rem;
+        }
+        @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; } }
+        .footer-brand .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: #FFFFFF; margin-bottom: 0.6rem;
+        }
+        .footer-brand .logo span { color: #C5A059; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem; }
+        .footer-col h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.6rem; }
+        .footer-col ul li a {
+            color: #A8B5C2; text-decoration: none;
+            font-size: 0.9rem; transition: color 0.2s;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .footer-col ul li a:hover { color: #C5A059; }
+        .footer-divider {
+            border: none; border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 0 auto 1.5rem; max-width: 1140px;
+        }
+        .footer-bottom {
+            max-width: 1140px; margin: 0 auto;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap; gap: 0.75rem;
+        }
+        .footer-bottom p { font-size: 0.82rem; margin: 0; }
+        .footer-bottom a { color: #A8B5C2; text-decoration: none; }
+        .footer-bottom a:hover { color: #C5A059; }
+        .footer-phone, .footer-email-btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: #A8B5C2; font-size: 0.9rem;
+            text-decoration: none; transition: color 0.2s;
+            background: none; border: none; cursor: pointer;
+            padding: 0; font-family: inherit; margin-right: 0.75rem;
+        }
+        .footer-phone:hover, .footer-email-btn:hover { color: #C5A059; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════ -->
+    <header class="site-header" role="banner">
+        <div class="header-inner">
+            <a href="company.html" class="site-logo">
+                <img src="Company_Icon.jpg" alt="" class="site-logo-img" aria-hidden="true">
+                <span class="site-logo-text">The <span>Arena Hub</span></span>
+            </a>
+            <a href="company.html" class="header-back">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to main site
+            </a>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════
+         PAGE HERO
+         ═══════════════════════════════════════════════════ -->
+    <div class="page-hero">
+        <p class="eyebrow">Legal</p>
+        <h1>Privacy Policy</h1>
+        <p class="subtitle">How The Arena Hub collects, stores, and protects your data.</p>
+        <p class="meta">Last updated: 24 March 2026 &nbsp;&bull;&nbsp; The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         CONTENT
+         ═══════════════════════════════════════════════════ -->
+    <main id="main">
+        <div class="content-wrap">
+
+            <div class="highlight-box">
+                <p><strong>Plain English summary:</strong> We collect only what we need to run the Arena Hub platform. Your school's pupil and staff data stays in your Google Drive — we never sell it, share it commercially, or use it to train AI models. Payment details are handled entirely by Stripe; we never see or store your card information.</p>
+            </div>
+
+            <!-- 1. Who We Are -->
+            <div class="policy-section">
+                <h2>1. Who We Are</h2>
+                <p>The Arena Hub Ltd (&ldquo;The Arena Hub&rdquo;, &ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) is a company registered in England and Wales under Company Number CH#1708605. Our registered address is available on request.</p>
+                <p>We are the Data Controller for any personal data you provide to us directly (e.g. during account setup or when contacting us). For pupil and staff data that your school uploads into the Arena Hub platform, your school acts as the Data Controller and we act as a Data Processor on your behalf.</p>
+                <p>To contact us regarding data protection matters: <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a></p>
+            </div>
+
+            <!-- 2. What Data We Collect -->
+            <div class="policy-section">
+                <h2>2. What Data We Collect</h2>
+
+                <h3>2.1 Data You Provide to Us</h3>
+                <ul>
+                    <li><strong>Contact enquiries:</strong> Name, email address, school name, and the content of your message when you contact us via the website or by email.</li>
+                    <li><strong>Account &amp; subscription set-up:</strong> Name, job title, school name, email address, phone number, and billing details (processed by Stripe — see Section 6).</li>
+                    <li><strong>Pilot programme:</strong> School name, head teacher name and email, DSL name and email, and school code, collected during the deployment and unboxing process.</li>
+                </ul>
+
+                <h3>2.2 Pupil and Staff Data (School-Controlled)</h3>
+                <p>When your school uses the Arena Hub platform, you may upload or create records containing:</p>
+                <ul>
+                    <li>Pupil data: full name, preferred name, Unique Pupil Number (UPN), date of birth, year group, form group, gender, SEND needs, and daily attendance registers.</li>
+                    <li>Welfare data: DSL case notes, welfare anchors, chronology entries, and AI-generated pattern insights.</li>
+                    <li>Staff data: name, email address, role, and permission level.</li>
+                    <li>Qualification and resource data: vocational course records, equipment logs, and partner-managed course registrations.</li>
+                </ul>
+                <p>This data is stored in your school&rsquo;s own Google Workspace environment (Google Drive), which you control. We do not hold a central copy of pupil or staff records.</p>
+
+                <h3>2.3 Technical and Usage Data</h3>
+                <ul>
+                    <li>Browser type, device type, and operating system (collected automatically when you access our website).</li>
+                    <li>Pages visited and time spent on site (via anonymised analytics).</li>
+                    <li>IP address (standard web server logging — not linked to individuals).</li>
+                    <li>Errors and performance data from the Google Apps Script platform (used to maintain service reliability).</li>
+                </ul>
+            </div>
+
+            <!-- 3. How We Use Your Data -->
+            <div class="policy-section">
+                <h2>3. How We Use Your Data</h2>
+                <p>We use personal data only for the following purposes:</p>
+                <ul>
+                    <li>To provide and maintain the Arena Hub platform and associated services.</li>
+                    <li>To respond to enquiries and provide customer support.</li>
+                    <li>To process subscription payments via Stripe.</li>
+                    <li>To deploy and configure the platform for your school during onboarding.</li>
+                    <li>To send service-related communications (e.g. maintenance notices, pilot updates). We do not send marketing emails without your explicit consent.</li>
+                    <li>To comply with legal obligations, including data protection law.</li>
+                </ul>
+            </div>
+
+            <!-- 4. Legal Basis -->
+            <div class="policy-section">
+                <h2>4. Our Legal Basis for Processing</h2>
+                <p>Under UK GDPR, we rely on the following lawful bases:</p>
+                <ul>
+                    <li><strong>Contract:</strong> Processing necessary to fulfil our agreement with you (e.g. platform access, billing).</li>
+                    <li><strong>Legitimate Interests:</strong> Maintaining service security, preventing fraud, and improving platform reliability — where these do not override your rights.</li>
+                    <li><strong>Legal Obligation:</strong> Where we are required to process data to comply with applicable law.</li>
+                    <li><strong>Consent:</strong> Where you have explicitly opted in (e.g. marketing communications — which we do not currently send).</li>
+                </ul>
+                <p>For pupil and staff data processed on behalf of your school, we process under your instruction as Data Controller, in accordance with our Data Processing Agreement.</p>
+            </div>
+
+            <!-- 5. Where Your Data Is Stored -->
+            <div class="policy-section">
+                <h2>5. Where Your Data Is Stored</h2>
+                <p>The Arena Hub uses a <strong>Sovereign Hybrid architecture</strong>. This means:</p>
+                <ul>
+                    <li><strong>School data (pupils, staff, welfare records)</strong> is stored in your school&rsquo;s own Google Drive, within your Google Workspace environment. It never leaves your organisation&rsquo;s Google account unless you choose to export it.</li>
+                    <li><strong>Platform logic</strong> runs via Google Apps Script, hosted within Google&rsquo;s infrastructure (data centres in the European Economic Area or United Kingdom).</li>
+                    <li><strong>Kit Room file ingestion</strong> uses Google Cloud Run (EU region) for processing physical resource and qualification data. No pupil-identifiable data passes through this component.</li>
+                    <li><strong>Contact and enquiry data</strong> is held in our Google Workspace account (j.baguley@thearenahub.co.uk), hosted within Google&rsquo;s UK/EEA infrastructure.</li>
+                </ul>
+                <p>We do not transfer personal data outside the UK or EEA.</p>
+            </div>
+
+            <!-- 6. Payment Processing (Stripe) -->
+            <div class="policy-section">
+                <h2>6. Payment Processing — Stripe</h2>
+                <p>All subscription payments for the Arena Hub platform are processed by <strong>Stripe Payments Europe Ltd</strong>, our third-party payment processor.</p>
+                <ul>
+                    <li>When you make a payment, you are entering your card details directly into Stripe&rsquo;s secure payment interface. We never see, handle, or store your card number, CVV, or full payment details.</li>
+                    <li>Stripe retains your billing information (name, billing address, last four digits of card, and transaction records) in accordance with their own privacy policy, available at <a href="https://stripe.com/gb/privacy" target="_blank" rel="noopener">stripe.com/gb/privacy</a>.</li>
+                    <li>Stripe is certified to PCI DSS Level 1, the highest standard of payment security certification.</li>
+                    <li>We receive from Stripe only a payment confirmation token and your billing name — sufficient to confirm your subscription status.</li>
+                </ul>
+                <p>By making a payment through our platform, you acknowledge that your payment data is processed by Stripe under their terms and privacy policy.</p>
+            </div>
+
+            <!-- 7. Data Sharing -->
+            <div class="policy-section">
+                <h2>7. Data Sharing and Third Parties</h2>
+                <p>We do not sell, rent, or commercially share your personal data. We share data only in the following limited circumstances:</p>
+                <ul>
+                    <li><strong>Stripe</strong> — payment processing (see Section 6).</li>
+                    <li><strong>Google LLC</strong> — infrastructure provider for Google Workspace, Google Apps Script, and Google Cloud Run. Google processes data under our Data Processing Agreement with them, in accordance with UK GDPR.</li>
+                    <li><strong>Legal obligation</strong> — where we are required to disclose information by law, court order, or to protect the vital interests of a data subject.</li>
+                </ul>
+                <p>We do not use your data to train AI or machine learning models. Any AI features within the platform (e.g. welfare letter drafting, pattern insights) operate only on data within your school&rsquo;s own Google Drive environment.</p>
+            </div>
+
+            <!-- 8. Retention -->
+            <div class="policy-section">
+                <h2>8. How Long We Keep Your Data</h2>
+                <ul>
+                    <li><strong>Contact enquiries:</strong> Retained for up to 2 years, then securely deleted.</li>
+                    <li><strong>Billing records:</strong> Retained for 7 years to comply with HMRC accounting obligations.</li>
+                    <li><strong>School deployment records:</strong> Retained for the duration of your subscription plus 1 year following termination.</li>
+                    <li><strong>Pupil and staff data:</strong> Held in your school&rsquo;s Google Drive. Retention is your responsibility as Data Controller. We provide a Ground Zero backup at deployment which you can delete at any time.</li>
+                </ul>
+            </div>
+
+            <!-- 9. Your Rights -->
+            <div class="policy-section">
+                <h2>9. Your Rights</h2>
+                <p>Under UK GDPR, you have the right to:</p>
+                <ul>
+                    <li><strong>Access</strong> the personal data we hold about you.</li>
+                    <li><strong>Rectification</strong> of any inaccurate data.</li>
+                    <li><strong>Erasure</strong> (&ldquo;right to be forgotten&rdquo;) in certain circumstances.</li>
+                    <li><strong>Restriction</strong> of processing in certain circumstances.</li>
+                    <li><strong>Portability</strong> of data you have provided to us, in a structured, commonly used format.</li>
+                    <li><strong>Object</strong> to processing based on legitimate interests.</li>
+                    <li><strong>Withdraw consent</strong> at any time, where consent is the lawful basis.</li>
+                </ul>
+                <p>To exercise any of these rights, contact us at <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a>. We will respond within 30 days.</p>
+                <p>If you are not satisfied with our response, you have the right to lodge a complaint with the <strong>Information Commissioner&rsquo;s Office (ICO)</strong> at <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> or by telephone on 0303 123 1113.</p>
+            </div>
+
+            <!-- 10. Cookies -->
+            <div class="policy-section">
+                <h2>10. Cookies</h2>
+                <p>Our website uses only essential functional cookies required for the site to operate. We do not use advertising, tracking, or analytics cookies. No cookie consent banner is displayed because no non-essential cookies are set.</p>
+                <p>The Arena Hub platform itself (the Google Apps Script web apps) does not set cookies. Session authentication is handled via Google&rsquo;s OAuth mechanism, which is governed by Google&rsquo;s own cookie and privacy policies.</p>
+            </div>
+
+            <!-- 11. Changes -->
+            <div class="policy-section">
+                <h2>11. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. When we do, we will update the &ldquo;Last updated&rdquo; date at the top of this page. For material changes, we will notify active subscribers by email. Continued use of the platform after changes are posted constitutes acceptance of the updated policy.</p>
+            </div>
+
+            <!-- Contact -->
+            <div class="contact-card">
+                <h3>Contact Us About This Policy</h3>
+                <p>Data Controller: The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+                <p>Email: <a href="mailto:j.baguley@thearenahub.co.uk">j.baguley@thearenahub.co.uk</a></p>
+                <p>Phone: <a href="tel:01618702916">01618702916</a></p>
+                <p>ICO: <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a> &nbsp;&bull;&nbsp; 0303 123 1113</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════ -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <div class="logo">The <span>Arena Hub</span></div>
+                <p>A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them.</p>
+                <a href="tel:01618702916" class="footer-phone">
+                    <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
+                </a>
+                <a href="mailto:j.baguley@thearenahub.co.uk" class="footer-email-btn">
+                    <i class="fas fa-envelope" aria-hidden="true"></i> j.baguley@thearenahub.co.uk
+                </a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Read</h4>
+                <ul>
+                    <li><a href="https://thearenahub.substack.com" target="_blank" rel="noopener"><i class="fas fa-rss" aria-hidden="true"></i> Arena Hub on Substack</a></li>
+                    <li><a href="https://thearenahub.substack.com/p/the-2026-send-reform-why-the-legacy?r=7y2kri" target="_blank" rel="noopener"><i class="fas fa-file-alt" aria-hidden="true"></i> The 2026 SEND Reform</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+                    <li><a href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener"><i class="fas fa-cloud" aria-hidden="true"></i> BlueSky</a></li>
+                    <li><a href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
+                    <li><a href="terms.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Terms of Service</a></li>
+                    <li><a href="company.html"><i class="fas fa-building" aria-hidden="true"></i> About The Arena Hub</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Arena Hub Ltd &mdash; CH#1708605 &mdash; All rights reserved.</p>
+            <p>
+                <a href="privacy.html">Privacy</a> &nbsp;&bull;&nbsp;
+                <a href="terms.html">Terms</a> &nbsp;&bull;&nbsp;
+                <a href="company.html">Home</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
