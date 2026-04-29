@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2PRX87LVE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-N2PRX87LVE');
-</script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N2PRX87LVE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N2PRX87LVE');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1B263B">
@@ -35,10 +36,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 700;
-        }
+        h1, h2, h3 { font-family: 'Rajdhani', sans-serif; font-weight: 700; }
 
         /* =======================================================
            HEADER BAR
@@ -60,54 +58,27 @@
             margin: 0 auto;
         }
 
-        /* Left: company logo + "Welcome to the Arena" */
-        .top-bar-left {
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            text-decoration: none;
-        }
-
-        /* Company logo — clickable, goes to company.html */
         .top-bar-logo-img {
-            width: 44px;
-            height: 44px;
-            object-fit: cover;
-            border-radius: 6px;
-            flex-shrink: 0;
-            transition: opacity 0.2s;
+            width: 44px; height: 44px;
+            object-fit: cover; border-radius: 6px;
+            flex-shrink: 0; transition: opacity 0.2s;
         }
 
         .top-bar-logo-img:hover { opacity: 0.85; }
 
         .top-bar-welcome {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            letter-spacing: 0.3px;
+            font-size: 1.25rem; font-weight: 700;
+            color: #FFFFFF; letter-spacing: 0.3px;
         }
 
         .top-bar-welcome span { color: #C5A059; }
 
-        /* Right: Back button */
-        .top-bar-right {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
         .back-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            background: #C5A059;
-            border-radius: 6px;
-            color: #1B263B;
-            font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px;
+            background: #C5A059; border-radius: 6px;
+            color: #1B263B; font-size: 1.1rem;
             text-decoration: none;
             transition: background 0.2s, transform 0.15s;
         }
@@ -115,38 +86,31 @@
         .back-btn:hover { background: #B09047; transform: translateY(-1px); }
 
         .back-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #A8B5C2;
-            letter-spacing: 0.5px;
+            font-size: 0.7rem; font-weight: 600;
+            color: #A8B5C2; letter-spacing: 0.5px;
             text-transform: uppercase;
         }
+
+        .top-bar-right { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
 
         /* =======================================================
            ROLE GATE — Three vertical tiles
            ======================================================= */
         .role-gate {
-            display: flex;
-            flex-direction: row;
-            min-height: calc(100vh - 62px); /* subtract header height */
+            display: flex; flex-direction: row;
+            min-height: calc(100vh - 62px);
         }
 
         @media (max-width: 768px) {
             .role-gate { flex-direction: column; min-height: auto; }
         }
 
-        /* ── Shared tile ────────────────────────────────────── */
         .role-tile {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
             padding: 3.5rem 2.5rem;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            text-decoration: none;
+            position: relative; overflow: hidden;
+            cursor: pointer; text-decoration: none;
             transition: flex 0.35s ease;
             min-height: 280px;
         }
@@ -159,190 +123,84 @@
         }
 
         .role-tile::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
+            content: ''; position: absolute; inset: 0;
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
         }
 
         .role-tile:hover::before { opacity: 1; }
 
         .tile-inner {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 280px;
+            position: relative; z-index: 2;
+            text-align: center; max-width: 280px;
             animation: fadeInUp 0.6s ease-out both;
         }
 
         .tile-icon-wrap {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.9rem;
+            width: 72px; height: 72px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1.5rem; font-size: 1.9rem;
             transition: transform 0.3s;
         }
 
         .role-tile:hover .tile-icon-wrap { transform: scale(1.08); }
 
         .tile-role-label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.5rem;
         }
 
         .tile-title {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            line-height: 1.05;
-            margin-bottom: 1rem;
-            letter-spacing: -0.5px;
+            font-size: 2.5rem; font-weight: 700;
+            line-height: 1.05; margin-bottom: 1rem; letter-spacing: -0.5px;
         }
 
-        .tile-desc {
-            font-size: 0.98rem;
-            line-height: 1.55;
-            margin-bottom: 2rem;
-        }
+        .tile-desc { font-size: 0.98rem; line-height: 1.55; margin-bottom: 2rem; }
 
         .tile-cta {
-            display: inline-block;
-            padding: 12px 32px;
-            border: 2px solid;
-            border-radius: 4px;
+            display: inline-block; padding: 12px 32px;
+            border: 2px solid; border-radius: 4px;
             font-family: 'Source Sans 3', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            letter-spacing: 0.3px;
+            font-size: 0.95rem; font-weight: 600;
+            text-decoration: none; letter-spacing: 0.3px;
             transition: background 0.2s, color 0.2s, transform 0.15s;
         }
 
         .role-tile:hover .tile-cta { transform: translateY(-2px); }
 
-        /* Vertical dividers between tiles */
-        .tile-divider {
-            width: 1px;
-            background: rgba(255,255,255,0.08);
-            flex-shrink: 0;
-        }
+        .tile-divider { width: 1px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
 
-        @media (max-width: 768px) {
-            .tile-divider { width: 100%; height: 1px; }
-        }
+        @media (max-width: 768px) { .tile-divider { width: 100%; height: 1px; } }
 
-        /* =======================================================
-           TILE 1 — STAFF
-           Navy background · white text · gold button
-           (matches the existing Student Hub dark tile pattern)
-           ======================================================= */
-        .tile-staff {
-            background: linear-gradient(160deg, #1B263B 0%, #243447 100%);
-            color: #FFFFFF;
-        }
-
-        .tile-staff::before {
-            background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.1) 0%, transparent 65%);
-        }
-
-        .tile-staff .tile-icon-wrap {
-            background: rgba(197,160,89,0.12);
-            border: 1px solid rgba(197,160,89,0.3);
-            color: #C5A059;
-        }
-
+        /* STAFF tile */
+        .tile-staff { background: linear-gradient(160deg, #1B263B 0%, #243447 100%); color: #FFFFFF; }
+        .tile-staff::before { background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.1) 0%, transparent 65%); }
+        .tile-staff .tile-icon-wrap { background: rgba(197,160,89,0.12); border: 1px solid rgba(197,160,89,0.3); color: #C5A059; }
         .tile-staff .tile-role-label { color: rgba(197,160,89,0.7); }
         .tile-staff .tile-title      { color: #FFFFFF; }
         .tile-staff .tile-desc       { color: #A8B5C2; }
+        .tile-staff .tile-cta        { background: #C5A059; border-color: #C5A059; color: #1B263B; }
+        .tile-staff:hover .tile-cta  { background: #B09047; border-color: #B09047; color: #FFFFFF; }
 
-        .tile-staff .tile-cta {
-            background: #C5A059;
-            border-color: #C5A059;
-            color: #1B263B;
-        }
-
-        .tile-staff:hover .tile-cta {
-            background: #B09047;
-            border-color: #B09047;
-            color: #FFFFFF;
-        }
-
-        /* =======================================================
-           TILE 2 — STUDENT
-           White background · navy text · gold button
-           ======================================================= */
-        .tile-student {
-            background: #FFFFFF;
-            color: #1B263B;
-        }
-
-        .tile-student::before {
-            background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.06) 0%, transparent 60%);
-        }
-
-        .tile-student .tile-icon-wrap {
-            background: rgba(197,160,89,0.1);
-            border: 1px solid rgba(197,160,89,0.25);
-            color: #C5A059;
-        }
-
+        /* STUDENT tile */
+        .tile-student { background: #FFFFFF; color: #1B263B; }
+        .tile-student::before { background: radial-gradient(circle at 50% 50%, rgba(197,160,89,0.06) 0%, transparent 60%); }
+        .tile-student .tile-icon-wrap { background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25); color: #C5A059; }
         .tile-student .tile-role-label { color: #8A9AAA; }
         .tile-student .tile-title      { color: #1B263B; }
         .tile-student .tile-desc       { color: #5A6C7D; }
+        .tile-student .tile-cta        { background: #C5A059; border-color: #C5A059; color: #FFFFFF; }
+        .tile-student:hover .tile-cta  { background: #B09047; border-color: #B09047; }
 
-        .tile-student .tile-cta {
-            background: #C5A059;
-            border-color: #C5A059;
-            color: #FFFFFF;
-        }
-
-        .tile-student:hover .tile-cta {
-            background: #B09047;
-            border-color: #B09047;
-        }
-
-        /* =======================================================
-           TILE 3 — PARENT
-           Gold background · navy text · white button
-           ======================================================= */
-        .tile-parent {
-            background: linear-gradient(160deg, #C5A059 0%, #B09047 100%);
-            color: #1B263B;
-        }
-
-        .tile-parent::before {
-            background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12) 0%, transparent 60%);
-        }
-
-        .tile-parent .tile-icon-wrap {
-            background: rgba(27,38,59,0.1);
-            border: 1px solid rgba(27,38,59,0.2);
-            color: #1B263B;
-        }
-
+        /* PARENT tile */
+        .tile-parent { background: linear-gradient(160deg, #C5A059 0%, #B09047 100%); color: #1B263B; }
+        .tile-parent::before { background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12) 0%, transparent 60%); }
+        .tile-parent .tile-icon-wrap  { background: rgba(27,38,59,0.1); border: 1px solid rgba(27,38,59,0.2); color: #1B263B; }
         .tile-parent .tile-role-label { color: rgba(27,38,59,0.6); }
         .tile-parent .tile-title      { color: #1B263B; }
         .tile-parent .tile-desc       { color: rgba(27,38,59,0.75); }
-
-        .tile-parent .tile-cta {
-            background: #FFFFFF;
-            border-color: #FFFFFF;
-            color: #1B263B;
-        }
-
-        .tile-parent:hover .tile-cta {
-            background: rgba(255,255,255,0.88);
-            border-color: rgba(255,255,255,0.88);
-        }
+        .tile-parent .tile-cta        { background: #FFFFFF; border-color: #FFFFFF; color: #1B263B; }
+        .tile-parent:hover .tile-cta  { background: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.88); }
 
         /* =======================================================
            ANIMATION
@@ -352,43 +210,231 @@
             to   { opacity: 1; transform: translateY(0); }
         }
 
-        .tile-staff  .tile-inner { animation-delay: 0.05s; }
+        .tile-staff .tile-inner   { animation-delay: 0.05s; }
         .tile-student .tile-inner { animation-delay: 0.15s; }
-        .tile-parent .tile-inner { animation-delay: 0.25s; }
+        .tile-parent .tile-inner  { animation-delay: 0.25s; }
 
         /* =======================================================
            ACCESSIBILITY
            ======================================================= */
         .skip-link {
-            position: absolute;
-            top: -50px;
-            left: 0;
-            background: #C5A059;
-            color: #1B263B;
-            padding: 10px 18px;
-            font-weight: 600;
-            text-decoration: none;
-            z-index: 200;
+            position: absolute; top: -50px; left: 0;
+            background: #C5A059; color: #1B263B;
+            padding: 10px 18px; font-weight: 600;
+            text-decoration: none; z-index: 200;
         }
 
         .skip-link:focus { top: 0; }
-
-        a:focus-visible { outline: 2px solid #C5A059; outline-offset: 2px; }
+        a:focus-visible  { outline: 2px solid #C5A059; outline-offset: 2px; }
 
         /* =======================================================
            FOOTER
            ======================================================= */
         .page-footer {
-            background: #1B263B;
-            color: #6A7E8F;
-            text-align: center;
-            padding: 1.25rem 2rem;
+            background: #1B263B; color: #6A7E8F;
+            text-align: center; padding: 1.25rem 2rem;
             font-size: 0.82rem;
             border-top: 1px solid rgba(197,160,89,0.12);
         }
 
         .page-footer a { color: #C5A059; text-decoration: none; }
         .page-footer a:hover { color: #FFFFFF; }
+
+        /* =======================================================
+           HIERARCHICAL DISCOVERY GATE — MODAL
+           ======================================================= */
+        .gate-overlay {
+            display: none;
+            position: fixed; inset: 0; z-index: 500;
+            background: rgba(10,18,30,0.88);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            align-items: center; justify-content: center;
+            padding: 1rem;
+        }
+
+        .gate-overlay.open { display: flex; }
+
+        .gate-card {
+            background: #1B263B;
+            border: 1px solid rgba(197,160,89,0.35);
+            border-radius: 12px;
+            width: 100%; max-width: 460px;
+            max-height: 92vh; overflow-y: auto;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+            animation: gateSlideIn 0.25s ease-out;
+        }
+
+        @keyframes gateSlideIn {
+            from { opacity: 0; transform: translateY(-16px) scale(0.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .gate-header {
+            padding: 1.25rem 1.5rem 1rem;
+            border-bottom: 1px solid rgba(197,160,89,0.2);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .gate-header-text h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.35rem; font-weight: 700;
+            color: #C5A059; letter-spacing: 0.5px;
+        }
+
+        .gate-header-text p {
+            font-size: 0.8rem; color: #7A8FA0; margin-top: 2px;
+        }
+
+        .gate-close {
+            background: none; border: none; cursor: pointer;
+            color: #5A7A9A; font-size: 1.2rem;
+            padding: 4px 8px; border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .gate-close:hover { color: #FFFFFF; background: rgba(255,255,255,0.06); }
+
+        /* ── Gate Screens ──────────────────────────────────────── */
+        .gate-screen { display: none; padding: 1.5rem; }
+        .gate-screen.active { display: block; }
+
+        /* ── Form Elements ─────────────────────────────────────── */
+        .gate-field { margin-bottom: 1rem; }
+
+        .gate-label {
+            display: block; font-size: 0.72rem; font-weight: 700;
+            color: #C5A059; text-transform: uppercase;
+            letter-spacing: 0.8px; margin-bottom: 5px;
+        }
+
+        .gate-input,
+        .gate-select {
+            width: 100%; padding: 9px 12px;
+            background: #243447; border: 1px solid #3d5270;
+            border-radius: 6px; color: #FFFFFF; font-size: 0.9rem;
+            font-family: 'Source Sans 3', sans-serif;
+            transition: border-color 0.2s;
+            appearance: none; -webkit-appearance: none;
+        }
+
+        .gate-input:focus,
+        .gate-select:focus { outline: none; border-color: #C5A059; }
+        .gate-input::placeholder { color: #4A6A80; }
+        .gate-select:disabled    { opacity: 0.45; cursor: not-allowed; }
+        .gate-select option      { background: #243447; }
+
+        /* ── Persona Badge ─────────────────────────────────────── */
+        .persona-badge {
+            display: none; margin-top: 0.6rem;
+            padding: 7px 12px; border-radius: 6px;
+            font-size: 0.8rem; font-weight: 600;
+            align-items: center; gap: 6px;
+        }
+
+        .persona-badge.show { display: flex; }
+        .persona-badge.practitioner { background: rgba(76,175,80,0.12); color: #7BC67E; border: 1px solid rgba(76,175,80,0.25); }
+        .persona-badge.parent       { background: rgba(197,160,89,0.12); color: #C5A059; border: 1px solid rgba(197,160,89,0.25); }
+
+        /* ── Divider ───────────────────────────────────────────── */
+        .gate-divider {
+            border: none; border-top: 1px solid rgba(255,255,255,0.07);
+            margin: 1rem 0;
+        }
+
+        /* ── Info box ──────────────────────────────────────────── */
+        .gate-info {
+            background: rgba(197,160,89,0.07);
+            border-left: 3px solid rgba(197,160,89,0.4);
+            border-radius: 0 6px 6px 0;
+            padding: 9px 12px; font-size: 0.8rem;
+            color: #7A8FA0; line-height: 1.5; margin-bottom: 1rem;
+        }
+
+        .gate-info strong { color: #C5A059; }
+
+        /* ── Error text ────────────────────────────────────────── */
+        .gate-error {
+            display: none; font-size: 0.78rem;
+            color: #FF7070; margin-top: 4px;
+        }
+
+        .gate-error.show { display: block; }
+
+        /* ── Buttons ───────────────────────────────────────────── */
+        .gate-btn-row {
+            display: flex; gap: 8px; justify-content: flex-end;
+            margin-top: 1.25rem;
+        }
+
+        .gate-btn {
+            padding: 10px 22px; border-radius: 6px;
+            border: none; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; font-family: 'Source Sans 3', sans-serif;
+            transition: all 0.2s;
+        }
+
+        .gate-btn-primary          { background: #C5A059; color: #1B263B; }
+        .gate-btn-primary:hover    { background: #B09047; }
+        .gate-btn-primary:disabled { background: #3d5270; color: #5A7A9A; cursor: not-allowed; }
+        .gate-btn-ghost            { background: transparent; color: #7A8FA0; border: 1px solid #3d5270; }
+        .gate-btn-ghost:hover      { border-color: #7A8FA0; color: #FFFFFF; }
+
+        /* ── Loading spinner ───────────────────────────────────── */
+        .gate-loading {
+            display: flex; align-items: center; gap: 10px;
+            color: #7A8FA0; font-size: 0.85rem; padding: 0.5rem 0;
+        }
+
+        .gate-spinner {
+            width: 16px; height: 16px; border-radius: 50%;
+            border: 2px solid rgba(197,160,89,0.2);
+            border-top-color: #C5A059;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Screen 1: Redirect / Coming Soon ─────────────────── */
+        .gate-result-box {
+            text-align: center; padding: 1rem 0 0.5rem;
+        }
+
+        .gate-result-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+        .gate-result-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: #C5A059; margin-bottom: 0.5rem;
+        }
+
+        .gate-result-body {
+            font-size: 0.88rem; color: #7A8FA0;
+            line-height: 1.6; margin-bottom: 1.25rem;
+        }
+
+        .gate-result-school {
+            background: #243447; border-radius: 6px;
+            padding: 8px 14px; font-size: 0.85rem;
+            color: #FFFFFF; margin-bottom: 1rem;
+            border-left: 3px solid #C5A059;
+        }
+
+        .gate-redirect-link {
+            display: inline-block;
+            background: #C5A059; color: #1B263B;
+            padding: 11px 28px; border-radius: 6px;
+            font-weight: 700; font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .gate-redirect-link:hover { background: #B09047; }
+
+        /* ── Fallback state ────────────────────────────────────── */
+        .gate-fallback { text-align: center; padding: 1rem 0; }
+        .gate-fallback p { font-size: 0.85rem; color: #7A8FA0; line-height: 1.6; }
+        .gate-fallback a { color: #C5A059; }
     </style>
 </head>
 <body>
@@ -399,28 +445,18 @@
          ═══════════════════════════════════════════════════ -->
     <nav class="top-bar" role="navigation" aria-label="Site navigation">
         <div class="top-bar-inner">
-
-            <!-- Left: logo image (→ company.html) + "Welcome to the Arena" text -->
             <div style="display:flex; align-items:center; gap:0.85rem;">
                 <a href="company.html" aria-label="Go to The Arena Hub company website">
-                    <!-- Company_Icon.jpg — push to GitHub repo root -->
-                    <img src="Company_Icon.jpg"
-                         alt="The Arena Hub"
-                         class="top-bar-logo-img">
+                    <img src="Company_Icon.jpg" alt="The Arena Hub" class="top-bar-logo-img">
                 </a>
-                <div class="top-bar-welcome">
-                    Welcome to <span>The Arena</span>
-                </div>
+                <div class="top-bar-welcome">Welcome to <span>The Arena</span></div>
             </div>
-
-            <!-- Right: Back button -->
             <div class="top-bar-right">
                 <a href="index.html" class="back-btn" aria-label="Back to home">
                     <i class="fas fa-chevron-left" aria-hidden="true"></i>
                 </a>
                 <span class="back-label">Back</span>
             </div>
-
         </div>
     </nav>
 
@@ -430,9 +466,9 @@
     <main id="main" role="main">
         <div class="role-gate">
 
-            <!-- ── STAFF tile ──────────────────────────────── -->
-            <!-- href populated by JS from ARENA_HUB_CONFIG -->
-            <a href="#" id="staff-tile" class="role-tile tile-staff" aria-label="Staff login — enter the Arena platform">
+            <!-- STAFF tile — click opens Discovery Gate -->
+            <a href="#" id="staff-tile" class="role-tile tile-staff"
+               aria-label="Staff login — find your school and enter the Arena">
                 <div class="tile-inner">
                     <div class="tile-icon-wrap">
                         <i class="fas fa-briefcase" aria-hidden="true"></i>
@@ -449,8 +485,9 @@
 
             <div class="tile-divider" aria-hidden="true"></div>
 
-            <!-- ── STUDENT tile ─────────────────────────────── -->
-            <a href="student-hub.html" class="role-tile tile-student" aria-label="Student login — enter the Student Hub">
+            <!-- STUDENT tile -->
+            <a href="student-hub.html" class="role-tile tile-student"
+               aria-label="Student login — enter the Student Hub">
                 <div class="tile-inner">
                     <div class="tile-icon-wrap">
                         <i class="fas fa-graduation-cap" aria-hidden="true"></i>
@@ -467,8 +504,9 @@
 
             <div class="tile-divider" aria-hidden="true"></div>
 
-            <!-- ── PARENT tile ──────────────────────────────── -->
-            <a href="parent-home.html" class="role-tile tile-parent" aria-label="Parent login — access your child's progress">
+            <!-- PARENT tile — click opens Discovery Gate (parent flow) -->
+            <a href="#" id="parent-tile" class="role-tile tile-parent"
+               aria-label="Parent login — find your school and access your child's progress">
                 <div class="tile-inner">
                     <div class="tile-icon-wrap">
                         <i class="fas fa-house-user" aria-hidden="true"></i>
@@ -500,54 +538,433 @@
     </footer>
 
     <!-- ═══════════════════════════════════════════════════
-         SCRIPT — Load Staff URL from ARENA_HUB_CONFIG
+         HIERARCHICAL DISCOVERY GATE — MODAL
+         ═══════════════════════════════════════════════════ -->
+    <div class="gate-overlay" id="gate-overlay" role="dialog"
+         aria-modal="true" aria-labelledby="gate-title">
+
+        <div class="gate-card" id="gate-card">
+
+            <!-- Header -->
+            <div class="gate-header">
+                <div class="gate-header-text">
+                    <h2 id="gate-title">Find Your Arena</h2>
+                    <p id="gate-subtitle">Select your school to continue</p>
+                </div>
+                <button class="gate-close" onclick="closeGate()" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- ── SCREEN 0: School Finder ──────────────────────── -->
+            <div class="gate-screen active" id="gate-screen-0">
+
+                <div class="gate-info">
+                    <strong>No QR code or NFC tag?</strong>
+                    Find your school below and we&rsquo;ll route you to the right place.
+                </div>
+
+                <!-- Email (sniff field) -->
+                <div class="gate-field">
+                    <label class="gate-label" for="gate-email">
+                        Your Work Email <span style="color:#5A7A9A;font-weight:400;text-transform:none;letter-spacing:0">(optional — auto-fills your school)</span>
+                    </label>
+                    <input type="email" id="gate-email" class="gate-input"
+                           placeholder="e.g. j.smith@school.sch.uk"
+                           autocomplete="email"
+                           oninput="handleEmailSniff()">
+                    <div class="persona-badge" id="persona-badge">
+                        <i class="fas fa-circle-check"></i>
+                        <span id="persona-text"></span>
+                    </div>
+                </div>
+
+                <hr class="gate-divider">
+
+                <!-- Region -->
+                <div class="gate-field">
+                    <label class="gate-label" for="gate-region">Region <span style="color:#FF7070">*</span></label>
+                    <div id="gate-loading-region" class="gate-loading">
+                        <div class="gate-spinner"></div>
+                        <span>Loading schools&hellip;</span>
+                    </div>
+                    <select id="gate-region" class="gate-select" style="display:none"
+                            onchange="populateGateLAs()" disabled>
+                        <option value="">— Select Region —</option>
+                    </select>
+                </div>
+
+                <!-- LA -->
+                <div class="gate-field">
+                    <label class="gate-label" for="gate-la">Local Authority <span style="color:#FF7070">*</span></label>
+                    <select id="gate-la" class="gate-select" disabled onchange="populateGateSchools()">
+                        <option value="">— Select Region first —</option>
+                    </select>
+                </div>
+
+                <!-- School -->
+                <div class="gate-field">
+                    <label class="gate-label" for="gate-school">School <span style="color:#FF7070">*</span></label>
+                    <select id="gate-school" class="gate-select" disabled onchange="handleSchoolSelect()">
+                        <option value="">— Select LA first —</option>
+                    </select>
+                    <div class="gate-error" id="gate-school-err">Please select your school.</div>
+                </div>
+
+                <!-- Fallback: no schools loaded -->
+                <div class="gate-fallback" id="gate-fallback" style="display:none">
+                    <p>Unable to load school list.<br>
+                       Use your NFC tag or QR code to log in directly,
+                       or <a href="mailto:support@thearenahub.co.uk">contact support</a>.</p>
+                </div>
+
+                <div class="gate-btn-row">
+                    <button class="gate-btn gate-btn-ghost" onclick="closeGate()">Cancel</button>
+                    <button class="gate-btn gate-btn-primary" id="gate-continue-btn"
+                            onclick="handleGateContinue()" disabled>
+                        Continue &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── SCREEN 1: Routing / Result ──────────────────── -->
+            <div class="gate-screen" id="gate-screen-1">
+                <div class="gate-result-box" id="gate-result-content">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="gate-btn-row">
+                    <button class="gate-btn gate-btn-ghost" onclick="gateGoTo(0)">
+                        &larr; Back
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         SCRIPT
          ═══════════════════════════════════════════════════ -->
     <script>
-        'use strict';
+    'use strict';
 
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').catch(function () {});
+    // ── Service Worker ───────────────────────────────────────────────────────
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('sw.js').catch(function () {});
+        });
+    }
+
+    // ── CONFIG ───────────────────────────────────────────────────────────────
+    // MANIFEST_GATEWAY_URL: After deploying MANIFEST_SHELL.gs as a web app
+    // (Execute as: Me, Anyone can access), paste the deployment URL here.
+    var MANIFEST_GATEWAY_URL = 'https://script.google.com/macros/s/AKfycbyI_tsmchdra3MmCXg0lz-0Al2iTRmcWQwGmOz4IS0sD8fXCDCmeEllrC0pguWnZpyv_w/exec';
+
+    // ARENA_PC_SCRIPTS URL (fallback + base redirect URL for staff)
+    var STAFF_URL_FALLBACK   = 'https://script.google.com/macros/s/AKfycbzjWOX4tv5Rq7uCtzm6ABC3hDYeAuITXG0dEEqKVYJ7rsldSKnUfjp0Sg96-SIOR_f6VA/exec';
+    var staffBaseUrl         = STAFF_URL_FALLBACK;
+
+    // Personal email domains — if matched, treat as PARENT (not staff)
+    var PERSONAL_DOMAINS = ['gmail.com','googlemail.com','outlook.com','hotmail.com',
+                            'hotmail.co.uk','yahoo.com','yahoo.co.uk','icloud.com',
+                            'live.com','live.co.uk','msn.com','aol.com'];
+
+    // ── STATE ────────────────────────────────────────────────────────────────
+    var _allSchools      = [];   // [{region, la, schoolName, schoolCode, schoolDomain}]
+    var _schoolsLoaded   = false;
+    var _gateMode        = 'staff';  // 'staff' | 'parent'
+    var _selectedSchool  = null;
+    var _detectedPersona = null; // 'practitioner' | 'parent' | null
+
+    // ── TILE INTERCEPTS ──────────────────────────────────────────────────────
+    document.getElementById('staff-tile').addEventListener('click', function (e) {
+        e.preventDefault();
+        _gateMode = 'staff';
+        openGate();
+    });
+
+    document.getElementById('parent-tile').addEventListener('click', function (e) {
+        e.preventDefault();
+        _gateMode = 'parent';
+        openGate();
+    });
+
+    // ── LOAD ARENA_HUB_CONFIG (for staff base URL) ───────────────────────────
+    var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
+
+    fetch(ARENA_HUB_CONFIG_URL)
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+            if (data.success && data.config && data.config.ARENA_PC_SCRIPTS_URL) {
+                staffBaseUrl = data.config.ARENA_PC_SCRIPTS_URL;
+            }
+        })
+        .catch(function () { /* use fallback */ });
+
+    // ── OPEN / CLOSE GATE ────────────────────────────────────────────────────
+    function openGate() {
+        document.getElementById('gate-overlay').classList.add('open');
+        document.getElementById('gate-subtitle').textContent =
+            _gateMode === 'parent' ? 'Find your child\'s school' : 'Select your school to continue';
+        document.body.style.overflow = 'hidden';
+        gateGoTo(0);
+
+        // Load schools if not yet loaded
+        if (!_schoolsLoaded) _loadGateSchools();
+    }
+
+    function closeGate() {
+        document.getElementById('gate-overlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Close on overlay click (outside card)
+    document.getElementById('gate-overlay').addEventListener('click', function (e) {
+        if (e.target === this) closeGate();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeGate();
+    });
+
+    // ── SCREEN NAVIGATION ────────────────────────────────────────────────────
+    function gateGoTo(n) {
+        document.querySelectorAll('.gate-screen').forEach(function (s) {
+            s.classList.remove('active');
+        });
+        document.getElementById('gate-screen-' + n).classList.add('active');
+    }
+
+    // ── LOAD SCHOOLS FROM MANIFEST GATEWAY ───────────────────────────────────
+    function _loadGateSchools() {
+        if (!MANIFEST_GATEWAY_URL) {
+            // Gateway not yet deployed — show fallback
+            _showGateFallback();
+            return;
+        }
+
+        fetch(MANIFEST_GATEWAY_URL + '?action=getSchools')
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (!data.success || !data.schools || data.schools.length === 0) {
+                    _showGateFallback();
+                    return;
+                }
+                _allSchools    = data.schools;
+                _schoolsLoaded = true;
+                _buildRegionDropdown();
+            })
+            .catch(function () {
+                _showGateFallback();
             });
+    }
+
+    function _showGateFallback() {
+        _schoolsLoaded = true;
+        document.getElementById('gate-loading-region').style.display = 'none';
+        document.getElementById('gate-region').style.display = 'none';
+        document.getElementById('gate-fallback').style.display = 'block';
+    }
+
+    // ── BUILD DROPDOWNS ───────────────────────────────────────────────────────
+    function _buildRegionDropdown() {
+        var loadingEl = document.getElementById('gate-loading-region');
+        var regionSel = document.getElementById('gate-region');
+
+        // Collect unique regions in order
+        var regions = [];
+        _allSchools.forEach(function (s) {
+            if (s.region && regions.indexOf(s.region) === -1) regions.push(s.region);
+        });
+        regions.sort();
+
+        regionSel.innerHTML = '<option value="">— Select Region —</option>';
+        regions.forEach(function (r) {
+            var opt = document.createElement('option');
+            opt.value = r; opt.textContent = r;
+            regionSel.appendChild(opt);
+        });
+
+        loadingEl.style.display = 'none';
+        regionSel.style.display = '';
+        regionSel.disabled = false;
+    }
+
+    function populateGateLAs() {
+        var region = document.getElementById('gate-region').value;
+        var laSel  = document.getElementById('gate-la');
+        var schSel = document.getElementById('gate-school');
+
+        laSel.innerHTML  = '<option value="">— Select LA —</option>';
+        schSel.innerHTML = '<option value="">— Select LA first —</option>';
+        laSel.disabled   = !region;
+        schSel.disabled  = true;
+        _selectedSchool  = null;
+        document.getElementById('gate-continue-btn').disabled = true;
+
+        if (!region) return;
+
+        var las = [];
+        _allSchools.forEach(function (s) {
+            if (s.region === region && las.indexOf(s.la) === -1) las.push(s.la);
+        });
+        las.sort();
+
+        las.forEach(function (la) {
+            var opt = document.createElement('option');
+            opt.value = la; opt.textContent = la;
+            laSel.appendChild(opt);
+        });
+    }
+
+    function populateGateSchools() {
+        var la     = document.getElementById('gate-la').value;
+        var region = document.getElementById('gate-region').value;
+        var schSel = document.getElementById('gate-school');
+
+        schSel.innerHTML = '<option value="">— Select School —</option>';
+        schSel.disabled  = !la;
+        _selectedSchool  = null;
+        document.getElementById('gate-continue-btn').disabled = true;
+
+        if (!la) return;
+
+        var schools = _allSchools.filter(function (s) {
+            return s.region === region && s.la === la;
+        });
+
+        schools.sort(function (a, b) { return a.schoolName.localeCompare(b.schoolName); });
+
+        schools.forEach(function (s) {
+            var opt = document.createElement('option');
+            opt.value = s.schoolCode; opt.textContent = s.schoolName;
+            schSel.appendChild(opt);
+        });
+    }
+
+    function handleSchoolSelect() {
+        var code = document.getElementById('gate-school').value;
+        _selectedSchool = code ? _allSchools.find(function (s) { return s.schoolCode === code; }) : null;
+        document.getElementById('gate-school-err').classList.remove('show');
+        document.getElementById('gate-continue-btn').disabled = !_selectedSchool;
+
+        // Re-run persona detection if email already entered
+        if (_selectedSchool) handleEmailSniff();
+    }
+
+    // ── EMAIL SNIFFING ────────────────────────────────────────────────────────
+    function handleEmailSniff() {
+        var email  = (document.getElementById('gate-email').value || '').trim().toLowerCase();
+        var badge  = document.getElementById('persona-badge');
+        var pText  = document.getElementById('persona-text');
+
+        badge.className = 'persona-badge';
+        _detectedPersona = null;
+
+        if (!email || !email.includes('@')) return;
+
+        var domain = email.split('@')[1];
+
+        // Check if personal email
+        if (PERSONAL_DOMAINS.indexOf(domain) !== -1) {
+            _detectedPersona = 'parent';
+            badge.classList.add('show', 'parent');
+            pText.textContent = 'Personal email detected — routing as Parent / Guardian';
+            return;
         }
 
-        // ── Staff URL from ARENA_HUB_CONFIG ─────────────────
-        // The Staff tile links to ARENA_PC_SCRIPTS.
-        // The URL is loaded dynamically from the Arena Hub Master Sheet
-        // via the ARENA_HUB_CONFIG endpoint so it only needs updating in one place.
-        //
-        var ARENA_HUB_CONFIG_URL = 'https://script.google.com/macros/s/AKfycbxZGkUyLbo1DWN47CDB2yrTnTd7I_sAT50aP7wJmwasZcfIuUwNW5qw64Fap1JijawB/exec';
+        // Check if domain matches a known school
+        var match = _allSchools.find(function (s) {
+            return s.schoolDomain && s.schoolDomain.toLowerCase() === domain;
+        });
 
-        // Fallback URL in case config fetch fails
-        var STAFF_URL_FALLBACK = 'https://script.google.com/macros/s/AKfycbzjWOX4tv5Rq7uCtzm6ABC3hDYeAuITXG0dEEqKVYJ7rsldSKnUfjp0Sg96-SIOR_f6VA/exec';
-
-        function loadStaffUrl() {
-            var staffTile = document.getElementById('staff-tile');
-            if (!staffTile) return;
-
-            // Set fallback immediately so the tile is always clickable
-            staffTile.href = STAFF_URL_FALLBACK;
-
-            if (!ARENA_HUB_CONFIG_URL) return;
-
-            fetch(ARENA_HUB_CONFIG_URL)
-                .then(function (r) { return r.json(); })
-                .then(function (data) {
-                    if (data.success && data.config && data.config.ARENA_PC_SCRIPTS_URL) {
-                        staffTile.href = data.config.ARENA_PC_SCRIPTS_URL;
-                    }
-                })
-                .catch(function () {
-                    // Fallback already set — silently continue
-                });
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadStaffUrl);
+        if (match) {
+            _detectedPersona = 'practitioner';
+            badge.classList.add('show', 'practitioner');
+            pText.textContent = 'School email recognised — ' + match.schoolName;
+            _autoSelectSchool(match);
         } else {
-            loadStaffUrl();
+            _detectedPersona = 'practitioner'; // assume staff for unrecognised .sch.uk
+            badge.classList.add('show', 'practitioner');
+            pText.textContent = 'Staff email detected — select your school below';
         }
+    }
+
+    function _autoSelectSchool(school) {
+        // Auto-select Region
+        var regionSel = document.getElementById('gate-region');
+        regionSel.value = school.region;
+        populateGateLAs();
+
+        // Auto-select LA
+        setTimeout(function () {
+            var laSel = document.getElementById('gate-la');
+            laSel.value = school.la;
+            populateGateSchools();
+
+            setTimeout(function () {
+                var schSel = document.getElementById('gate-school');
+                schSel.value = school.schoolCode;
+                handleSchoolSelect();
+            }, 50);
+        }, 50);
+    }
+
+    // ── CONTINUE BUTTON ───────────────────────────────────────────────────────
+    function handleGateContinue() {
+        if (!_selectedSchool) {
+            document.getElementById('gate-school-err').classList.add('show');
+            return;
+        }
+
+        // Determine final persona
+        var email  = (document.getElementById('gate-email').value || '').trim().toLowerCase();
+        var domain = email.includes('@') ? email.split('@')[1] : '';
+        var isParent = (PERSONAL_DOMAINS.indexOf(domain) !== -1) ||
+                       (_gateMode === 'parent' && !_detectedPersona);
+
+        if (isParent || _gateMode === 'parent') {
+            _showParentResult(_selectedSchool);
+        } else {
+            _showStaffRedirect(_selectedSchool);
+        }
+
+        gateGoTo(1);
+    }
+
+    // ── RESULT SCREENS ────────────────────────────────────────────────────────
+    function _showStaffRedirect(school) {
+        var redirectUrl = staffBaseUrl + '?page=landing&school=' + encodeURIComponent(school.schoolCode);
+
+        document.getElementById('gate-result-content').innerHTML = [
+            '<div class="gate-result-icon">🏟️</div>',
+            '<div class="gate-result-title">Entering the Arena</div>',
+            '<div class="gate-result-school">' + school.schoolName + '</div>',
+            '<div class="gate-result-body">',
+            'You\'ll be asked to sign in with your Google account.<br>',
+            'Use your school email address to access your tools.',
+            '</div>',
+            '<a href="' + redirectUrl + '" class="gate-redirect-link">',
+            'Open Arena &rarr;',
+            '</a>'
+        ].join('');
+    }
+
+    function _showParentResult(school) {
+        document.getElementById('gate-result-content').innerHTML = [
+            '<div class="gate-result-icon">🏠</div>',
+            '<div class="gate-result-title">Parent Portal</div>',
+            '<div class="gate-result-school">' + school.schoolName + '</div>',
+            '<div class="gate-result-body">',
+            'The Parent Portal for your school is coming soon.<br><br>',
+            'For now, contact your school directly or reach us at<br>',
+            '<a href="mailto:support@thearenahub.co.uk" style="color:#C5A059;">',
+            'support@thearenahub.co.uk</a>',
+            '</div>'
+        ].join('');
+    }
+
     </script>
 </body>
 </html>
