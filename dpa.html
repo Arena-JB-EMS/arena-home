@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1B263B">
+    <meta name="description" content="Data Processing Agreement — The Arena Hub Ltd. Article 28 UK GDPR. ARENA-DPA-2026-001.">
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <title>Data Processing Agreement — The Arena Hub</title>
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: #F4F5F7;
+            color: #2C3E50;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        a { color: #C5A059; }
+        a:hover { color: #B09047; }
+
+        /* ── HEADER ── */
+        .site-header {
+            background: #1B263B;
+            border-bottom: 2px solid rgba(197,160,89,0.25);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .header-inner {
+            max-width: 1140px; margin: 0 auto;
+            padding: 0 2rem; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .site-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            text-decoration: none;
+        }
+        .site-logo-img {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(197,160,89,0.4);
+        }
+        .site-logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.25rem; font-weight: 700;
+            color: #FFFFFF;
+        }
+        .site-logo-text span { color: #C5A059; }
+        .header-back {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem; text-decoration: none;
+            transition: color 0.2s;
+        }
+        .header-back:hover { color: #C5A059; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%);
+            color: #FFFFFF;
+            padding: 4rem 2rem 3.5rem;
+            text-align: center;
+        }
+        .page-hero .eyebrow {
+            font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .page-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        .page-hero .subtitle {
+            color: rgba(255,255,255,0.65);
+            font-size: 1rem; max-width: 600px; margin: 0 auto;
+        }
+        .page-hero .meta {
+            margin-top: 1.5rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+        }
+        .page-hero .ref-badge {
+            display: inline-block;
+            margin-top: 1rem;
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.35);
+            border-radius: 999px;
+            padding: 4px 16px;
+            font-size: 0.78rem; font-weight: 600;
+            color: #C5A059; letter-spacing: 0.5px;
+        }
+
+        /* ── CONTENT ── */
+        .content-wrap {
+            max-width: 820px; margin: 0 auto;
+            padding: 3.5rem 2rem 5rem;
+        }
+
+        .policy-section {
+            margin-bottom: 3rem;
+        }
+
+        .policy-section h2 {
+            font-size: 1.5rem;
+            color: #1B263B;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(197,160,89,0.3);
+        }
+
+        .policy-section h3 {
+            font-size: 1.1rem;
+            color: #1B263B;
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .policy-section p {
+            margin-bottom: 1rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul, .policy-section ol {
+            margin: 0.75rem 0 1rem 1.5rem;
+            color: #3a4a5a;
+        }
+
+        .policy-section ul li, .policy-section ol li {
+            margin-bottom: 0.5rem;
+            line-height: 1.65;
+        }
+
+        .highlight-box {
+            background: #FFFFFF;
+            border-left: 4px solid #C5A059;
+            border-radius: 0 6px 6px 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+        }
+        .highlight-box p { margin-bottom: 0; color: #2C3E50; }
+        .highlight-box p + p { margin-top: 0.75rem; margin-bottom: 0; }
+        .highlight-box strong { color: #1B263B; }
+
+        .parties-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 600px) { .parties-grid { grid-template-columns: 1fr; } }
+
+        .party-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.08);
+            border-top: 3px solid #C5A059;
+        }
+        .party-card .party-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 0.6rem;
+        }
+        .party-card p { color: #3a4a5a; margin-bottom: 0.35rem; font-size: 0.95rem; }
+        .party-card strong { color: #1B263B; }
+
+        .sub-processor-table {
+            width: 100%; border-collapse: collapse;
+            margin: 1.5rem 0; font-size: 0.93rem;
+            background: #FFFFFF;
+            border-radius: 8px; overflow: hidden;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+        }
+        .sub-processor-table th {
+            background: #1B263B;
+            color: #C5A059;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase;
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+        .sub-processor-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(197,160,89,0.12);
+            color: #3a4a5a;
+            vertical-align: top;
+        }
+        .sub-processor-table tr:last-child td { border-bottom: none; }
+        .sub-processor-table tr:nth-child(even) td { background: #FAFBFC; }
+
+        .pilot-warning {
+            background: #FFF8E1;
+            border: 2px solid #E65100;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin: 1.75rem 0;
+        }
+        .pilot-warning .warn-label {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: #E65100; margin-bottom: 0.6rem;
+        }
+        .pilot-warning p { color: #3a4a5a; margin-bottom: 0.5rem; }
+        .pilot-warning p:last-child { margin-bottom: 0; }
+
+        .toms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        @media (max-width: 600px) { .toms-grid { grid-template-columns: 1fr; } }
+
+        .tom-card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 1px 4px rgba(27,38,59,0.07);
+            border-left: 3px solid #C5A059;
+        }
+        .tom-card h4 {
+            font-size: 0.9rem; color: #1B263B;
+            margin-bottom: 0.4rem;
+        }
+        .tom-card p { font-size: 0.88rem; color: #5a6a7a; margin: 0; }
+
+        .contact-card {
+            background: #1B263B;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .contact-card h3 { color: #C5A059; margin-bottom: 0.75rem; }
+        .contact-card p { color: rgba(255,255,255,0.75); margin-bottom: 0.4rem; }
+        .contact-card a { color: #C5A059; }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            background: #1B263B; color: #A8B5C2;
+            padding: 4rem 2rem 2rem;
+            border-top: 2px solid rgba(197,160,89,0.2);
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 1fr;
+            gap: 2.5rem; max-width: 1140px;
+            margin: 0 auto 3rem;
+        }
+        @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 960px) { .footer-grid { grid-template-columns: 1.8fr 1fr 1fr 1fr; } }
+        .footer-brand .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem; font-weight: 700;
+            color: #FFFFFF; margin-bottom: 0.6rem;
+        }
+        .footer-brand .logo span { color: #C5A059; }
+        .footer-brand p { font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem; }
+        .footer-col h4 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 2.5px; text-transform: uppercase;
+            color: #C5A059; margin-bottom: 1rem;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.6rem; }
+        .footer-col ul li a {
+            color: #A8B5C2; text-decoration: none;
+            font-size: 0.9rem; transition: color 0.2s;
+            display: flex; align-items: center; gap: 0.4rem;
+        }
+        .footer-col ul li a:hover { color: #C5A059; }
+        .footer-divider {
+            border: none; border-top: 1px solid rgba(255,255,255,0.08);
+            margin: 0 auto 1.5rem; max-width: 1140px;
+        }
+        .footer-bottom {
+            max-width: 1140px; margin: 0 auto;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap; gap: 0.75rem;
+        }
+        .footer-bottom p { font-size: 0.82rem; margin: 0; }
+        .footer-bottom a { color: #A8B5C2; text-decoration: none; }
+        .footer-bottom a:hover { color: #C5A059; }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════ -->
+    <header class="site-header" role="banner">
+        <div class="header-inner">
+            <a href="company.html" class="site-logo">
+                <img src="Company_Icon.jpg" alt="" class="site-logo-img" aria-hidden="true">
+                <span class="site-logo-text">The <span>Arena Hub</span></span>
+            </a>
+            <a href="company.html" class="header-back">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to main site
+            </a>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════
+         PAGE HERO
+         ═══════════════════════════════════════════════════ -->
+    <div class="page-hero">
+        <p class="eyebrow">Legal</p>
+        <h1>Data Processing Agreement</h1>
+        <p class="subtitle">Article 28 UK GDPR — the formal basis on which The Arena Hub Ltd processes data on behalf of subscribing schools and practitioners.</p>
+        <p class="meta">Version 1.1 &nbsp;&bull;&nbsp; May 2026 &nbsp;&bull;&nbsp; The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+        <span class="ref-badge">Ref: ARENA-DPA-2026-001</span>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+         CONTENT
+         ═══════════════════════════════════════════════════ -->
+    <main id="main">
+        <div class="content-wrap">
+
+            <div class="highlight-box">
+                <p><strong>Plain English summary:</strong> Under UK GDPR, schools and practitioners are the Data Controller — they decide what data is collected and why. The Arena Hub Ltd is the Data Processor — we provide the software and operate under your instructions. Student data never leaves your Google Workspace. We have no persistent access to it. This agreement makes that relationship legally explicit.</p>
+            </div>
+
+            <!-- 1. PARTIES -->
+            <div class="policy-section">
+                <h2>1. Parties to This Agreement</h2>
+                <p>This Data Processing Agreement ("DPA") is entered into between the following parties and takes effect upon the subscribing school or practitioner completing the Arena Hub onboarding process or executing a separate written agreement.</p>
+
+                <div class="parties-grid">
+                    <div class="party-card">
+                        <div class="party-label">Data Controller</div>
+                        <p><strong>The subscribing school, academy, AP setting, or practitioner organisation.</strong></p>
+                        <p>The Controller determines the purposes and means of processing student personal data within the Arena Hub platform. The Controller bears full legal responsibility as Data Controller under UK GDPR and the Data Protection Act 2018.</p>
+                    </div>
+                    <div class="party-card">
+                        <div class="party-label">Data Processor</div>
+                        <p><strong>The Arena Hub Ltd</strong></p>
+                        <p>Registered in England and Wales<br>
+                        Company No. CH#1708605<br>
+                        D-U-N-S: 234652645<br>
+                        Tel: 01618702916<br>
+                        Email: <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. SUBJECT MATTER -->
+            <div class="policy-section">
+                <h2>2. Subject Matter, Nature, and Duration</h2>
+                <p><strong>Subject matter:</strong> The provision of the Arena Hub Sovereign Hybrid evidence management platform — including the Staff Vault (evidence capture, curriculum mapping, and SEND portfolio management), the Welfare Suite (DSL safeguarding chronology and welfare case management), and the Arena Intelligence Engine (AI-assisted evidence multiplier and NODE insights layer) — to schools and practitioners working in Alternative Provision and SEMH educational contexts.</p>
+                <p><strong>Nature of processing:</strong> Storage, retrieval, structured organisation, and automated cross-referencing of student educational evidence data within the Data Controller's own Google Workspace environment. All student Personally Identifiable Information (PII) is processed and stored exclusively within the Controller's own Google Workspace tenant (Google Shared Drive). The Arena Hub Ltd's Cloud Run infrastructure (GCP europe-west2, London) processes only anonymised operational telemetry and licence validation handshakes — no student PII transits or resides on Arena Hub Ltd servers during normal operation.</p>
+                <p><strong>Duration:</strong> This DPA remains in force for the duration of the active subscription between the parties. Upon termination, Processor obligations relating to data destruction take effect as set out in Clause 11.</p>
+            </div>
+
+            <!-- 3. PURPOSE -->
+            <div class="policy-section">
+                <h2>3. Purpose of Processing</h2>
+                <p>Personal data is processed for the following specific educational purposes only:</p>
+                <ul>
+                    <li>Capture, organisation, and forensic structuring of student evidence against statutory educational taxonomies (including EYFS Development Matters, AQA Unit Award Scheme, OCR, Pearson, City &amp; Guilds, and equivalent frameworks).</li>
+                    <li>SEND portfolio management, EHCP progress tracking, and Graduated Approach documentation (Assess–Plan–Do–Review).</li>
+                    <li>Safeguarding chronology management, DSL welfare case recording, and KCSIE-aligned incident logging.</li>
+                    <li>Attendance and engagement monitoring, including resilience indicator scoring.</li>
+                    <li>AI-assisted evidence cross-referencing (AI Evidence Multiplier) — subject to mandatory human practitioner review before any AI suggestion is committed to the student's formal record.</li>
+                    <li>Automated gap analysis, LA-ready PDF report generation, and statutory disclosure preparation.</li>
+                </ul>
+            </div>
+
+            <!-- 4. DATA TYPES -->
+            <div class="policy-section">
+                <h2>4. Types of Personal Data and Data Subjects</h2>
+                <h3>Data Subjects</h3>
+                <p>The primary data subjects are students (children and young people) enrolled at the subscribing school or AP setting. Secondary data subjects include teaching and support staff whose identity is recorded in practitioner attribution fields.</p>
+
+                <h3>Standard Personal Data (UK GDPR Article 6)</h3>
+                <p>Student name, Unique Pupil Number (UPN), date of birth, year group, cohort, key stage, enrolment dates. Staff name, school email address, job role, and practitioner attribution within evidence records.</p>
+
+                <h3>Special Category Data (UK GDPR Article 9)</h3>
+                <p>The following special category data may be processed where the Data Controller determines it is necessary for the provision of education and support:</p>
+                <ul>
+                    <li><strong>Health and neurodevelopmental data:</strong> SEND category, EHCP status, relevant diagnoses where recorded by the practitioner as necessary for curriculum planning.</li>
+                    <li><strong>Welfare and safeguarding data:</strong> Welfare chronology entries, DSL case records, safeguarding referral logs, and KCSIE-aligned concern records. Processed under DPA 2018 Schedule 1, Part 1 (safeguarding children).</li>
+                    <li><strong>Mental health and wellbeing data:</strong> SEMH indicators, engagement scores, welfare flags, and NODE insights (AI-assisted welfare pattern observations requiring mandatory human DSL review before any formal record is created).</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Lawful basis — Standard data:</strong> Article 6(1)(e) — processing necessary for the performance of a task carried out in the public interest (education provision under the Education Act 1996, Children and Families Act 2014, SEND Code of Practice 2015, and DfE Alternative Provision statutory guidance).</p>
+                    <p><strong>Lawful basis — Special category data:</strong> Article 9(2)(g) — substantial public interest. Grounded in DPA 2018 Schedule 1, Part 2 (health or social care purposes) and Part 1, paragraph 18 (safeguarding children and individuals at risk).</p>
+                </div>
+            </div>
+
+            <!-- 5. PROCESSOR OBLIGATIONS -->
+            <div class="policy-section">
+                <h2>5. Processor Obligations — Article 28 UK GDPR</h2>
+                <p>The Arena Hub Ltd, as Data Processor, commits to the following obligations:</p>
+
+                <h3>5.1 Process only on documented instructions</h3>
+                <p>The Processor shall process personal data only on the documented instructions of the Controller. This DPA, together with any written subscription agreement and the platform's technical architecture (Sovereign Hybrid v7.0.0), constitutes those instructions. Where the Processor considers an instruction to infringe UK GDPR or the Data Protection Act 2018, it shall immediately inform the Controller.</p>
+
+                <h3>5.2 Confidentiality</h3>
+                <p>All persons authorised to process personal data under this DPA are bound by appropriate confidentiality obligations. Access to Controller data is restricted to personnel with a specific operational requirement and is subject to role-based access controls.</p>
+
+                <h3>5.3 Security</h3>
+                <p>The Processor shall implement appropriate technical and organisational security measures (see Clause 8) in accordance with UK GDPR Article 32, ensuring a level of security appropriate to the risk — taking into account the nature, scope, context, and purposes of processing, and the rights and freedoms of natural persons.</p>
+
+                <h3>5.4 Sub-processors</h3>
+                <p>The Processor shall not engage any sub-processor without the prior specific or general written authorisation of the Controller. Where general authorisation is granted (as it is by acceptance of this DPA), the Processor shall inform the Controller of any intended changes to sub-processors, giving the Controller opportunity to object. See Clause 7 for the current authorised sub-processor schedule.</p>
+
+                <h3>5.5 Data Subject Rights</h3>
+                <p>The Processor shall assist the Controller in fulfilling its obligations to respond to requests from data subjects exercising their rights under UK GDPR (access, rectification, erasure, portability, restriction, and objection). Because all student data resides in the Controller's own Google Workspace, the Controller can action the majority of Subject Access Requests directly. Where technical assistance is required from the Processor, this will be provided within 48 hours of written request.</p>
+
+                <h3>5.6 DPIA and Prior Consultation Support</h3>
+                <p>The Processor shall assist the Controller in ensuring compliance with obligations relating to data security, data breach notification, Data Protection Impact Assessments (DPIAs), and prior consultation with the ICO. A completed DPIA (ARENA-DPIA-2026-001, v1.1, approved 2 May 2026) is available from the Processor upon written request.</p>
+
+                <h3>5.7 Audit Rights</h3>
+                <p>The Processor shall make available to the Controller all information necessary to demonstrate compliance with this DPA and shall allow for — and contribute to — audits and inspections conducted by the Controller or an auditor mandated by the Controller. The Processor shall provide written responses to compliance questionnaires within 10 working days. On-site technical inspections may be arranged by written agreement.</p>
+            </div>
+
+            <!-- 6. AUTOMATED DECISION-MAKING -->
+            <div class="policy-section">
+                <h2>6. Automated Processing and UK GDPR Article 22</h2>
+                <p>The Arena Hub platform includes AI-assisted components. The following statement of compliance with Article 22 (automated decision-making) applies to all automated processing within the platform:</p>
+
+                <div class="highlight-box">
+                    <p><strong>FIFA Score (Forensic Intelligence Framework Assessment):</strong> A composite progress indicator derived from six pillars (Resilience, Velocity, Engagement, Attendance, Welfare, and Wins), each scored 0–100. The FIFA Score constitutes profiling under UK GDPR Article 4(4). It is presented to practitioners as a decision-support tool only. No automated action — including placement decisions, EHCP updates, or safeguarding escalations — is taken on the basis of the FIFA Score alone. Mandatory human practitioner review is enforced at the system level.</p>
+                    <p><strong>NODE Insights (AI welfare pattern detection):</strong> Gemini AI analyses observed behavioural signals to surface welfare patterns for DSL review. NODE outputs are flagged as advisory only and require explicit DSL authorisation before any formal record is created. NODE does not infer emotional state, neurological profile, or predictive risk in isolation — this is constitutionally prohibited under the Forensic Firewall (Addendum XVII of the Sovereign Constitution).</p>
+                    <p><strong>AI Evidence Multiplier:</strong> Cross-references submitted evidence against adjacent taxonomy criteria. Suggestions are presented to the practitioner with a confidence score and mandatory review requirement. No AI suggestion is committed to the student's statutory record without authenticated human approval. Auto-credit threshold is ≥85% confidence, but remains visible in the Close of Play report for practitioner review.</p>
+                </div>
+
+                <p>No decision producing legal or similarly significant effects on a data subject is made solely by automated means. The platform is a Decision-Support Infrastructure. The practitioner is the Decision Authority. This separation is constitutionally absolute under Article VI of the Sovereign Educational Infrastructure Constitution.</p>
+            </div>
+
+            <!-- 7. SUB-PROCESSORS -->
+            <div class="policy-section">
+                <h2>7. Authorised Sub-Processors</h2>
+                <p>The Controller authorises the Processor to engage the following sub-processors. The Processor has entered into data processing agreements with each sub-processor imposing equivalent data protection obligations to those in this DPA.</p>
+
+                <table class="sub-processor-table">
+                    <thead>
+                        <tr>
+                            <th>Sub-Processor</th>
+                            <th>Purpose</th>
+                            <th>Data Processed</th>
+                            <th>Transfer Mechanism</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Google LLC</strong><br><em>Google Workspace</em></td>
+                            <td>All student and staff data is stored exclusively within the Controller's own Google Workspace tenant (Shared Drive). Google provides the hosting infrastructure under the Controller's own GWS terms of service.</td>
+                            <td>All student PII, evidence records, safeguarding logs, staff records (Controller-held). Arena Hub Ltd does not hold copies.</td>
+                            <td>UK–US Data Privacy Framework. Google Workspace terms of service. Controller is primary customer.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google LLC</strong><br><em>Google Cloud Platform (europe-west2, London)</em></td>
+                            <td>Anonymised operational telemetry, licence validation (HMAC-authenticated handshake containing no student PII), and Cloud Run processing layer for transient evidence write operations.</td>
+                            <td>Anonymised event logs only. No student PII is stored at rest on GCP infrastructure. HMAC handshake contains practitioner email and licence key only.</td>
+                            <td>UK–US Data Privacy Framework. Data residency: United Kingdom (London region, europe-west2).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Twilio Inc.</strong></td>
+                            <td>DSL two-factor authentication (2FA) SMS delivery only. Used exclusively to verify the identity of Designated Safeguarding Leads accessing the Welfare Silo.</td>
+                            <td>DSL mobile telephone number only. Not linked to student data. Not stored beyond the SMS session.</td>
+                            <td>UK Standard Contractual Clauses (UK SCCs). Twilio's GDPR Data Processing Addendum.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google Gemini AI</strong><br><em>(via Google Cloud AI API)</em></td>
+                            <td>NODE insights: AI-assisted welfare pattern detection for DSL advisory flagging. Inference is stateless — no student data is submitted to AI training pipelines.</td>
+                            <td>Anonymised behavioural signal summaries only. No student names, UPNs, or identifiable data are included in API requests. All inference is stateless.</td>
+                            <td>Google Cloud API Terms of Service. Data residency: europe-west2 (London). Not used for AI model training.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The Processor shall notify the Controller by email of any intended change to this sub-processor schedule no less than 30 days before the change takes effect, giving the Controller the opportunity to object to the change.</p>
+            </div>
+
+            <!-- 8. TECHNICAL AND ORGANISATIONAL MEASURES -->
+            <div class="policy-section">
+                <h2>8. Technical and Organisational Measures (TOMs)</h2>
+                <p>The following technical and organisational measures are implemented and maintained by the Processor in accordance with UK GDPR Article 32:</p>
+
+                <div class="toms-grid">
+                    <div class="tom-card">
+                        <h4>Sovereign Data Anchoring</h4>
+                        <p>All student PII is stored exclusively within the Controller's Google Workspace tenant (school-owned Shared Drive). Arena Hub Ltd holds zero copies of student data at rest. The school retains unconditional physical control of all data at all times.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>Role-Based Access Control</h4>
+                        <p>GWS-native role-based permissions govern all access to STAFF_VAULT, student records, and evidence ledgers. Access is granted at the minimum level necessary for each role. Role assignments are managed by the Controller's Google Workspace administrator.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>Welfare Silo — Revoked Inheritance</h4>
+                        <p>The Welfare Suite operates within a GWS subfolder with folder permission inheritance explicitly revoked. Only the Controller's designated DSL(s) are on the access list. Arena Hub Ltd has no access to this silo at any time.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>VAR Sentry — Immutable Audit Trail</h4>
+                        <p>Every cell edit, evidence commit, and safeguarding entry is captured by VAR Sentry with a WHO / WHAT / WHEN / WHERE record. The audit trail is immutable — it cannot be altered or deleted by any school staff member or by Arena Hub Ltd.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>HMAC-Authenticated Perimeter</h4>
+                        <p>The only data that transits outside the school's GWS boundary is a cryptographically signed HMAC-authenticated licence validation handshake. This exchange contains no student PII under any circumstances.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>DSL Two-Factor Authentication</h4>
+                        <p>Access to the Welfare Silo requires DSL 2FA verification via Twilio SMS in addition to GWS OAuth authentication. This ensures that even a compromised GWS credential cannot access safeguarding records without possession of the registered DSL device.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>Forensic Firewall</h4>
+                        <p>The Forensic Firewall (Addendum XVII, Sovereign Constitution) constitutionally prohibits automated emotional state classification, neurological profiling, and predictive risk scoring applied to individual data subjects without mandatory human-in-the-loop review.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>SYSTEM_AUDIT_LOG</h4>
+                        <p>Every automated action — AI suggestions, multiplier credits, welfare flags, attendance alerts — is recorded with: AUDIT_ID, authenticated STAFF_EMAIL, STUDENT_ID, ACTION_TYPE, INPUT_DATA, OUTPUT_GENERATED, CONFIDENCE_SCORE, RULE_VERSION_ID, and millisecond-accurate timestamp.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>Stateless AI Inference</h4>
+                        <p>All Gemini AI API calls are stateless. No student data is retained by Google AI infrastructure between calls. No student data is used for model training. API requests contain only anonymised signal summaries, never identifiable student information.</p>
+                    </div>
+                    <div class="tom-card">
+                        <h4>Zero Third-Party Analytics</h4>
+                        <p>No student PII is transmitted to any analytics platform, advertising network, or commercial data warehouse. The public marketing website (thearenahub.co.uk) deploys no tracking or advertising cookies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. DATA BREACH NOTIFICATION -->
+            <div class="policy-section">
+                <h2>9. Data Breach Notification</h2>
+                <p>In accordance with UK GDPR Article 33 and this DPA (Clause 4 of ARENA-DPA-2026-PILOT), the Processor shall:</p>
+                <ul>
+                    <li><strong>Notify the Controller within 12 hours</strong> of becoming aware of any confirmed or suspected personal data breach affecting data processed under this DPA.</li>
+                    <li><strong>Provide a written incident report within 48 hours</strong> containing: the nature of the breach; the categories and approximate number of data subjects affected; the categories and approximate volume of records concerned; the likely consequences of the breach; and the measures taken or proposed to address the breach.</li>
+                    <li><strong>Not notify the ICO</strong> on the Controller's behalf, except where the Controller expressly instructs the Processor to do so. The Controller retains full responsibility for its own ICO notifications under Article 33.</li>
+                    <li>Cooperate fully with the Controller's breach investigation and provide all technical information required to assess and remediate the breach.</li>
+                </ul>
+                <p>Given the Sovereign Hybrid architecture (all student data in Controller's own GWS), the Processor's breach notification obligation relates primarily to any compromise of the Processor's GCP infrastructure, licence validation systems, or Processor personnel who may have had authorised access to Controller data under Clause 10 (V1 Pilot Conditions).</p>
+            </div>
+
+            <!-- 10. V1 PILOT CONDITIONS -->
+            <div class="policy-section">
+                <h2>10. V1 Pilot Conditions — Disclosed Access</h2>
+
+                <div class="pilot-warning">
+                    <div class="warn-label">⚠ V1 Pilot Disclosure — Required Reading</div>
+                    <p>During the V1 Pilot phase, the Arena Hub platform operates with <strong>developmentMode: true</strong>. Under this configuration, the Processor Director (Jonathan Baguley, <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a>) holds range-level access to the Controller's deployed Google Spreadsheet for the purposes of technical debugging, configuration, and pilot support.</p>
+                    <p>This access is: (a) formally disclosed to the Controller in this DPA; (b) time-limited to the V1 Pilot period only; (c) subject to the same VAR Sentry audit trail obligations as all other system access; and (d) governed by the confidentiality obligations in Clause 5.2 of this DPA.</p>
+                    <p>This access does not extend to the Welfare Silo, which remains under DSL-exclusive control at all times, regardless of pilot phase.</p>
+                    <p><strong>This condition must be resolved before production deployment beyond the Pilot phase.</strong> At transition to production, <code>developmentMode</code> will be set to <code>false</code> and Processor Director access will be revoked. The Controller will be notified in writing 14 days before this transition. A revised DPA reflecting production-phase conditions will be issued at that time.</p>
+                </div>
+            </div>
+
+            <!-- 11. RETURN AND DELETION -->
+            <div class="policy-section">
+                <h2>11. Return and Deletion of Data</h2>
+                <p>Because all student and operational data resides within the Controller's own Google Workspace environment, the Controller retains unconditional physical control of all data at all times. Upon termination of the subscription:</p>
+                <ul>
+                    <li>The Controller's student data (STUDENT_VAULT, GAP_INTERVENTIONS ledger, DAILY_REGISTER, WELFARE_CHRONOLOGY, and all associated evidence artefacts) remains entirely within the Controller's GWS. No action by the Processor is required or possible — the Controller simply revokes the platform's GWS API authorisation.</li>
+                    <li>The Processor shall destroy all configuration data, licence records, and any copies of Controller data held on Processor systems within <strong>30 days of termination</strong> and provide written confirmation of destruction upon request.</li>
+                    <li>Account and licence data held by the Processor (practitioner email, name, school name, licence record) is retained for a maximum of 30 days post-termination for query resolution purposes, then permanently deleted.</li>
+                </ul>
+                <p>Data retention obligations that fall upon the Controller as Data Controller include: safeguarding chronologies (25 years, per statutory guidance); student performance records (6 years); and SYSTEM_AUDIT_LOG entries (7 years). These obligations are the Controller's alone — the Processor has no role in their management after termination.</p>
+            </div>
+
+            <!-- 12. INTERNATIONAL TRANSFERS -->
+            <div class="policy-section">
+                <h2>12. International Data Transfers</h2>
+                <p>All primary student data processing occurs within the United Kingdom. The Arena Hub Ltd's GCP infrastructure operates exclusively within the <strong>europe-west2 (London) region</strong>. No student PII is transferred outside the United Kingdom during normal platform operation.</p>
+                <p>Where sub-processors operate under US law (Google LLC, Twilio Inc.), data transfers are governed by the UK–US Data Privacy Framework and, where applicable, UK Standard Contractual Clauses. These mechanisms are documented in Clause 7 (Sub-Processor Schedule). No transfers of student PII occur to countries without an adequate level of data protection under UK GDPR Chapter V without prior written Controller authorisation.</p>
+            </div>
+
+            <!-- 13. GOVERNING LAW -->
+            <div class="policy-section">
+                <h2>13. Governing Law and Disputes</h2>
+                <p>This DPA is governed by and construed in accordance with the laws of England and Wales. Any dispute arising under or in connection with this DPA shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+                <p>This DPA is incorporated into and forms part of the Arena Hub subscription agreement. In the event of any conflict between this DPA and the subscription terms, this DPA shall prevail in respect of the processing of personal data.</p>
+            </div>
+
+            <!-- 14. DPIA REFERENCE -->
+            <div class="policy-section">
+                <h2>14. Data Protection Impact Assessment</h2>
+                <p>A full Data Protection Impact Assessment has been completed in accordance with UK GDPR Article 35. The DPIA (reference ARENA-DPIA-2026-001, version 1.1, approved 2 May 2026) confirms that all mandatory ICO criteria are met and that the processing described in this DPA may proceed subject to the V1 Pilot Conditions disclosed in Clause 10.</p>
+                <p>The DPIA Evidence Support Pack (reference ARENA-DPIA-ESP-001) is available to DPOs and Data Controllers upon written request. All criteria in the DPIA Evidence Matrix have been assessed as <strong>COMPLIANT</strong>.</p>
+                <p>The Arena Hub Ltd is registered with the Information Commissioner's Office (ICO) as a Data Controller for its own operational data. ICO Registration Certificate is available upon request. For ICO regulatory guidance, visit <a href="https://ico.org.uk" target="_blank" rel="noopener">ico.org.uk</a>.</p>
+            </div>
+
+            <!-- CONTACT -->
+            <div class="contact-card">
+                <h3>Data Protection Contact</h3>
+                <p>For all DPA queries, DPIA requests, audit enquiries, or to exercise Controller rights under this agreement:</p>
+                <p><strong>Jonathan Baguley</strong> — Founder &amp; Principal Data Architect<br>
+                The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+                <p>Email: <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></p>
+                <p>Tel: <a href="tel:01618702916">01618702916</a></p>
+                <p>Response commitment: all DPO queries acknowledged within 48 hours; written documentation requests fulfilled within 5 working days.</p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════ -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">The <span>Arena Hub</span></div>
+                <p>Sovereign Infrastructure for Alternative Provision and SEMH education. Built on data sovereignty, forensic integrity, and human accountability.</p>
+                <p>The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605 &nbsp;&bull;&nbsp; Registered in England &amp; Wales</p>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="platform.html">Access Portal</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="company.html#features">Features</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                    <li><a href="dpa.html">Data Processing Agreement</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></li>
+                    <li><a href="tel:01618702916">01618702916</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Arena Hub Ltd. All rights reserved.</p>
+            <p><a href="privacy.html">Privacy</a> &nbsp;&bull;&nbsp; <a href="terms.html">Terms</a> &nbsp;&bull;&nbsp; <a href="dpa.html">DPA</a> &nbsp;&bull;&nbsp; <a href="pricing.html">Pricing</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
