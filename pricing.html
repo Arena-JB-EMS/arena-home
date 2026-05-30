@@ -1271,6 +1271,33 @@
     })();
 
     /* ────────────────────────────────────────────────
+       SCROLL ANIMATIONS — fade-up + stagger
+       Without this, all .fade-up and .stagger elements
+       stay at opacity:0 and the page appears empty.
+       ──────────────────────────────────────────────── */
+    (function initAnimations() {
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: make everything visible immediately
+            document.querySelectorAll('.fade-up, .stagger').forEach(function(el) {
+                el.classList.add('visible');
+            });
+            return;
+        }
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-up, .stagger').forEach(function(el) {
+            observer.observe(el);
+        });
+    })();
+
+    /* ────────────────────────────────────────────────
        SPEAK MODE SYSTEM
        ──────────────────────────────────────────────── */
     function setMode(mode) {
