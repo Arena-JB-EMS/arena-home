@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infrastructure Pricing — The Arena Hub</title>
+    <meta name="description" content="Sovereign continuity infrastructure pricing for schools, AP settings, specialist provisions, MATs, and Local Authorities.">
+    <meta name="robots" content="noindex">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+
+    <style>
+        /* ============================================================
+           RESET & TOKENS
+           ============================================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:          #1B263B;
+            --navy-deep:     #0f1825;
+            --navy-mid:      #162130;
+            --navy-card:     rgba(255,255,255,0.028);
+            --gold:          #C5A059;
+            --gold-dim:      rgba(197,160,89,0.12);
+            --gold-glow:     rgba(197,160,89,0.18);
+            --gold-border:   rgba(197,160,89,0.2);
+            --gold-border-h: rgba(197,160,89,0.48);
+            --text-white:    #FFFFFF;
+            --text-primary:  #C4CDDA;
+            --text-secondary:#A8B5C2;
+            --text-muted:    #6A7E8F;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--navy-deep);
+            color: var(--text-primary);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1rem;
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        /* ============================================================
+           SPEAK MODE SYSTEM
+           ============================================================ */
+        .speak-plain { display: inline; }
+        .speak-compliance { display: none; }
+
+        body.mode-compliance .speak-plain { display: none; }
+        body.mode-compliance .speak-compliance { display: inline; }
+
+        /* block-level equivalents */
+        .speak-plain-block { display: block; }
+        .speak-compliance-block { display: none; }
+
+        body.mode-compliance .speak-plain-block { display: none; }
+        body.mode-compliance .speak-compliance-block { display: block; }
+
+        /* list-level equivalents */
+        .speak-plain-list { display: block; }
+        .speak-compliance-list { display: none; }
+
+        body.mode-compliance .speak-plain-list { display: none; }
+        body.mode-compliance .speak-compliance-list { display: block; }
+
+        /* ============================================================
+           SKIP LINK
+           ============================================================ */
+        .skip-link {
+            position: absolute; top: -60px; left: 0;
+            background: var(--gold); color: var(--navy);
+            padding: 10px 18px; font-weight: 700;
+            text-decoration: none; z-index: 400;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .site-header {
+            background: var(--navy);
+            border-bottom: 1px solid var(--gold-border);
+            position: sticky; top: 0; z-index: 200;
+        }
+        .header-inner {
+            max-width: 1160px; margin: 0 auto;
+            padding: 0.8rem 2rem;
+            display: flex; align-items: center; justify-content: space-between; gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .site-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            text-decoration: none; flex-shrink: 0;
+        }
+        .logo-mark {
+            width: 34px; height: 34px; border-radius: 5px;
+            background: var(--gold-dim); border: 1px solid var(--gold-border);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-mark span {
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
+            color: var(--gold); letter-spacing: -0.5px;
+        }
+        .site-logo-text {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 700;
+            color: var(--text-white); letter-spacing: 0.3px;
+        }
+        .site-logo-text em { color: var(--gold); font-style: normal; }
+
+        .header-actions {
+            display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+        }
+
+        /* Speak toggle */
+        .speak-toggle {
+            display: flex; border: 1px solid var(--gold-border); border-radius: 4px; overflow: hidden;
+        }
+        .speak-btn {
+            padding: 6px 14px; font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 0.5px; text-transform: uppercase;
+            background: transparent; border: none; cursor: pointer;
+            color: var(--text-muted); font-family: 'Source Sans 3', sans-serif;
+            transition: background 0.2s, color 0.2s;
+            display: flex; align-items: center; gap: 0.35rem;
+        }
+        .speak-btn.active { background: var(--gold-dim); color: var(--gold); }
+        .speak-btn:hover:not(.active) { color: var(--text-secondary); }
+        .speak-btn + .speak-btn { border-left: 1px solid var(--gold-border); }
+
+        .back-link {
+            color: var(--text-muted); font-size: 0.85rem; text-decoration: none;
+            display: flex; align-items: center; gap: 0.4rem;
+            transition: color 0.2s; white-space: nowrap;
+        }
+        .back-link:hover { color: var(--gold); }
+
+        /* ============================================================
+           INFRA BANNER
+           ============================================================ */
+        .infra-banner {
+            background: rgba(197,160,89,0.05);
+            border-bottom: 1px solid rgba(197,160,89,0.1);
+            padding: 0.55rem 2rem;
+            text-align: center;
+        }
+        .infra-banner p {
+            font-size: 0.78rem; color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        .infra-banner strong { color: var(--gold); font-weight: 600; }
+
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            background: var(--navy-deep);
+            padding: 5.5rem 2rem 4.5rem;
+            text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% -10%, rgba(197,160,89,0.07) 0%, transparent 70%),
+                linear-gradient(180deg, rgba(197,160,89,0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(197,160,89,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(197,160,89,0.035) 1px, transparent 1px);
+            background-size: 64px 64px;
+            pointer-events: none;
+        }
+        .hero-inner {
+            position: relative; z-index: 1;
+            max-width: 740px; margin: 0 auto;
+        }
+        .hero-eyebrow {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 1.4rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.8rem;
+        }
+        .hero-eyebrow::before, .hero-eyebrow::after {
+            content: ''; flex: 1; max-width: 56px; height: 1px;
+            background: var(--gold-border);
+        }
+        .hero h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+            color: var(--text-white); line-height: 1.1; margin-bottom: 1.3rem;
+        }
+        .hero h1 em { color: var(--gold); font-style: normal; }
+        .hero-sub {
+            font-size: 1.05rem; color: var(--text-secondary);
+            line-height: 1.7; max-width: 600px; margin: 0 auto 2rem;
+        }
+        .hero-qualifier {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(197,160,89,0.05); border: 1px solid var(--gold-border);
+            border-radius: 4px; padding: 0.65rem 1.35rem;
+            font-size: 0.82rem; color: var(--text-secondary);
+        }
+        .hero-qualifier i { color: var(--gold); }
+
+        /* ============================================================
+           PILOT SECTION  (controlled by PILOT_ACTIVE flag)
+           ============================================================ */
+        .pilot-section {
+            background: var(--navy);
+            border-top: 1px solid var(--gold-border);
+            border-bottom: 1px solid var(--gold-border);
+            padding: 3rem 2rem;
+        }
+        .pilot-inner {
+            max-width: 860px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start;
+        }
+        @media (max-width: 640px) { .pilot-inner { grid-template-columns: 1fr; } }
+
+        .pilot-badge-row {
+            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem;
+        }
+        .pilot-tag {
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; background: var(--gold); color: var(--navy);
+            padding: 3px 10px; border-radius: 3px;
+        }
+        .pilot-date {
+            font-size: 0.78rem; color: var(--text-muted); font-weight: 600;
+        }
+        .pilot-section h2 {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.45rem; font-weight: 700;
+            color: var(--text-white); margin-bottom: 0.75rem;
+        }
+        .pilot-section p {
+            font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; max-width: 560px;
+        }
+        .pilot-section p strong { color: var(--gold); font-weight: 600; }
+
+        .pilot-cta-col {
+            display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+            flex-shrink: 0; padding-top: 0.25rem;
+        }
+        @media (max-width: 640px) { .pilot-cta-col { align-items: flex-start; } }
+
+        .pilot-cta-label {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--text-muted); text-align: right;
+        }
+        @media (max-width: 640px) { .pilot-cta-label { text-align: left; } }
+
+        /* ============================================================
+           SECTION COMMON
+           ============================================================ */
+        .pricing-section { padding: 5.5rem 2rem; }
+        .section-inner { max-width: 1160px; margin: 0 auto; }
+
+        .section-header { margin-bottom: 3rem; }
+        .section-label {
+            font-size: 0.66rem; font-weight: 700; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 0.55rem;
+        }
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 700;
+            color: var(--text-white); line-height: 1.1; margin-bottom: 0.8rem;
+        }
+        .section-desc {
+            font-size: 0.94rem; color: var(--text-secondary);
+            max-width: 620px; line-height: 1.65;
+        }
+
+        /* ============================================================
+           BUTTONS (global)
+           ============================================================ */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            padding: 10px 22px; border-radius: 4px;
+            font-size: 0.88rem; font-weight: 600;
+            cursor: pointer; text-decoration: none; border: none;
+            transition: all 0.2s; font-family: 'Source Sans 3', sans-serif;
+            white-space: nowrap;
+        }
+        .btn-gold { background: var(--gold); color: var(--navy); }
+        .btn-gold:hover { background: #d4b26e; }
+        .btn-outline {
+            background: transparent; border: 1px solid var(--gold-border);
+            color: var(--gold);
+        }
+        .btn-outline:hover { border-color: var(--gold); background: var(--gold-dim); }
+        .btn-sm { padding: 7px 16px; font-size: 0.82rem; }
+
+        /* ============================================================
+           FOUNDATION GRID
+           ============================================================ */
+        .foundation-section { background: var(--navy-deep); }
+
+        .foundation-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+        }
+        @media (max-width: 960px) { .foundation-grid { grid-template-columns: 1fr; max-width: 520px; } }
+        @media (min-width: 961px) and (max-width: 1100px) { .foundation-grid { gap: 1rem; } }
+
+        /* ============================================================
+           TIER CARD
+           ============================================================ */
+        .tier-card {
+            background: var(--navy-card);
+            border: 1px solid var(--gold-border);
+            border-radius: 10px; overflow: hidden;
+            display: flex; flex-direction: column;
+            position: relative; cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        .tier-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+            opacity: 0; transition: opacity 0.35s;
+        }
+        /* Subtle level watermark */
+        .tier-card::after {
+            content: attr(data-level);
+            position: absolute; top: -0.15rem; right: 1rem;
+            font-family: 'Rajdhani', sans-serif; font-size: 5rem; font-weight: 700;
+            color: rgba(197,160,89,0.04); line-height: 1;
+            pointer-events: none; user-select: none;
+        }
+
+        .tier-card:hover,
+        .tier-card.active {
+            border-color: var(--gold-border-h);
+            box-shadow:
+                0 0 0 1px rgba(197,160,89,0.06),
+                0 16px 48px rgba(197,160,89,0.1),
+                0 4px 16px rgba(0,0,0,0.3);
+            transform: translateY(-3px);
+        }
+        .tier-card:hover::before,
+        .tier-card.active::before { opacity: 1; }
+
+        /* Card body sections */
+        .card-header {
+            padding: 1.75rem 1.75rem 0;
+            position: relative; z-index: 1;
+        }
+        .level-badge {
+            display: inline-block;
+            font-size: 0.6rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--gold);
+            border: 1px solid var(--gold-border); border-radius: 3px;
+            padding: 3px 9px; margin-bottom: 1rem;
+        }
+        .card-name {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700;
+            color: var(--text-white); line-height: 1.05; margin-bottom: 0.2rem;
+        }
+        .card-scope {
+            font-size: 0.78rem; color: var(--text-muted);
+            letter-spacing: 1px; font-weight: 600; text-transform: uppercase;
+        }
+
+        .card-pricing {
+            padding: 1.25rem 1.75rem 1.25rem;
+            border-bottom: 1px solid rgba(197,160,89,0.07);
+            position: relative; z-index: 1;
+        }
+        .price-main {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.9rem; font-weight: 700;
+            color: var(--gold); line-height: 1; margin-bottom: 0.35rem;
+        }
+        .price-main .price-period {
+            font-size: 0.88rem; color: var(--text-muted); font-weight: 400;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        .price-scn-base {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 700;
+            color: var(--gold); line-height: 1.2; margin-bottom: 0.35rem;
+        }
+        .price-scn-base small {
+            font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem;
+            color: var(--text-muted); font-weight: 400; display: block; margin-top: 0.15rem;
+        }
+        .price-sub {
+            font-size: 0.8rem; color: var(--text-muted);
+        }
+        .price-sub strong { color: var(--text-secondary); font-weight: 600; }
+
+        .card-tagline {
+            padding: 1.1rem 1.75rem;
+            font-size: 0.875rem; color: var(--text-secondary);
+            font-style: italic; line-height: 1.58;
+            border-bottom: 1px solid rgba(197,160,89,0.05);
+            position: relative; z-index: 1;
+        }
+
+        /* Sliding detail panel */
+        .card-detail {
+            max-height: 0; overflow: hidden;
+            transition:
+                max-height 0.48s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+            background: rgba(197,160,89,0.03);
+            opacity: 0;
+        }
+        .tier-card:hover .card-detail,
+        .tier-card.active .card-detail {
+            max-height: 600px;
+            opacity: 1;
+        }
+        .card-detail-inner {
+            padding: 1.35rem 1.75rem 1.5rem;
+        }
+
+        .detail-section-label {
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 0.9rem; margin-top: 0;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .detail-section-label::after {
+            content: ''; flex: 1; height: 1px; background: var(--gold-border);
+        }
+
+        .detail-list { list-style: none; margin-bottom: 0.5rem; }
+        .detail-list li {
+            font-size: 0.83rem; color: var(--text-primary);
+            padding: 0.3rem 0 0.3rem 1.3rem;
+            position: relative; line-height: 1.5;
+        }
+        .detail-list li::before {
+            content: '▸'; position: absolute; left: 0; top: 0.35rem;
+            color: var(--gold); font-size: 0.7rem;
+        }
+
+        /* Compliance mode list */
+        .compliance-label {
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; color: #7fa5c0;
+            margin-bottom: 0.9rem; margin-top: 1rem;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .compliance-label::after {
+            content: ''; flex: 1; height: 1px; background: rgba(127,165,192,0.25);
+        }
+        .detail-list.compliance li::before { color: #7fa5c0; }
+        .detail-list.compliance li { color: #96afc4; }
+
+        /* SCN discount table */
+        .discount-table { margin-top: 0.9rem; }
+        .discount-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.42rem 0; border-bottom: 1px solid rgba(197,160,89,0.06);
+            font-size: 0.82rem;
+        }
+        .discount-row:last-child { border-bottom: none; }
+        .discount-sites { color: var(--text-secondary); }
+        .discount-pct {
+            color: var(--gold); font-weight: 700;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.88rem;
+        }
+
+        .card-note {
+            font-size: 0.78rem; color: var(--gold); font-style: italic;
+            border-top: 1px solid rgba(197,160,89,0.12);
+            padding-top: 0.7rem; margin-top: 0.7rem;
+        }
+
+        /* Expand hint (touch only) */
+        .expand-hint {
+            display: none; text-align: center;
+            padding: 0.55rem 1.75rem;
+            font-size: 0.68rem; color: var(--text-muted);
+            letter-spacing: 1.5px; text-transform: uppercase;
+            border-top: 1px solid rgba(197,160,89,0.05);
+            transition: color 0.2s;
+        }
+        @media (hover: none) { .expand-hint { display: block; } }
+        .tier-card.active .expand-hint { color: var(--gold); }
+
+        /* Card CTA */
+        .card-cta {
+            padding: 1rem 1.75rem 1.5rem;
+            margin-top: auto; position: relative; z-index: 1;
+        }
+        .card-cta-btn {
+            display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+            width: 100%; padding: 9px 18px;
+            background: transparent; border: 1px solid var(--gold-border);
+            border-radius: 4px; color: var(--gold);
+            font-size: 0.82rem; font-weight: 600;
+            text-decoration: none; font-family: 'Source Sans 3', sans-serif;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .card-cta-btn:hover { background: var(--gold-dim); border-color: var(--gold); }
+
+        /* ============================================================
+           BRIDGE
+           ============================================================ */
+        .section-bridge {
+            padding: 2.5rem 2rem; text-align: center;
+            position: relative;
+        }
+        .bridge-vline {
+            position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(197,160,89,0.18) 20%,
+                rgba(197,160,89,0.35) 50%,
+                rgba(197,160,89,0.18) 80%,
+                transparent 100%);
+            transform: translateX(-50%);
+        }
+        .bridge-content {
+            position: relative; z-index: 1;
+            display: inline-flex; flex-direction: column; align-items: center; gap: 0.6rem;
+        }
+        .bridge-ring {
+            width: 52px; height: 52px; border-radius: 50%;
+            background: var(--navy-deep);
+            border: 1px solid var(--gold-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold); font-size: 1.15rem;
+        }
+        .bridge-label {
+            font-size: 0.66rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--text-muted);
+        }
+
+        /* ============================================================
+           SCN SECTION
+           ============================================================ */
+        .scn-section {
+            background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-mid) 100%);
+            padding: 5.5rem 2rem;
+            position: relative;
+        }
+        .scn-section::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 80% 40% at 50% 0%,
+                rgba(197,160,89,0.045) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .scn-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem; max-width: 860px;
+        }
+        @media (max-width: 680px) { .scn-grid { grid-template-columns: 1fr; max-width: 520px; } }
+
+        /* ============================================================
+           CONSTITUTIONAL STRIP
+           ============================================================ */
+        .constitutional-strip {
+            background: var(--navy);
+            border-top: 1px solid var(--gold-border);
+            border-bottom: 1px solid var(--gold-border);
+            padding: 3.5rem 2rem; text-align: center;
+        }
+        .constitutional-inner { max-width: 700px; margin: 0 auto; }
+        .constitutional-eyebrow {
+            font-size: 0.63rem; font-weight: 700; letter-spacing: 3.5px;
+            text-transform: uppercase; color: var(--gold); margin-bottom: 1.1rem;
+        }
+        .constitutional-statement {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.65rem); font-weight: 700;
+            color: var(--text-white); line-height: 1.35; margin-bottom: 1.1rem;
+        }
+        .constitutional-statement em { color: var(--gold); font-style: normal; }
+        .constitutional-sub {
+            font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65;
+        }
+
+        /* ============================================================
+           CTA SECTION
+           ============================================================ */
+        .cta-section { background: var(--navy-deep); padding: 4rem 2rem; }
+        .cta-inner {
+            max-width: 1160px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 2rem; flex-wrap: wrap;
+        }
+        .cta-text h2 {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.45rem; font-weight: 700;
+            color: var(--text-white); margin-bottom: 0.35rem;
+        }
+        .cta-text p { font-size: 0.9rem; color: var(--text-secondary); }
+        .cta-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .site-footer {
+            background: var(--navy); border-top: 1px solid var(--gold-border);
+            padding: 2.25rem 2rem;
+        }
+        .footer-inner {
+            max-width: 1160px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1.25rem; flex-wrap: wrap;
+        }
+        .footer-brand {
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700;
+            color: var(--text-white);
+        }
+        .footer-brand em { color: var(--gold); font-style: normal; }
+        .footer-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.15rem; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a {
+            font-size: 0.82rem; color: var(--text-muted);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+
+        /* ============================================================
+           SCROLL ANIMATIONS
+           ============================================================ */
+        .fade-up {
+            opacity: 0; transform: translateY(22px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        .stagger > * {
+            opacity: 0; transform: translateY(18px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; }
+        .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.1s; }
+        .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.2s; }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 640px) {
+            .header-inner { padding: 0.7rem 1.25rem; gap: 0.75rem; }
+            .speak-btn { padding: 5px 10px; font-size: 0.72rem; }
+            .hero { padding: 3.5rem 1.25rem 3rem; }
+            .pricing-section, .scn-section { padding: 3.5rem 1.25rem; }
+            .card-header, .card-pricing, .card-tagline,
+            .card-detail-inner, .card-cta { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .pilot-section { padding: 2.5rem 1.25rem; }
+            .cta-inner { flex-direction: column; align-items: flex-start; }
+            .section-bridge { padding: 2rem 1.25rem; }
+        }
+
+        a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- ═══════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════ -->
+<header class="site-header" role="banner">
+    <div class="header-inner">
+
+        <a href="company.html" class="site-logo" aria-label="The Arena Hub — home">
+            <div class="logo-mark" aria-hidden="true"><span>A</span></div>
+            <span class="site-logo-text">The <em>Arena Hub</em></span>
+        </a>
+
+        <div class="header-actions">
+
+            <!-- ── ARENA LITE BUTTON ── -->
+            <a href="https://www.thearenahub.com" target="_blank" rel="noopener"
+               style="display:inline-flex;align-items:center;gap:0.4rem;padding:5px 11px;border:1px solid var(--gold-border);border-radius:4px;font-size:0.73rem;font-weight:600;color:var(--gold);text-decoration:none;transition:background 0.2s;white-space:nowrap;flex-shrink:0;"
+               onmouseover="this.style.background='rgba(197,160,89,0.1)'" onmouseout="this.style.background='transparent'"
+               aria-label="Arena Lite — Portable Evidence Engine">
+                <span style="width:18px;height:18px;background:var(--gold-dim);border:1px solid var(--gold-border);border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;color:var(--gold);">A</span>
+                Arena Lite <span style="color:var(--text-muted);font-weight:400;margin-left:0.2rem;">| Portable Evidence Engine</span>
+            </a>
+
+            <a href="company.html" class="back-link">
+                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                Arena Hub
+            </a>
+
+            <div class="speak-toggle" role="group" aria-label="Content mode">
+                <button class="speak-btn active" id="btn-plain"
+                        onclick="setMode('plain')" aria-pressed="true">
+                    <i class="fas fa-align-left" aria-hidden="true"></i> Plain English
+                </button>
+                <button class="speak-btn" id="btn-compliance"
+                        onclick="setMode('compliance')" aria-pressed="false">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i> Policy Compliance
+                </button>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════
+     INFRA BANNER
+     ═══════════════════════════════════════════════════ -->
+<div class="infra-banner" role="complementary">
+    <p>
+        <strong>Institutional Infrastructure Only</strong> &mdash;
+        This pricing is for schools, AP settings, specialist provisions, MATs, and Local Authorities.
+    </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════ -->
+<section class="hero" id="main" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+        <p class="hero-eyebrow">Infrastructure Pricing</p>
+        <h1 id="hero-heading">
+            <span class="speak-plain">Continuity Infrastructure<br>for Educational Institutions</span>
+            <span class="speak-compliance">Sovereign Continuity Infrastructure<br><em>Regulatory Alignment Framework</em></span>
+        </h1>
+        <p class="hero-sub">
+            <span class="speak-plain">
+                Arena Hub is not software licensing. It is sovereign continuity infrastructure — designed to strengthen human support systems, preserve institutional relationships, and sustain operational clarity across your provision. Every deployment remains within your institution's own Google Workspace. Your data. Your keys. Your sovereignty.
+            </span>
+            <span class="speak-compliance">
+                All Arena Hub deployments operate within the institution's own Google Workspace environment under a Data Processor agreement compliant with UK GDPR Article 28. No student or welfare data is processed on Arena Hub infrastructure. This page outlines the regulatory frameworks applicable to each infrastructure tier.
+            </span>
+        </p>
+        <div class="hero-qualifier" role="note">
+            <i class="fas fa-shield-halved" aria-hidden="true"></i>
+            Schools &middot; AP Settings &middot; Specialist Provisions &middot; MATs &middot; Local Authorities
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PILOT SECTION
+     Controlled by PILOT_ACTIVE constant in script.
+     ═══════════════════════════════════════════════════ -->
+<section class="pilot-section" id="pilot-section" aria-labelledby="pilot-heading">
+    <div class="pilot-inner">
+        <div class="pilot-content">
+            <div class="pilot-badge-row">
+                <span class="pilot-tag">Pilot Programme 2026</span>
+                <span class="pilot-date">Opening 1 July 2026</span>
+            </div>
+            <h2 id="pilot-heading">
+                <span class="speak-plain">Begin With a Structured Infrastructure Assessment</span>
+                <span class="speak-compliance">Diagnostic Infrastructure Assessment — Pre-Deployment Compliance Audit</span>
+            </h2>
+            <p>
+                <span class="speak-plain">
+                    Before committing to a full infrastructure agreement, Arena offers a structured 6-week assessment — deployed within your existing Google Workspace at
+                    <strong>no implementation risk</strong>. The assessment maps your provision's continuity gaps, produces an evidence-ready impact report for Governors or your LA, and concludes with a clear infrastructure recommendation. The assessment fee is
+                    <strong>fully credited</strong> against Year 1 of your licence if you proceed. <strong>Early interest is encouraged</strong> — pilot places are limited.
+                </span>
+                <span class="speak-compliance">
+                    The pre-deployment assessment provides a structured 6-week diagnostic prior to full contract commencement. The diagnostic operates under a standalone Data Processing Agreement in accordance with <strong>UK GDPR Article 28</strong>, with all data remaining within the institution's Google Workspace. The assessment concludes with a formal Impact Report suitable for Governor review and Local Authority engagement. The assessment fee is credited in full against the Year 1 agreement, consistent with standard professional service engagement practice. Limited places available from <strong>1 July 2026</strong>.
+                </span>
+            </p>
+        </div>
+        <div class="pilot-cta-col">
+            <p class="pilot-cta-label">Register early interest</p>
+            <a href="mailto:pilot@thearenahub.co.uk?subject=2026 Pilot Programme — Early Interest"
+               class="btn btn-outline">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                pilot@thearenahub.co.uk
+            </a>
+            <a href="mailto:pilot@thearenahub.co.uk?subject=2026 Pilot Programme — Early Interest"
+               class="btn btn-gold btn-sm">
+                Register Interest
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FOUNDATION SECTION
+     ═══════════════════════════════════════════════════ -->
+<section class="pricing-section foundation-section" aria-labelledby="foundation-heading">
+    <div class="section-inner">
+
+        <header class="section-header fade-up">
+            <img src="foundation-tier-icon.jpg" alt="Foundation Tier" style="width:72px;height:72px;object-fit:contain;border-radius:12px;margin-bottom:1.25rem;display:block;">
+            <p class="section-label">Foundation Infrastructure</p>
+            <h2 class="section-title" id="foundation-heading">Foundation Tier</h2>
+            <p class="section-desc">
+                <span class="speak-plain">
+                    Single-site continuity infrastructure across three deployment levels. Each level represents a deeper integration of Arena's continuity architecture into your provision's operational environment. Hover over — or tap — a card to view infrastructure scope.
+                </span>
+                <span class="speak-compliance">
+                    Each Foundation level is deployed under a 24-month Data Processing Agreement (UK GDPR Article 28). All processing occurs within the institution's Google Workspace. No student PII is transmitted to or stored on Arena Hub infrastructure. Select a tier below to view applicable regulatory frameworks.
+                </span>
+            </p>
+        </header>
+
+        <div class="foundation-grid stagger" role="list">
+
+            <!-- ── FOUNDATION LEVEL 1 ── -->
+            <div class="tier-card" role="listitem" tabindex="0" data-level="I"
+                 aria-expanded="false" aria-label="Foundation Level 1 — tap or hover to expand">
+                <div class="card-header">
+                    <span class="level-badge">Foundation &middot; Level 1</span>
+                    <h3 class="card-name">Core Infrastructure</h3>
+                    <p class="card-scope">Single Site &middot; Performance Centre Pillar</p>
+                </div>
+                <div class="card-pricing">
+                    <div class="price-main">
+                        &pound;7,950 <span class="price-period">/ 24-month agreement</span>
+                    </div>
+                    <p class="price-sub">
+                        <strong>&pound;795</strong> annual maintenance fee &middot; No per-pupil charges
+                    </p>
+                </div>
+                <div class="card-tagline">
+                    <span class="speak-plain">Core continuity infrastructure for single-site provisions seeking professional evidence continuity, operational oversight, and practitioner workload reduction.</span>
+                    <span class="speak-compliance">Structured evidence and operational continuity infrastructure meeting statutory requirements for EHCP review, Ofsted evidence obligations, and practitioner accountability.</span>
+                </div>
+                <div class="card-detail" aria-hidden="true">
+                    <div class="card-detail-inner">
+                        <!-- PLAIN MODE -->
+                        <p class="detail-section-label speak-plain-block">Infrastructure Scope</p>
+                        <ul class="detail-list speak-plain-list">
+                            <li>Performance Centre Pillar — full deployment within your school's Google Workspace</li>
+                            <li>Evidence continuity — student progress and intervention records preserved across staffing transitions</li>
+                            <li>Operational visibility for senior leadership without disrupting frontline practice</li>
+                            <li>Practitioner workload reduction through structured evidence coordination</li>
+                            <li>Accountability infrastructure for Ofsted reviews, EHCP panels, and LA engagement</li>
+                            <li>Forensic audit trail — immutable record of every practitioner action, timestamped and attributable</li>
+                            <li>24-month infrastructure agreement &mdash; no hidden costs, no per-pupil charges</li>
+                        </ul>
+                        <p class="card-note speak-plain-block">&#11088; Founding Partner: the first 5 institutions receive a 20% lifetime continuity discount on all agreement fees.</p>
+                        <!-- COMPLIANCE MODE -->
+                        <p class="detail-section-label speak-compliance-block compliance-label">Applicable Regulatory Framework</p>
+                        <ul class="detail-list compliance speak-compliance-list">
+                            <li><strong>UK GDPR Article 28</strong> — Arena Hub Ltd acts as Data Processor. A written DPA is required before deployment. All data remains within the school's Google Workspace (Bucket B). Jonathan Baguley / The Arena Hub Ltd is the named Data Processor. The school is the Data Controller.</li>
+                            <li><strong>Children and Families Act 2014 (s.37–56)</strong> — Schools must maintain demonstrable evidence of progress against statutory EHCP goals. Arena's evidence continuity architecture is designed to satisfy this record-keeping obligation.</li>
+                            <li><strong><a href="https://www.gov.uk/government/publications/education-inspection-framework" target="_blank" rel="noopener" style="color:var(--gold);">Ofsted Education Inspection Framework (EIF) 2023</a></strong> — Inspectors require evidence of quality of education, intent, implementation, and impact. Arena's forensic audit trail provides an inspector-ready evidence base.</li>
+                            <li><strong>ICO Accountability Principle (UK GDPR Art. 5(2))</strong> — Immutable audit logs demonstrate compliance with data protection obligations. All writes are attributable to a named practitioner with timestamp.</li>
+                            <li><strong>DfE AP Guidance (updated 5 February 2025)</strong> — Alternative Provision is now an explicitly statutory duty area for schools, LAs, PRUs, FE colleges, and independent providers. The 2025 update adds requirements for unregistered AP and in-school units. Compliant deployments must evidence placement rationale, review cadence, safeguarding oversight, and reintegration planning — all supported by Arena's evidence continuity architecture.</li>
+                        </ul>
+                        <p class="card-note speak-compliance-block">A formal UK GDPR Article 28 Data Processing Agreement is issued at contract commencement. Compliant with ICO standard contractual clauses.</p>
+                    </div>
+                </div>
+                <div class="expand-hint" aria-hidden="true">Tap to expand</div>
+                <div class="card-cta">
+                    <a href="mailto:sales@thearenahub.co.uk?subject=Foundation Level 1 — Infrastructure Enquiry"
+                       class="card-cta-btn">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        sales@thearenahub.co.uk
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── FOUNDATION LEVEL 2 ── -->
+            <div class="tier-card" role="listitem" tabindex="0" data-level="II"
+                 aria-expanded="false" aria-label="Foundation Level 2 — tap or hover to expand">
+                <div class="card-header">
+                    <span class="level-badge">Foundation &middot; Level 2</span>
+                    <h3 class="card-name">Expanded Infrastructure</h3>
+                    <p class="card-scope">Single Site &middot; Dual Pillar</p>
+                </div>
+                <div class="card-pricing">
+                    <div class="price-main">
+                        &pound;12,750 <span class="price-period">/ 24-month agreement</span>
+                    </div>
+                    <p class="price-sub">
+                        <strong>&pound;1,195</strong> annual maintenance fee &middot; No per-pupil charges
+                    </p>
+                </div>
+                <div class="card-tagline">
+                    <span class="speak-plain">Expanded continuity architecture for provisions requiring deeper operational coordination and cross-functional continuity workflows.</span>
+                    <span class="speak-compliance">Dual-domain continuity infrastructure meeting evidence, welfare, and operational accountability requirements across two institutional pillars.</span>
+                </div>
+                <div class="card-detail" aria-hidden="true">
+                    <div class="card-detail-inner">
+                        <!-- PLAIN MODE -->
+                        <p class="detail-section-label speak-plain-block">Infrastructure Scope</p>
+                        <ul class="detail-list speak-plain-list">
+                            <li>Any two Arena pillars — coordinated within a unified continuity architecture</li>
+                            <li>Cross-functional continuity workflows spanning distinct operational domains</li>
+                            <li>Enhanced continuity mapping — structured visibility across practitioner responsibilities</li>
+                            <li>Multi-domain evidence continuity: academic, welfare, or resource — depending on pillar selection</li>
+                            <li>Reintegration support infrastructure — evidence-led pathway coordination</li>
+                            <li>Deeper operational integration for provisions managing complex, multi-domain caseloads</li>
+                            <li>Qualifies as a foundation for Sovereign Continuity Network deployment</li>
+                        </ul>
+                        <p class="card-note speak-plain-block">&#11088; Qualifying base for multi-site Sovereign Continuity Network deployment at Level 1.</p>
+                        <!-- COMPLIANCE MODE -->
+                        <p class="detail-section-label speak-compliance-block compliance-label">Applicable Regulatory Framework</p>
+                        <ul class="detail-list compliance speak-compliance-list">
+                            <li><strong>UK GDPR Article 28</strong> — as Foundation Level 1. DPA covers all active pillars. Each pillar's data scope is defined in the DPA Schedule of Processing Activities.</li>
+                            <li><strong><a href="https://www.gov.uk/government/publications/keeping-children-safe-in-education--2" target="_blank" rel="noopener" style="color:var(--gold);">Keeping Children Safe in Education (KCSIE) 2023</a></strong> — where the Welfare Pillar is selected: DSL-sovereign access, immutable safeguarding chronology, and two-factor authentication align with KCSIE requirements for record confidentiality and access control.</li>
+                            <li><strong><a href="https://www.gov.uk/government/publications/working-together-to-safeguard-children--2" target="_blank" rel="noopener" style="color:var(--gold);">Working Together to Safeguard Children 2023</a></strong> — structured welfare records support multi-agency information sharing requirements and s.47 enquiry documentation obligations.</li>
+                            <li><strong>Section 175, Education Act 2002</strong> — schools' statutory duty to safeguard and promote the welfare of pupils. Arena's welfare continuity infrastructure directly supports fulfilment of this duty with auditable evidence.</li>
+                            <li><strong>Children and Families Act 2014</strong> — as Level 1, plus cross-domain evidence continuity for students with complex needs spanning academic and welfare domains.</li>
+                        </ul>
+                        <p class="card-note speak-compliance-block">Pillar-specific DPA schedules issued at contract commencement. Welfare Pillar deployments include a KCSIE-aligned data access policy as standard.</p>
+                    </div>
+                </div>
+                <div class="expand-hint" aria-hidden="true">Tap to expand</div>
+                <div class="card-cta">
+                    <a href="mailto:sales@thearenahub.co.uk?subject=Foundation Level 2 — Infrastructure Enquiry"
+                       class="card-cta-btn">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        sales@thearenahub.co.uk
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── FOUNDATION LEVEL 3 ── -->
+            <div class="tier-card" role="listitem" tabindex="0" data-level="III"
+                 aria-expanded="false" aria-label="Foundation Level 3 — tap or hover to expand">
+                <div class="card-header">
+                    <span class="level-badge">Foundation &middot; Level 3</span>
+                    <h3 class="card-name">Full Infrastructure</h3>
+                    <p class="card-scope">Single Site &middot; Complete Three-Pillar Deployment</p>
+                </div>
+                <div class="card-pricing">
+                    <div class="price-main">
+                        &pound;17,250 <span class="price-period">/ 24-month agreement</span>
+                    </div>
+                    <p class="price-sub">
+                        <strong>&pound;1,450</strong> annual maintenance fee &middot; No per-pupil charges
+                    </p>
+                </div>
+                <div class="card-tagline">
+                    <span class="speak-plain">Complete Arena continuity infrastructure enabling full-spectrum operational coordination, evidence continuity, and institutional relationship preservation.</span>
+                    <span class="speak-compliance">Full-spectrum continuity infrastructure meeting all applicable statutory evidence, welfare safeguarding, and operational accountability obligations within a single sovereign architecture.</span>
+                </div>
+                <div class="card-detail" aria-hidden="true">
+                    <div class="card-detail-inner">
+                        <!-- PLAIN MODE -->
+                        <p class="detail-section-label speak-plain-block">Infrastructure Scope</p>
+                        <ul class="detail-list speak-plain-list">
+                            <li>All three Arena pillars — deployed as a fully coordinated continuity ecosystem</li>
+                            <li>Full-spectrum operational continuity: academic evidence, welfare safeguarding, and resource coordination</li>
+                            <li>Practitioner alignment across all operational domains from a single infrastructure</li>
+                            <li>Safeguarding continuity — immutable welfare chronology with DSL-sovereign access and structured relationship preservation</li>
+                            <li>Operational resilience — continuity preserved across staffing changes, Ofsted visits, and LA engagements</li>
+                            <li>Institutional continuity architecture — your provision's operational knowledge, preserved and portable</li>
+                            <li>Qualifying base for Sovereign Continuity Network Level 2 — full regional ecosystem coordination</li>
+                        </ul>
+                        <p class="card-note speak-plain-block">&#11088; Qualifying base for SCN Level 2 — full regional ecosystem deployment.</p>
+                        <!-- COMPLIANCE MODE -->
+                        <p class="detail-section-label speak-compliance-block compliance-label">Applicable Regulatory Framework</p>
+                        <ul class="detail-list compliance speak-compliance-list">
+                            <li><strong>UK GDPR Article 28</strong> — comprehensive DPA covering all three pillar domains. Full Schedule of Processing Activities issued at commencement. ICO-standard contractual clauses throughout.</li>
+                            <li><strong><a href="https://www.gov.uk/government/publications/keeping-children-safe-in-education--2" target="_blank" rel="noopener" style="color:var(--gold);">KCSIE 2023 (full welfare compliance)</a></strong> — DSL-sovereign access, immutable safeguarding chronology, two-factor authentication, structured CPOMS-equivalent record management. Welfare data is accessible only to designated roles as defined in the DPA.</li>
+                            <li><strong>Working Together to Safeguard Children 2023</strong> — full multi-agency coordination support. Structured chronology records are format-compatible with LADO, MASH, and s.47 documentation requirements.</li>
+                            <li><strong>Ofsted ILACS and SIAMS frameworks</strong> — full-spectrum evidence infrastructure supports welfare and academic inspection evidence requirements across all operational domains.</li>
+                            <li><strong>DfE AP Guidance (updated 5 February 2025)</strong> — as Foundation Level 2, plus the obligation to evidence placement rationale, review cadence, reintegration planning, and safeguarding oversight across all provision types, including unregistered AP and in-school units. Arena's full three-pillar architecture is designed to produce and preserve this evidence as a natural output of daily practice.</li>
+                            <li><strong>EU AI Act — Annex III / Article 6 (High-Risk AI, Education domain)</strong> — Education-domain AI is confirmed high-risk where outputs influence assessment, placement, progression, or educational decisions. <a href="https://artificialintelligenceact.eu/article/14/" target="_blank" rel="noopener" style="color:var(--gold);">Article 14</a> requires documented human oversight: the reviewing person must understand the system's capabilities and limits, monitor for anomalies, and hold authority to override or disregard AI outputs. Arena's confidence banding (≥85% AUTO_CREDIT, 50–84% PRACTITIONER_REVIEW, &lt;50% REJECTED) operates above the legal minimum — but confidence thresholds do not substitute for Article 14 oversight obligations. Every consequential AI-assisted output requires named human review and an immutable audit record before any action is taken.</li>
+                        </ul>
+                        <p class="card-note speak-compliance-block">Full DPA, DPIA template, and regulatory alignment schedule available on request. Suitable for ESFA-funded procurement frameworks.</p>
+                    </div>
+                </div>
+                <div class="expand-hint" aria-hidden="true">Tap to expand</div>
+                <div class="card-cta">
+                    <a href="mailto:sales@thearenahub.co.uk?subject=Foundation Level 3 — Infrastructure Enquiry"
+                       class="card-cta-btn">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        sales@thearenahub.co.uk
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     BRIDGE
+     ═══════════════════════════════════════════════════ -->
+<div class="section-bridge" role="separator" aria-hidden="true">
+    <div class="bridge-vline"></div>
+    <div class="bridge-content">
+        <div class="bridge-ring"><i class="fas fa-network-wired"></i></div>
+        <p class="bridge-label">Network Continuity</p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SOVEREIGN CONTINUITY NETWORK SECTION
+     ═══════════════════════════════════════════════════ -->
+<section class="scn-section pricing-section" aria-labelledby="scn-heading">
+    <div class="section-inner">
+
+        <header class="section-header fade-up">
+            <img src="scn-tier-icon.jpg" alt="Sovereign Continuity Network" style="width:72px;height:72px;object-fit:contain;border-radius:12px;margin-bottom:1.25rem;display:block;">
+            <p class="section-label">Multi-Site Infrastructure</p>
+            <h2 class="section-title" id="scn-heading">Sovereign Continuity Network</h2>
+            <p class="section-desc">
+                <span class="speak-plain">
+                    For MATs, Local Authorities, and connected provisions. The Sovereign Continuity Network is not enterprise licensing — it is interconnected sovereign continuity infrastructure in which each site retains full institutional autonomy and data sovereignty. Sites coordinate without surrendering control.
+                </span>
+                <span class="speak-compliance">
+                    Sovereign Continuity Network deployments operate as a federation of independent Data Controllers coordinating via a shared infrastructure framework. Each site maintains its own Data Processing Agreement with Arena Hub Ltd. No centralised data store is created. Cross-site coordination occurs at the infrastructure level without aggregating institutional data. Compliant with UK GDPR data minimisation and purpose limitation principles.
+                </span>
+            </p>
+        </header>
+
+        <div class="scn-grid stagger" role="list">
+
+            <!-- ── SCN LEVEL 1 ── -->
+            <div class="tier-card" role="listitem" tabindex="0" data-level="I"
+                 aria-expanded="false" aria-label="SCN Level 1 — tap or hover to expand">
+                <div class="card-header">
+                    <span class="level-badge">SCN &middot; Level 1</span>
+                    <h3 class="card-name">Sovereign Continuity Network</h3>
+                    <p class="card-scope">Multi-Site &middot; Dual Pillar Coordination</p>
+                </div>
+                <div class="card-pricing">
+                    <div class="price-scn-base">
+                        Foundation Level 2 infrastructure
+                        <small>Network density pricing — per-site reduction across all connected settings</small>
+                    </div>
+                    <p class="price-sub">Minimum 3 sites &middot; No per-pupil charges</p>
+                </div>
+                <div class="card-tagline">
+                    <span class="speak-plain">Designed for MATs, specialist groups, and connected provisions requiring sovereign interoperability and coordinated continuity infrastructure across multiple settings.</span>
+                    <span class="speak-compliance">Multi-site continuity coordination framework for MATs and connected provisions. Each institution retains independent data controller status. Interoperability without centralisation.</span>
+                </div>
+                <div class="card-detail" aria-hidden="true">
+                    <div class="card-detail-inner">
+                        <!-- PLAIN MODE -->
+                        <p class="detail-section-label speak-plain-block">Network Scope</p>
+                        <ul class="detail-list speak-plain-list">
+                            <li>Sovereign interoperability — each site retains full institutional autonomy and data sovereignty</li>
+                            <li>Connected continuity across provisions without centralising operational control</li>
+                            <li>Voluntary relationship architecture — participation supports coordination, not surveillance</li>
+                            <li>Cross-site operational continuity for practitioners supporting students across settings</li>
+                            <li>Shared safeguarding visibility — coordinated without creating a single point of institutional failure</li>
+                            <li>Ecosystem coordination: operational clarity across the network without data extraction</li>
+                        </ul>
+                        <p class="detail-section-label speak-plain-block" style="margin-top:1rem;">Network Density Pricing</p>
+                        <div class="discount-table speak-plain-block">
+                            <div class="discount-row">
+                                <span class="discount-sites">3–5 connected sites</span>
+                                <span class="discount-pct">10% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">6–10 connected sites</span>
+                                <span class="discount-pct">20% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">11+ connected sites</span>
+                                <span class="discount-pct">Custom Infrastructure Agreement</span>
+                            </div>
+                        </div>
+                        <!-- COMPLIANCE MODE -->
+                        <p class="detail-section-label speak-compliance-block compliance-label">Applicable Regulatory Framework</p>
+                        <ul class="detail-list compliance speak-compliance-list">
+                            <li><strong>UK GDPR Article 28 (federated)</strong> — individual DPA issued per site. No joint controllership arrangement created. Each school remains an independent Data Controller. Arena Hub Ltd acts as Data Processor for each site independently.</li>
+                            <li><strong>Children and Families Act 2014 (s.19 LA Duties)</strong> — MATs and LAs have <a href="https://www.legislation.gov.uk/ukpga/2014/6/section/19" target="_blank" rel="noopener" style="color:var(--gold);">statutory responsibilities</a> for joined-up SEND support across settings. SCN Level 1 enables cross-site operational coordination without centralising data, consistent with the Act's provisions on information sharing.</li>
+                            <li><strong>DfE Academy Trust Governance Guide (2025)</strong> — <a href="https://www.gov.uk/government/publications/academy-trust-governance-guide/academy-trust-governance-guide" target="_blank" rel="noopener" style="color:var(--gold);">The 2025 guide</a> requires trusts to maintain clear, published governance structures and document information sharing arrangements with explicit purpose limitation. Arena's federated model — one DPA per institution, trust-by-trust access controls — is architecturally aligned with these expectations and avoids creating a cross-trust data lake.</li>
+                            <li><strong>KCSIE 2023 (cross-site welfare coordination)</strong> — <a href="https://www.gov.uk/government/publications/keeping-children-safe-in-education--2" target="_blank" rel="noopener" style="color:var(--gold);">Keeping Children Safe in Education</a>: where the Welfare Pillar is selected: cross-site safeguarding visibility is coordinated within each site's DSL-sovereign framework. No cross-site welfare data aggregation occurs.</li>
+                            <li><strong>High Needs Stability Grant and DSG Accountability</strong> — Safety Valve closed 1 April 2026, replaced by the <a href="https://www.gov.uk/government/publications/dedicated-schools-grant-very-high-deficit-intervention" target="_blank" rel="noopener" style="color:var(--gold);">High Needs Stability Grant</a>. LA evidence obligations now focus on AP placement rationale, commissioning justification, and outcome-linked spend control. SCN Level 1 provides the coordinated evidence infrastructure to meet these obligations without centralising student PII.</li>
+                        </ul>
+                        <p class="detail-section-label speak-compliance-block compliance-label" style="margin-top:0.75rem;">Network Density Pricing</p>
+                        <div class="discount-table speak-compliance-block">
+                            <div class="discount-row">
+                                <span class="discount-sites">3–5 connected sites</span>
+                                <span class="discount-pct">10% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">6–10 connected sites</span>
+                                <span class="discount-pct">20% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">11+ connected sites</span>
+                                <span class="discount-pct">Custom Infrastructure Agreement</span>
+                            </div>
+                        </div>
+                        <p class="card-note speak-compliance-block">A federated DPA pack (one DPA per site) is issued at network commencement. Suitable for MAT procurement frameworks and LA commissioning processes.</p>
+                    </div>
+                </div>
+                <div class="expand-hint" aria-hidden="true">Tap to expand</div>
+                <div class="card-cta">
+                    <a href="mailto:sovereign_network@thearenahub.co.uk?subject=SCN Level 1 — Network Infrastructure Enquiry"
+                       class="card-cta-btn">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        sovereign_network@thearenahub.co.uk
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── SCN LEVEL 2 ── -->
+            <div class="tier-card" role="listitem" tabindex="0" data-level="II"
+                 aria-expanded="false" aria-label="SCN Level 2 — tap or hover to expand">
+                <div class="card-header">
+                    <span class="level-badge">SCN &middot; Level 2</span>
+                    <h3 class="card-name">Sovereign Continuity Network</h3>
+                    <p class="card-scope">Multi-Site &middot; Full Infrastructure &middot; Regional Coordination</p>
+                </div>
+                <div class="card-pricing">
+                    <div class="price-scn-base">
+                        Foundation Level 3 infrastructure
+                        <small>Network density pricing — per-site reduction across all connected settings</small>
+                    </div>
+                    <p class="price-sub">Minimum 3 sites &middot; No per-pupil charges</p>
+                </div>
+                <div class="card-tagline">
+                    <span class="speak-plain">Full-spectrum continuity infrastructure for regional educational ecosystems seeking coordinated operational continuity without sacrificing institutional sovereignty.</span>
+                    <span class="speak-compliance">Full three-pillar continuity infrastructure across a network of sovereign institutions. Designed for regional LA and MAT deployments with statutory coordination obligations and complex SEND accountability requirements.</span>
+                </div>
+                <div class="card-detail" aria-hidden="true">
+                    <div class="card-detail-inner">
+                        <!-- PLAIN MODE -->
+                        <p class="detail-section-label speak-plain-block">Network Scope</p>
+                        <ul class="detail-list speak-plain-list">
+                            <li>Full continuity infrastructure — all three Arena pillars coordinated across the network</li>
+                            <li>Regional operational continuity: academic evidence, welfare coordination, and resource visibility</li>
+                            <li>Sovereign participation — institutions coordinate without surrendering operational authority</li>
+                            <li>Interoperability without centralisation — each site's data remains institutionally sovereign</li>
+                            <li>Operational resilience at ecosystem scale — continuity preserved across the network through individual site transitions</li>
+                            <li>Continuity-led ecosystem infrastructure for LAs, regional bodies, and strategic MAT leadership</li>
+                        </ul>
+                        <p class="detail-section-label speak-plain-block" style="margin-top:1rem;">Network Density Pricing</p>
+                        <div class="discount-table speak-plain-block">
+                            <div class="discount-row">
+                                <span class="discount-sites">3–5 connected sites</span>
+                                <span class="discount-pct">10% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">6–10 connected sites</span>
+                                <span class="discount-pct">20% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">11+ connected sites</span>
+                                <span class="discount-pct">Custom Infrastructure Agreement</span>
+                            </div>
+                        </div>
+                        <!-- COMPLIANCE MODE -->
+                        <p class="detail-section-label speak-compliance-block compliance-label">Applicable Regulatory Framework</p>
+                        <ul class="detail-list compliance speak-compliance-list">
+                            <li><strong>UK GDPR Article 28 (federated, full-pillar)</strong> — individual site DPAs covering all three pillar domains. Full Schedule of Processing Activities per site. ICO-standard contractual clauses. No joint controller relationship between sites.</li>
+                            <li><strong>Children and Families Act 2014 (s.19, s.21 LA Strategic Duties)</strong> — LAs must <a href="https://www.legislation.gov.uk/ukpga/2014/6/section/19" target="_blank" rel="noopener" style="color:var(--gold);">make provision for children with SEND</a> and maintain a Local Offer. SCN Level 2 provides the coordinated evidence infrastructure required to demonstrate fulfilment of strategic SEND duties across a local area.</li>
+                            <li><strong>DfE AP Guidance (updated 5 February 2025) and SEND Reform (ongoing)</strong> — <a href="https://www.gov.uk/government/publications/alternative-provision" target="_blank" rel="noopener" style="color:var(--gold);">AP is now explicitly a statutory duty area</a> across all provision types. The 2025 guidance adds obligations for unregistered AP and in-school units. LAs must evidence placement rationale, reintegration planning, and ongoing safeguarding oversight across all commissioned settings. SEND reform consultation continues into 2026. SCN Level 2 provides the cross-site infrastructure to fulfil these obligations while preserving each institution's sovereignty.</li>
+                            <li><strong>High Needs Stability Grant and DSG Accountability</strong> — <a href="https://www.gov.uk/government/publications/dedicated-schools-grant-very-high-deficit-intervention" target="_blank" rel="noopener" style="color:var(--gold);">Safety Valve closed 1 April 2026</a>, replaced by the High Needs Stability Grant. Evidence obligations now focus on AP placement rationale, reintegration progress, cost-per-placement, and outcome-linked spend control. SCN Level 2 produces the forensic evidence architecture required for these obligations at regional scale.</li>
+                            <li><strong>EU AI Act — Annex III / Article 6 (High-Risk AI, Network Context)</strong> — Education AI confirmed high-risk where outputs influence assessment, placement, or educational decisions. <a href="https://artificialintelligenceact.eu/article/14/" target="_blank" rel="noopener" style="color:var(--gold);">Article 14</a> requires documented human oversight with named authority to override AI outputs. Arena's architecture ensures no AI output is automatically applied to educational decisions at network level. Cross-site AI operations do not aggregate or cross-reference student PII across institutions. Each site's Article 14 review obligations are fulfilled independently within its sovereign data environment.</li>
+                            <li><strong>Ofsted ILACS (Local Authority Children's Services)</strong> — LA-managed SCN deployments provide the structured, attributable evidence base required for ILACS inspection of AP commissioning effectiveness and SEND placement quality — reframed around high-needs accountability rather than Safety Valve compliance.</li>
+                        </ul>
+                        <p class="detail-section-label speak-compliance-block compliance-label" style="margin-top:0.75rem;">Network Density Pricing</p>
+                        <div class="discount-table speak-compliance-block">
+                            <div class="discount-row">
+                                <span class="discount-sites">3–5 connected sites</span>
+                                <span class="discount-pct">10% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">6–10 connected sites</span>
+                                <span class="discount-pct">20% reduction / site</span>
+                            </div>
+                            <div class="discount-row">
+                                <span class="discount-sites">11+ connected sites</span>
+                                <span class="discount-pct">Custom Infrastructure Agreement</span>
+                            </div>
+                        </div>
+                        <p class="card-note speak-compliance-block">Full federated DPA pack, DPIA template, and LA commissioning framework documentation available on request. Designed to be procurable under existing DfE and ESFA procurement frameworks.</p>
+                    </div>
+                </div>
+                <div class="expand-hint" aria-hidden="true">Tap to expand</div>
+                <div class="card-cta">
+                    <a href="mailto:sovereign_network@thearenahub.co.uk?subject=SCN Level 2 — Network Infrastructure Enquiry"
+                       class="card-cta-btn">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        sovereign_network@thearenahub.co.uk
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     CONSTITUTIONAL STRIP
+     ═══════════════════════════════════════════════════ -->
+<div class="constitutional-strip">
+    <div class="constitutional-inner">
+        <p class="constitutional-eyebrow">The Arena Principle</p>
+        <p class="constitutional-statement">
+            <span class="speak-plain">
+                Arena is not simply <em>software licensing</em>.<br>
+                It is sovereign continuity infrastructure<br>
+                designed to strengthen human support systems across educational ecosystems.
+            </span>
+            <span class="speak-compliance">
+                Every Arena deployment operates under a formal Data Processing Agreement.<br>
+                Every institution retains <em>full data sovereignty</em>.<br>
+                Every continuity record belongs to the institution — not to Arena.
+            </span>
+        </p>
+        <p class="constitutional-sub">
+            <span class="speak-plain">Every deployment preserves institutional sovereignty. Every pillar strengthens practitioner support. Your data never leaves your Google Workspace.</span>
+            <span class="speak-compliance">No student PII is processed on Arena Hub infrastructure at any time. All data remains within the institution's Google Workspace environment. Arena Hub Ltd acts solely as Data Processor under ICO-registered Article 28 agreements.</span>
+        </p>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CTA SECTION
+     ═══════════════════════════════════════════════════ -->
+<section class="cta-section" aria-labelledby="cta-heading">
+    <div class="cta-inner">
+        <div class="cta-text">
+            <h2 id="cta-heading">Begin an infrastructure conversation</h2>
+            <p>All deployments begin with a scoping discussion. No obligation, no sales pressure — just a clear conversation about your provision's continuity needs.</p>
+        </div>
+        <div class="cta-actions">
+            <a href="mailto:sales@thearenahub.co.uk?subject=Infrastructure Enquiry" class="btn btn-gold">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                Foundation Enquiry
+            </a>
+            <a href="mailto:sovereign_network@thearenahub.co.uk?subject=SCN Enquiry" class="btn btn-outline">
+                <i class="fas fa-network-wired" aria-hidden="true"></i>
+                Network Enquiry
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════ -->
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+        <div>
+            <p class="footer-brand">The <em>Arena Hub</em> Ltd</p>
+            <p class="footer-meta">Company No. 1708605 &middot; D-U-N-S 234652645 &middot; Sovereign Continuity Infrastructure</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="company.html">About Arena Hub</a>
+            <a href="mailto:sales@thearenahub.co.uk">Contact</a>
+        </nav>
+    </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════════════ -->
+<script>
+    /* ────────────────────────────────────────────────
+       CONFIGURATION
+       ──────────────────────────────────────────────── */
+
+    /**
+     * PILOT_ACTIVE
+     * Set to false to hide the pilot section entirely.
+     * No other changes required.
+     */
+    const PILOT_ACTIVE = true;
+
+    /* ────────────────────────────────────────────────
+       PILOT SECTION TOGGLE
+       ──────────────────────────────────────────────── */
+    (function initPilot() {
+        const section = document.getElementById('pilot-section');
+        if (!section) return;
+        if (!PILOT_ACTIVE) {
+            section.style.display = 'none';
+        }
+    })();
+
+    /* ────────────────────────────────────────────────
+       SCROLL ANIMATIONS — fade-up + stagger
+       Without this, all .fade-up and .stagger elements
+       stay at opacity:0 and the page appears empty.
+       ──────────────────────────────────────────────── */
+    (function initAnimations() {
+        if (!('IntersectionObserver' in window)) {
+            // Fallback: make everything visible immediately
+            document.querySelectorAll('.fade-up, .stagger').forEach(function(el) {
+                el.classList.add('visible');
+            });
+            return;
+        }
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-up, .stagger').forEach(function(el) {
+            observer.observe(el);
+        });
+    })();
+
+    /* ────────────────────────────────────────────────
+       SPEAK MODE SYSTEM
+       ──────────────────────────────────────────────── */
+    function setMode(mode) {
+        const isCompliance = (mode === 'compliance');
+        document.body.classList.
