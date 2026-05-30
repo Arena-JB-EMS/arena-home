@@ -82,42 +82,40 @@
         }
 
         /* =======================================================
-           ── SPEAK TOGGLE — The Plain / Under the Hood switcher ──
+           ── SPEAK TOGGLE — Plain English / Policy Compliance ──
            ======================================================= */
 
-        /* The pill widget in the header */
         .speak-toggle {
             display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.07);
             border: 1px solid rgba(197,160,89,0.35);
-            border-radius: 100px;
-            padding: 3px;
+            border-radius: 4px;
+            overflow: hidden;
             flex-shrink: 0;
         }
 
         .speak-btn {
-            border: none;
-            background: transparent;
-            color: rgba(255,255,255,0.5);
-            font-family: 'Source Sans 3', sans-serif;
+            padding: 6px 14px;
             font-size: 0.76rem;
-            font-weight: 600;
-            padding: 5px 13px;
-            border-radius: 100px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background: transparent;
+            border: none;
             cursor: pointer;
-            transition: background 0.22s, color 0.22s;
-            white-space: nowrap;
-            letter-spacing: 0.2px;
+            color: rgba(255,255,255,0.45);
+            font-family: 'Source Sans 3', sans-serif;
+            transition: background 0.2s, color 0.2s;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 0.35rem;
+            white-space: nowrap;
         }
         .speak-btn.active {
-            background: #C5A059;
-            color: #1B263B;
+            background: rgba(197,160,89,0.15);
+            color: #C5A059;
         }
-        .speak-btn:hover:not(.active) { color: #FFFFFF; }
+        .speak-btn:hover:not(.active) { color: rgba(255,255,255,0.75); }
+        .speak-btn + .speak-btn { border-left: 1px solid rgba(197,160,89,0.35); }
         .speak-btn .speak-icon { font-size: 0.85rem; }
 
         /* Mode label badge on banner */
@@ -138,16 +136,16 @@
         }
         /* Hidden by default — appears in tech mode */
         .mode-badge { opacity: 0; pointer-events: none; }
-        body.mode-tech .mode-badge { opacity: 1; }
+        body.mode-compliance .mode-badge { opacity: 1; }
 
         /* ── Content visibility rules ────────────────────────── */
         /* Default: plain visible, tech hidden */
-        .speak-tech { display: none; }
+        .speak-compliance { display: none; }
         .speak-plain { display: block; }
 
         /* For inline spans */
         span.speak-plain { display: inline; }
-        span.speak-tech  { display: none; }
+        span.speak-compliance  { display: none; }
 
         /* Fade-out during transition */
         body.mode-switching [class*="speak-"] {
@@ -156,20 +154,126 @@
         }
 
         /* Tech mode: flip visibility */
-        body.mode-tech .speak-plain   { display: none !important; }
-        body.mode-tech .speak-tech    { display: block !important; }
-        body.mode-tech span.speak-plain { display: none !important; }
-        body.mode-tech span.speak-tech  { display: inline !important; }
+        body.mode-compliance .speak-plain   { display: none !important; }
+        body.mode-compliance .speak-compliance    { display: block !important; }
+        body.mode-compliance span.speak-plain { display: none !important; }
+        body.mode-compliance span.speak-compliance  { display: inline !important; }
 
         /* Subtle page tint in tech mode */
-        body.mode-tech .hero {
+        body.mode-compliance .hero {
             background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%);
         }
-        body.mode-tech .infra-banner {
+        body.mode-compliance .infra-banner {
             background: #1B263B;
             border-bottom: 2px solid rgba(197,160,89,0.3);
         }
-        body.mode-tech .infra-banner p { color: #C5A059; }
+        body.mode-compliance .infra-banner p { color: #C5A059; }
+
+        /* =======================================================
+           ARENA LITE TOP BUTTON
+           ======================================================= */
+        .arena-lite-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 5px 12px;
+            border: 1px solid rgba(197,160,89,0.35);
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #C5A059;
+            transition: background 0.2s, border-color 0.2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .arena-lite-btn:hover {
+            background: rgba(197,160,89,0.1);
+            border-color: rgba(197,160,89,0.6);
+            color: #D4B87A;
+        }
+        .arena-lite-btn .alb-icon {
+            width: 20px; height: 20px;
+            background: rgba(197,160,89,0.12);
+            border: 1px solid rgba(197,160,89,0.3);
+            border-radius: 3px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.75rem; font-weight: 700;
+            color: #C5A059;
+            flex-shrink: 0;
+        }
+        .arena-lite-btn .alb-sub {
+            font-weight: 400;
+            color: rgba(197,160,89,0.6);
+        }
+
+        /* =======================================================
+           LEGAL DROPDOWN
+           ======================================================= */
+        .legal-nav {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .legal-nav-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 5px 12px;
+            border: 1px solid rgba(197,160,89,0.25);
+            border-radius: 4px;
+            background: transparent;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.55);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+        .legal-nav-trigger:hover,
+        .legal-nav:hover .legal-nav-trigger {
+            color: #C5A059;
+            border-color: rgba(197,160,89,0.5);
+        }
+        .legal-nav-trigger svg { transition: transform 0.2s; }
+        .legal-nav:hover .legal-nav-trigger svg { transform: rotate(180deg); }
+
+        .legal-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            background: #1B263B;
+            border: 1px solid rgba(197,160,89,0.25);
+            border-radius: 6px;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+            z-index: 300;
+        }
+        .legal-nav:hover .legal-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .legal-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.65rem 1rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s;
+            border-bottom: 1px solid rgba(197,160,89,0.07);
+        }
+        .legal-dropdown a:last-child { border-bottom: none; }
+        .legal-dropdown a:hover { background: rgba(197,160,89,0.08); color: #C5A059; }
+        .legal-dropdown a i { width: 14px; color: rgba(197,160,89,0.5); font-size: 0.75rem; }
 
         /* =======================================================
            HEADER / NAV
@@ -319,9 +423,9 @@
             transition: transform 0.5s ease;
             z-index: 0;
         }
-        body.mode-tech .pillar-plain-img { display: none !important; }
-        body.mode-tech .pillar-tech-img  { display: block !important; }
-        body.mode-tech .pillar-hero-card:hover .pillar-tech-img { transform: scale(1.06); }
+        body.mode-compliance .pillar-plain-img { display: none !important; }
+        body.mode-compliance .pillar-tech-img  { display: block !important; }
+        body.mode-compliance .pillar-hero-card:hover .pillar-tech-img { transform: scale(1.06); }
 
         /* Image placeholder for Substack images not yet assigned */
         .pillar-img-placeholder {
@@ -717,6 +821,13 @@
             </span>
 
             <div class="header-actions">
+
+                <!-- ── ARENA LITE BUTTON ── -->
+                <a href="https://www.thearenahub.com" target="_blank" rel="noopener" class="arena-lite-btn" aria-label="Arena Lite — Portable Evidence Engine">
+                    <span class="alb-icon">A</span>
+                    Arena Lite &nbsp;<span class="alb-sub">| Portable Evidence Engine</span>
+                </a>
+
                 <!-- Dynamic article button — populated by JS -->
                 <a href="#" id="dynamic-article-btn" class="btn btn-sm btn-ghost" target="_blank" rel="noopener">
                     <span id="dynamic-article-label">Latest Article</span>
@@ -727,13 +838,27 @@
                     Explore Prices
                 </a>
 
+                <!-- ── LEGAL DROPDOWN ── -->
+                <nav class="legal-nav" aria-label="Legal">
+                    <button class="legal-nav-trigger" aria-haspopup="true" aria-expanded="false">
+                        Legal
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="legal-dropdown" role="menu">
+                        <a href="pricing.html" role="menuitem"><i class="fas fa-receipt" aria-hidden="true"></i> Infrastructure Pricing</a>
+                        <a href="privacy.html" role="menuitem"><i class="fas fa-user-shield" aria-hidden="true"></i> Privacy Policy</a>
+                        <a href="dpa.html" role="menuitem"><i class="fas fa-file-contract" aria-hidden="true"></i> Data Processing Agreement</a>
+                        <a href="terms.html" role="menuitem"><i class="fas fa-scale-balanced" aria-hidden="true"></i> Terms of Service</a>
+                    </div>
+                </nav>
+
                 <!-- ── THE SPEAK TOGGLE ── -->
                 <div class="speak-toggle" role="group" aria-label="Reading mode">
                     <button class="speak-btn active" id="btn-plain" onclick="setMode('plain')" aria-pressed="true">
-                        <span class="speak-icon">💬</span> Plain English
+                        <i class="fas fa-align-left" aria-hidden="true"></i> Plain English
                     </button>
-                    <button class="speak-btn" id="btn-tech" onclick="setMode('tech')" aria-pressed="false">
-                        <span class="speak-icon">⚙️</span> Under the Hood
+                    <button class="speak-btn" id="btn-compliance" onclick="setMode('compliance')" aria-pressed="false">
+                        <i class="fas fa-shield-halved" aria-hidden="true"></i> Policy Compliance
                     </button>
                 </div>
             </div>
@@ -749,7 +874,7 @@
             <span class="speak-plain">
                 The Arena Hub Ltd &mdash; A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them
             </span>
-            <span class="speak-tech">
+            <span class="speak-compliance">
                 Arena Hub Ltd &mdash; Clinical Infrastructure for Alternative Provision
                 <span class="mode-badge">Under the Hood Mode</span>
             </span>
@@ -763,13 +888,13 @@
         <div class="hero-inner">
 
             <div class="hero-badge">
-                <span class="speak-plain">Alternative Provision &middot; UK-Built &middot; Pilot Opens March 2026</span>
-                <span class="speak-tech">JB-EMS: The Arena &mdash; v5.1 Enterprise Evolution</span>
+                <span class="speak-plain">Alternative Provision &middot; UK-Built &middot; Pilot Available on Request</span>
+                <span class="speak-compliance">JB-EMS: The Arena &mdash; v5.1 Enterprise Evolution</span>
             </div>
 
             <h1 id="hero-heading">
                 <span class="speak-plain">The Platform Built for <span>Schools Like Yours</span></span>
-                <span class="speak-tech">The EMS Built for <span>Schools That Don&rsquo;t Give Up</span></span>
+                <span class="speak-compliance">The EMS Built for <span>Schools That Don&rsquo;t Give Up</span></span>
             </h1>
 
             <p class="hero-tagline">
@@ -778,7 +903,7 @@
                     built from the ground up for UK Alternative Provision.
                     Your staff focus on the young people. Arena handles the rest.
                 </span>
-                <span class="speak-tech">
+                <span class="speak-compliance">
                     Clinical-grade education management infrastructure for UK Alternative Provision.
                     Performance, welfare and curriculum &mdash; unified under one sovereign platform.
                 </span>
@@ -805,11 +930,11 @@
                 <div class="pillar-hero-label">
                     <div class="pillar-eyebrow">
                         <span class="speak-plain">Track Progress</span>
-                        <span class="speak-tech">Pillar One</span>
+                        <span class="speak-compliance">Pillar One</span>
                     </div>
                     <h3>
                         <span class="speak-plain">Know Where Every Student Stands</span>
-                        <span class="speak-tech">Performance Centre</span>
+                        <span class="speak-compliance">Performance Centre</span>
                     </h3>
                 </div>
 
@@ -840,7 +965,7 @@
                 </div>
 
                 <!-- Hover-reveal content — TECH version -->
-                <div class="pillar-hero-content speak-tech" aria-hidden="true">
+                <div class="pillar-hero-content speak-compliance" aria-hidden="true">
                     <div class="pillar-eyebrow">Performance Centre</div>
                     <h3>The Outcome Visibility Engine</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
@@ -882,11 +1007,11 @@
                 <div class="pillar-hero-label">
                     <div class="pillar-eyebrow">
                         <span class="speak-plain">Safeguarding</span>
-                        <span class="speak-tech">Pillar Two</span>
+                        <span class="speak-compliance">Pillar Two</span>
                     </div>
                     <h3>
                         <span class="speak-plain">Your DSL&rsquo;s Digital Welfare File</span>
-                        <span class="speak-tech">Welfare Suite</span>
+                        <span class="speak-compliance">Welfare Suite</span>
                     </h3>
                 </div>
 
@@ -917,7 +1042,7 @@
                 </div>
 
                 <!-- Hover content — TECH -->
-                <div class="pillar-hero-content speak-tech" aria-hidden="true">
+                <div class="pillar-hero-content speak-compliance" aria-hidden="true">
                     <div class="pillar-eyebrow">Welfare Suite</div>
                     <h3>The NODE Engine &amp; Safeguarding Vault</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
@@ -958,11 +1083,11 @@
                 <div class="pillar-hero-label">
                     <div class="pillar-eyebrow">
                         <span class="speak-plain">Resources &amp; Courses</span>
-                        <span class="speak-tech">Pillar Three</span>
+                        <span class="speak-compliance">Pillar Three</span>
                     </div>
                     <h3>
                         <span class="speak-plain">Manage What You Have. Prove What You Deliver.</span>
-                        <span class="speak-tech">Kit Room</span>
+                        <span class="speak-compliance">Kit Room</span>
                     </h3>
                 </div>
 
@@ -993,7 +1118,7 @@
                 </div>
 
                 <!-- Hover content — TECH -->
-                <div class="pillar-hero-content speak-tech" aria-hidden="true">
+                <div class="pillar-hero-content speak-compliance" aria-hidden="true">
                     <div class="pillar-eyebrow">Kit Room</div>
                     <h3>Vocational Taxonomy &amp; Resource Manager</h3>
                     <p style="font-size:0.8rem; color:#A8B5C2; margin-bottom:1rem; font-style:italic;">
@@ -1030,8 +1155,8 @@
         <!-- ── SUB-BANNER (plain only) ──────────────────────── -->
         <div class="sub-banner speak-plain">
             <p>
-                <strong>Used by AP schools and specialist provisions across England.</strong>
-                Built on Google Workspace &mdash; nothing new to install, nobody new to call.
+                <strong>For AP schools and specialist provisions across England.</strong>
+                Built on native infrastructure &mdash; nothing new to install, nobody new to call.
                 Most schools are up and running in under an hour.
             </p>
         </div>
@@ -1097,15 +1222,15 @@
                 <div class="section-heading">
                     <span class="eyebrow">
                         <span class="speak-plain">Why Schools Choose Arena</span>
-                        <span class="speak-tech">Why Arena</span>
+                        <span class="speak-compliance">Why Arena</span>
                     </span>
                     <h2 id="features-heading">
                         <span class="speak-plain">Built Around the Realities of AP</span>
-                        <span class="speak-tech">Purpose-Built for Your Context</span>
+                        <span class="speak-compliance">Purpose-Built for Your Context</span>
                     </h2>
                     <p>
                         <span class="speak-plain">Not a mainstream school system stretched to fit. Not a generic safeguarding tool bolted together. Built from day one for Alternative Provision.</span>
-                        <span class="speak-tech">Not adapted. Not repurposed. Designed from day one for the realities of Alternative Provision.</span>
+                        <span class="speak-compliance">Not adapted. Not repurposed. Designed from day one for the realities of Alternative Provision.</span>
                     </p>
                 </div>
 
@@ -1116,11 +1241,11 @@
                         <div>
                             <h4>
                                 <span class="speak-plain">Your data stays in your school&rsquo;s hands</span>
-                                <span class="speak-tech">Sovereign Data Architecture</span>
+                                <span class="speak-compliance">Sovereign Data Architecture</span>
                             </h4>
                             <p>
                                 <span class="speak-plain">Everything is stored in your own Google Drive. We build the tools and provide the engine — but your students&rsquo; records and welfare files live in your system, not ours. Arena Hub cannot access your school&rsquo;s data.</span>
-                                <span class="speak-tech">Your welfare data stays under DSL control. No third-party access. No cloud-first compromise. The Arena Hub cannot read your clinical records.</span>
+                                <span class="speak-compliance">Your welfare data stays under DSL control. No third-party access. No cloud-first compromise. The Arena Hub cannot read your clinical records.</span>
                             </p>
                         </div>
                     </div>
@@ -1130,11 +1255,11 @@
                         <div>
                             <h4>
                                 <span class="speak-plain">AI that works for your staff, not instead of them</span>
-                                <span class="speak-tech">Provider-Agnostic AI</span>
+                                <span class="speak-compliance">Provider-Agnostic AI</span>
                             </h4>
                             <p>
                                 <span class="speak-plain">Arena uses AI to help write letters, spot welfare patterns, and flag concerns early. But your staff are always in charge. Every AI action is logged, transparent, and reversible.</span>
-                                <span class="speak-tech">Human teachers and AI agents are treated identically within your ecosystem. Evidence assessment, letter drafting, NODE correlation — all transparent and auditable.</span>
+                                <span class="speak-compliance">Human teachers and AI agents are treated identically within your ecosystem. Evidence assessment, letter drafting, NODE correlation — all transparent and auditable.</span>
                             </p>
                         </div>
                     </div>
@@ -1144,11 +1269,11 @@
                         <div>
                             <h4>
                                 <span class="speak-plain">Works with Google — nothing new to learn</span>
-                                <span class="speak-tech">Hybrid Infrastructure</span>
+                                <span class="speak-compliance">Hybrid Infrastructure</span>
                             </h4>
                             <p>
                                 <span class="speak-plain">Arena runs on Google Workspace, which your team already uses. No new logins to remember, no new systems to train up on. Most schools are up and running within an hour of receiving their link.</span>
-                                <span class="speak-tech">Google Workspace backbone with Cloud Run orchestration. No new logins for your team. Deploys into your existing environment in under an hour.</span>
+                                <span class="speak-compliance">Google Workspace backbone with Cloud Run orchestration. No new logins for your team. Deploys into your existing environment in under an hour.</span>
                             </p>
                         </div>
                     </div>
@@ -1158,11 +1283,11 @@
                         <div>
                             <h4>
                                 <span class="speak-plain">Extra security on the things that matter most</span>
-                                <span class="speak-tech">2FA Everywhere It Counts</span>
+                                <span class="speak-compliance">2FA Everywhere It Counts</span>
                             </h4>
                             <p>
                                 <span class="speak-plain">Welfare records, clinical settings, and admin actions all require a second verification step before changes can be made. Security that&rsquo;s built in from day one — not bolted on as an afterthought.</span>
-                                <span class="speak-tech">Clinical threshold changes, welfare data access, and admin actions are all protected by two-factor authentication — built in, not bolted on.</span>
+                                <span class="speak-compliance">Clinical threshold changes, welfare data access, and admin actions are all protected by two-factor authentication — built in, not bolted on.</span>
                             </p>
                         </div>
                     </div>
@@ -1171,12 +1296,12 @@
                         <div class="feature-item-icon"><i class="fas fa-sitemap" aria-hidden="true"></i></div>
                         <div>
                             <h4>
-                                <span class="speak-plain">Grows with you — one school or a whole LA</span>
-                                <span class="speak-tech">LA Partner Ready</span>
+                                <span class="speak-plain">Arena Infrastructure is designed to grow with you</span>
+                                <span class="speak-compliance">LA Partner Ready</span>
                             </h4>
                             <p>
-                                <span class="speak-plain">Whether you run a single AP unit or sit across a Local Authority portfolio, Arena is built to scale from the ground up. Add sites, add teams, expand provision — without starting over.</span>
-                                <span class="speak-tech">Designed for multi-site deployment and Local Authority partnership from the ground up. Roll out across your entire portfolio of schools.</span>
+                                <span class="speak-plain">Whether you run a single AP unit or sit across a Local Authority portfolio, Arena is built to scale from the ground up. Connected infrastructure means add sites, add teams, expand provision — without starting over.</span>
+                                <span class="speak-compliance">Designed for multi-site deployment and Local Authority partnership from the ground up. Roll out across your entire portfolio of schools.</span>
                             </p>
                         </div>
                     </div>
@@ -1186,11 +1311,11 @@
                         <div>
                             <h4>
                                 <span class="speak-plain">Only pay for what you actually need</span>
-                                <span class="speak-tech">Tiered &amp; Feature-Flagged</span>
+                                <span class="speak-compliance">Tiered &amp; Feature-Flagged</span>
                             </h4>
                             <p>
                                 <span class="speak-plain">Three clearly priced tiers, with every feature individually switchable. You&rsquo;re not buying a system packed with things you&rsquo;ll never use — you get exactly what fits your school.</span>
-                                <span class="speak-tech">Enterprise, Professional, and Foundations tiers — every feature flag individually controlled so your deployment matches your school&rsquo;s exact needs.</span>
+                                <span class="speak-compliance">Enterprise, Professional, and Foundations tiers — every feature flag individually controlled so your deployment matches your school&rsquo;s exact needs.</span>
                             </p>
                         </div>
                     </div>
@@ -1207,7 +1332,7 @@
                     <h2 id="insights-heading" id="article-section-heading">From The Arena Hub</h2>
                     <p id="article-section-sub">
                         <span class="speak-plain">Our thinking on Alternative Provision, student welfare, and what better looks like for the young people who need it most.</span>
-                        <span class="speak-tech">Our latest thinking on Alternative Provision, statutory data, and the future of education.</span>
+                        <span class="speak-compliance">Our latest thinking on Alternative Provision, statutory data, and the future of education.</span>
                     </p>
                 </div>
 
@@ -1219,7 +1344,7 @@
                             <h3 class="article-title" id="article-title">Loading&hellip;</h3>
                             <p class="article-excerpt" id="article-excerpt">
                                 <span class="speak-plain">Read the latest from the team — written for people who work in AP, not around it.</span>
-                                <span class="speak-tech">Read the latest thinking from the team building the Arena — designed for practitioners, by practitioners.</span>
+                                <span class="speak-compliance">Read the latest thinking from the team building the Arena — designed for practitioners, by practitioners.</span>
                             </p>
                             <div class="article-read-more">
                                 Read on Substack <i class="fas fa-arrow-right" aria-hidden="true"></i>
@@ -1248,7 +1373,7 @@
                 <div class="logo">The <span>Arena Hub</span></div>
                 <p>
                     <span class="speak-plain">A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them.</span>
-                    <span class="speak-tech">Enterprise Education Management Infrastructure for UK Alternative Provision.</span>
+                    <span class="speak-compliance">Enterprise Education Management Infrastructure for UK Alternative Provision.</span>
                 </p>
                 <a href="tel:01618702916" class="footer-phone">
                     <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
@@ -1335,11 +1460,11 @@
                 <div class="pricing-modal-hero-overlay">
                     <p class="eyebrow">
                         <span class="speak-plain">Clear Pricing, No Surprises</span>
-                        <span class="speak-tech">Forensic Evidence Infrastructure</span>
+                        <span class="speak-compliance">Forensic Evidence Infrastructure</span>
                     </p>
                     <h2 id="pricing-modal-title">
                         <span class="speak-plain">Simple Tiers &mdash; One Licence Fee</span>
-                        <span class="speak-tech">Transparent Pricing &mdash; Flexible Tiers</span>
+                        <span class="speak-compliance">Transparent Pricing &mdash; Flexible Tiers</span>
                     </h2>
                 </div>
             </div>
@@ -1350,7 +1475,7 @@
                     <div class="pilot-section-header">
                         <h3>
                             <span class="speak-plain">&#9654; Start With a 6-Week Pilot</span>
-                            <span class="speak-tech">&#9654; The 6-Week Forensic Pilot</span>
+                            <span class="speak-compliance">&#9654; The 6-Week Forensic Pilot</span>
                         </h3>
                         <span class="pilot-badge" id="pilot-status-badge">Active</span>
                     </div>
@@ -1363,7 +1488,7 @@
                             The &pound;495 is fully credited against Year 1 of your licence if you go ahead.
                             Pilots open <strong style="color:#C5A059;">week commencing 30th March 2026</strong>.
                         </span>
-                        <span class="speak-tech">
+                        <span class="speak-compliance">
                             <strong style="color:#C5A059;">The Founding Partner Pilot &mdash; Diagnostic Wedge Entry.</strong>
                             A 6-week Forensic Audit &amp; 48-Hour Outcome Map deployed within the school&rsquo;s existing Google Workspace.
                             One-time Diagnostic Fee: <strong style="color:#C5A059;">&pound;495</strong> &mdash; pre-qualified for DfE EdTech Testbed / High Needs Block funding streams.
@@ -1404,7 +1529,7 @@
                             <img src="Foundation_Tier_Icon.jpg" alt="Foundations Tier" class="tier-icon">
                             <div class="tier-badge">
                                 <span class="speak-plain">Single Site</span>
-                                <span class="speak-tech">Tier 3</span>
+                                <span class="speak-compliance">Tier 3</span>
                             </div>
                             <div class="tier-name">Foundations</div>
                             <div class="tier-price">&pound;7,750<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;"> / 24-month contract</span></div>
@@ -1414,27 +1539,27 @@
                             <ul>
                                 <li>
                                     <span class="speak-plain">Best for: single-site AP units and small specialist schools</span>
-                                    <span class="speak-tech">Best For: Single-site Alternative Provisions or Small Specialist Schools</span>
+                                    <span class="speak-compliance">Best For: Single-site Alternative Provisions or Small Specialist Schools</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Automatic linking of daily work to EHCP goals — no manual mapping</span>
-                                    <span class="speak-tech">Automated mapping of daily interventions to statutory goals</span>
+                                    <span class="speak-compliance">Automated mapping of daily interventions to statutory goals</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Evidence packs for Ofsted and EHCP reviews, ready in minutes</span>
-                                    <span class="speak-tech"><em style="color:#C5A059;">The 12-Minute Pack</em> — rapid evidence for EHCP &amp; Ofsted</span>
+                                    <span class="speak-compliance"><em style="color:#C5A059;">The 12-Minute Pack</em> — rapid evidence for EHCP &amp; Ofsted</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Secure welfare records — protected, permanent, and always available</span>
-                                    <span class="speak-tech">Immutable Audit Logs — provider-agnostic, total defensibility</span>
+                                    <span class="speak-compliance">Immutable Audit Logs — provider-agnostic, total defensibility</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Basic safeguarding chronology — everything in one organised timeline</span>
-                                    <span class="speak-tech">Core NODE Engine — basic safeguarding chronology batching (VAR Sentry)</span>
+                                    <span class="speak-compliance">Core NODE Engine — basic safeguarding chronology batching (VAR Sentry)</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">DSL-only access to welfare data — secured with two-factor login</span>
-                                    <span class="speak-tech">Direct DSL Sovereignty — MFA and internal encryption</span>
+                                    <span class="speak-compliance">Direct DSL Sovereignty — MFA and internal encryption</span>
                                 </li>
                             </ul>
                             <p class="tier-note">&#11088; Founding Partner: first 5 sites receive a 25% lifetime discount on all fees.</p>
@@ -1451,7 +1576,7 @@
                             <img src="Professional_Tier.jpg" alt="Professional Tier" class="tier-icon">
                             <div class="tier-badge">
                                 <span class="speak-plain">Regional &amp; Specialist</span>
-                                <span class="speak-tech">Tier 2</span>
+                                <span class="speak-compliance">Tier 2</span>
                             </div>
                             <div class="tier-name">Professional</div>
                             <div class="tier-price">&pound;8,500<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;"> / 24-month contract</span></div>
@@ -1461,24 +1586,24 @@
                             <ul>
                                 <li>
                                     <span class="speak-plain">Best for: large specialist settings and schools with high reintegration caseloads</span>
-                                    <span class="speak-tech">Best For: Large specialist settings or schools with high reintegration rates</span>
+                                    <span class="speak-compliance">Best For: Large specialist settings or schools with high reintegration rates</span>
                                 </li>
                                 <li>Everything in Foundations, plus:</li>
                                 <li>
                                     <span class="speak-plain">Six-pillar student scores covering engagement, attendance, and progress in one view</span>
-                                    <span class="speak-tech"><em style="color:#C5A059;">Enhanced FIFA Scores</em> — deep-dive engagement &amp; Flight-Path analytics</span>
+                                    <span class="speak-compliance"><em style="color:#C5A059;">Enhanced FIFA Scores</em> — deep-dive engagement &amp; Flight-Path analytics</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">AI-assisted welfare pattern spotting — flags clusters of concern before they escalate</span>
-                                    <span class="speak-tech">Advanced NODE Engine — AI-augmented Welfare Prediction and Friction identification</span>
+                                    <span class="speak-compliance">Advanced NODE Engine — AI-augmented Welfare Prediction and Friction identification</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Custom qualification mapping for non-standard AP courses</span>
-                                    <span class="speak-tech">Vocational Taxonomy — custom mapping for non-standard qualifications</span>
+                                    <span class="speak-compliance">Vocational Taxonomy — custom mapping for non-standard qualifications</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Structured, evidence-based readiness reports for reintegration into mainstream</span>
-                                    <span class="speak-tech">Automated <em style="color:#C5A059;">Reintegration Readiness Maps</em> — forensic proof of mainstream readiness</span>
+                                    <span class="speak-compliance">Automated <em style="color:#C5A059;">Reintegration Readiness Maps</em> — forensic proof of mainstream readiness</span>
                                 </li>
                             </ul>
                         </div>
@@ -1494,7 +1619,7 @@
                             <img src="Enterprise_Icon.jpg" alt="Enterprise Tier" class="tier-icon">
                             <div class="tier-badge">
                                 <span class="speak-plain">LA &amp; MAT</span>
-                                <span class="speak-tech">Tier 1</span>
+                                <span class="speak-compliance">Tier 1</span>
                             </div>
                             <div class="tier-name">Enterprise</div>
                             <div class="tier-price">&pound;10,500<span style="font-size:0.8rem; color:#A8B5C2; font-weight:400;"> / site / 24-month contract</span></div>
@@ -1504,24 +1629,24 @@
                             <ul>
                                 <li>
                                     <span class="speak-plain">Best for: Local Authorities and Multi-Academy Trusts managing multiple provisions</span>
-                                    <span class="speak-tech">Best For: Local Authorities (LAs) and Multi-Academy Trusts</span>
+                                    <span class="speak-compliance">Best For: Local Authorities (LAs) and Multi-Academy Trusts</span>
                                 </li>
                                 <li>Everything in Professional, plus:</li>
                                 <li>
                                     <span class="speak-plain">Monthly sessions giving you direct input into Arena&rsquo;s development roadmap</span>
-                                    <span class="speak-tech"><em style="color:#C5A059;">The Arena Advisory Circle</em> &mdash; Seat at the Design Table: monthly strategic roadmap input</span>
+                                    <span class="speak-compliance"><em style="color:#C5A059;">The Arena Advisory Circle</em> &mdash; Seat at the Design Table: monthly strategic roadmap input</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Single dashboard across all your provisions &mdash; for LA leads and Trust executives</span>
-                                    <span class="speak-tech">Multi-Site Aggregation &mdash; cross-provision visibility for LA Leads and Trust Executives</span>
+                                    <span class="speak-compliance">Multi-Site Aggregation &mdash; cross-provision visibility for LA Leads and Trust Executives</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Bespoke alert thresholds tailored to your LA&rsquo;s own Safety Valve priorities</span>
-                                    <span class="speak-tech">Custom Safety Valve Reporting &mdash; bespoke FIFA and NODE triggers for LA Safety Valve goals</span>
+                                    <span class="speak-compliance">Custom Safety Valve Reporting &mdash; bespoke FIFA and NODE triggers for LA Safety Valve goals</span>
                                 </li>
                                 <li>
                                     <span class="speak-plain">Dedicated technical support directly from the Arena team</span>
-                                    <span class="speak-tech">API White-Glove Support &mdash; dedicated technical architect</span>
+                                    <span class="speak-compliance">API White-Glove Support &mdash; dedicated technical architect</span>
                                 </li>
                             </ul>
                             <p class="tier-note">&#11088; Founding LA Opportunity: first 3 Local Authorities receive a permanent seat on the Advisory Circle &mdash; shaping the platform&rsquo;s future.</p>
@@ -1586,7 +1711,7 @@
         }
 
         // ═══════════════════════════════════════════════════
-        // SPEAK TOGGLE — Plain English / Under the Hood
+        // SPEAK TOGGLE — Plain English / Policy Compliance
         // ═══════════════════════════════════════════════════
         var currentMode = 'plain';
 
@@ -1594,27 +1719,27 @@
             if (mode === currentMode) return;
             currentMode = mode;
 
-            var body     = document.body;
-            var btnPlain = document.getElementById('btn-plain');
-            var btnTech  = document.getElementById('btn-tech');
+            var body           = document.body;
+            var btnPlain       = document.getElementById('btn-plain');
+            var btnCompliance  = document.getElementById('btn-compliance');
 
             // Step 1: fade everything out
             body.classList.add('mode-switching');
 
             setTimeout(function () {
                 // Step 2: swap classes
-                if (mode === 'tech') {
-                    body.classList.add('mode-tech');
-                    btnTech.classList.add('active');
-                    btnTech.setAttribute('aria-pressed', 'true');
+                if (mode === 'compliance') {
+                    body.classList.add('mode-compliance');
+                    btnCompliance.classList.add('active');
+                    btnCompliance.setAttribute('aria-pressed', 'true');
                     btnPlain.classList.remove('active');
                     btnPlain.setAttribute('aria-pressed', 'false');
                 } else {
-                    body.classList.remove('mode-tech');
+                    body.classList.remove('mode-compliance');
                     btnPlain.classList.add('active');
                     btnPlain.setAttribute('aria-pressed', 'true');
-                    btnTech.classList.remove('active');
-                    btnTech.setAttribute('aria-pressed', 'false');
+                    btnCompliance.classList.remove('active');
+                    btnCompliance.setAttribute('aria-pressed', 'false');
                 }
 
                 // Step 3: fade back in
