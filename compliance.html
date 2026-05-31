@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta name="description" content="Arena Hub — Policy Compliance Framework. UK GDPR, KCSIE, DfE AP Guidance, EU AI Act, SEND Reform and all applicable regulatory alignment.">
+    <title>Policy Compliance Framework — The Arena Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --navy:      #1B263B;
+            --navy-deep: #0f1825;
+            --gold:      #C5A059;
+            --gold-dim:  rgba(197,160,89,0.12);
+            --gold-b:    rgba(197,160,89,0.2);
+            --gold-bh:   rgba(197,160,89,0.45);
+            --text:      #C4CDDA;
+            --text-s:    #A8B5C2;
+            --text-m:    #6A7E8F;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--navy-deep);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,h2,h3,h4 { font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: -0.3px; }
+        a { color: var(--gold); }
+        a:hover { color: #d4b26e; }
+
+        /* ── HEADER ── */
+        .site-header { background: var(--navy); border-bottom: 2px solid var(--gold-b); position: sticky; top: 0; z-index: 200; }
+        .header-inner { max-width: 1140px; margin: 0 auto; padding: 0.85rem 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .site-logo { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+        .site-logo-img { width:40px; height:40px; object-fit:cover; border-radius:6px; }
+        .site-logo-text { font-family:'Rajdhani',sans-serif; font-size:1.5rem; font-weight:700; color:#fff; }
+        .site-logo-text span { color: var(--gold); }
+        .header-actions { display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap; justify-content:flex-end; }
+
+        .speak-toggle { display:flex; border:1px solid var(--gold-b); border-radius:4px; overflow:hidden; flex-shrink:0; }
+        .speak-btn {
+            padding:6px 14px; font-size:0.76rem; font-weight:700; letter-spacing:0.5px;
+            text-transform:uppercase; background:transparent; border:none; cursor:pointer;
+            color:rgba(255,255,255,0.45); font-family:'Source Sans 3',sans-serif;
+            transition:background 0.2s,color 0.2s; display:flex; align-items:center; gap:0.35rem;
+            white-space:nowrap; text-decoration:none;
+        }
+        .speak-btn.active { background:rgba(197,160,89,0.15); color:var(--gold); }
+        .speak-btn:hover:not(.active) { color:rgba(255,255,255,0.75); }
+        .speak-btn + .speak-btn { border-left:1px solid var(--gold-b); }
+
+        .arena-lite-btn {
+            display:inline-flex; align-items:center; gap:0.5rem; padding:5px 12px;
+            border:1px solid var(--gold-b); border-radius:4px; text-decoration:none;
+            font-size:0.75rem; font-weight:600; color:var(--gold); transition:background 0.2s;
+            white-space:nowrap; flex-shrink:0;
+        }
+        .arena-lite-btn:hover { background:rgba(197,160,89,0.1); color:#d4b26e; }
+        .alb-icon { width:20px; height:20px; background:var(--gold-dim); border:1px solid var(--gold-b); border-radius:3px; display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-size:0.75rem; font-weight:700; color:var(--gold); flex-shrink:0; }
+
+        /* ── HERO ── */
+        .hero { background: linear-gradient(135deg, #0f1825 0%, #1B263B 60%, #1e2e45 100%); padding: 4.5rem 2rem 3.5rem; text-align: center; position: relative; overflow:hidden; }
+        .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(197,160,89,0.08) 0%, transparent 70%); pointer-events:none; }
+        .hero-inner { position:relative; z-index:1; max-width:800px; margin:0 auto; }
+        .hero-eyebrow { font-size:0.68rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem; display:flex; align-items:center; justify-content:center; gap:0.8rem; }
+        .hero-eyebrow::before,.hero-eyebrow::after { content:''; flex:1; max-width:60px; height:1px; background:var(--gold-b); }
+        .hero h1 { font-size:clamp(2rem,4.5vw,3rem); color:#fff; line-height:1.1; margin-bottom:1.1rem; }
+        .hero h1 span { color:var(--gold); }
+        .hero-sub { font-size:1.05rem; color:var(--text-s); max-width:640px; margin:0 auto 1.5rem; line-height:1.7; }
+        .hero-note { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(197,160,89,0.07); border:1px solid var(--gold-b); border-radius:4px; padding:0.6rem 1.25rem; font-size:0.8rem; color:var(--text-s); }
+        .hero-note i { color:var(--gold); }
+
+        /* ── LAYOUT ── */
+        .page-body { max-width:1000px; margin:0 auto; padding:0 2rem 5rem; }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            position: sticky;
+            top: 68px;
+            z-index: 150;
+            background: var(--navy-deep);
+            border-bottom: 1px solid var(--gold-b);
+            padding: 0.8rem 0;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .filter-label {
+            font-size: 0.66rem; font-weight: 700; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--text-m); white-space: nowrap;
+        }
+        .filter-select {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--gold-b);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 0.88rem;
+            padding: 7px 36px 7px 12px;
+            cursor: pointer;
+            min-width: 260px;
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            transition: border-color 0.2s;
+        }
+        .filter-select:focus { outline: none; border-color: var(--gold); }
+        .filter-select option { background: #1B263B; color: #C4CDDA; }
+        .filter-count {
+            font-size: 0.75rem; color: var(--text-m);
+            margin-left: auto; white-space: nowrap;
+        }
+        .filter-count span { color: var(--gold); font-weight: 700; }
+
+        /* ── LOADING STATE ── */
+        .loading-state { text-align:center; padding:5rem 2rem; }
+        .loading-spinner { width:40px; height:40px; border:3px solid var(--gold-b); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 1.25rem; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .loading-label { font-size:0.88rem; color:var(--text-m); letter-spacing:1px; }
+
+        /* ── ERROR STATE ── */
+        .error-state { text-align:center; padding:4rem 2rem; }
+        .error-icon { font-size:2.5rem; color:var(--gold); margin-bottom:1rem; opacity:0.5; }
+        .error-title { font-family:'Rajdhani',sans-serif; font-size:1.4rem; color:#fff; margin-bottom:0.75rem; }
+        .error-msg { font-size:0.9rem; color:var(--text-s); max-width:480px; margin:0 auto; }
+
+        /* ── SECTION ── */
+        .reg-section { margin-bottom:3.5rem; }
+        .reg-section-header { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid var(--gold-b); }
+        .reg-icon { width:44px; height:44px; border-radius:8px; flex-shrink:0; background:var(--gold-dim); border:1px solid var(--gold-b); display:flex; align-items:center; justify-content:center; font-size:1.15rem; color:var(--gold); }
+        .reg-section-title { font-size:1.4rem; color:#fff; margin-bottom:0.2rem; }
+        .reg-section-label { font-size:0.68rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-m); }
+
+        /* ── CARD ── */
+        .reg-card { background:rgba(255,255,255,0.025); border:1px solid var(--gold-b); border-radius:8px; padding:1.5rem 1.75rem; margin-bottom:1rem; transition:border-color 0.2s; }
+        .reg-card:hover { border-color:var(--gold-bh); }
+        .reg-card-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:0.85rem; flex-wrap:wrap; }
+        .reg-title { font-family:'Rajdhani',sans-serif; font-size:1.1rem; font-weight:700; color:#fff; line-height:1.2; }
+        .reg-badge { font-size:0.6rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:3px 9px; border-radius:3px; white-space:nowrap; flex-shrink:0; }
+        .badge-active      { background:rgba(80,180,120,0.15); color:#6dcf98; border:1px solid rgba(80,180,120,0.3); }
+        .badge-reform      { background:rgba(197,160,89,0.15); color:var(--gold); border:1px solid var(--gold-b); }
+        .badge-consultation{ background:rgba(127,165,192,0.15); color:#9ab8cc; border:1px solid rgba(127,165,192,0.3); }
+        .badge-upcoming    { background:rgba(127,165,192,0.15); color:#9ab8cc; border:1px solid rgba(127,165,192,0.3); }
+        .badge-superseded  { background:rgba(200,80,80,0.12); color:#e08080; border:1px solid rgba(200,80,80,0.25); }
+
+        .reg-body { font-size:0.92rem; color:var(--text-s); line-height:1.7; }
+        .reg-body p { margin-bottom:0.65rem; }
+        .reg-body p:last-child { margin-bottom:0; }
+        .reg-body strong { color:var(--text); font-weight:600; }
+
+        .reg-arena-response { margin-top:1rem; padding:0.9rem 1.1rem; background:rgba(197,160,89,0.06); border-left:3px solid var(--gold); border-radius:0 4px 4px 0; font-size:0.88rem; color:var(--text-s); line-height:1.65; }
+        .response-label { font-size:0.62rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:0.45rem; display:block; }
+
+        .pillar-tags { margin-top:0.7rem; display:flex; flex-wrap:wrap; gap:0.4rem; }
+        .pillar-tag { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.65rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-m); background:rgba(255,255,255,0.04); border:1px solid var(--gold-b); border-radius:3px; padding:2px 7px; }
+        .pillar-tag i { font-size:0.6rem; color:var(--gold); }
+
+        .reg-source { margin-top:0.65rem; font-size:0.8rem; }
+
+        /* ── DIVIDER ── */
+        .section-divider { height:1px; background:linear-gradient(90deg,transparent,var(--gold-b),transparent); margin:3rem 0; }
+
+        /* ── LAST UPDATED ── */
+        .last-updated { text-align:right; font-size:0.75rem; color:var(--text-m); margin-bottom:2.5rem; }
+        .last-updated i { margin-right:0.3rem; }
+
+        /* ── FOOTER ── */
+        .site-footer { background:var(--navy); border-top:2px solid var(--gold-b); padding:2.5rem 2rem; }
+        .footer-inner { max-width:1140px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1.25rem; flex-wrap:wrap; }
+        .footer-brand { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; color:#fff; }
+        .footer-brand span { color:var(--gold); }
+        .footer-meta { font-size:0.78rem; color:var(--text-m); margin-top:0.15rem; }
+        .footer-links { display:flex; gap:1.5rem; flex-wrap:wrap; }
+        .footer-links a { font-size:0.82rem; color:var(--text-m); text-decoration:none; transition:color 0.2s; }
+        .footer-links a:hover { color:var(--gold); }
+
+        @media(max-width:640px) {
+            .header-inner { padding:0.7rem 1.25rem; }
+            .hero { padding:3rem 1.25rem 2.5rem; }
+            .page-body { padding:2.5rem 1.25rem 4rem; }
+            .reg-card { padding:1.25rem; }
+        }
+
+        a:focus-visible { outline:2px solid var(--gold); outline-offset:2px; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" role="banner">
+    <div class="header-inner">
+        <a href="company.html" class="site-logo" aria-label="The Arena Hub">
+            <img src="Company_Icon.jpg" alt="" class="site-logo-img" aria-hidden="true">
+            <span class="site-logo-text">The <span>Arena Hub</span></span>
+        </a>
+        <div class="header-actions">
+            <a href="https://www.thearenahub.com" target="_blank" rel="noopener" class="arena-lite-btn">
+                <span class="alb-icon">A</span>
+                Arena Lite
+            </a>
+            <div class="speak-toggle" role="group" aria-label="Reading mode">
+                <a href="company.html" class="speak-btn" aria-pressed="false">
+                    <i class="fas fa-align-left" aria-hidden="true"></i> Plain English
+                </a>
+                <span class="speak-btn active" aria-pressed="true">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i> Policy Compliance
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+        <p class="hero-eyebrow">Regulatory Alignment</p>
+        <h1 id="hero-heading">Policy <span>Compliance</span> Framework</h1>
+        <p class="hero-sub">
+            How Arena Hub aligns with every applicable regulation governing Alternative Provision, SEND education, safeguarding, data protection, and AI governance in England.
+        </p>
+        <div class="hero-note" role="note">
+            <i class="fas fa-info-circle" aria-hidden="true"></i>
+            All regulations current and maintained live. Arena Hub monitors DfE, ICO, and Ofsted guidance continuously.
+        </div>
+    </div>
+</section>
+
+<!-- DYNAMIC CONTENT -->
+<main class="page-body" id="main">
+    <div id="compliance-root">
+        <!-- Loading state shown initially -->
+        <div class="loading-state" id="loading-state">
+            <div class="loading-spinner"></div>
+            <p class="loading-label">Loading compliance data&hellip;</p>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+        <div>
+            <p class="footer-brand">The <span>Arena Hub</span> Ltd</p>
+            <p class="footer-meta">Company No. 1708605 &middot; D-U-N-S 234652645 &middot; Sovereign Continuity Infrastructure</p>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+            <a href="company.html">About Arena Hub</a>
+            <a href="pricing.html">Infrastructure Pricing</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="dpa.html">Data Processing Agreement</a>
+            <a href="mailto:compliance@thearenahub.co.uk">Compliance Enquiries</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CONFIGURATION
+// After deploying COMPLIANCE_REGISTRY.gs as a Web App, paste
+// the deployment URL below.
+// Deploy settings: Execute as = Me, Who has access = Anyone
+// ═══════════════════════════════════════════════════════════════
+var COMPLIANCE_DATA_URL = 'https://script.google.com/macros/s/AKfycbzKIxvEFG8QzgWI3TAR9xltV1UAGOgslk8jdzXiGXl-cwWhJOrPOD6tCFMKAVcqYLqe/exec';  // ← PASTE WEB APP URL HERE
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════════════
+(function init() {
+    if (!COMPLIANCE_DATA_URL) {
+        showConfigError();
+        return;
+    }
+    fetch(COMPLIANCE_DATA_URL)
+        .then(function(r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return r.json();
+        })
+        .then(function(data) {
+            if (!data.success) throw new Error(data.error || 'Unknown error from data source.');
+            renderPage(data);
+        })
+        .catch(function(err) {
+            showFetchError(err.message);
+        });
+})();
+
+function renderPage(data) {
+    var root = document.getElementById('compliance-root');
+    var html = '';
+    var sections = data.sections || [];
+
+    // ── Build a map of regulations by section ───────────────
+    var regsBySection = {};
+    (data.regulations || []).forEach(function(r) {
+        if (!regsBySection[r.sectionId]) regsBySection[r.sectionId] = [];
+        regsBySection[r.sectionId].push(r);
+    });
+
+    // ── Filter bar (client-side, always visible) ─────────────
+    // Only include sections that have regulations
+    var activeSections = sections.filter(function(s) {
+        return (regsBySection[s.id] || []).length > 0;
+    });
+    var totalRegs = (data.regulations || []).length;
+
+    html += '<div class="filter-bar" id="filter-bar">';
+    html += '  <span class="filter-label">Section</span>';
+    html += '  <select class="filter-select" id="section-filter" onchange="filterSection(this.value)" aria-label="Filter by section">';
+    html += '    <option value="all">All Sections (' + activeSections.length + ')</option>';
+    activeSections.forEach(function(s) {
+        var count = (regsBySection[s.id] || []).length;
+        html += '    <option value="' + _esc(s.id) + '">' + _esc(s.title) + ' (' + count + ')</option>';
+    });
+    html += '    <option value="docs">Documentation</option>';
+    html += '  </select>';
+    html += '  <span class="filter-count" id="filter-count"><span>' + totalRegs + '</span> regulations</span>';
+    html += '</div>';
+
+    // ── Last updated ────────────────────────────────────────
+    if (data.lastUpdated) {
+        html += '<p class="last-updated"><i class="fas fa-clock" aria-hidden="true"></i>Last updated: ' + _esc(data.lastUpdated) + '</p>';
+    }
+
+    // ── Render each section ─────────────────────────────────
+    sections.forEach(function(s, idx) {
+        var regs = regsBySection[s.id] || [];
+        if (regs.length === 0) return;
+
+        if (idx > 0) html += '<div class="section-divider" data-divider></div>';
+
+        html += '<section class="reg-section" data-section-id="' + _esc(s.id) + '" aria-labelledby="sec-' + _esc(s.id) + '">';
+        html += '<div class="reg-section-header">';
+        html += '  <div class="reg-icon" aria-hidden="true"><i class="fas ' + _esc(s.icon) + '"></i></div>';
+        html += '  <div>';
+        html += '    <div class="reg-section-label">' + _esc(s.label) + '</div>';
+        html += '    <h2 class="reg-section-title" id="sec-' + _esc(s.id) + '">' + _esc(s.title) + '</h2>';
+        html += '  </div>';
+        html += '</div>';
+
+        regs.forEach(function(r) {
+            html += renderRegCard(r);
+        });
+
+        html += '</section>';
+    });
+
+    // ── Documentation note ───────────────────────────────────
+    html += '<div class="section-divider" data-divider></div>';
+    html += '<section class="reg-section" data-section-id="docs" aria-labelledby="sec-docs">';
+    html += '<div class="reg-section-header">';
+    html += '  <div class="reg-icon" aria-hidden="true"><i class="fas fa-file-contract"></i></div>';
+    html += '  <div><div class="reg-section-label">Available on Request</div>';
+    html += '  <h2 class="reg-section-title" id="sec-docs">Compliance Documentation</h2></div>';
+    html += '</div>';
+    html += '<div class="reg-card"><div class="reg-body">';
+    html += '<p>The following documents are available to institutions on request prior to contract commencement:</p>';
+    html += '<p><strong>UK GDPR Article 28 Data Processing Agreement</strong> — Standard DPA with Schedule of Processing Activities per pillar.</p>';
+    html += '<p><strong>Data Protection Impact Assessment (DPIA) template</strong> — Pre-completed template for school DPO review. Covers all three pillars and AI processing activities.</p>';
+    html += '<p><strong>Regulatory Alignment Schedule</strong> — Full mapping of Arena Hub functions to applicable statutory obligations. Suitable for Governor presentation or ESFA procurement review.</p>';
+    html += '<p><strong>AI Transparency Statement</strong> — How Arena\'s AI components work, what data they access, and how human oversight is maintained.</p>';
+    html += '</div>';
+    html += '<div class="reg-arena-response"><span class="response-label">Request Documentation</span>';
+    html += 'Contact <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a> to request any of the above. All documentation is provided at no charge as part of the pre-contract scoping process.</div>';
+    html += '</div></section>';
+
+    root.innerHTML = html;
+}
+
+function renderRegCard(r) {
+    var badgeClass = 'badge-' + (r.status || 'active').toLowerCase().replace(/\s+/g, '-');
+    var statusLabel = r.statusDate ? r.status + ' &mdash; ' + _esc(r.statusDate) : _esc(r.status || 'Active');
+
+    var html = '<div class="reg-card">';
+    html += '<div class="reg-card-header">';
+    html += '  <div class="reg-title">' + _esc(r.title) + '</div>';
+    html += '  <span class="reg-badge ' + badgeClass + '">' + statusLabel + '</span>';
+    html += '</div>';
+    html += '<div class="reg-body"><p>' + _escNl(r.summary) + '</p></div>';
+
+    if (r.arenaCompliance) {
+        html += '<div class="reg-arena-response">';
+        html += '  <span class="response-label">Arena Hub Alignment';
+        if (r.pillars && r.pillars.length > 0 && !(r.pillars.length === 1 && r.pillars[0] === 'ALL')) {
+            html += ' &mdash; ' + r.pillars.join(' · ');
+        }
+        html += '</span>';
+        html += '  <p>' + _escNl(r.arenaCompliance) + '</p>';
+        if (r.pillars && r.pillars.length > 0) {
+            html += '  <div class="pillar-tags">';
+            r.pillars.forEach(function(p) {
+                if (!p) return;
+                html += '<span class="pillar-tag"><i class="fas fa-circle-dot" aria-hidden="true"></i> ' + _esc(p) + '</span>';
+            });
+            html += '  </div>';
+        }
+        html += '</div>';
+    }
+
+    if (r.sourceUrl) {
+        html += '<p class="reg-source"><a href="' + _esc(r.sourceUrl) + '" target="_blank" rel="noopener">';
+        html += '<i class="fas fa-arrow-up-right-from-square" style="font-size:0.7rem;margin-right:4px;" aria-hidden="true"></i>';
+        html += _esc(r.sourceLabel || r.sourceUrl);
+        html += '</a></p>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
+// ── Section filter (pure client-side) ────────────────────────
+function filterSection(value) {
+    var sections  = document.querySelectorAll('.reg-section');
+    var dividers  = document.querySelectorAll('[data-divider]');
+    var countEl   = document.getElementById('filter-count');
+    var visibleRegs = 0;
+
+    if (value === 'all') {
+        sections.forEach(function(s)  { s.style.display = ''; });
+        dividers.forEach(function(d)  { d.style.display = ''; });
+        // recount all regulations
+        sections.forEach(function(s) {
+            visibleRegs += s.querySelectorAll('.reg-card').length;
+        });
+        // subtract docs section (no reg count)
+    } else {
+        // Hide everything first
+        sections.forEach(function(s)  { s.style.display = 'none'; });
+        dividers.forEach(function(d)  { d.style.display = 'none'; });
+        // Show matching section
+        var target = document.querySelector('.reg-section[data-section-id="' + value + '"]');
+        if (target) {
+            target.style.display = '';
+            visibleRegs = target.querySelectorAll('.reg-card').length;
+        }
+    }
+
+    if (countEl) {
+        if (value === 'all') {
+            var totalCards = document.querySelectorAll('.reg-section:not([data-section-id="docs"]) .reg-card').length;
+            countEl.innerHTML = '<span>' + totalCards + '</span> regulations';
+        } else if (value === 'docs') {
+            countEl.innerHTML = '';
+        } else {
+            countEl.innerHTML = '<span>' + visibleRegs + '</span> regulation' + (visibleRegs !== 1 ? 's' : '');
+        }
+    }
+}
+
+// ── Error states ─────────────────────────────────────────────
+function showFetchError(msg) {
+    document.getElementById('compliance-root').innerHTML =
+        '<div class="error-state">' +
+        '<div class="error-icon"><i class="fas fa-triangle-exclamation"></i></div>' +
+        '<h2 class="error-title">Could not load compliance data</h2>' +
+        '<p class="error-msg">The data source is temporarily unavailable. Please try again shortly, or contact <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a> for the latest regulatory alignment information.<br><br><small style="color:var(--text-m);">(' + _esc(msg) + ')</small></p>' +
+        '</div>';
+}
+
+function showConfigError() {
+    document.getElementById('compliance-root').innerHTML =
+        '<div class="error-state">' +
+        '<div class="error-icon"><i class="fas fa-plug-circle-xmark"></i></div>' +
+        '<h2 class="error-title">Data source not configured</h2>' +
+        '<p class="error-msg">Paste the GAS web app deployment URL into <code style="color:var(--gold);">COMPLIANCE_DATA_URL</code> in this file\'s script block.</p>' +
+        '</div>';
+}
+
+// ── Utils ─────────────────────────────────────────────────────
+function _esc(s) {
+    if (!s) return '';
+    return String(s)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function _escNl(s) {
+    // Escape HTML but preserve line breaks as paragraphs
+    if (!s) return '';
+    return _esc(s).replace(/\n\n/g,'</p><p>').replace(/\n/g,' ');
+}
+</script>
+</body>
+</html>
