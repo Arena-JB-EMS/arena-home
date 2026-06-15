@@ -324,7 +324,7 @@
         <p class="eyebrow">Legal</p>
         <h1>Data Processing Agreement</h1>
         <p class="subtitle">Article 28 UK GDPR — the formal basis on which The Arena Hub Ltd processes data on behalf of subscribing schools and practitioners.</p>
-        <p class="meta">Version 1.1 &nbsp;&bull;&nbsp; May 2026 &nbsp;&bull;&nbsp; The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
+        <p class="meta">Version 1.1 &nbsp;&bull;&nbsp; May 2026 &nbsp;&bull;&nbsp; The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#<span data-config="company_number">1708605</span></p>
         <span class="ref-badge">Ref: ARENA-DPA-2026-001</span>
     </div>
 
@@ -353,10 +353,10 @@
                         <div class="party-label">Data Processor</div>
                         <p><strong>The Arena Hub Ltd</strong></p>
                         <p>Registered in England and Wales<br>
-                        Company No. CH#1708605<br>
-                        D-U-N-S: 234652645<br>
-                        Tel: 01618702916<br>
-                        Email: <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></p>
+                        Company No. CH#<span data-config="company_number">1708605</span><br>
+                        D-U-N-S: <span data-config="duns_number">234652645</span><br>
+                        Tel: <a href="tel:01618702916" data-config="phone" data-config-href-prefix="tel:" data-config-href-key="phone">01618702916</a><br>
+                        Email: <a href="mailto:compliance@thearenahub.co.uk" data-config="email_compliance" data-config-href-prefix="mailto:" data-config-href-key="email_compliance">compliance@thearenahub.co.uk</a></p>
                     </div>
                 </div>
             </div>
@@ -560,7 +560,7 @@
 
                 <div class="pilot-warning">
                     <div class="warn-label">⚠ V1 Pilot Disclosure — Required Reading</div>
-                    <p>During the V1 Pilot phase, the Arena Hub platform operates with <strong>developmentMode: true</strong>. Under this configuration, the Processor Director (Jonathan Baguley, <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a>) holds range-level access to the Controller's deployed Google Spreadsheet for the purposes of technical debugging, configuration, and pilot support.</p>
+                    <p>During the V1 Pilot phase, the Arena Hub platform operates with <strong>developmentMode: true</strong>. Under this configuration, the Processor Director (<span data-config="director_name">Jonathan Baguley</span>, <a href="mailto:compliance@thearenahub.co.uk" data-config="email_compliance" data-config-href-prefix="mailto:" data-config-href-key="email_compliance">compliance@thearenahub.co.uk</a>) holds range-level access to the Controller's deployed Google Spreadsheet for the purposes of technical debugging, configuration, and pilot support.</p>
                     <p>This access is: (a) formally disclosed to the Controller in this DPA; (b) time-limited to the V1 Pilot period only; (c) subject to the same VAR Sentry audit trail obligations as all other system access; and (d) governed by the confidentiality obligations in Clause 5.2 of this DPA.</p>
                     <p>This access does not extend to the Welfare Silo, which remains under DSL-exclusive control at all times, regardless of pilot phase.</p>
                     <p><strong>This condition must be resolved before production deployment beyond the Pilot phase.</strong> At transition to production, <code>developmentMode</code> will be set to <code>false</code> and Processor Director access will be revoked. The Controller will be notified in writing 14 days before this transition. A revised DPA reflecting production-phase conditions will be issued at that time.</p>
@@ -605,10 +605,10 @@
             <div class="contact-card">
                 <h3>Data Protection Contact</h3>
                 <p>For all DPA queries, DPIA requests, audit enquiries, or to exercise Controller rights under this agreement:</p>
-                <p><strong>Jonathan Baguley</strong> — Founder &amp; Principal Data Architect<br>
-                The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605</p>
-                <p>Email: <a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></p>
-                <p>Tel: <a href="tel:01618702916">01618702916</a></p>
+                <p><strong><span data-config="director_name">Jonathan Baguley</span></strong> — <span data-config="director_title">Founder &amp; Principal Data Architect</span><br>
+                <span data-config="company_name">The Arena Hub Ltd</span> &nbsp;&bull;&nbsp; CH#<span data-config="company_number">1708605</span></p>
+                <p>Email: <a href="mailto:compliance@thearenahub.co.uk" data-config="email_compliance" data-config-href-prefix="mailto:" data-config-href-key="email_compliance">compliance@thearenahub.co.uk</a></p>
+                <p>Tel: <a href="tel:01618702916" data-config="phone" data-config-href-prefix="tel:" data-config-href-key="phone">01618702916</a></p>
                 <p>Response commitment: all DPO queries acknowledged within 48 hours; written documentation requests fulfilled within 5 working days.</p>
             </div>
 
@@ -623,7 +623,7 @@
             <div class="footer-brand">
                 <div class="logo">The <span>Arena Hub</span></div>
                 <p>Sovereign Infrastructure for Alternative Provision and SEMH education. Built on data sovereignty, forensic integrity, and human accountability.</p>
-                <p>The Arena Hub Ltd &nbsp;&bull;&nbsp; CH#1708605 &nbsp;&bull;&nbsp; Registered in England &amp; Wales</p>
+                <p><span data-config="company_name">The Arena Hub Ltd</span> &nbsp;&bull;&nbsp; CH#<span data-config="company_number">1708605</span> &nbsp;&bull;&nbsp; Registered in England &amp; Wales</p>
             </div>
             <div class="footer-col">
                 <h4>Platform</h4>
@@ -644,8 +644,8 @@
             <div class="footer-col">
                 <h4>Contact</h4>
                 <ul>
-                    <li><a href="mailto:compliance@thearenahub.co.uk">compliance@thearenahub.co.uk</a></li>
-                    <li><a href="tel:01618702916">01618702916</a></li>
+                    <li><a href="mailto:compliance@thearenahub.co.uk" data-config="email_compliance" data-config-href-prefix="mailto:" data-config-href-key="email_compliance">compliance@thearenahub.co.uk</a></li>
+                    <li><a href="tel:01618702916" data-config="phone" data-config-href-prefix="tel:" data-config-href-key="phone">01618702916</a></li>
                 </ul>
             </div>
         </div>
@@ -656,5 +656,6 @@
         </div>
     </footer>
 
+  <script src="arena-config.js"></script>
 </body>
 </html>

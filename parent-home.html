@@ -1095,12 +1095,6 @@
     </style>
 </head>
 <body>
-
-    <!-- ⚠ DEMO BANNER -->
-    <div style="background:#E65100;color:#fff;text-align:center;padding:8px 16px;font-size:.82rem;font-weight:600;letter-spacing:.5px;position:sticky;top:0;z-index:999;">
-      ⚠ DEMO MODE — All data shown is fictional. This prototype is not connected to live student records.
-    </div>
-
     <!-- Header/Navigation -->
     <header class="header">
         <div class="header-container">
@@ -1243,9 +1237,9 @@
                     <i class="fas fa-user-tie"></i>
                     <span>Contact Head Teacher</span>
                 </button>
-                <button class="contact-btn contact-btn-red" id="dslBtn" aria-label="Report a safeguarding concern">
+                <button class="contact-btn contact-btn-red" id="dslBtn" aria-label="DSL red flag safeguarding alert">
                     <i class="fas fa-triangle-exclamation"></i>
-                    <span>Report a Concern</span>
+                    <span>DSL Red Flag</span>
                 </button>
             </div>
         </section>
@@ -1338,13 +1332,13 @@
             <div class="modal-header">
                 <span class="confirmation-title">
                     <i class="fas fa-triangle-exclamation"></i>
-                    Share a Concern
+                    Safeguarding Alert
                 </span>
                 <button class="modal-close" aria-label="Close modal">&times;</button>
             </div>
 
             <div class="confirmation-message">
-                You are about to send a safeguarding concern to the school's Designated Safeguarding Lead (DSL) — the person responsible for keeping your child safe. Your message will be treated as confidential and responded to as a priority.
+                Are you sure you want to raise a DSL Safeguarding Alert? This will be logged and responded to urgently.
             </div>
 
             <div class="button-group">
@@ -1358,13 +1352,13 @@
     <div class="modal-overlay" id="dslFormOverlay">
         <div class="modal">
             <div class="modal-header">
-                <span>Tell Us About Your Concern</span>
+                <span>Safeguarding Concern Report</span>
                 <button class="modal-close" aria-label="Close modal">&times;</button>
             </div>
 
             <form id="dslForm">
                 <div class="form-group">
-                    <label class="form-label" for="dslChildName">Your Child's Name</label>
+                    <label class="form-label" for="dslChildName">Child's Name</label>
                     <input
                         type="text"
                         id="dslChildName"
@@ -1373,16 +1367,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="dslConcern">What would you like to tell us? *</label>
+                    <label class="form-label" for="dslConcern">Describe Your Concern *</label>
                     <textarea
                         id="dslConcern"
                         class="form-textarea"
-                        placeholder="Please share as much detail as you are comfortable with. Everything you tell us is treated in confidence."
+                        placeholder="Please provide details about the concern..."
                         required></textarea>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="dslContact">Best number to reach you</label>
+                    <label class="form-label" for="dslContact">Contact Number</label>
                     <input
                         type="tel"
                         id="dslContact"
@@ -1391,7 +1385,7 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="submit" class="btn-primary">Send My Concern</button>
+                    <button type="submit" class="btn-primary">Submit Alert</button>
                     <button type="button" class="btn-secondary" id="dslFormCancelBtn">Cancel</button>
                 </div>
             </form>
@@ -1403,9 +1397,9 @@
         <div class="modal">
             <div class="success-card">
                 <i class="fas fa-check-circle"></i>
-                <div class="success-card-title">Thank You</div>
+                <div class="success-card-title">Alert Received</div>
                 <div class="success-card-text">
-                    Your message has been received and is being treated as a priority. A member of our safeguarding team will be in touch with you as soon as possible.
+                    Your concern has been received. The DSL will contact you urgently.
                 </div>
                 <button type="button" class="btn-primary" id="dslSuccessClose">Close</button>
             </div>
@@ -1631,11 +1625,11 @@
 
             // Attach signature form listeners
             listEl.querySelectorAll('.signature-form').forEach(form => {
-                form.addEventListener('submit', handleSignatureSubmit);
+                form.addEventListener('submit', handleSignaturSubmit);
             });
         }
 
-        function handleSignatureSubmit(e) {
+        function handleSignaturSubmit(e) {
             e.preventDefault();
             const letterId = e.dataset.letterId;
             const parentName = document.getElementById(`sig-name-${letterId}`).value;

@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>The Arena Hub — Built for Alternative Provision Schools</title>
 
     <style>
@@ -1375,8 +1375,8 @@
                     <span class="speak-plain">A management system built for Alternative Provision schools, by people who&rsquo;ve worked in them.</span>
                     <span class="speak-compliance">Enterprise Education Management Infrastructure for UK Alternative Provision.</span>
                 </p>
-                <a href="tel:01618702916" class="footer-phone">
-                    <i class="fas fa-phone" aria-hidden="true"></i> 01618702916
+                <a href="tel:01618702916" class="footer-phone" data-config-href-prefix="tel:" data-config-href-key="phone">
+                    <i class="fas fa-phone" aria-hidden="true"></i> <span data-config="phone">01618702916</span>
                 </a>
                 <button class="footer-email-btn" onclick="openModal('email-modal')" aria-haspopup="dialog">
                     <i class="fas fa-envelope" aria-hidden="true"></i> Email Us
@@ -1404,17 +1404,17 @@
             <div class="footer-col">
                 <h4>Connect</h4>
                 <ul>
-                    <li><a id="footer-linkedin" href="https://linkedin.com/company/the-arena-hub" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+                    <li><a id="footer-linkedin" href="https://linkedin.com/company/the-arena-hub" data-config-href-prefix="" data-config-href-key="social_linkedin" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
                     <li><a id="footer-bluesky" href="https://bsky.app/profile/thearenahub.bsky.social" target="_blank" rel="noopener"><i class="fas fa-cloud" aria-hidden="true"></i> BlueSky</a></li>
                     <li><a id="footer-twitter" href="https://x.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i> X / Twitter</a></li>
-                    <li><a id="footer-facebook" href="https://facebook.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+                    <li><a id="footer-facebook" href="https://facebook.com/TheArenaHubUK" data-config-href-prefix="" data-config-href-key="social_facebook" target="_blank" rel="noopener"><i class="fab fa-facebook" aria-hidden="true"></i> Facebook</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h4>Also On</h4>
                 <ul>
-                    <li><a id="footer-instagram" href="https://instagram.com/TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+                    <li><a id="footer-instagram" href="https://instagram.com/TheArenaHubUK" data-config-href-prefix="" data-config-href-key="social_instagram" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i> Instagram</a></li>
                     <li><a id="footer-threads" href="https://threads.net/@TheArenaHubUK" target="_blank" rel="noopener"><i class="fab fa-threads" aria-hidden="true"></i> Threads</a></li>
                     <li><a id="footer-reddit" href="https://reddit.com/r/TheArenaHub" target="_blank" rel="noopener"><i class="fab fa-reddit" aria-hidden="true"></i> Reddit</a></li>
                 </ul>
@@ -1423,9 +1423,7 @@
             <div class="footer-col">
                 <h4>Legal</h4>
                 <ul>
-                    <li><a href="pricing.html"><i class="fas fa-layer-group" aria-hidden="true"></i> Infrastructure Pricing</a></li>
                     <li><a href="privacy.html"><i class="fas fa-shield-alt" aria-hidden="true"></i> Privacy Policy</a></li>
-                    <li><a href="dpa.html">Data Processing Agreement</a></li>
                     <li><a href="terms.html"><i class="fas fa-file-contract" aria-hidden="true"></i> Terms of Service</a></li>
                 </ul>
             </div>
@@ -1435,11 +1433,10 @@
         <hr class="footer-divider">
 
         <div class="footer-bottom">
-            <p>&copy; 2026 The Arena Hub Ltd &mdash; CH#1708605 &mdash; All rights reserved.</p>
+            <p>&copy; 2026 The Arena Hub Ltd &mdash; CH#<span data-config="company_number">1708605</span> &mdash; All rights reserved.</p>
             <p>
                 <a href="index.html">Home</a> &nbsp;&bull;&nbsp;
                 <a href="platform.html">Enter The Arena</a> &nbsp;&bull;&nbsp;
-                <a href="pricing.html">Pricing</a> &nbsp;&bull;&nbsp;
                 <a href="privacy.html">Privacy</a> &nbsp;&bull;&nbsp;
                 <a href="terms.html">Terms</a>
             </p>
@@ -1447,11 +1444,9 @@
     </footer>
 
     <!-- ═══════════════════════════════════════════════════
-         PRICING MODAL — RETIRED S69
-         Now a standalone page: pricing.html
-         Kept here as a hidden fallback; remove entirely once pricing.html is confirmed live.
+         PRICING MODAL
          ═══════════════════════════════════════════════════ -->
-    <div id="pricing-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title" style="display:none!important;">
+    <div id="pricing-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pricing-modal-title">
         <div class="pricing-modal-box">
             <button class="modal-close" onclick="closeModal('pricing-modal')" aria-label="Close pricing modal" style="color:#A8B5C2;">&times;</button>
 
@@ -1514,9 +1509,9 @@
                     </div>
 
                     <div style="text-align:center;">
-                        <a href="mailto:pilot@thearenahub.co.uk" class="tier-contact-btn">
+                        <a href="mailto:pilot@thearenahub.co.uk" class="tier-contact-btn" data-config-href-prefix="mailto:" data-config-href-key="email_pilot">
                             <i class="fas fa-envelope" aria-hidden="true"></i>
-                            pilot@thearenahub.co.uk
+                            <span data-config="email_pilot">pilot@thearenahub.co.uk</span>
                         </a>
                     </div>
                 </div>
@@ -1565,8 +1560,8 @@
                             <p class="tier-note">&#11088; Founding Partner: first 5 sites receive a 25% lifetime discount on all fees.</p>
                         </div>
                         <div class="tier-contact">
-                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
+                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn" data-config-href-prefix="mailto:" data-config-href-key="email_sales">
+                                <i class="fas fa-envelope" aria-hidden="true"></i> <span data-config="email_sales">sales@thearenahub.co.uk</span>
                             </a>
                         </div>
                     </div>
@@ -1608,8 +1603,8 @@
                             </ul>
                         </div>
                         <div class="tier-contact">
-                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
+                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn" data-config-href-prefix="mailto:" data-config-href-key="email_sales">
+                                <i class="fas fa-envelope" aria-hidden="true"></i> <span data-config="email_sales">sales@thearenahub.co.uk</span>
                             </a>
                         </div>
                     </div>
@@ -1652,8 +1647,8 @@
                             <p class="tier-note">&#11088; Founding LA Opportunity: first 3 Local Authorities receive a permanent seat on the Advisory Circle &mdash; shaping the platform&rsquo;s future.</p>
                         </div>
                         <div class="tier-contact">
-                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn">
-                                <i class="fas fa-envelope" aria-hidden="true"></i> sales@thearenahub.co.uk
+                            <a href="mailto:sales@thearenahub.co.uk" class="tier-contact-btn" data-config-href-prefix="mailto:" data-config-href-key="email_sales">
+                                <i class="fas fa-envelope" aria-hidden="true"></i> <span data-config="email_sales">sales@thearenahub.co.uk</span>
                             </a>
                         </div>
                     </div>
@@ -1866,4 +1861,18 @@
                     };
                     Object.keys(linkMap).forEach(function (key) {
                         var el = document.getElementById(linkMap[key]);
-                        if (el && cfg[key]) el.href =
+                        if (el && cfg[key]) el.href = cfg[key];
+                    });
+                })
+                .catch(function () { showArticleFallback(); });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadSiteConfig);
+        } else {
+            loadSiteConfig();
+        }
+    </script>
+  <script src="arena-config.js"></script>
+</body>
+</html>

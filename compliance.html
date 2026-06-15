@@ -256,14 +256,14 @@
     <div class="footer-inner">
         <div>
             <p class="footer-brand">The <span>Arena Hub</span> Ltd</p>
-            <p class="footer-meta">Company No. 1708605 &middot; D-U-N-S 234652645 &middot; Sovereign Continuity Infrastructure</p>
+            <p class="footer-meta">Company No. <span data-config="company_number">1708605</span> &middot; D-U-N-S <span data-config="duns_number">234652645</span> &middot; Sovereign Continuity Infrastructure</p>
         </div>
         <nav class="footer-links" aria-label="Footer links">
             <a href="company.html">About Arena Hub</a>
             <a href="pricing.html">Infrastructure Pricing</a>
             <a href="privacy.html">Privacy</a>
             <a href="dpa.html">Data Processing Agreement</a>
-            <a href="mailto:compliance@thearenahub.co.uk">Compliance Enquiries</a>
+            <a href="mailto:compliance@thearenahub.co.uk" data-config-href-prefix="mailto:" data-config-href-key="email_compliance">Compliance Enquiries</a>
         </nav>
     </div>
 </footer>
@@ -494,5 +494,6 @@ function _escNl(s) {
     return _esc(s).replace(/\n\n/g,'</p><p>').replace(/\n/g,' ');
 }
 </script>
+  <script src="arena-config.js"></script>
 </body>
 </html>
