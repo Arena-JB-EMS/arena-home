@@ -740,7 +740,7 @@
   <!-- TOP BAR -->
   <div class="top-bar">
     <div class="top-bar-left">
-      <a href="platform.html" class="back-link">
+      <a href="#" class="back-link">
         <i class="fas fa-arrow-left"></i>
         Back to Hub
       </a>
@@ -753,7 +753,7 @@
   <div class="breadcrumb">
     <span>Hub</span>
     <span>/</span>
-    <a href="platform.html">Admin</a>
+    <a href="#">Admin</a>
     <span>/</span>
     <span>Timetable Builder</span>
   </div>
@@ -966,7 +966,7 @@
     function updateCurrentDate() {
       const today = new Date();
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById('currentDate').textContent = today.toLocaleDateString('en-GB', options);
+      document.getElementById('currentDate').textContent = today.toLocaleDateString('en-US', options);
     }
 
     async function loadAdminData() {
