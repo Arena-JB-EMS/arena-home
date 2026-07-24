@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Arena Hub Observatory — The Arena Hub Paradigm</title>
+<meta name="description" content="Live monitoring of official educational announcements — DfE, Ofsted, ICO, Education NI, CCEA, ETI and UK Parliament.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/paradigm-core.css">
+<link rel="stylesheet" href="../css/observatory.css">
+<style>
+  .obs-hero { margin-bottom: 24px; }
+  .obs-hero .lastcheck { font-size: 12px; color: var(--ink-soft); display: flex; align-items: center; gap: 6px; margin-top: 6px; }
+  .lib-group { margin-bottom: 22px; }
+  .lib-group h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--navy-mid); margin-bottom: 10px; }
+</style>
+</head>
+<body class="obs-content">
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="obs-hero">
+        <span class="eyebrow">Live intelligence</span>
+        <h1 style="font-size:28px;">The Arena Hub Observatory</h1>
+        <p style="color:var(--ink-mid);font-size:14px;max-width:640px;">Monitoring educational policy, safeguarding, governance and legislation across the United Kingdom. What has changed in education today?</p>
+        <div class="lastcheck"><span class="pill green"><span class="dot"></span>Live status</span> Last checked: <span id="last-checked">–</span></div>
+      </div>
+
+      <section class="grid grid-4" style="margin-bottom:22px;">
+        <div class="obs-stat-tile"><b id="stat-orgs">7</b><span>Organisations monitored</span></div>
+        <div class="obs-stat-tile"><b id="stat-pubs">–</b><span>Publications tracked</span></div>
+        <div class="obs-stat-tile"><b id="stat-critical">–</b><span>Critical updates</span></div>
+        <div class="obs-stat-tile"><b id="stat-consult">–</b><span>Open consultations</span></div>
+      </section>
+
+      <section class="grid grid-3" style="align-items:start;margin-bottom:26px;">
+        <div class="card" style="padding:0;">
+          <div style="padding:18px 20px 0;"><h2 style="font-size:15px;">Watching</h2></div>
+          <div class="obs-status-panel" style="border:none;padding:14px 20px 20px;" id="watch-panel"></div>
+        </div>
+
+        <div class="card strip-card" style="grid-column: span 2;">
+          <h4 style="display:flex;justify-content:space-between;">Educational Radar <a href="../knowledge-map.html" class="view-all" style="font-size:11px;">Knowledge Map →</a></h4>
+          <div style="display:flex;justify-content:center;"><canvas id="radar-canvas-big" width="360" height="320"></canvas></div>
+        </div>
+      </section>
+
+      <section class="grid grid-2" style="align-items:start;">
+        <div class="card" style="padding:20px;">
+          <div class="section-head"><h2 style="font-size:16px;">Recent Activity Feed</h2><a href="activity.html" class="view-all">Full feed &amp; timeline →</a></div>
+          <div id="activity-feed"></div>
+        </div>
+
+        <div class="card" style="padding:20px;">
+          <div class="section-head"><h2 style="font-size:16px;">Official Compliance Library</h2></div>
+          <div id="compliance-library"></div>
+        </div>
+      </section>
+
+      <div class="authority-note" style="margin-top:24px;">
+        <span class="ic">ⓘ</span>
+        <span>Observatory surfaces official publications and links directly to the original source. Official guidance remains authoritative — Arena's commentary and connections exist to support understanding.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="../about.html">About Paradigm</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '../', id: 'observatory', breadcrumb: [{ label: 'Paradigm', href: '../index.html' }, { label: 'Observatory' }] };
+</script>
+<script src="../js/nav.js"></script>
+<script src="../js/data-loader.js"></script>
+<script src="../js/cards.js"></script>
+<script src="../js/radar.js"></script>
+<script>
+(function () {
+  var esc = ParadigmCards.esc;
+  var WATCHED = ['Department for Education', 'Ofsted', 'GOV.UK Publications', 'Information Commissioner’s Office', 'Education Authority NI', 'CCEA', 'ETI', 'UK Parliament Education Committee'];
+
+  document.getElementById('watch-panel').innerHTML = WATCHED.map(function (o) {
+    return '<div class="row"><div class="name"><span class="live-dot"></span>' + esc(o) + '</div><span style="color:var(--ink-soft);font-size:11px;">Watching</span></div>';
+  }).join('');
+  document.getElementById('stat-orgs').textContent = WATCHED.length;
+  document.getElementById('last-checked').textContent = new Date().toLocaleString('en-GB', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+
+  ParadigmRadar.draw('radar-canvas-big', [
+    ['Safeguarding', 0.8], ['SEND', 0.6], ['Attendance', 0.45], ['AP', 0.55],
+    ['AI', 0.75], ['Inspection', 0.35], ['Governance', 0.5], ['Funding', 0.25],
+    ['Behaviour', 0.3], ['Digital Safety', 0.4], ['Filtering', 0.3]
+  ], { radius: 130, labelPad: 40 });
+
+  ParadigmData.getRegulations('OBSERVATORY').then(function (data) {
+    var regs = (data.regulations || []).map(function (r) { if (!r.impactLevel) r.impactLevel = 'Operational'; return r; });
+
+    document.getElementById('stat-pubs').textContent = regs.length;
+    document.getElementById('stat-critical').textContent = regs.filter(function (r) { return r.impactLevel === 'Critical'; }).length;
+    document.getElementById('stat-consult').textContent = regs.filter(function (r) { return r.status === 'Consultation'; }).length;
+
+    document.getElementById('activity-feed').innerHTML = regs.slice(0, 5).map(function (r) {
+      return '<div class="obs-feed-item"><div class="stripe ' + r.impactLevel + '"></div><div>' +
+        '<div style="font-size:13px;font-weight:600;color:var(--navy);"><a href="../policy.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + '</a></div>' +
+        '<div style="font-size:11.5px;color:var(--ink-soft);">' + esc(r.sourceLabel) + ' &middot; ' + ParadigmCards.formatDate(r.statusDate) + ' &middot; ' + esc(r.status) + '</div>' +
+        '</div></div>';
+    }).join('') || '<p style="color:var(--ink-soft);font-size:13px;">No entries yet.</p>';
+
+    var bySection = {};
+    (data.sections || []).forEach(function (s) { bySection[s.id] = { title: s.title, items: [] }; });
+    regs.forEach(function (r) { if (bySection[r.sectionId]) bySection[r.sectionId].items.push(r); });
+
+    document.getElementById('compliance-library').innerHTML = Object.keys(bySection).map(function (id) {
+      var group = bySection[id];
+      if (!group.items.length) return '';
+      return '<div class="lib-group"><h3>' + esc(group.title) + '</h3>' +
+        group.items.map(function (r) { return '<div style="font-size:12.5px;padding:5px 0;"><a href="../policy.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + '</a></div>'; }).join('') +
+        '</div>';
+    }).join('') || '<p style="color:var(--ink-soft);font-size:13px;">No entries yet.</p>';
+  });
+})();
+</script>
+</body>
+</html>

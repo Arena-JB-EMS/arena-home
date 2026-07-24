@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence Trail — The Arena Hub Paradigm</title>
+<meta name="description" content="Follow a topic from official guidance through to Arena's papers, discussion and further reading.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .et-head { max-width: 640px; margin-bottom: 18px; }
+  .et-head p { color: var(--ink-mid); font-size: 14px; }
+  .topic-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+  .topic-picker button {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 600; color: var(--navy-mid);
+    background: var(--paper); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; cursor: pointer;
+  }
+  .topic-picker button.active { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+
+  .trail { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 10px; }
+  .trail-stage { min-width: 220px; max-width: 240px; display: flex; flex-direction: column; }
+  .trail-stage-head { text-align: center; margin-bottom: 10px; }
+  .trail-stage-head .n { font-family: var(--font-head); font-weight: 700; color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .trail-stage-head h3 { font-size: 13.5px; }
+  .trail-arrow { display: flex; align-items: center; justify-content: center; color: var(--ink-soft); min-width: 34px; padding-top: 30px; }
+  .trail-items { display: flex; flex-direction: column; gap: 8px; }
+  .trail-item { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12.5px; }
+  .trail-item a { font-weight: 600; }
+  .trail-item a:hover { color: var(--gold); }
+  .trail-empty { font-size: 12px; color: var(--ink-soft); font-style: italic; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="et-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Evidence Trail</h1>
+        <p>Pick a topic to follow its journey: official guidance, Arena's own papers, professional discussion, open questions and further reading — all in one line.</p>
+      </div>
+
+      <div class="topic-picker" id="topic-picker"></div>
+      <div class="trail" id="trail"></div>
+
+      <div class="authority-note" style="margin-top:28px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Everything to its right in this trail is Arena's own analysis, discussion and further reading — not a replacement for it.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'evidence-trail', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Evidence Trail' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+(function () {
+  var esc = ParadigmCards.esc;
+  var STAGES = [
+    { key: 'official', label: '01', title: 'Official Guidance' },
+    { key: 'papers',   label: '02', title: 'Arena Papers' },
+    { key: 'discussion', label: '03', title: 'Discussion' },
+    { key: 'questions', label: '04', title: 'Related Questions' },
+    { key: 'further',  label: '05', title: 'Further Reading' }
+  ];
+
+  function hasTag(field, topicId) { return String(field || '').indexOf(topicId) !== -1; }
+
+  Promise.all([
+    ParadigmData.getTopics(), ParadigmData.getPapers(), ParadigmData.getQuestions(),
+    ParadigmData.getConversations(), ParadigmData.getRegulations('PARADIGM')
+  ]).then(function (results) {
+    var topics = results[0], papers = results[1], questions = results[2], conversations = results[3], regs = (results[4].regulations || []);
+    var picker = document.getElementById('topic-picker');
+    var current = topics[0] ? topics[0].TOPIC_ID : null;
+
+    topics.forEach(function (t) {
+      var b = document.createElement('button');
+      b.textContent = t.LABEL; b.dataset.topic = t.TOPIC_ID;
+      if (t.TOPIC_ID === current) b.classList.add('active');
+      b.onclick = function () {
+        document.querySelectorAll('#topic-picker button').forEach(function (x) { x.classList.remove('active'); });
+        b.classList.add('active');
+        renderTrail(t.TOPIC_ID);
+      };
+      picker.appendChild(b);
+    });
+
+    function renderTrail(topicId) {
+      var official = regs.filter(function (r) { return (r.topicTags || []).indexOf(topicId) !== -1; });
+      var papersT = papers.filter(function (p) { return hasTag(p.TAGS, topicId); });
+      var discussionT = conversations.filter(function (c) { return hasTag(c.TAGS, topicId); });
+      var questionsT = questions.filter(function (q) { return hasTag(q.TAGS, topicId); });
+      var furtherT = papersT.slice(0, 2);
+
+      var data = {
+        official: official.map(function (r) { return '<div class="trail-item"><a href="policy.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + '</a></div>'; }),
+        papers: papersT.map(function (p) { return '<div class="trail-item"><a href="document.html?id=' + encodeURIComponent(p.PAPER_ID) + '">' + esc(p.TITLE) + '</a></div>'; }),
+        discussion: discussionT.map(function (c) { return '<div class="trail-item"><a href="forum/topic.html?id=' + encodeURIComponent(c.CONV_ID) + '">' + esc(c.TITLE) + '</a></div>'; }),
+        questions: questionsT.map(function (q) { return '<div class="trail-item"><a href="questions.html#' + encodeURIComponent(q.QUESTION_ID) + '">' + esc(q.QUESTION_TEXT) + '</a></div>'; }),
+        further: furtherT.map(function (p) { return '<div class="trail-item"><a href="document.html?id=' + encodeURIComponent(p.PAPER_ID) + '">' + esc(p.TITLE) + '</a></div>'; })
+      };
+
+      var html = '';
+      STAGES.forEach(function (s, i) {
+        html += '<div class="trail-stage"><div class="trail-stage-head"><div class="n">' + s.label + '</div><h3>' + s.title + '</h3></div>' +
+          '<div class="trail-items">' + (data[s.key].length ? data[s.key].join('') : '<div class="trail-empty">Nothing linked yet.</div>') + '</div></div>';
+        if (i < STAGES.length - 1) html += '<div class="trail-arrow">→</div>';
+      });
+      document.getElementById('trail').innerHTML = html;
+    }
+
+    if (current) renderTrail(current);
+  });
+})();
+</script>
+</body>
+</html>

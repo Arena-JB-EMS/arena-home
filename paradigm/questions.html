@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emerging Questions — The Arena Hub Paradigm</title>
+<meta name="description" content="Questions not yet answered — the issues that may shape tomorrow's policy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .q-head { max-width: 640px; margin-bottom: 20px; }
+  .q-head p { color: var(--ink-mid); font-size: 14px; }
+  .q-row { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 10px; scroll-margin-top: 20px; }
+  .q-row:target { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-dim); }
+  .q-row .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .q-row h3 { font-size: 15px; }
+  .q-row .vote { font-size: 11.5px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="q-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Emerging Questions</h1>
+        <p>Questions the sector hasn't yet answered. Voting and threaded discussion are planned but not yet open — this shows how they'll be organised.</p>
+      </div>
+
+      <div id="q-list"></div>
+
+      <div class="authority-note" style="margin-top:16px;">
+        <span class="ic">ⓘ</span>
+        <span>These are open questions, not official positions — Arena included.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'questions', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Emerging Questions' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+  var esc = ParadigmCards.esc;
+  ParadigmData.getQuestions().then(function (rows) {
+    document.getElementById('q-list').innerHTML = rows.map(function (q) {
+      return '<div class="q-row" id="' + esc(q.QUESTION_ID) + '">' +
+        '<div class="top"><span class="pill amber"><span class="dot"></span>' + esc(q.STATUS) + '</span><span class="vote">Voting opens soon</span></div>' +
+        '<h3>' + esc(q.QUESTION_TEXT) + '</h3>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">' + ParadigmCards.tagList(q.TAGS) + '</div>' +
+        '</div>';
+    }).join('');
+  });
+</script>
+</body>
+</html>

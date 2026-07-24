@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="page-title">Topic — The Arena Hub Paradigm Forum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/paradigm-core.css">
+<link rel="stylesheet" href="../css/forum.css">
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+      <div id="topic-content" style="max-width:720px;">
+        <p style="color:var(--ink-soft);font-size:13px;">Loading…</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="../about.html">About Paradigm</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '../', id: 'forum', breadcrumb: [{ label: 'Paradigm', href: '../index.html' }, { label: 'Forum', href: 'index.html' }, { label: 'Topic' }] };
+</script>
+<script src="../js/nav.js"></script>
+<script src="../js/data-loader.js"></script>
+<script src="../js/cards.js"></script>
+<script src="../js/forum-inert.js"></script>
+<script>
+(function () {
+  var esc = ParadigmCards.esc;
+  var id = new URLSearchParams(window.location.search).get('id');
+
+  function idList(field) { return String(field || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean); }
+
+  Promise.all([ParadigmData.getConversations(), ParadigmData.getPapers()]).then(function (results) {
+    var conv = results[0].filter(function (c) { return c.CONV_ID === id; })[0];
+    var papers = results[1];
+    var mount = document.getElementById('topic-content');
+
+    if (!conv) {
+      mount.innerHTML = '<p style="color:var(--ink-soft);font-size:14px;">Topic not found. <a href="index.html">Back to Forum</a>.</p>';
+      return;
+    }
+
+    document.getElementById('page-title').textContent = conv.TITLE + ' — Forum — The Arena Hub Paradigm';
+    document.getElementById('paradigm-breadcrumb').innerHTML =
+      '<a href="../index.html">Paradigm</a><span class="sep">/</span><a href="index.html">Forum</a><span class="sep">/</span><span class="current">' + esc(conv.TITLE) + '</span>';
+
+    var related = idList(conv.RELATED_PAPER_IDS).map(function (rid) { return papers.filter(function (p) { return p.PAPER_ID === rid; })[0]; }).filter(Boolean);
+
+    var html = '<span class="eyebrow">Forum</span><h1 style="font-size:24px;margin-bottom:10px;">' + esc(conv.TITLE) + '</h1>';
+    html += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;"><span class="pill blue"><span class="dot"></span>' + esc(conv.ACTIVITY_LEVEL || 'Low') + ' activity</span>' + ParadigmCards.tagList(conv.TAGS) + '</div>';
+    html += '<p style="color:var(--ink-mid);font-size:14px;margin-bottom:20px;">' + esc(conv.DESCRIPTION) + '</p>';
+
+    if (related.length) {
+      html += '<div class="card" style="padding:16px 18px;margin-bottom:16px;"><h3 style="font-size:13px;margin-bottom:8px;">Related papers</h3>' +
+        related.map(function (p) { return '<div style="font-size:12.5px;padding:4px 0;"><a href="../document.html?id=' + encodeURIComponent(p.PAPER_ID) + '">' + esc(p.TITLE) + '</a></div>'; }).join('') + '</div>';
+    }
+
+    html += '<div class="reply-stub" style="margin-bottom:16px;">Replies are not yet open in this preview.</div>';
+    html += '<div id="inert-mount"></div>';
+
+    mount.innerHTML = html;
+    ParadigmForumInert.render(document.getElementById('inert-mount'), {
+      submitLabel: 'Add to this discussion',
+      fields: [{ label: 'Your contribution', type: 'textarea', placeholder: 'Share a perspective or experience…' }]
+    });
+  });
+})();
+</script>
+</body>
+</html>

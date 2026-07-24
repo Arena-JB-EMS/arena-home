@@ -1,0 +1,15 @@
+[
+  {"TOPIC_ID":"TOP_SAFEGUARDING","LABEL":"Safeguarding","CATEGORY":"Safeguarding","ICON":"shield","SORT_ORDER":1,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_SEND","LABEL":"SEND","CATEGORY":"SEND","ICON":"send","SORT_ORDER":2,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_AP","LABEL":"Alternative Provision","CATEGORY":"Alternative Provision","ICON":"ap","SORT_ORDER":3,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_ATTENDANCE","LABEL":"Attendance","CATEGORY":"Attendance","ICON":"attendance","SORT_ORDER":4,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_AI","LABEL":"Artificial Intelligence","CATEGORY":"Artificial Intelligence","ICON":"ai","SORT_ORDER":5,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_INSPECTION","LABEL":"Inspection","CATEGORY":"Inspection","ICON":"inspection","SORT_ORDER":6,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_GOVERNANCE","LABEL":"Governance","CATEGORY":"Governance","ICON":"governance","SORT_ORDER":7,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_FUNDING","LABEL":"Funding","CATEGORY":"Funding","ICON":"funding","SORT_ORDER":8,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_BEHAVIOUR","LABEL":"Behaviour","CATEGORY":"Behaviour","ICON":"behaviour","SORT_ORDER":9,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_DIGITAL_SAFETY","LABEL":"Digital Safety","CATEGORY":"Digital Safety","ICON":"digital","SORT_ORDER":10,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_FILTERING","LABEL":"Filtering","CATEGORY":"Filtering","ICON":"filtering","SORT_ORDER":11,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_DATA_SOVEREIGNTY","LABEL":"Data Sovereignty","CATEGORY":"Data Sovereignty","ICON":"data","SORT_ORDER":12,"ACTIVE":"TRUE"},
+  {"TOPIC_ID":"TOP_ONLINE_SAFETY","LABEL":"Online Safety","CATEGORY":"Online Safety","ICON":"online","SORT_ORDER":13,"ACTIVE":"TRUE"}
+]

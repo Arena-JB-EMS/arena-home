@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Activity Feed — The Arena Hub Observatory</title>
+<meta name="description" content="Full activity feed, change detection and policy timelines for official educational guidance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/paradigm-core.css">
+<link rel="stylesheet" href="../css/observatory.css">
+<style>
+  .timeline-stages { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+  .timeline-stages span { font-size: 10.5px; padding: 3px 9px; border-radius: 20px; background: var(--paper-grey); color: var(--ink-soft); }
+  .timeline-stages span.done { background: var(--gold-dim); color: var(--navy); font-weight: 600; }
+  .change-box { background: var(--paper-grey); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px; margin-top: 8px; }
+</style>
+</head>
+<body class="obs-content">
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <span class="eyebrow">Observatory</span>
+      <h1 style="font-size:26px;margin-bottom:8px;">Activity Feed</h1>
+      <p style="color:var(--ink-mid);font-size:14px;max-width:640px;margin-bottom:20px;">Every tracked publication, in order, with what changed and where it sits in its own policy lifecycle.</p>
+
+      <div id="feed-list" style="max-width:760px;"></div>
+
+      <div class="authority-note" style="margin-top:20px;max-width:760px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Change summaries below are Arena's own reading of what moved — always confirm against the original.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="../about.html">About Paradigm</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '../', id: 'observatory', breadcrumb: [{ label: 'Paradigm', href: '../index.html' }, { label: 'Observatory', href: 'index.html' }, { label: 'Activity Feed' }] };
+</script>
+<script src="../js/nav.js"></script>
+<script src="../js/data-loader.js"></script>
+<script src="../js/cards.js"></script>
+<script>
+(function () {
+  var esc = ParadigmCards.esc;
+  var STAGES = ['Consultation', 'Draft', 'Government Response', 'Final Publication', 'Arena Commentary', 'Community Discussion'];
+
+  function stageIndexForStatus(status) {
+    if (status === 'Consultation' || status === 'Upcoming') return 0;
+    if (status === 'Reform') return 2;
+    if (status === 'Active') return 3;
+    return 3;
+  }
+
+  ParadigmData.getRegulations('OBSERVATORY').then(function (data) {
+    var regs = (data.regulations || []).sort(function (a, b) { return new Date(b.statusDate) - new Date(a.statusDate); });
+    var list = document.getElementById('feed-list');
+    list.innerHTML = regs.map(function (r) {
+      var doneUpTo = stageIndexForStatus(r.status);
+      var stages = STAGES.map(function (s, i) { return '<span class="' + (i <= doneUpTo ? 'done' : '') + '">' + s + '</span>'; }).join('');
+      return '<div class="card" style="padding:18px 20px;margin-bottom:12px;">' +
+        '<div style="display:flex;justify-content:space-between;gap:10px;">' +
+          '<div><a href="../policy.html?id=' + encodeURIComponent(r.id) + '" style="font-weight:600;font-size:14.5px;color:var(--navy);">' + esc(r.title) + '</a>' +
+          '<div style="font-size:11.5px;color:var(--ink-soft);margin-top:3px;">' + esc(r.sourceLabel) + ' &middot; ' + ParadigmCards.formatDate(r.statusDate) + '</div></div>' +
+          '<span class="pill ' + (ParadigmCards.IMPACT_PILL[r.impactLevel] || 'blue') + '"><span class="dot"></span>' + esc(r.impactLevel || 'Operational') + '</span>' +
+        '</div>' +
+        '<div class="timeline-stages">' + stages + '</div>' +
+        '<div class="change-box"><strong>What changed:</strong> ' + esc(r.summary) + '</div>' +
+      '</div>';
+    }).join('') || '<p style="color:var(--ink-soft);font-size:13px;">No entries yet.</p>';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Library — The Arena Hub Paradigm</title>
+<meta name="description" content="White papers, discussion papers, frameworks and constitutional papers from The Arena Hub.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .lib-head { margin-bottom: 22px; }
+  .lib-head p { color: var(--ink-mid); font-size: 14px; max-width: 640px; }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0 24px; }
+  .filters button {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 600; color: var(--navy-mid);
+    background: var(--paper); border: 1px solid var(--border); border-radius: 20px;
+    padding: 6px 14px; cursor: pointer;
+  }
+  .filters button.active { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+  .filters .tag-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+  .filters select {
+    font-family: var(--font-body); font-size: 12.5px; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 6px 10px; background: var(--paper);
+  }
+  #results-count { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="lib-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Research Library</h1>
+        <p>Arena-authored white papers, discussion papers, position papers, frameworks and constitutional papers. Official guidance remains the authoritative source elsewhere — this library is Arena's own thinking, offered for scrutiny and discussion.</p>
+      </div>
+
+      <div class="filters" id="filters">
+        <button data-type="ALL" class="active">All types</button>
+        <button data-type="Constitutional Paper">Constitutional Papers</button>
+        <button data-type="Position Paper">Position Papers</button>
+        <button data-type="Discussion Paper">Discussion Papers</button>
+        <button data-type="Framework">Frameworks</button>
+        <select id="tag-select" aria-label="Filter by topic">
+          <option value="">All topics</option>
+        </select>
+      </div>
+
+      <div id="results-count"></div>
+      <div class="grid grid-3" id="library-grid"></div>
+
+      <div class="authority-note" style="margin-top:28px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. These papers are Arena's own analysis and commentary, offered to support professional understanding and discussion.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'library', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Research Library' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+(function () {
+  var allPapers = [];
+  var activeType = 'ALL';
+  var activeTag = '';
+
+  function render() {
+    var filtered = allPapers.filter(function (p) {
+      var typeOk = activeType === 'ALL' || p.TYPE === activeType;
+      var tagOk = !activeTag || String(p.TAGS || '').indexOf(activeTag) !== -1;
+      return typeOk && tagOk;
+    });
+    document.getElementById('results-count').textContent = filtered.length + ' paper' + (filtered.length === 1 ? '' : 's');
+    var grid = document.getElementById('library-grid');
+    grid.innerHTML = filtered.map(function (p) { return ParadigmCards.paperCard(p, ''); }).join('') ||
+      '<p style="color:var(--ink-soft);font-size:13px;">No papers match this filter yet.</p>';
+  }
+
+  Promise.all([ParadigmData.getPapers(), ParadigmData.getTopics()]).then(function (results) {
+    allPapers = results[0].sort(function (a, b) { return (a.SORT_ORDER || 99) - (b.SORT_ORDER || 99); });
+    var topics = results[1];
+    var sel = document.getElementById('tag-select');
+    topics.forEach(function (t) {
+      var opt = document.createElement('option');
+      opt.value = t.TOPIC_ID; opt.textContent = t.LABEL;
+      sel.appendChild(opt);
+    });
+    render();
+  });
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-type]');
+    if (!btn) return;
+    document.querySelectorAll('#filters button').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    activeType = btn.getAttribute('data-type');
+    render();
+  });
+
+  document.getElementById('tag-select').addEventListener('change', function (e) {
+    activeTag = e.target.value;
+    render();
+  });
+})();
+</script>
+</body>
+</html>

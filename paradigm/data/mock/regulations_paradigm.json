@@ -1,0 +1,65 @@
+{
+  "_note": "ILLUSTRATIVE MOCK DATA ONLY. Matches the shape COMPLIANCE_REGISTRY.gs doGet() already returns, extended with topicTags/impactLevel per Stage 5.2. Real Policy Watch / Observatory content must come from Jon curating actual rows in the live Compliance Registry sheet (tagged PRODUCT_ID=PARADIGM/OBSERVATORY) — nothing here should be treated as a verified current statement of any policy's status. Replace this file's role entirely once CONFIG.compliance.source = 'live' in data-loader.js.",
+  "success": true,
+  "product": "PARADIGM",
+  "lastUpdated": "24 Jul 2026",
+  "sections": [
+    { "id": "SEC_SAFEGUARDING", "title": "Safeguarding", "label": "Safeguarding", "icon": "shield", "order": 1 },
+    { "id": "SEC_SEND",         "title": "SEND",         "label": "SEND",         "icon": "send",   "order": 2 },
+    { "id": "SEC_AP",           "title": "Alternative Provision", "label": "Alternative Provision", "icon": "ap", "order": 3 },
+    { "id": "SEC_DATA",         "title": "Data Protection", "label": "Data Protection", "icon": "data", "order": 4 },
+    { "id": "SEC_INSPECTION",   "title": "Inspection",   "label": "Inspection",   "icon": "inspection", "order": 5 }
+  ],
+  "regulations": [
+    {
+      "id": "REG_P001", "sectionId": "SEC_SAFEGUARDING",
+      "title": "Keeping Children Safe in Education",
+      "status": "Active", "statusDate": "2026-09-01",
+      "summary": "Statutory safeguarding guidance for schools and colleges in England — placeholder entry pending real Compliance Registry data.",
+      "arenaCompliance": "",
+      "pillars": [], "topicTags": ["TOP_SAFEGUARDING"], "impactLevel": "Critical",
+      "sourceUrl": "https://www.gov.uk/government/publications/keeping-children-safe-in-education--2",
+      "sourceLabel": "Department for Education", "order": 1
+    },
+    {
+      "id": "REG_P002", "sectionId": "SEC_SEND",
+      "title": "SEND Code of Practice: 0 to 25 years",
+      "status": "Active", "statusDate": "2026-01-01",
+      "summary": "Statutory guidance on duties, policies and procedures for SEND — placeholder entry pending real Compliance Registry data.",
+      "arenaCompliance": "",
+      "pillars": [], "topicTags": ["TOP_SEND"], "impactLevel": "Significant",
+      "sourceUrl": "https://www.gov.uk/government/publications/send-code-of-practice-0-to-25",
+      "sourceLabel": "Department for Education", "order": 2
+    },
+    {
+      "id": "REG_P003", "sectionId": "SEC_AP",
+      "title": "Alternative Provision Statutory Guidance",
+      "status": "Active", "statusDate": "2026-03-01",
+      "summary": "Statutory guidance for local authorities, school leaders and governing bodies on Alternative Provision — placeholder entry pending real Compliance Registry data.",
+      "arenaCompliance": "",
+      "pillars": [], "topicTags": ["TOP_AP"], "impactLevel": "Operational",
+      "sourceUrl": "https://www.gov.uk/government/publications/alternative-provision",
+      "sourceLabel": "Department for Education", "order": 3
+    },
+    {
+      "id": "REG_P004", "sectionId": "SEC_DATA",
+      "title": "ICO Guidance on AI and Data Protection",
+      "status": "Consultation", "statusDate": "2026-07-09",
+      "summary": "ICO guidance on applying UK GDPR to AI systems, including those used in education settings — placeholder entry pending real Compliance Registry data.",
+      "arenaCompliance": "",
+      "pillars": [], "topicTags": ["TOP_AI","TOP_DATA_SOVEREIGNTY"], "impactLevel": "Significant",
+      "sourceUrl": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/",
+      "sourceLabel": "Information Commissioner's Office", "order": 4
+    },
+    {
+      "id": "REG_P005", "sectionId": "SEC_INSPECTION",
+      "title": "School Inspection Handbook",
+      "status": "Consultation", "statusDate": "2026-09-15",
+      "summary": "Ofsted's handbook setting out how schools are inspected and judged — placeholder entry pending real Compliance Registry data.",
+      "arenaCompliance": "",
+      "pillars": [], "topicTags": ["TOP_INSPECTION","TOP_GOVERNANCE"], "impactLevel": "Significant",
+      "sourceUrl": "https://www.gov.uk/government/publications/school-inspection-handbook-eif",
+      "sourceLabel": "Ofsted", "order": 5
+    }
+  ]
+}

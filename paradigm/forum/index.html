@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forum — The Arena Hub Paradigm</title>
+<meta name="description" content="What professionals discuss — questions, debates and implementation experience.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/paradigm-core.css">
+<link rel="stylesheet" href="../css/forum.css">
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <span class="eyebrow">Community</span>
+      <h1 style="font-size:26px;margin-bottom:8px;">Forum</h1>
+      <p style="color:var(--ink-mid);font-size:14px;max-width:640px;margin-bottom:22px;">What professionals discuss — questions, debate and implementation experience. Not comments: genuine professional conversation.</p>
+
+      <div class="grid grid-2" style="align-items:start;gap:24px;">
+        <div>
+          <div class="section-head"><h2 style="font-size:16px;">Active topics</h2></div>
+          <div class="grid grid-2" id="topic-grid" style="grid-template-columns:1fr 1fr;"></div>
+        </div>
+        <div>
+          <div class="section-head"><h2 style="font-size:16px;">Submit a Question</h2></div>
+          <div id="inert-mount"></div>
+        </div>
+      </div>
+
+      <div class="authority-note" style="margin-top:24px;">
+        <span class="ic">ⓘ</span>
+        <span>Forum discussion is professional opinion, not official guidance or an Arena position.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="../about.html">About Paradigm</a>
+        <a href="../../terms.html">Terms of Use</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+        <a href="../../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '../', id: 'forum', breadcrumb: [{ label: 'Paradigm', href: '../index.html' }, { label: 'Forum' }] };
+</script>
+<script src="../js/nav.js"></script>
+<script src="../js/data-loader.js"></script>
+<script src="../js/cards.js"></script>
+<script src="../js/forum-inert.js"></script>
+<script>
+  ParadigmData.getConversations().then(function (rows) {
+    document.getElementById('topic-grid').innerHTML = rows.map(function (c) { return ParadigmCards.conversationCard(c, '../'); }).join('');
+  });
+  ParadigmData.getTopics().then(function (topics) {
+    ParadigmForumInert.render(document.getElementById('inert-mount'), {
+      submitLabel: 'Submit a Question',
+      topicOptions: topics.map(function (t) { return t.LABEL; })
+    });
+  });
+</script>
+</body>
+</html>

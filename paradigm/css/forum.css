@@ -1,0 +1,18 @@
+/* ============================================================
+   File:    forum.css
+   Project: The Arena Hub Paradigm — Forum
+   Version: 1.0.0
+   Sync:    2026-07-24
+   Owner:   The Arena Hub Ltd · Jonathan Baguley
+   ============================================================ */
+
+.inert-form { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; }
+.inert-form .field { margin-bottom: 14px; }
+.inert-form label { display: block; font-size: 12.5px; font-weight: 600; color: var(--navy-mid); margin-bottom: 5px; }
+.inert-form input, .inert-form textarea, .inert-form select {
+  width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 9px 12px; font-family: var(--font-body); font-size: 13.5px; background: var(--paper-grey);
+}
+.inert-form textarea { min-height: 90px; resize: vertical; }
+
+.reply-stub { background: var(--paper-grey); border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; font-size: 12.5px; color: var(--ink-soft); }

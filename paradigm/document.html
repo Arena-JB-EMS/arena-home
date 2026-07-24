@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="page-title">Paper — The Arena Hub Paradigm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .doc-header { max-width: 760px; margin-bottom: 24px; }
+  .doc-header h1 { font-size: 28px; margin: 10px 0 14px; }
+  .doc-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--ink-soft); margin-bottom: 14px; }
+  .doc-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .doc-actions { display: flex; gap: 10px; margin-bottom: 6px; }
+  .doc-body {
+    max-width: 760px; background: var(--paper); border: 1px solid var(--border);
+    border-radius: var(--radius-md); padding: 28px; margin-bottom: 24px; font-size: 14.5px; color: var(--ink-mid);
+  }
+  .discussion-scaffold { max-width: 760px; display: flex; flex-direction: column; gap: 16px; }
+  .discussion-block { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px 20px; }
+  .discussion-block h3 { font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .discussion-block p { font-size: 13px; color: var(--ink-mid); }
+  .related-rail { margin-top: 28px; }
+  .related-rail h2 { font-size: 16px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div id="doc-content">
+        <p style="color:var(--ink-soft);font-size:13px;">Loading…</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'library', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Research Library', href: 'library.html' }, { label: 'Paper' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  var esc = ParadigmCards.esc;
+
+  function idList(field) {
+    return String(field || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  Promise.all([ParadigmData.getPapers(), ParadigmData.getQuestions()]).then(function (results) {
+    var papers = results[0];
+    var questions = results[1];
+    var paper = papers.filter(function (p) { return p.PAPER_ID === id; })[0];
+    var mount = document.getElementById('doc-content');
+
+    if (!paper) {
+      mount.innerHTML = '<p style="color:var(--ink-soft);font-size:14px;">Paper not found. <a href="library.html">Back to the Research Library</a>.</p>';
+      return;
+    }
+
+    document.getElementById('page-title').textContent = paper.TITLE + ' — The Arena Hub Paradigm';
+    document.getElementById('paradigm-breadcrumb').innerHTML =
+      '<a href="index.html">Paradigm</a><span class="sep">/</span><a href="library.html">Research Library</a><span class="sep">/</span><span class="current">' + esc(paper.TITLE) + '</span>';
+
+    var relatedPapers = idList(paper.RELATED_PAPER_IDS).map(function (rid) {
+      return papers.filter(function (p) { return p.PAPER_ID === rid; })[0];
+    }).filter(Boolean);
+
+    var relatedQuestions = idList(paper.RELATED_QUESTION_IDS).map(function (qid) {
+      return questions.filter(function (q) { return q.QUESTION_ID === qid; })[0];
+    }).filter(Boolean);
+
+    var html = '';
+    html += '<div class="doc-header">';
+    html += '<span class="eyebrow">' + esc(paper.TYPE) + '</span>';
+    html += '<h1>' + esc(paper.TITLE) + '</h1>';
+    html += '<div class="doc-meta"><span>' + ParadigmCards.formatDate(paper.DATE_PUBLISHED) + '</span><span>&middot;</span><span>The Arena Hub</span></div>';
+    html += '<div class="doc-tags">' + ParadigmCards.tagList(paper.TAGS) + '</div>';
+    html += '<div class="doc-actions">';
+    if (paper.BODY_URL) html += '<a class="btn btn-primary" href="' + esc(paper.BODY_URL) + '" target="_blank" rel="noopener">Read the full paper</a>';
+    if (paper.PDF_URL) html += '<a class="btn btn-ghost" href="' + esc(paper.PDF_URL) + '" target="_blank" rel="noopener">Download PDF</a>';
+    html += '</div></div>';
+
+    html += '<div class="doc-body"><p>' + esc(paper.SHORT_DESCRIPTION) + '</p></div>';
+
+    html += '<div class="discussion-scaffold">';
+    html += '<div class="discussion-block"><h3>❓ Questions Raised</h3><p>' +
+      (relatedQuestions.length ? relatedQuestions.map(function (q) { return esc(q.QUESTION_TEXT); }).join('<br>') : 'No linked questions yet.') + '</p></div>';
+    html += '<div class="discussion-block"><h3>💬 Professional Discussion</h3><p>Discussion is not yet open on Paradigm — see <a href="forum/index.html">Forum</a> for how this will work.</p><div class="inert-note">Community submissions are not yet live.</div></div>';
+    html += '<div class="discussion-block"><h3>🏛️ Arena Commentary</h3><p>This paper represents Arena\'s own analysis and is offered to support professional understanding, not as a substitute for official guidance.</p></div>';
+    html += '<div class="discussion-block"><h3>📚 Related Reading</h3><div class="grid grid-2" style="margin-top:8px;">' +
+      (relatedPapers.length ? relatedPapers.map(function (p) { return ParadigmCards.paperCard(p, ''); }).join('') : '<p style="color:var(--ink-soft);font-size:13px;">No related papers linked yet.</p>') + '</div></div>';
+    html += '<div class="discussion-block"><h3>📝 Community Feedback</h3><p>Not yet open for submissions.</p><div class="inert-note">This section will let readers suggest corrections or share implementation experience once Forum submissions go live.</div></div>';
+    html += '</div>';
+
+    html += '<div class="authority-note" style="margin-top:24px;max-width:760px;"><span class="ic">ⓘ</span><span>Official guidance remains the authoritative source. Arena commentary exists to support understanding and professional discussion.</span></div>';
+
+    mount.innerHTML = html;
+  });
+})();
+</script>
+</body>
+</html>

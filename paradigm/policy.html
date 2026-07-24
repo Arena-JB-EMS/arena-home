@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title id="page-title">Policy Watch — The Arena Hub Paradigm</title>
+<meta name="description" content="Current official educational guidance — DfE, Ofsted, ICO, Education NI, CCEA and more — with Arena commentary and discussion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .pw-head { margin-bottom: 20px; max-width: 640px; }
+  .pw-head p { color: var(--ink-mid); font-size: 14px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .filters button {
+    font-family: var(--font-body); font-size: 12.5px; font-weight: 600; color: var(--navy-mid);
+    background: var(--paper); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; cursor: pointer;
+  }
+  .filters button.active { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+
+  .reg-list { display: flex; flex-direction: column; gap: 10px; }
+  .reg-row {
+    background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md);
+    padding: 16px 20px; cursor: pointer;
+  }
+  .reg-row-head { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+  .reg-row-head-left { display: flex; align-items: center; gap: 10px; }
+  .reg-row h3 { font-size: 14.5px; margin: 0; }
+  .reg-row .meta { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .reg-row .chev { transition: transform 0.15s; color: var(--ink-soft); }
+  .reg-row.open .chev { transform: rotate(90deg); }
+  .reg-detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--ink-mid); }
+  .reg-row.open .reg-detail { display: block; }
+  .reg-detail .db { margin-bottom: 12px; }
+  .reg-detail .db h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--navy-mid); margin-bottom: 4px; }
+  .reg-detail .actions { display: flex; gap: 10px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="pw-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Policy Watch</h1>
+        <p>Current educational guidance from DfE, Ofsted, ICO, Education NI and others — each entry links to the official source, with Arena's own commentary and open questions alongside it.</p>
+      </div>
+
+      <div class="filters" id="filters">
+        <button data-impact="ALL" class="active">All</button>
+        <button data-impact="Critical">Critical</button>
+        <button data-impact="Significant">Significant</button>
+        <button data-impact="Operational">Operational</button>
+        <button data-impact="Low">Low</button>
+      </div>
+
+      <div class="reg-list" id="reg-list"></div>
+
+      <div class="authority-note" style="margin-top:24px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Arena commentary exists to support understanding and professional discussion.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'policy', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Policy Watch' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+(function () {
+  var esc = ParadigmCards.esc;
+  var openId = new URLSearchParams(window.location.search).get('id');
+  var allRegs = [];
+  var activeImpact = 'ALL';
+
+  function row(r) {
+    var impactPill = ParadigmCards.IMPACT_PILL[r.impactLevel] || 'blue';
+    var statusPill = ParadigmCards.STATUS_PILL[r.status] || 'blue';
+    var tags = (r.topicTags || []).map(function (t) { return '<span class="tag">' + esc(t.replace('TOP_', '').replace(/_/g, ' ')) + '</span>'; }).join('');
+    var isOpen = r.id === openId;
+    return (
+      '<div class="reg-row' + (isOpen ? ' open' : '') + '" data-id="' + esc(r.id) + '">' +
+        '<div class="reg-row-head" role="button" tabindex="0" aria-expanded="' + (isOpen ? 'true' : 'false') + '" aria-label="Toggle details for ' + esc(r.title) + '">' +
+          '<div class="reg-row-head-left">' +
+            '<span class="pill ' + impactPill + '"><span class="dot"></span>' + esc(r.impactLevel || 'Operational') + '</span>' +
+            '<div><h3>' + esc(r.title) + '</h3><div class="meta">' + esc(r.sourceLabel) + ' &middot; ' + ParadigmCards.formatDate(r.statusDate) + '</div></div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:10px;"><span class="pill ' + statusPill + '">' + esc(r.status) + '</span><span class="chev">›</span></div>' +
+        '</div>' +
+        '<div class="reg-detail">' +
+          '<div class="db"><h4>Summary</h4><p>' + esc(r.summary) + '</p></div>' +
+          '<div class="db"><h4>Topics</h4>' + (tags || '<span style="color:var(--ink-soft);">Not yet tagged</span>') + '</div>' +
+          '<div class="db"><h4>Arena Commentary</h4><p>' + (r.arenaCompliance ? esc(r.arenaCompliance) : 'Not yet written for this entry.') + '</p></div>' +
+          '<div class="db"><h4>Questions Raised &amp; Discussion</h4><p>Discussion is not yet open — see <a href="forum/index.html">Forum</a> for how this will work.</p><div class="inert-note">Community discussion is not yet live.</div></div>' +
+          '<div class="actions">' +
+            (r.sourceUrl ? '<a class="btn btn-primary" href="' + esc(r.sourceUrl) + '" target="_blank" rel="noopener">Read Official Guidance</a>' : '') +
+            '<a class="btn btn-ghost" href="explore.html?q=' + encodeURIComponent(r.title) + '">Explore this topic</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function render() {
+    var filtered = activeImpact === 'ALL' ? allRegs : allRegs.filter(function (r) { return r.impactLevel === activeImpact; });
+    document.getElementById('reg-list').innerHTML = filtered.map(row).join('') ||
+      '<p style="color:var(--ink-soft);font-size:13px;">No entries match this filter.</p>';
+  }
+
+  ParadigmData.getRegulations('PARADIGM').then(function (data) {
+    allRegs = (data.regulations || []).map(function (r) { if (!r.impactLevel) r.impactLevel = 'Operational'; return r; });
+    render();
+  });
+
+  document.getElementById('filters').addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-impact]');
+    if (!btn) return;
+    document.querySelectorAll('#filters button').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    activeImpact = btn.getAttribute('data-impact');
+    render();
+  });
+
+  function toggleRow(head) {
+    var row = head.parentElement;
+    var nowOpen = row.classList.toggle('open');
+    head.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+  }
+
+  document.getElementById('reg-list').addEventListener('click', function (e) {
+    var head = e.target.closest('.reg-row-head');
+    if (!head) return;
+    toggleRow(head);
+  });
+  document.getElementById('reg-list').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var head = e.target.closest('.reg-row-head');
+    if (!head) return;
+    e.preventDefault();
+    toggleRow(head);
+  });
+})();
+</script>
+</body>
+</html>

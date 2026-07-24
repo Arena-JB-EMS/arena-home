@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Map — The Arena Hub Paradigm</title>
+<meta name="description" content="How educational topics connect — safeguarding, AI, SEND, governance and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .km-head { max-width: 640px; margin-bottom: 18px; }
+  .km-head p { color: var(--ink-mid); font-size: 14px; }
+  .km-layout { display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+  .km-canvas-wrap { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px; }
+  .km-side { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 18px; align-self: start; }
+  .km-side h3 { font-size: 15px; margin-bottom: 10px; }
+  .km-side .link-item { font-size: 12.5px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+  .km-side .link-item:last-child { border-bottom: none; }
+  .km-node text { font-family: var(--font-body); font-size: 10.5px; fill: var(--navy); }
+  .km-node circle { fill: var(--paper); stroke: var(--gold); stroke-width: 1.6; cursor: pointer; }
+  .km-node:hover circle, .km-node.active circle { fill: var(--gold-dim); stroke: var(--navy); }
+  .km-edge { stroke: var(--border); stroke-width: 1.2; }
+  .km-edge.active { stroke: var(--gold); stroke-width: 2; }
+  @media (max-width: 900px) { .km-layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="km-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Knowledge Map</h1>
+        <p>How the topics Arena covers relate to one another. Select a topic to see its connections and jump to related content.</p>
+      </div>
+
+      <div class="km-layout">
+        <div class="km-canvas-wrap">
+          <svg id="km-svg" viewBox="0 0 640 520" role="img" aria-label="Knowledge map of connected education topics"></svg>
+        </div>
+        <aside class="km-side" id="km-side">
+          <h3>Select a topic</h3>
+          <p style="font-size:12.5px;color:var(--ink-soft);">Click any node to see its connections and jump to related papers, guidance and questions.</p>
+        </aside>
+      </div>
+
+      <div class="authority-note" style="margin-top:24px;">
+        <span class="ic">ⓘ</span>
+        <span>These connections reflect Arena's own analysis of how topics relate in practice — not an official taxonomy.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'knowledge-map', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Knowledge Map' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/knowledge-map.js"></script>
+</body>
+</html>

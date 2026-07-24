@@ -1,0 +1,39 @@
+/* ============================================================
+   File:    observatory.css
+   Project: The Arena Hub Paradigm — Observatory
+   Version: 1.0.0
+   Sync:    2026-07-24
+   Owner:   The Arena Hub Ltd · Jonathan Baguley
+   ============================================================
+   Loaded in addition to paradigm-core.css on Observatory pages only.
+   Keeps the same Navy/Gold palette but leans quieter and more
+   technical ("mission control", not "breaking news") per the
+   blueprint's own visual-style instruction. No new brand colours.
+   ============================================================ */
+
+.obs-content { background: var(--paper-alt); }
+
+.obs-stat-tile {
+  background: var(--navy); color: #fff;
+  border-radius: var(--radius-md); padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.obs-stat-tile b {
+  display: block; font-family: 'Rajdhani', monospace, sans-serif;
+  font-size: 26px; color: var(--gold-light); line-height: 1;
+}
+.obs-stat-tile span { font-size: 11px; color: #A9B4C4; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.obs-status-panel { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; }
+.obs-status-panel .row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.obs-status-panel .row:last-child { border-bottom: none; }
+.obs-status-panel .row .name { display: flex; align-items: center; gap: 8px; }
+.obs-status-panel .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c-green-ink); flex-shrink: 0; }
+
+.obs-feed-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.obs-feed-item:last-child { border-bottom: none; }
+.obs-feed-item .stripe { width: 3px; border-radius: 2px; flex-shrink: 0; }
+.obs-feed-item .stripe.Critical { background: var(--c-red-ink); }
+.obs-feed-item .stripe.Significant { background: var(--c-orange-ink); }
+.obs-feed-item .stripe.Operational { background: var(--c-amber-ink); }
+.obs-feed-item .stripe.Low { background: var(--c-blue-ink); }

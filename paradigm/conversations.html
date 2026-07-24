@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conversations — The Arena Hub Paradigm</title>
+<meta name="description" content="Professional conversations on AI, safeguarding, SEND, data sovereignty and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .cv-head { max-width: 640px; margin-bottom: 20px; }
+  .cv-head p { color: var(--ink-mid); font-size: 14px; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="cv-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Conversations</h1>
+        <p>Professional conversations on the issues shaping education — not comments, but genuine practitioner discussion.</p>
+      </div>
+
+      <div class="grid grid-3" id="conv-grid"></div>
+
+      <div class="inert-note" style="margin-top:20px;">Community submissions and live discussion are not yet open. This preview shows how Conversations will be organised once they are.</div>
+
+      <div class="authority-note" style="margin-top:16px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Conversations here are professional discussion, not official record.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'conversations', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Conversations' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script>
+  ParadigmData.getConversations().then(function (rows) {
+    document.getElementById('conv-grid').innerHTML = rows.map(function (c) { return ParadigmCards.conversationCard(c, ''); }).join('');
+  });
+</script>
+</body>
+</html>

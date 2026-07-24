@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore a Question — The Arena Hub Paradigm</title>
+<meta name="description" content="Ask a question and find connected official guidance, Arena commentary, papers and discussion.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .explore-hero { max-width: 680px; margin-bottom: 24px; }
+  .explore-row { display: flex; gap: 10px; margin-top: 14px; }
+  .explore-row input {
+    flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 12px 16px; font-family: var(--font-body); font-size: 15px;
+  }
+  .try-prompts { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .try-prompts button {
+    font-family: var(--font-body); font-size: 12px; color: var(--navy-mid);
+    background: var(--paper-grey); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; cursor: pointer;
+  }
+  .results-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 10px; }
+  .result-col h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--navy-mid); margin-bottom: 10px; }
+  .result-col .empty { font-size: 12.5px; color: var(--ink-soft); }
+  .result-item { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; font-size: 13px; }
+  .result-item a { font-weight: 600; color: var(--navy); }
+  .result-item a:hover { color: var(--gold); }
+  @media (max-width: 900px) { .results-cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="explore-hero">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:6px;">Explore a Question</h1>
+        <p style="color:var(--ink-mid);font-size:14px;">Ask a question in plain language. Results connect official guidance, Arena commentary, related papers and discussion — not just documents.</p>
+        <div class="explore-row">
+          <input type="text" id="explore-input" placeholder="Ask a question or explore a topic…">
+          <button class="btn btn-gold" id="explore-go">Explore</button>
+        </div>
+        <div class="try-prompts" id="try-prompts"></div>
+      </div>
+
+      <div id="explore-results" style="display:none;">
+        <div class="section-head"><h2 id="query-echo" style="font-size:17px;"></h2></div>
+        <div class="results-cols">
+          <div class="result-col">
+            <h2>Official Sources</h2>
+            <div id="col-official"></div>
+          </div>
+          <div class="result-col">
+            <h2>Arena Commentary</h2>
+            <div id="col-commentary"></div>
+          </div>
+          <div class="result-col">
+            <h2>Related Papers</h2>
+            <div id="col-papers"></div>
+          </div>
+          <div class="result-col">
+            <h2>Discussion</h2>
+            <div id="col-discussion"></div>
+          </div>
+          <div class="result-col">
+            <h2>Related Questions</h2>
+            <div id="col-questions"></div>
+          </div>
+          <div class="result-col">
+            <h2>Further Reading</h2>
+            <div id="col-further"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="authority-note" style="margin-top:24px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Arena commentary exists to support understanding and professional discussion.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'explore', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Explore a Question' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

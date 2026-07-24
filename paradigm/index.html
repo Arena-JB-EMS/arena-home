@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Arena Hub Paradigm — A public space for educational research &amp; discussion</title>
+<meta name="description" content="Paradigm is a public space for educational research, governance, constitutional thinking and professional discussion — combining official guidance, Arena's own thinking, and professional discourse.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .hero {
+    position: relative; overflow: hidden; border-radius: var(--radius-lg);
+    background: linear-gradient(120deg, var(--navy) 0%, var(--navy-mid) 60%, var(--navy-light) 100%);
+    padding: 44px 40px; margin-bottom: 28px; color: #fff;
+  }
+  .hero h1 { color: #fff; font-size: 32px; margin-bottom: 10px; }
+  .hero p.lede { color: #C7CEDA; max-width: 640px; font-size: 15px; line-height: 1.6; margin-bottom: 24px; }
+  .explore-box {
+    background: #fff; border-radius: var(--radius-md); padding: 18px 20px;
+    max-width: 560px; box-shadow: var(--shadow-card);
+  }
+  .explore-box label { display: block; font-family: var(--font-head); font-weight: 700; color: var(--navy); font-size: 15px; margin-bottom: 10px; }
+  .explore-row { display: flex; gap: 10px; }
+  .explore-row input {
+    flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 14px; font-family: var(--font-body); font-size: 14px;
+  }
+  .try-prompts { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .try-prompts button {
+    font-family: var(--font-body); font-size: 12px; color: var(--navy-mid);
+    background: var(--paper-grey); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 12px; cursor: pointer;
+  }
+  .try-prompts button:hover { border-color: var(--gold); color: var(--navy); }
+
+  .pillar-card { padding: 20px; }
+  .pillar-card .ic-wrap {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--gold-dim);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+  }
+  .pillar-card h3 { font-size: 15.5px; margin-bottom: 6px; }
+  .pillar-card p { font-size: 12.5px; color: var(--ink-mid); line-height: 1.5; }
+
+  .strip-card { padding: 18px; display: flex; flex-direction: column; }
+  .strip-card h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--navy-mid); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .update-row { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .update-row:last-of-type { border-bottom: none; }
+  .update-row .dot-lead { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .update-row .t { font-size: 12.5px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+  .update-row .s { font-size: 11px; color: var(--ink-soft); }
+
+  #radar-canvas-wrap { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 160px; }
+
+  .stat-tiles { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 10px; }
+  .stat-tiles .tile { background: var(--paper-grey); border-radius: var(--radius-sm); padding: 8px; text-align: center; }
+  .stat-tiles .tile b { display: block; font-size: 17px; font-family: var(--font-head); color: var(--navy); }
+  .stat-tiles .tile span { font-size: 10px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search">
+        <input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm">
+      </div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <section class="hero">
+        <h1>Welcome to The Arena Hub Paradigm</h1>
+        <p class="lede">Education is changing rapidly. Technology, AI, safeguarding, governance and policy are evolving simultaneously. Paradigm exists to encourage thoughtful discussion rather than provide final answers. Official guidance remains authoritative — Paradigm explores implementation, implications and future thinking.</p>
+
+        <div class="explore-box">
+          <label for="explore-input">What would you like to explore today?</label>
+          <div class="explore-row">
+            <input type="text" id="explore-input" placeholder="Ask a question or explore a topic…">
+            <button class="btn btn-gold" id="explore-go">Explore</button>
+          </div>
+          <div class="try-prompts" id="try-prompts"></div>
+        </div>
+      </section>
+
+      <section class="grid grid-3" style="margin-bottom:28px;" aria-label="Paradigm sections">
+        <a class="card interactive pillar-card" href="library.html">
+          <div class="ic-wrap">📖</div><h3>Research Library</h3>
+          <p>White papers, frameworks and position papers from The Arena Hub.</p>
+        </a>
+        <a class="card interactive pillar-card" href="policy.html">
+          <div class="ic-wrap">🛡️</div><h3>Policy Watch</h3>
+          <p>Official guidance and policy updates, with analysis and discussion.</p>
+        </a>
+        <a class="card interactive pillar-card" href="explore.html">
+          <div class="ic-wrap">🔍</div><h3>Explore a Question</h3>
+          <p>Find connected guidance, papers, discussions and implementation insight.</p>
+        </a>
+        <a class="card interactive pillar-card" href="conversations.html">
+          <div class="ic-wrap">💬</div><h3>Conversations</h3>
+          <p>Join professional discussions on the issues shaping education.</p>
+        </a>
+        <a class="card interactive pillar-card" href="questions.html">
+          <div class="ic-wrap">❓</div><h3>Emerging Questions</h3>
+          <p>The unanswered questions of today that may shape tomorrow's policy.</p>
+        </a>
+        <a class="card interactive pillar-card" href="observatory/index.html">
+          <div class="ic-wrap">🛰️</div><h3>Observatory <span class="pill green" style="margin-left:6px;"><span class="dot"></span>LIVE</span></h3>
+          <p>Live monitoring of official announcements across the education landscape.</p>
+        </a>
+      </section>
+
+      <section class="grid grid-4" style="margin-bottom:28px;">
+        <div class="card strip-card">
+          <h4>Policy Watch <a href="policy.html" class="view-all" style="font-size:11px;">View all →</a></h4>
+          <div id="policy-strip"></div>
+        </div>
+        <div class="card strip-card">
+          <h4>Educational Radar <a href="observatory/index.html" class="view-all" style="font-size:11px;">Full radar →</a></h4>
+          <div id="radar-canvas-wrap"><canvas id="radar-canvas" width="240" height="200"></canvas></div>
+        </div>
+        <div class="card strip-card">
+          <h4>Explore a Question <a href="explore.html" class="view-all" style="font-size:11px;">See all →</a></h4>
+          <div id="explore-strip" style="font-size:12.5px;color:var(--ink-mid);">Try the search box above — results (official sources, Arena commentary, related papers and discussion) appear here once you ask a question.</div>
+        </div>
+        <div class="card strip-card">
+          <h4>Observatory — Live Status <span class="pill green"><span class="dot"></span>Live</span></h4>
+          <div id="observatory-strip" style="font-size:12px;color:var(--ink-mid);">Monitoring DfE, Ofsted, ICO, Education NI, CCEA, ETI and UK Parliament Education Committee.</div>
+          <div class="stat-tiles">
+            <div class="tile"><b id="stat-papers">–</b><span>Papers</span></div>
+            <div class="tile"><b id="stat-questions">–</b><span>Questions</span></div>
+            <div class="tile"><b id="stat-conversations">–</b><span>Discussions</span></div>
+            <div class="tile"><b id="stat-updates">–</b><span>Updates</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid grid-3">
+        <div class="card strip-card">
+          <h4>Conversations Happening Now <a href="conversations.html" class="view-all" style="font-size:11px;">See all →</a></h4>
+          <div id="conversations-strip" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+        <div class="card strip-card">
+          <h4>Emerging Questions <a href="questions.html" class="view-all" style="font-size:11px;">See all →</a></h4>
+          <div id="questions-strip" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+        <div class="card" style="padding:20px;background:var(--navy);color:#fff;">
+          <h4 style="color:var(--gold-light);font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Your Voice Matters</h4>
+          <p style="font-size:13px;color:#C7CEDA;margin-bottom:14px;">Have a question, or a perspective from practice? Help shape the discussion.</p>
+          <a href="forum/index.html" class="btn btn-gold">Submit a Question</a>
+          <div class="inert-note" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#C7CEDA;">Community submissions are not yet open — this is a preview of how it will work.</div>
+        </div>
+      </section>
+
+      <div class="authority-note" style="margin-top:28px;">
+        <span class="ic">ⓘ</span>
+        <span>Official guidance remains the authoritative source. Arena commentary exists to support understanding and professional discussion, not to replace it.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'home', breadcrumb: [{ label: 'Paradigm' }] };
+</script>
+<script src="js/nav.js"></script>
+<script src="js/data-loader.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/radar.js"></script>
+<script>
+(function () {
+  var TRY_PROMPTS = ['KCSIE 2026 changes', 'AI in education', 'Information sharing & GDPR', 'Alternative Provision', 'Evidence retention'];
+  var tryWrap = document.getElementById('try-prompts');
+  TRY_PROMPTS.forEach(function (p) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = p;
+    b.onclick = function () { document.getElementById('explore-input').value = p; goExplore(); };
+    tryWrap.appendChild(b);
+  });
+
+  function goExplore() {
+    var q = document.getElementById('explore-input').value.trim();
+    if (!q) return;
+    window.location.href = 'explore.html?q=' + encodeURIComponent(q);
+  }
+  document.getElementById('explore-go').addEventListener('click', goExplore);
+  document.getElementById('explore-input').addEventListener('keydown', function (e) { if (e.key === 'Enter') goExplore(); });
+
+  var IMPACT_DOT = { Critical: '#B23A2E', Significant: '#B45E1A', Operational: '#9A6B00', Low: '#1A5A8A' };
+
+  ParadigmData.getRegulations('PARADIGM').then(function (data) {
+    var strip = document.getElementById('policy-strip');
+    (data.regulations || []).slice(0, 4).forEach(function (r) {
+      var row = document.createElement('div');
+      row.className = 'update-row';
+      row.innerHTML = '<span class="dot-lead" style="background:' + (IMPACT_DOT[r.impactLevel] || '#9A6B00') + '"></span>' +
+        '<div><div class="t">' + ParadigmCards.esc(r.title) + '</div><div class="s">' + ParadigmCards.esc(r.sourceLabel) + ' · ' + ParadigmCards.formatDate(r.statusDate) + '</div></div>';
+      strip.appendChild(row);
+    });
+    document.getElementById('stat-updates').textContent = (data.regulations || []).length;
+  });
+
+  ParadigmData.getConversations().then(function (rows) {
+    var strip = document.getElementById('conversations-strip');
+    rows.slice(0, 4).forEach(function (c) { strip.innerHTML += ParadigmCards.conversationCard(c, ''); });
+    document.getElementById('stat-conversations').textContent = rows.length;
+  });
+
+  ParadigmData.getQuestions().then(function (rows) {
+    var strip = document.getElementById('questions-strip');
+    rows.slice(0, 3).forEach(function (q) { strip.innerHTML += ParadigmCards.questionCard(q, ''); });
+    document.getElementById('stat-questions').textContent = rows.length;
+  });
+
+  ParadigmData.getPapers().then(function (rows) {
+    document.getElementById('stat-papers').textContent = rows.length;
+  });
+
+  /* Activity levels are placeholder until the Observatory monitoring
+     engine is built — see ARENA_PARADIGM_ARCHITECTURAL_REVIEW.md Section 4a-equivalent. */
+  ParadigmRadar.draw('radar-canvas', [
+    ['Safeguarding', 0.8], ['AI', 0.75], ['AP', 0.55], ['Governance', 0.5],
+    ['Inspection', 0.35], ['Attendance', 0.45], ['SEND', 0.6], ['Behaviour', 0.3]
+  ], { radius: 78, labelPad: 14, font: '9px sans-serif' });
+})();
+</script>
+</body>
+</html>
