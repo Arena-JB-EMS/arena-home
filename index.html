@@ -185,6 +185,30 @@
   }
   .btn-ghost:hover { border-color: var(--gold); background: var(--gold-dim); transform: translateY(-2px); }
 
+  .paradigm-tile {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    margin: 0 auto 3rem;
+    border: 1px solid var(--gold-line);
+    border-radius: 4px;
+    background: rgba(197,160,89,0.04);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    max-width: 100%;
+  }
+  .paradigm-tile:hover { background: var(--gold-dim); border-color: var(--gold); transform: translateY(-1px); }
+  .paradigm-tile-mark { color: var(--gold); flex-shrink: 0; display: flex; }
+  .paradigm-tile-text { display: flex; flex-direction: column; text-align: left; gap: 2px; }
+  .paradigm-tile-text strong { font-family: 'Rajdhani', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); letter-spacing: 0.02em; }
+  .paradigm-tile-text small { font-family: 'Source Sans 3', sans-serif; font-size: 0.78rem; font-weight: 400; color: var(--grey); }
+  .paradigm-tile-arrow { color: var(--gold); flex-shrink: 0; opacity: 0.8; }
+  @media (max-width: 560px) {
+    .paradigm-tile { flex-wrap: wrap; text-align: center; }
+    .paradigm-tile-text { text-align: center; }
+  }
+
   .scroll-hint {
     display: flex;
     flex-direction: column;
@@ -540,9 +564,10 @@
 
   .hero-tag    { animation: fadeUp 0.6s ease-out 0.1s both; }
   .hero h1     { animation: fadeUp 0.6s ease-out 0.25s both; }
-  .hero-sub    { animation: fadeUp 0.6s ease-out 0.4s both; }
-  .hero-ctas   { animation: fadeUp 0.6s ease-out 0.55s both; }
-  .scroll-hint { animation: fadeUp 0.6s ease-out 0.7s both; }
+  .hero-sub     { animation: fadeUp 0.6s ease-out 0.4s both; }
+  .hero-ctas    { animation: fadeUp 0.6s ease-out 0.55s both; }
+  .paradigm-tile{ animation: fadeUp 0.6s ease-out 0.65s both; }
+  .scroll-hint  { animation: fadeUp 0.6s ease-out 0.8s both; }
 
   /* ══════════════════════════════════════════
      FOCUS / ACCESSIBILITY
@@ -596,6 +621,18 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
+
+    <a href="paradigm/index.html" class="paradigm-tile"
+       onclick="gtag('event','click',{'event_category':'hero','event_label':'paradigm'})">
+      <span class="paradigm-tile-mark" aria-hidden="true">
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="10" r="2.3" stroke="currentColor" stroke-width="1.4"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </span>
+      <span class="paradigm-tile-text">
+        <strong>The Arena Hub Paradigm</strong>
+        <small>A public space for educational research, policy &amp; professional discussion</small>
+      </span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="paradigm-tile-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
 
     <div class="scroll-hint" aria-hidden="true">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
