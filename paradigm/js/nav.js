@@ -56,7 +56,8 @@
     { id: 'evidence-trail',label: 'Evidence Trail',      href: 'evidence-trail.html',    ic: 'trail' },
     { group: 'Community' },
     { id: 'forum',         label: 'Forum',               href: 'forum/index.html',       ic: 'users' },
-    { id: 'about',         label: 'About Paradigm',      href: 'about.html',             ic: 'info' }
+    { id: 'about',         label: 'About Paradigm',      href: 'about.html',             ic: 'info' },
+    { id: 'trust-centre',  label: 'Trust Centre',        href: 'trust-centre.html',      ic: 'info' }
   ];
 
   function buildSidebar(page) {
@@ -122,6 +123,38 @@
     footer.insertAdjacentHTML('beforebegin', buildPrinciples());
   }
 
+  /* Site-wide "last updated" + platform version chip — injected after
+     the breadcrumb on every page, RC1 Phase 11 (Jon, 2026-07-28).
+     LAST_UPDATED is a per-page-id map of real file-modification dates
+     (checked against the live filesystem at time of writing, not
+     guessed) — update the relevant entry whenever a page is next
+     substantively edited. PLATFORM_VERSION is the whole-Paradigm
+     release marker, separate from each paper's own VERSION field. */
+  var PLATFORM_VERSION = 'Paradigm RC1';
+  var LAST_UPDATED = {
+    'home': '2026-07-28', 'library': '2026-07-28', 'policy': '2026-07-28',
+    'explore': '2026-07-24', 'conversations': '2026-07-28', 'questions': '2026-07-28',
+    'observatory': '2026-07-28', 'knowledge-map': '2026-07-24', 'evidence-trail': '2026-07-24',
+    'forum': '2026-07-28', 'about': '2026-07-28', 'trust-centre': '2026-07-28',
+    'editorial-standards': '2026-07-28', 'publication-methodology': '2026-07-28'
+  };
+  function formatMetaDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso + 'T00:00:00');
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+  }
+  function injectPageMeta(page) {
+    var crumbMount = document.getElementById('paradigm-breadcrumb');
+    if (!crumbMount || document.querySelector('.page-meta-chip')) return;
+    var dateStr = formatMetaDate(LAST_UPDATED[page.id]);
+    var bits = [];
+    if (dateStr) bits.push('Last updated ' + dateStr);
+    bits.push(PLATFORM_VERSION);
+    var html = '<div class="page-meta-chip" style="font-size:11px;color:var(--ink-soft,#8A93A3);margin:2px 0 14px;letter-spacing:0.2px;">' + bits.join(' · ') + '</div>';
+    crumbMount.insertAdjacentHTML('afterend', html);
+  }
+
   function init() {
     var page = window.PARADIGM_PAGE || { id: '', base: '', breadcrumb: [] };
     var sideMount = document.getElementById('paradigm-sidebar');
@@ -131,6 +164,7 @@
     if (crumbMount) crumbMount.innerHTML = buildBreadcrumb(page.breadcrumb);
 
     injectPrinciples();
+    injectPageMeta(page);
   }
 
   if (document.readyState === 'loading') {

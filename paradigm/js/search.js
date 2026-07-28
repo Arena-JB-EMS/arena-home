@@ -13,7 +13,7 @@
    ============================================================ */
 
 (function () {
-  var TRY_PROMPTS = ['KCSIE 2026 changes', 'AI in education', 'Information sharing & GDPR', 'Alternative Provision', 'Evidence retention'];
+  var TRY_PROMPTS = ['KCSIE 2026 changes', 'AI in education', 'Information sharing & GDPR', 'Alternative Provision', 'Evidence retention', 'Deepfakes', 'SEND reform', 'Data sovereignty', 'Inspection'];
   var tryWrap = document.getElementById('try-prompts');
   TRY_PROMPTS.forEach(function (p) {
     var b = document.createElement('button');
