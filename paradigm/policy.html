@@ -116,8 +116,8 @@
         '<div class="reg-detail">' +
           '<div class="db"><h4>Summary</h4><p>' + esc(r.summary) + '</p></div>' +
           '<div class="db"><h4>Topics</h4>' + (tags || '<span style="color:var(--ink-soft);">Not yet tagged</span>') + '</div>' +
-          '<div class="db"><h4>Arena Commentary</h4><p>' + (r.arenaCompliance ? esc(r.arenaCompliance) : 'Not yet written for this entry.') + '</p></div>' +
-          '<div class="db"><h4>Questions Raised &amp; Discussion</h4><p>Discussion is not yet open — see <a href="forum/index.html">Forum</a> for how this will work.</p><div class="inert-note">Community discussion is not yet live.</div></div>' +
+          '<div class="db"><h4>Arena Commentary</h4><p>' + (r.arenaCompliance ? esc(r.arenaCompliance) : 'Arena\'s commentary on this entry is being prepared.') + '</p></div>' +
+          '<div class="db"><h4>Questions Raised &amp; Discussion</h4><p>Professional discussion will open shortly — see <a href="forum/index.html">Forum</a> in the meantime for related opening discussions.</p></div>' +
           '<div class="actions">' +
             (r.sourceUrl ? '<a class="btn btn-primary" href="' + esc(r.sourceUrl) + '" target="_blank" rel="noopener">Read Official Guidance</a>' : '') +
             '<a class="btn btn-ghost" href="explore.html?q=' + encodeURIComponent(r.title) + '">Explore this topic</a>' +

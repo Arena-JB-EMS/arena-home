@@ -17,6 +17,12 @@
   .q-row .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 6px; }
   .q-row h3 { font-size: 15px; }
   .q-row .vote { font-size: 11.5px; color: var(--ink-soft); }
+  .q-field { margin-top: 10px; }
+  .q-field .label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--navy-mid); font-weight: 700; margin-bottom: 3px; }
+  .q-field p { font-size: 12.5px; color: var(--ink-mid); }
+  .q-links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .q-links a { font-size: 12px; background: var(--paper-grey); border-radius: 20px; padding: 3px 10px; text-decoration: none; color: var(--navy-mid); }
+  .q-invite { margin-top: 12px; font-size: 12px; color: var(--ink-soft); border-top: 1px solid var(--border); padding-top: 10px; }
 </style>
 </head>
 <body>
@@ -37,7 +43,7 @@
       <div class="q-head">
         <span class="eyebrow">Paradigm</span>
         <h1 style="font-size:26px;margin-bottom:8px;">Emerging Questions</h1>
-        <p>Questions the sector hasn't yet answered. Voting and threaded discussion are planned but not yet open — this shows how they'll be organised.</p>
+        <p>Questions the sector hasn't yet answered — each grounded in the current evidence and official guidance, with Arena's own related papers linked. Structured voting and threaded discussion are being built to open once the underlying research base is strong enough to support them well.</p>
       </div>
 
       <div id="q-list"></div>
@@ -68,13 +74,40 @@
 <script src="js/cards.js"></script>
 <script>
   var esc = ParadigmCards.esc;
-  ParadigmData.getQuestions().then(function (rows) {
+
+  function idList(field) {
+    return String(field || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  Promise.all([ParadigmData.getQuestions(), ParadigmData.getPapers(), ParadigmData.getRegulations('PARADIGM')]).then(function (results) {
+    var rows = results[0] || [];
+    var papers = results[1] || [];
+    var regs = (results[2] && results[2].regulations) || [];
+
     document.getElementById('q-list').innerHTML = rows.map(function (q) {
-      return '<div class="q-row" id="' + esc(q.QUESTION_ID) + '">' +
-        '<div class="top"><span class="pill amber"><span class="dot"></span>' + esc(q.STATUS) + '</span><span class="vote">Voting opens soon</span></div>' +
-        '<h3>' + esc(q.QUESTION_TEXT) + '</h3>' +
-        '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">' + ParadigmCards.tagList(q.TAGS) + '</div>' +
-        '</div>';
+      var relatedPapers = idList(q.RELATED_PAPER_IDS).map(function (pid) { return papers.filter(function (p) { return p.PAPER_ID === pid; })[0]; }).filter(Boolean);
+      var relatedRegs = idList(q.RELATED_REG_IDS).map(function (rid) { return regs.filter(function (r) { return r.id === rid; })[0]; }).filter(Boolean);
+
+      var html = '<div class="q-row" id="' + esc(q.QUESTION_ID) + '">';
+      html += '<div class="top"><span class="pill amber"><span class="dot"></span>' + esc(q.STATUS) + '</span></div>';
+      html += '<h3>' + esc(q.QUESTION_TEXT) + '</h3>';
+      html += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">' + ParadigmCards.tagList(q.TAGS) + '</div>';
+
+      if (q.BACKGROUND) html += '<div class="q-field"><div class="label">Background</div><p>' + esc(q.BACKGROUND) + '</p></div>';
+      if (q.CURRENT_EVIDENCE) html += '<div class="q-field"><div class="label">Current Evidence</div><p>' + esc(q.CURRENT_EVIDENCE) + '</p></div>';
+
+      if (relatedRegs.length) {
+        html += '<div class="q-field"><div class="label">Official Guidance</div><div class="q-links">' +
+          relatedRegs.map(function (r) { return '<a href="policy.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + '</a>'; }).join('') + '</div></div>';
+      }
+      if (relatedPapers.length) {
+        html += '<div class="q-field"><div class="label">Related Papers</div><div class="q-links">' +
+          relatedPapers.map(function (p) { return '<a href="document.html?id=' + encodeURIComponent(p.PAPER_ID) + '">' + esc(p.TITLE) + '</a>'; }).join('') + '</div></div>';
+      }
+
+      html += '<div class="q-invite">Have a view on this? Professional discussion will open shortly — see <a href="forum/index.html">Forum</a>.</div>';
+      html += '</div>';
+      return html;
     }).join('');
   });
 </script>

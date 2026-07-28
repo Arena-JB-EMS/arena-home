@@ -42,7 +42,7 @@
       <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
 
       <div id="doc-content">
-        <p style="color:var(--ink-soft);font-size:13px;">Loading…</p>
+        <p style="color:var(--ink-soft);font-size:13px;">Preparing this paper…</p>
       </div>
     </main>
 
@@ -74,55 +74,122 @@
     return String(field || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
   }
 
-  Promise.all([ParadigmData.getPapers(), ParadigmData.getQuestions()]).then(function (results) {
-    var papers = results[0];
-    var questions = results[1];
+  function paragraphs(text) {
+    return String(text || '').split(/\n\n+/).map(function (p) { return p.trim(); }).filter(Boolean)
+      .map(function (p) { return '<p style="margin-bottom:14px;">' + esc(p) + '</p>'; }).join('');
+  }
+
+  function renderNotFound(mount) {
+    mount.innerHTML =
+      '<div class="doc-body" style="max-width:600px;">' +
+      '<h1 style="font-size:20px;margin-bottom:10px;">This paper isn\'t available</h1>' +
+      '<p style="color:var(--ink-mid);font-size:14px;margin-bottom:16px;">It may have been moved, or the link is out of date.</p>' +
+      '<a class="btn btn-primary" href="library.html">Return to the Research Library</a>' +
+      '</div>';
+  }
+
+  Promise.all([ParadigmData.getPapers(), ParadigmData.getQuestions(), ParadigmData.getRegulations('PARADIGM'), ParadigmData.getConversations()]).then(function (results) {
+    var papers = results[0] || [];
+    var questions = results[1] || [];
+    var regs = (results[2] && results[2].regulations) || [];
+    var conversations = results[3] || [];
     var paper = papers.filter(function (p) { return p.PAPER_ID === id; })[0];
     var mount = document.getElementById('doc-content');
 
-    if (!paper) {
-      mount.innerHTML = '<p style="color:var(--ink-soft);font-size:14px;">Paper not found. <a href="library.html">Back to the Research Library</a>.</p>';
-      return;
-    }
+    if (!paper) { renderNotFound(mount); return; }
 
     document.getElementById('page-title').textContent = paper.TITLE + ' — The Arena Hub Paradigm';
     document.getElementById('paradigm-breadcrumb').innerHTML =
       '<a href="index.html">Paradigm</a><span class="sep">/</span><a href="library.html">Research Library</a><span class="sep">/</span><span class="current">' + esc(paper.TITLE) + '</span>';
 
     var relatedPapers = idList(paper.RELATED_PAPER_IDS).map(function (rid) {
-      return papers.filter(function (p) { return p.PAPER_ID === rid; })[0];
+      return papers.filter(function (p) { return p.PAPER_ID === rid && String(p.ACTIVE).toUpperCase() !== 'FALSE'; })[0];
     }).filter(Boolean);
 
     var relatedQuestions = idList(paper.RELATED_QUESTION_IDS).map(function (qid) {
       return questions.filter(function (q) { return q.QUESTION_ID === qid; })[0];
     }).filter(Boolean);
 
+    var relatedRegs = idList(paper.RELATED_REG_IDS).map(function (rid) {
+      return regs.filter(function (r) { return r.id === rid; })[0];
+    }).filter(Boolean);
+
+    var paperTags = idList(paper.TAGS);
+    var relatedConversations = conversations.filter(function (c) {
+      return String(c.ACTIVE).toUpperCase() !== 'FALSE' && idList(c.TAGS).some(function (t) { return paperTags.indexOf(t) !== -1; });
+    }).slice(0, 3);
+
+    var metaBits = [];
+    if (paper.AUTHOR) metaBits.push(esc(paper.AUTHOR));
+    metaBits.push(ParadigmCards.formatDate(paper.DATE_PUBLISHED));
+    if (paper.VERSION) metaBits.push('v' + esc(paper.VERSION));
+    if (paper.READING_TIME_MIN) metaBits.push(esc(paper.READING_TIME_MIN) + ' min read');
+    if (paper.STATUS) metaBits.push(esc(paper.STATUS));
+
     var html = '';
     html += '<div class="doc-header">';
     html += '<span class="eyebrow">' + esc(paper.TYPE) + '</span>';
     html += '<h1>' + esc(paper.TITLE) + '</h1>';
-    html += '<div class="doc-meta"><span>' + ParadigmCards.formatDate(paper.DATE_PUBLISHED) + '</span><span>&middot;</span><span>The Arena Hub</span></div>';
-    html += '<div class="doc-tags">' + ParadigmCards.tagList(paper.TAGS) + '</div>';
-    html += '<div class="doc-actions">';
-    if (paper.BODY_URL) html += '<a class="btn btn-primary" href="' + esc(paper.BODY_URL) + '" target="_blank" rel="noopener">Read the full paper</a>';
-    if (paper.PDF_URL) html += '<a class="btn btn-ghost" href="' + esc(paper.PDF_URL) + '" target="_blank" rel="noopener">Download PDF</a>';
-    html += '</div></div>';
-
-    html += '<div class="doc-body"><p>' + esc(paper.SHORT_DESCRIPTION) + '</p></div>';
-
-    html += '<div class="discussion-scaffold">';
-    html += '<div class="discussion-block"><h3>❓ Questions Raised</h3><p>' +
-      (relatedQuestions.length ? relatedQuestions.map(function (q) { return esc(q.QUESTION_TEXT); }).join('<br>') : 'No linked questions yet.') + '</p></div>';
-    html += '<div class="discussion-block"><h3>💬 Professional Discussion</h3><p>Discussion is not yet open on Paradigm — see <a href="forum/index.html">Forum</a> for how this will work.</p><div class="inert-note">Community submissions are not yet live.</div></div>';
-    html += '<div class="discussion-block"><h3>🏛️ Arena Commentary</h3><p>This paper represents Arena\'s own analysis and is offered to support professional understanding, not as a substitute for official guidance.</p></div>';
-    html += '<div class="discussion-block"><h3>📚 Related Reading</h3><div class="grid grid-2" style="margin-top:8px;">' +
-      (relatedPapers.length ? relatedPapers.map(function (p) { return ParadigmCards.paperCard(p, ''); }).join('') : '<p style="color:var(--ink-soft);font-size:13px;">No related papers linked yet.</p>') + '</div></div>';
-    html += '<div class="discussion-block"><h3>📝 Community Feedback</h3><p>Not yet open for submissions.</p><div class="inert-note">This section will let readers suggest corrections or share implementation experience once Forum submissions go live.</div></div>';
+    html += '<div class="doc-meta">' + metaBits.map(function (b) { return '<span>' + b + '</span>'; }).join('<span>&middot;</span>') + '</div>';
+    if (paper.KEY_THEMES) {
+      html += '<div class="doc-tags">' + String(paper.KEY_THEMES).split(',').map(function (t) { return '<span class="tag">' + esc(t.trim()) + '</span>'; }).join('') + '</div>';
+    } else {
+      html += '<div class="doc-tags">' + ParadigmCards.tagList(paper.TAGS) + '</div>';
+    }
+    if (paper.PDF_URL) html += '<div class="doc-actions"><a class="btn btn-ghost" href="' + esc(paper.PDF_URL) + '" target="_blank" rel="noopener">Download PDF</a></div>';
     html += '</div>';
 
-    html += '<div class="authority-note" style="margin-top:24px;max-width:760px;"><span class="ic">ⓘ</span><span>Official guidance remains the authoritative source. Arena commentary exists to support understanding and professional discussion.</span></div>';
+    // Body: full text if we have it, else a graceful abstract-only fallback (Phase 9 — never a dead end)
+    html += '<div class="doc-body">';
+    if (paper.BODY_TEXT) {
+      html += paragraphs(paper.BODY_TEXT);
+    } else if (paper.SHORT_DESCRIPTION) {
+      html += '<p style="margin-bottom:10px;">' + esc(paper.SHORT_DESCRIPTION) + '</p>';
+      html += '<p style="color:var(--ink-soft);font-size:12.5px;">The full text of this document is being prepared for online reading. In the meantime, this abstract reflects its scope accurately — <a href="../company.html">contact Arena</a> for a copy.</p>';
+    } else {
+      html += '<p style="color:var(--ink-soft);font-size:13px;">This paper\'s summary is being finalised. <a href="library.html">Return to the Research Library</a> to browse other papers in the meantime.</p>';
+    }
+    html += '</div>';
+
+    html += '<div class="discussion-scaffold">';
+
+    if (relatedRegs.length) {
+      html += '<div class="discussion-block"><h3>📜 Related Official Guidance</h3><div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">' +
+        relatedRegs.map(function (r) {
+          return '<a href="policy.html?id=' + encodeURIComponent(r.id) + '" style="font-size:13px;color:var(--navy-mid);text-decoration:none;">→ ' + esc(r.title) + '</a>';
+        }).join('') + '</div></div>';
+    }
+
+    html += '<div class="discussion-block"><h3>❓ Related Questions</h3><p style="font-size:13px;">' +
+      (relatedQuestions.length ? relatedQuestions.map(function (q) { return '<a href="questions.html#' + encodeURIComponent(q.QUESTION_ID) + '" style="color:var(--navy-mid);">' + esc(q.QUESTION_TEXT) + '</a>'; }).join('<br>') : 'No linked questions yet.') + '</p></div>';
+
+    html += '<div class="discussion-block"><h3>🏛️ Arena Commentary</h3><p>' +
+      (paper.ARENA_COMMENTARY ? esc(paper.ARENA_COMMENTARY) : 'This paper represents Arena\'s own analysis and is offered to support professional understanding, not as a substitute for official guidance.') +
+      '</p></div>';
+
+    html += '<div class="discussion-block"><h3>📚 Related Arena Papers</h3><div class="grid grid-2" style="margin-top:8px;">' +
+      (relatedPapers.length ? relatedPapers.map(function (p) { return ParadigmCards.paperCard(p, ''); }).join('') : '<p style="color:var(--ink-soft);font-size:13px;">No related papers linked yet.</p>') + '</div></div>';
+
+    if (relatedConversations.length) {
+      html += '<div class="discussion-block"><h3>💬 Related Discussions</h3><div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">' +
+        relatedConversations.map(function (c) { return '<a href="forum/topic.html?id=' + encodeURIComponent(c.CONV_ID) + '" style="font-size:13px;color:var(--navy-mid);">→ ' + esc(c.TITLE) + '</a>'; }).join('') + '</div></div>';
+    }
+
+    html += '<div class="discussion-block"><h3>🗣️ Professional Discussion</h3><p style="font-size:13px;">Professional discussion will open shortly. During this initial phase, Paradigm is curating research, policy analysis and discussion themes to ensure conversations begin from a well-evidenced foundation — see <a href="forum/index.html">Forum</a>.</p></div>';
+
+    html += '</div>'; // discussion-scaffold
+
+    html += '<div class="authority-note" style="margin-top:24px;max-width:760px;"><span class="ic">ⓘ</span><span>Official guidance remains authoritative. Arena papers are discussion documents intended to encourage evidence-based professional debate — policy interpretation should always be verified against the originating authority.</span></div>';
 
     mount.innerHTML = html;
+  }).catch(function () {
+    var mount = document.getElementById('doc-content');
+    mount.innerHTML =
+      '<div class="doc-body" style="max-width:600px;">' +
+      '<h1 style="font-size:20px;margin-bottom:10px;">This paper couldn\'t be loaded right now</h1>' +
+      '<p style="color:var(--ink-mid);font-size:14px;margin-bottom:16px;">There may be a temporary connection issue. Please try again shortly.</p>' +
+      '<a class="btn btn-primary" href="library.html">Return to the Research Library</a>' +
+      '</div>';
   });
 })();
 </script>

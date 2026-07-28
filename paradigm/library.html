@@ -105,7 +105,9 @@
   }
 
   Promise.all([ParadigmData.getPapers(), ParadigmData.getTopics()]).then(function (results) {
-    allPapers = results[0].sort(function (a, b) { return (a.SORT_ORDER || 99) - (b.SORT_ORDER || 99); });
+    allPapers = results[0]
+      .filter(function (p) { return String(p.ACTIVE).toUpperCase() !== 'FALSE'; })
+      .sort(function (a, b) { return (a.SORT_ORDER || 99) - (b.SORT_ORDER || 99); });
     var topics = results[1];
     var sel = document.getElementById('tag-select');
     topics.forEach(function (t) {

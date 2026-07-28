@@ -90,6 +90,11 @@
         </div>
       </section>
 
+      <section class="card" style="padding:18px 22px;margin-bottom:28px;">
+        <h4 style="font-size:13px;text-transform:uppercase;letter-spacing:0.4px;color:var(--navy-mid);margin-bottom:12px;">Latest in Paradigm</h4>
+        <div id="latest-updates" style="display:flex;flex-direction:column;gap:0;"></div>
+      </section>
+
       <section class="grid grid-3" style="margin-bottom:28px;" aria-label="Paradigm sections">
         <a class="card interactive pillar-card" href="library.html">
           <div class="ic-wrap">📖</div><h3>Research Library</h3>
@@ -155,7 +160,7 @@
           <h4 style="color:var(--gold-light);font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px;">Your Voice Matters</h4>
           <p style="font-size:13px;color:#C7CEDA;margin-bottom:14px;">Have a question, or a perspective from practice? Help shape the discussion.</p>
           <a href="forum/index.html" class="btn btn-gold">Submit a Question</a>
-          <div class="inert-note" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#C7CEDA;">Community submissions are not yet open — this is a preview of how it will work.</div>
+          <div class="inert-note" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#C7CEDA;">Structured submissions will open shortly, once the Forum's moderation approach is in place.</div>
         </div>
       </section>
 
@@ -231,6 +236,35 @@
 
   ParadigmData.getPapers().then(function (rows) {
     document.getElementById('stat-papers').textContent = rows.length;
+  });
+
+  // "Latest in Paradigm" — merges papers + Policy Watch entries into one
+  // recency-sorted feed, most recent first. Homepage-only, top of page,
+  // so a visitor sees evidence of activity within seconds of arriving.
+  Promise.all([ParadigmData.getPapers(), ParadigmData.getRegulations('PARADIGM')]).then(function (results) {
+    var papers = (results[0] || []).filter(function (p) { return String(p.ACTIVE).toUpperCase() !== 'FALSE'; });
+    var regs = (results[1] && results[1].regulations) || [];
+
+    var today = new Date();
+    function sortDate(d) { var dt = new Date(d); return dt > today ? today : dt; } // future effective dates don't jump the queue
+
+    var items = [];
+    papers.forEach(function (p) {
+      items.push({ title: p.TITLE, date: p.DATE_PUBLISHED, sort: sortDate(p.DATE_PUBLISHED), type: p.TYPE || 'Paper', verb: 'Published', href: 'document.html?id=' + encodeURIComponent(p.PAPER_ID) });
+    });
+    regs.forEach(function (r) {
+      var isFuture = new Date(r.statusDate) > today;
+      items.push({ title: r.title, date: r.statusDate, sort: sortDate(r.statusDate), type: 'Policy Watch', verb: isFuture ? 'Effective' : 'Updated', href: 'policy.html?id=' + encodeURIComponent(r.id) });
+    });
+
+    items.sort(function (a, b) { return b.sort - a.sort; });
+
+    var mount = document.getElementById('latest-updates');
+    mount.innerHTML = items.slice(0, 5).map(function (it) {
+      return '<div class="update-row"><span class="dot-lead" style="background:var(--gold);"></span>' +
+        '<div><div class="t"><a href="' + it.href + '" style="color:var(--navy);text-decoration:none;">' + ParadigmCards.esc(it.title) + '</a></div>' +
+        '<div class="s">' + ParadigmCards.esc(it.type) + ' &middot; ' + it.verb + ' ' + ParadigmCards.formatDate(it.date) + '</div></div></div>';
+    }).join('') || '<p style="font-size:12.5px;color:var(--ink-soft);">No updates recorded yet.</p>';
   });
 
   /* Activity levels are placeholder until the Observatory monitoring
