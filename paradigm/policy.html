@@ -99,6 +99,18 @@
   var allRegs = [];
   var activeImpact = 'ALL';
 
+  function commentaryParas(text) {
+    if (!text) return '<p>Arena\'s commentary on this entry is being prepared.</p>';
+    return String(text).split(/\n\n+/).map(function (block) {
+      if (block.indexOf('OPERATIONAL DETAIL') === 0) {
+        var rest = block.replace('OPERATIONAL DETAIL', '').trim();
+        return '<h5 style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--navy-mid);margin:14px 0 6px;">Operational Detail</h5>' +
+          (rest ? '<p>' + esc(rest) + '</p>' : '');
+      }
+      return '<p>' + esc(block) + '</p>';
+    }).join('');
+  }
+
   function row(r) {
     var impactPill = ParadigmCards.IMPACT_PILL[r.impactLevel] || 'blue';
     var statusPill = ParadigmCards.STATUS_PILL[r.status] || 'blue';
@@ -116,7 +128,7 @@
         '<div class="reg-detail">' +
           '<div class="db"><h4>Summary</h4><p>' + esc(r.summary) + '</p></div>' +
           '<div class="db"><h4>Topics</h4>' + (tags || '<span style="color:var(--ink-soft);">Not yet tagged</span>') + '</div>' +
-          '<div class="db"><h4>Arena Commentary</h4><p>' + (r.arenaCompliance ? esc(r.arenaCompliance) : 'Arena\'s commentary on this entry is being prepared.') + '</p></div>' +
+          '<div class="db"><h4>Arena Commentary</h4>' + commentaryParas(r.arenaCompliance) + '</div>' +
           '<div class="db"><h4>Questions Raised &amp; Discussion</h4><p>Professional discussion will open shortly — see <a href="forum/index.html">Forum</a> in the meantime for related opening discussions.</p></div>' +
           '<div class="actions">' +
             (r.sourceUrl ? '<a class="btn btn-primary" href="' + esc(r.sourceUrl) + '" target="_blank" rel="noopener">Read Official Guidance</a>' : '') +

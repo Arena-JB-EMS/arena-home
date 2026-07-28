@@ -125,6 +125,7 @@
     if (paper.VERSION) metaBits.push('v' + esc(paper.VERSION));
     if (paper.READING_TIME_MIN) metaBits.push(esc(paper.READING_TIME_MIN) + ' min read');
     if (paper.STATUS) metaBits.push(esc(paper.STATUS));
+    if (paper.REVIEW_DATE) metaBits.push('Next review ' + ParadigmCards.formatDate(paper.REVIEW_DATE));
 
     var html = '';
     html += '<div class="doc-header">';
@@ -137,6 +138,12 @@
       html += '<div class="doc-tags">' + ParadigmCards.tagList(paper.TAGS) + '</div>';
     }
     if (paper.PDF_URL) html += '<div class="doc-actions"><a class="btn btn-ghost" href="' + esc(paper.PDF_URL) + '" target="_blank" rel="noopener">Download PDF</a></div>';
+    if (paper.WHY_EXISTS || paper.WHO_SHOULD_READ) {
+      html += '<div style="margin-top:14px;padding:12px 16px;background:var(--paper-alt,#F7F8FA);border-radius:6px;font-size:12.5px;line-height:1.6;">';
+      if (paper.WHY_EXISTS) html += '<div style="margin-bottom:' + (paper.WHO_SHOULD_READ ? '6' : '0') + 'px;"><strong>Why this paper exists:</strong> ' + esc(paper.WHY_EXISTS) + '</div>';
+      if (paper.WHO_SHOULD_READ) html += '<div><strong>Who should read this:</strong> ' + esc(paper.WHO_SHOULD_READ) + '</div>';
+      html += '</div>';
+    }
     html += '</div>';
 
     // Body: full text if we have it, else a graceful abstract-only fallback (Phase 9 — never a dead end)
