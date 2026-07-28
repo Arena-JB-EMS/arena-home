@@ -101,6 +101,48 @@ window.ParadigmCards = (function () {
     );
   }
 
+  /* ── Loading state helpers (RC1, 2026-07-28) ──────────────────
+     The underlying GAS Web Apps have a genuine cold-start delay on
+     first hit — repeatedly observed at several seconds this session.
+     Every page that fetches before rendering must show SOMETHING
+     immediately, or a first-time visitor sees an empty page and
+     reasonably concludes there's no content. loadingSkeleton() fills
+     a container with placeholder cards straight away; withTimeout()
+     wraps the fetch so that if it's still pending after ~9s, the
+     container shows an honest "taking longer than usual" message
+     with a manual retry link instead of hanging silently forever. */
+  function loadingSkeleton(n, label) {
+    var card = '<div class="card" style="padding:18px;opacity:0.55;">' +
+      '<div style="height:10px;width:40%;background:var(--border);border-radius:3px;margin-bottom:10px;"></div>' +
+      '<div style="height:14px;width:85%;background:var(--border);border-radius:3px;margin-bottom:8px;"></div>' +
+      '<div style="height:10px;width:60%;background:var(--border);border-radius:3px;"></div>' +
+      '</div>';
+    var items = new Array(n || 3).fill(card).join('');
+    return '<div style="grid-column:1/-1;font-size:12px;color:var(--ink-soft);margin-bottom:10px;">' + esc(label || 'Loading…') + '</div>' + items;
+  }
+
+  function withTimeout(promise, el, opts) {
+    opts = opts || {};
+    var ms = opts.ms || 9000;
+    var reloadLabel = opts.reloadLabel || 'Reload this page';
+    var timedOut = false;
+    var timer = setTimeout(function () {
+      timedOut = true;
+      if (el) {
+        el.innerHTML = '<div style="grid-column:1/-1;padding:16px 0;font-size:13px;color:var(--ink-soft);">' +
+          'This is taking longer than usual to load — the underlying data source may be starting up. ' +
+          '<a href="javascript:location.reload()">' + esc(reloadLabel) + '</a>.</div>';
+      }
+    }, ms);
+    return promise.then(function (result) {
+      clearTimeout(timer);
+      return { result: result, timedOut: timedOut };
+    }, function (err) {
+      clearTimeout(timer);
+      throw err;
+    });
+  }
+
   return {
     esc: esc,
     tagList: tagList,
@@ -110,6 +152,8 @@ window.ParadigmCards = (function () {
     paperCard: paperCard,
     questionCard: questionCard,
     conversationCard: conversationCard,
-    regulationCard: regulationCard
+    regulationCard: regulationCard,
+    loadingSkeleton: loadingSkeleton,
+    withTimeout: withTimeout
   };
 })();
