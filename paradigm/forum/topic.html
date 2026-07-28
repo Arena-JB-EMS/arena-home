@@ -25,7 +25,7 @@
     <main id="main" class="content">
       <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
       <div id="topic-content" style="max-width:720px;">
-        <p style="color:var(--ink-soft);font-size:13px;">Loading…</p>
+        <p style="color:var(--ink-soft);font-size:13px;">Preparing this discussion…</p>
       </div>
     </main>
 
@@ -75,12 +75,18 @@
     html += '<div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;"><span class="pill blue"><span class="dot"></span>' + esc(conv.ACTIVITY_LEVEL || 'Low') + ' activity</span>' + ParadigmCards.tagList(conv.TAGS) + '</div>';
     html += '<p style="color:var(--ink-mid);font-size:14px;margin-bottom:20px;">' + esc(conv.DESCRIPTION) + '</p>';
 
+    if (conv.OPENING_POST) {
+      html += '<div class="card" style="padding:18px 20px;margin-bottom:16px;">' +
+        '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.4px;color:var(--navy-mid);font-weight:700;margin-bottom:8px;">Opening the discussion — The Arena Hub</div>' +
+        '<p style="font-size:13.5px;color:var(--ink-mid);">' + esc(conv.OPENING_POST) + '</p></div>';
+    }
+
     if (related.length) {
       html += '<div class="card" style="padding:16px 18px;margin-bottom:16px;"><h3 style="font-size:13px;margin-bottom:8px;">Related papers</h3>' +
         related.map(function (p) { return '<div style="font-size:12.5px;padding:4px 0;"><a href="../document.html?id=' + encodeURIComponent(p.PAPER_ID) + '">' + esc(p.TITLE) + '</a></div>'; }).join('') + '</div>';
     }
 
-    html += '<div class="reply-stub" style="margin-bottom:16px;">Replies are not yet open in this preview.</div>';
+    html += '<div class="reply-stub" style="margin-bottom:16px;">Professional discussion will open shortly, once the Forum\'s moderation approach is in place. Read the opening post above and the linked papers in the meantime.</div>';
     html += '<div id="inert-mount"></div>';
 
     mount.innerHTML = html;
