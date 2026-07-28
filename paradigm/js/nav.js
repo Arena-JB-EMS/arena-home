@@ -57,6 +57,8 @@
     { group: 'Community' },
     { id: 'forum',         label: 'Forum',               href: 'forum/index.html',       ic: 'users' },
     { id: 'about',         label: 'About Paradigm',      href: 'about.html',             ic: 'info' },
+    { id: 'why-paradigm-exists', label: 'Why Paradigm Exists', href: 'why-paradigm-exists.html', ic: 'info' },
+    { id: 'roadmap',       label: 'Editorial Roadmap',   href: 'roadmap.html',           ic: 'info' },
     { id: 'trust-centre',  label: 'Trust Centre',        href: 'trust-centre.html',      ic: 'info' }
   ];
 
@@ -136,7 +138,8 @@
     'explore': '2026-07-24', 'conversations': '2026-07-28', 'questions': '2026-07-28',
     'observatory': '2026-07-28', 'knowledge-map': '2026-07-24', 'evidence-trail': '2026-07-24',
     'forum': '2026-07-28', 'about': '2026-07-28', 'trust-centre': '2026-07-28',
-    'editorial-standards': '2026-07-28', 'publication-methodology': '2026-07-28'
+    'editorial-standards': '2026-07-28', 'publication-methodology': '2026-07-28',
+    'why-paradigm-exists': '2026-07-28', 'roadmap': '2026-07-28'
   };
   function formatMetaDate(iso) {
     if (!iso) return '';
