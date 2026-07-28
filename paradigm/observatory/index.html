@@ -112,7 +112,15 @@
     ['Behaviour', 0.3], ['Digital Safety', 0.4], ['Filtering', 0.3]
   ], { radius: 130, labelPad: 40 });
 
-  ParadigmData.getRegulations('OBSERVATORY').then(function (data) {
+  document.getElementById('activity-feed').innerHTML = ParadigmCards.loadingSkeleton(3, 'Loading recent activity…');
+  document.getElementById('compliance-library').innerHTML = ParadigmCards.loadingSkeleton(3, 'Loading compliance library…');
+
+  ParadigmCards.withTimeout(
+    ParadigmData.getRegulations('OBSERVATORY'),
+    document.getElementById('activity-feed'),
+    { reloadLabel: 'Reload the Observatory' }
+  ).then(function (wrapped) {
+    var data = wrapped.result;
     var regs = (data.regulations || []).map(function (r) { if (!r.impactLevel) r.impactLevel = 'Operational'; return r; });
 
     document.getElementById('stat-pubs').textContent = regs.length;
@@ -141,6 +149,10 @@
         group.items.map(function (r) { return '<div style="font-size:12.5px;padding:5px 0;"><a href="../policy.html?id=' + encodeURIComponent(r.id) + '">' + esc(r.title) + '</a></div>'; }).join('') +
         '</div>';
     }).join('') || '<p style="color:var(--ink-soft);font-size:13px;">No entries yet.</p>';
+  }).catch(function () {
+    var msg = '<div style="font-size:13px;color:var(--ink-soft);">This couldn\'t be loaded right now. <a href="javascript:location.reload()">Reload</a>, or <a href="../company.html">contact Arena</a> if this persists.</div>';
+    document.getElementById('activity-feed').innerHTML = msg;
+    document.getElementById('compliance-library').innerHTML = msg;
   });
 })();
 </script>
