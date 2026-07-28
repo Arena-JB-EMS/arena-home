@@ -37,7 +37,7 @@ window.ParadigmForumInert = (function () {
       html += '</div>';
     });
     html += '<button type="submit" class="btn btn-primary disabled" disabled>' + (opts.submitLabel || 'Submit') + '</button>';
-    html += '<div class="inert-note" style="margin-top:12px;">Community submissions are not yet open. This is a preview of how it will work once moderation is in place — nothing typed here is sent anywhere.</div>';
+    html += '<div class="inert-note" style="margin-top:12px;">Professional discussion will open shortly, once a moderated, sovereignty-reviewed submission path is in place. This form shows how it will work — nothing typed here is sent anywhere yet.</div>';
     html += '</form></div>';
 
     mountEl.innerHTML = html;

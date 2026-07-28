@@ -42,18 +42,23 @@ window.ParadigmCards = (function () {
     'Reform':       'amber',
     'Consultation': 'blue',
     'Upcoming':     'blue',
+    'Delayed':      'orange',
     'Superseded':   'red'
   };
 
   function paperCard(p, base) {
     base = base || '';
+    var metaBits = [];
+    if (p.AUTHOR) metaBits.push(esc(p.AUTHOR));
+    metaBits.push(formatDate(p.DATE_PUBLISHED));
+    if (p.READING_TIME_MIN) metaBits.push(esc(p.READING_TIME_MIN) + ' min read');
     return (
       '<a class="card interactive paper-card" href="' + base + 'document.html?id=' + encodeURIComponent(p.PAPER_ID) + '" style="display:block;padding:20px;">' +
         '<span class="eyebrow">' + esc(p.TYPE || 'Paper') + '</span>' +
         '<h3 style="font-size:17px;margin-bottom:8px;">' + esc(p.TITLE) + '</h3>' +
         '<p style="color:var(--ink-mid);font-size:13.5px;margin-bottom:12px;">' + esc(p.SHORT_DESCRIPTION) + '</p>' +
         '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">' + tagList(p.TAGS, 3) + '</div>' +
-        '<div style="font-size:12px;color:var(--ink-soft);">' + formatDate(p.DATE_PUBLISHED) + '</div>' +
+        '<div style="font-size:12px;color:var(--ink-soft);">' + metaBits.join(' &middot; ') + '</div>' +
       '</a>'
     );
   }

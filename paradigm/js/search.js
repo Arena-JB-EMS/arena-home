@@ -46,7 +46,7 @@
     }, 'No related papers yet.');
 
     document.getElementById('col-discussion').innerHTML =
-      '<p class="empty">Discussion is not yet open on Paradigm.</p><div class="inert-note">See <a href="forum/index.html">Forum</a> for how this will work.</div>';
+      '<p class="empty">Professional discussion will open shortly.</p><div class="inert-note">See <a href="forum/index.html">Forum</a> for related opening discussions in the meantime.</div>';
 
     document.getElementById('col-questions').innerHTML = itemList(result.related_questions, function (q) {
       return '<div class="result-item"><a href="questions.html#' + encodeURIComponent(q.QUESTION_ID) + '">' + esc(q.QUESTION_TEXT) + '</a></div>';

@@ -97,6 +97,31 @@
     return parts.join('<span class="sep">/</span>');
   }
 
+  /* Paradigm Principles — injected before every page's .site-footer,
+     site-wide, from this one place, per the Paradigm credibility
+     review (Jon, S143 continued, Phase 12). No per-page HTML edits
+     needed; new pages get this automatically as long as they load
+     nav.js and have a .site-footer element. */
+  function buildPrinciples() {
+    return (
+      '<div class="paradigm-principles" style="max-width:1140px;margin:0 auto;padding:18px 32px;border-top:1px solid var(--border,#E0E4EB);">' +
+        '<div style="font-size:11px;text-transform:uppercase;letter-spacing:0.5px;color:var(--navy-mid,#3D5166);font-weight:700;margin-bottom:8px;">Paradigm Principles</div>' +
+        '<ul style="margin:0;padding-left:18px;font-size:12px;color:var(--ink-soft,#6B7280);line-height:1.8;">' +
+          '<li>Official guidance always remains authoritative.</li>' +
+          '<li>Arena papers are discussion documents intended to encourage evidence-based professional debate.</li>' +
+          '<li>Professional disagreement is welcomed.</li>' +
+          '<li>Policy interpretation should always be verified against the originating authority.</li>' +
+        '</ul>' +
+      '</div>'
+    );
+  }
+
+  function injectPrinciples() {
+    var footer = document.querySelector('.site-footer');
+    if (!footer || document.querySelector('.paradigm-principles')) return;
+    footer.insertAdjacentHTML('beforebegin', buildPrinciples());
+  }
+
   function init() {
     var page = window.PARADIGM_PAGE || { id: '', base: '', breadcrumb: [] };
     var sideMount = document.getElementById('paradigm-sidebar');
@@ -104,6 +129,8 @@
 
     var crumbMount = document.getElementById('paradigm-breadcrumb');
     if (crumbMount) crumbMount.innerHTML = buildBreadcrumb(page.breadcrumb);
+
+    injectPrinciples();
   }
 
   if (document.readyState === 'loading') {
