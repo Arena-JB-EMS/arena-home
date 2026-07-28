@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editorial Roadmap — The Arena Hub Paradigm</title>
+<meta name="description" content="What's currently available on Paradigm, what's in development, and what's planned for future publication cycles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/paradigm-core.css">
+<style>
+  .rm-head { max-width: 680px; margin-bottom: 26px; }
+  .rm-head p { color: var(--ink-mid); font-size: 14px; }
+  .rm-tier { margin-bottom: 30px; }
+  .rm-tier-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rm-tier-head h2 { font-size: 15.5px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .rm-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 760px) { .rm-grid { grid-template-columns: 1fr; } }
+  .rm-item {
+    background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius-md);
+    padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+  }
+  .rm-item .mark { font-size: 15px; line-height: 1.4; flex-shrink: 0; margin-top: 1px; }
+  .rm-item .t { font-size: 13.5px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+  .rm-item .d { font-size: 12px; color: var(--ink-soft); line-height: 1.55; }
+  .rm-tier.available .rm-item { border-color: #B7DFC2; background: #F3FBF5; }
+  .rm-tier.available .mark { color: #1E8A4C; }
+  .rm-tier.development .rm-item { border-color: #F0D9A6; background: #FFFBF2; }
+  .rm-tier.development .mark { color: #B45E1A; }
+  .rm-tier.planned .rm-item { border-color: var(--border); background: var(--paper-grey); }
+  .rm-tier.planned .mark { color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<div class="app-shell">
+  <aside class="sidebar" id="paradigm-sidebar"></aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="search"><input type="search" placeholder="Search Paradigm…" aria-label="Search Paradigm"></div>
+      <a href="../index.html" class="btn btn-ghost">Arena Hub</a>
+    </div>
+
+    <main id="main" class="content">
+      <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
+
+      <div class="rm-head">
+        <span class="eyebrow">Paradigm</span>
+        <h1 style="font-size:26px;margin-bottom:8px;">Editorial Roadmap</h1>
+        <p>Paradigm is being built in phases, deliberately. This page is an honest account of what's live today, what's actively being built, and what's planned for future publication cycles — updated as the platform develops, not written once and forgotten.</p>
+      </div>
+
+      <div class="rm-tier available">
+        <div class="rm-tier-head"><h2 style="color:#1E8A4C;">✓ Currently Available</h2></div>
+        <div class="rm-grid">
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Research Library</div><div class="d">Constitutional, position, discussion and framework papers — attributed, dated, versioned.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Policy Watch</div><div class="d">Official DfE, Ofsted, ICO and Education NI guidance, each linked to its source with Arena commentary.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Observatory</div><div class="d">Live tracking of official announcements — currently curated manually, reviewed by Arena rather than machine-scraped.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Emerging Questions</div><div class="d">Open, unresolved questions the sector hasn't settled yet, each grounded in current evidence.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Knowledge Map</div><div class="d">Topic relationships across guidance, papers and questions, built from Arena's live topic taxonomy.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Evidence Trail</div><div class="d">Follows a topic from official guidance through Arena's papers, discussion and further reading.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Explore a Question</div><div class="d">Guided topic search connecting official sources, commentary, papers and open questions.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Conversations</div><div class="d">Arena-curated discussion themes, each opened with a substantive starting post.</div></div></div>
+          <div class="rm-item"><span class="mark">✓</span><div><div class="t">Editorial Principles &amp; Trust Centre</div><div class="d">Editorial Standards, Publication Methodology, and how the whole platform is governed.</div></div></div>
+        </div>
+      </div>
+
+      <div class="rm-tier development">
+        <div class="rm-tier-head"><h2 style="color:#B45E1A;">◐ In Development</h2></div>
+        <div class="rm-grid">
+          <div class="rm-item"><span class="mark">◐</span><div><div class="t">Forum — Open Submissions</div><div class="d">Structured practitioner submission is built but inert — pre-moderation review will open once the underlying research base is strong enough to support genuine discussion.</div></div></div>
+          <div class="rm-item"><span class="mark">◐</span><div><div class="t">Automated Observatory Monitoring</div><div class="d">Moving from manual curation to automated detection of new official publications.</div></div></div>
+          <div class="rm-item"><span class="mark">◐</span><div><div class="t">Full Cross-Document Search</div><div class="d">Explore a Question already searches by topic; deeper full-text search across every paper and guidance document is being built.</div></div></div>
+          <div class="rm-item"><span class="mark">◐</span><div><div class="t">Research Library — Ongoing Expansion</div><div class="d">The Library is live with a growing set of papers; new constitutional, position and discussion papers are added on an ongoing publication cycle.</div></div></div>
+        </div>
+      </div>
+
+      <div class="rm-tier planned">
+        <div class="rm-tier-head"><h2 style="color:var(--ink-soft);">○ Planned for the Next Publication Cycle</h2></div>
+        <div class="rm-grid">
+          <div class="rm-item"><span class="mark">○</span><div><div class="t">Practitioner Contributions</div><div class="d">Open, reviewed submissions from practitioners outside Arena — evidenced case studies, not just opinion.</div></div></div>
+          <div class="rm-item"><span class="mark">○</span><div><div class="t">Threaded Community Discussion</div><div class="d">Structured, moderated reply threads once the Forum opens beyond its current curated-topic phase.</div></div></div>
+          <div class="rm-item"><span class="mark">○</span><div><div class="t">Version Comparison</div><div class="d">Side-by-side diff view when a paper or policy commentary is revised, beyond the version number shown today.</div></div></div>
+          <div class="rm-item"><span class="mark">○</span><div><div class="t">Deeper Topic Relationship Browsing</div><div class="d">Extending the Knowledge Map beyond direct links into broader thematic clustering across the whole Library.</div></div></div>
+        </div>
+      </div>
+
+      <div class="authority-note" style="margin-top:8px;">
+        <span class="ic">ⓘ</span>
+        <span>This roadmap reflects the platform's actual current state and is updated as things ship — not aspirational marketing copy. See <a href="why-paradigm-exists.html">Why Paradigm Exists</a> for the reasoning behind this approach.</span>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© The Arena Hub Ltd — Paradigm</span>
+      <div class="links">
+        <a href="about.html">About Paradigm</a>
+        <a href="../terms.html">Terms of Use</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../company.html">Contact</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script>
+  window.PARADIGM_PAGE = { base: '', id: 'roadmap', breadcrumb: [{ label: 'Paradigm', href: 'index.html' }, { label: 'Editorial Roadmap' }] };
+</script>
+<script src="js/nav.js"></script>
+</body>
+</html>
