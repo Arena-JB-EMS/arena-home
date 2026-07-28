@@ -69,6 +69,7 @@
 
   function stageIndexForStatus(status) {
     if (status === 'Consultation' || status === 'Upcoming') return 0;
+    if (status === 'Delayed') return 1;
     if (status === 'Reform') return 2;
     if (status === 'Active') return 3;
     return 3;
