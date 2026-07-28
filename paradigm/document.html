@@ -42,7 +42,11 @@
       <nav id="paradigm-breadcrumb" class="breadcrumb" aria-label="Breadcrumb"></nav>
 
       <div id="doc-content">
-        <p style="color:var(--ink-soft);font-size:13px;">Preparing this paper…</p>
+        <div style="max-width:760px;">
+          <div style="height:11px;width:120px;background:var(--border);border-radius:3px;margin-bottom:14px;"></div>
+          <div style="height:22px;width:70%;background:var(--border);border-radius:3px;margin-bottom:18px;"></div>
+          <div style="height:100px;background:var(--paper);border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;color:var(--ink-soft);font-size:13px;">Preparing this paper…</div>
+        </div>
       </div>
     </main>
 
@@ -88,7 +92,12 @@
       '</div>';
   }
 
-  Promise.all([ParadigmData.getPapers(), ParadigmData.getQuestions(), ParadigmData.getRegulations('PARADIGM'), ParadigmData.getConversations()]).then(function (results) {
+  ParadigmCards.withTimeout(
+    Promise.all([ParadigmData.getPapers(), ParadigmData.getQuestions(), ParadigmData.getRegulations('PARADIGM'), ParadigmData.getConversations()]),
+    document.getElementById('doc-content'),
+    { reloadLabel: 'Reload this paper' }
+  ).then(function (wrapped) {
+    var results = wrapped.result;
     var papers = results[0] || [];
     var questions = results[1] || [];
     var regs = (results[2] && results[2].regulations) || [];

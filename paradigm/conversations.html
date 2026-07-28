@@ -64,8 +64,17 @@
 <script src="js/data-loader.js"></script>
 <script src="js/cards.js"></script>
 <script>
-  ParadigmData.getConversations().then(function (rows) {
+  document.getElementById('conv-grid').innerHTML = ParadigmCards.loadingSkeleton(6, 'Loading Conversations…');
+
+  ParadigmCards.withTimeout(
+    ParadigmData.getConversations(),
+    document.getElementById('conv-grid'),
+    { reloadLabel: 'Reload Conversations' }
+  ).then(function (wrapped) {
+    var rows = wrapped.result;
     document.getElementById('conv-grid').innerHTML = rows.map(function (c) { return ParadigmCards.conversationCard(c, ''); }).join('');
+  }).catch(function () {
+    document.getElementById('conv-grid').innerHTML = '<div style="grid-column:1/-1;font-size:13px;color:var(--ink-soft);">Conversations couldn\'t be loaded right now. <a href="javascript:location.reload()">Reload</a>, or <a href="../company.html">contact Arena</a> if this persists.</div>';
   });
 </script>
 </body>

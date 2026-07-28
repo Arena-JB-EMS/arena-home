@@ -145,9 +145,18 @@
       '<p style="color:var(--ink-soft);font-size:13px;">No entries match this filter.</p>';
   }
 
-  ParadigmData.getRegulations('PARADIGM').then(function (data) {
+  document.getElementById('reg-list').innerHTML = ParadigmCards.loadingSkeleton(6, 'Loading Policy Watch…');
+
+  ParadigmCards.withTimeout(
+    ParadigmData.getRegulations('PARADIGM'),
+    document.getElementById('reg-list'),
+    { reloadLabel: 'Reload Policy Watch' }
+  ).then(function (wrapped) {
+    var data = wrapped.result;
     allRegs = (data.regulations || []).map(function (r) { if (!r.impactLevel) r.impactLevel = 'Operational'; return r; });
     render();
+  }).catch(function () {
+    document.getElementById('reg-list').innerHTML = '<div style="font-size:13px;color:var(--ink-soft);">Policy Watch couldn\'t be loaded right now. <a href="javascript:location.reload()">Reload</a>, or <a href="../company.html">contact Arena</a> if this persists.</div>';
   });
 
   document.getElementById('filters').addEventListener('click', function (e) {

@@ -104,7 +104,14 @@
       '<p style="color:var(--ink-soft);font-size:13px;">No papers match this filter yet.</p>';
   }
 
-  Promise.all([ParadigmData.getPapers(), ParadigmData.getTopics()]).then(function (results) {
+  document.getElementById('library-grid').innerHTML = ParadigmCards.loadingSkeleton(6, 'Loading the Research Library…');
+
+  ParadigmCards.withTimeout(
+    Promise.all([ParadigmData.getPapers(), ParadigmData.getTopics()]),
+    document.getElementById('library-grid'),
+    { reloadLabel: 'Reload the Research Library' }
+  ).then(function (wrapped) {
+    var results = wrapped.result;
     allPapers = results[0]
       .filter(function (p) { return String(p.ACTIVE).toUpperCase() !== 'FALSE'; })
       .sort(function (a, b) { return (a.SORT_ORDER || 99) - (b.SORT_ORDER || 99); });
@@ -116,6 +123,8 @@
       sel.appendChild(opt);
     });
     render();
+  }).catch(function () {
+    document.getElementById('library-grid').innerHTML = '<div style="grid-column:1/-1;font-size:13px;color:var(--ink-soft);">The Research Library couldn\'t be loaded right now. <a href="javascript:location.reload()">Reload</a>, or <a href="../company.html">contact Arena</a> if this persists.</div>';
   });
 
   document.getElementById('filters').addEventListener('click', function (e) {

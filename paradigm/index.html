@@ -210,8 +210,18 @@
 
   var IMPACT_DOT = { Critical: '#B23A2E', Significant: '#B45E1A', Operational: '#9A6B00', Low: '#1A5A8A' };
 
-  ParadigmData.getRegulations('PARADIGM').then(function (data) {
+  document.getElementById('policy-strip').innerHTML = ParadigmCards.loadingSkeleton(2, 'Loading…');
+  document.getElementById('conversations-strip').innerHTML = ParadigmCards.loadingSkeleton(2, 'Loading…');
+  document.getElementById('questions-strip').innerHTML = ParadigmCards.loadingSkeleton(2, 'Loading…');
+
+  ParadigmCards.withTimeout(
+    ParadigmData.getRegulations('PARADIGM'),
+    document.getElementById('policy-strip'),
+    { reloadLabel: 'Reload' }
+  ).then(function (wrapped) {
+    var data = wrapped.result;
     var strip = document.getElementById('policy-strip');
+    strip.innerHTML = '';
     (data.regulations || []).slice(0, 4).forEach(function (r) {
       var row = document.createElement('div');
       row.className = 'update-row';
@@ -220,18 +230,36 @@
       strip.appendChild(row);
     });
     document.getElementById('stat-updates').textContent = (data.regulations || []).length;
+  }).catch(function () {
+    document.getElementById('policy-strip').innerHTML = '<p style="font-size:12.5px;color:var(--ink-soft);">Couldn\'t load — <a href="javascript:location.reload()">reload</a>.</p>';
   });
 
-  ParadigmData.getConversations().then(function (rows) {
+  ParadigmCards.withTimeout(
+    ParadigmData.getConversations(),
+    document.getElementById('conversations-strip'),
+    { reloadLabel: 'Reload' }
+  ).then(function (wrapped) {
+    var rows = wrapped.result;
     var strip = document.getElementById('conversations-strip');
+    strip.innerHTML = '';
     rows.slice(0, 4).forEach(function (c) { strip.innerHTML += ParadigmCards.conversationCard(c, ''); });
     document.getElementById('stat-conversations').textContent = rows.length;
+  }).catch(function () {
+    document.getElementById('conversations-strip').innerHTML = '<p style="font-size:12.5px;color:var(--ink-soft);">Couldn\'t load — <a href="javascript:location.reload()">reload</a>.</p>';
   });
 
-  ParadigmData.getQuestions().then(function (rows) {
+  ParadigmCards.withTimeout(
+    ParadigmData.getQuestions(),
+    document.getElementById('questions-strip'),
+    { reloadLabel: 'Reload' }
+  ).then(function (wrapped) {
+    var rows = wrapped.result;
     var strip = document.getElementById('questions-strip');
+    strip.innerHTML = '';
     rows.slice(0, 3).forEach(function (q) { strip.innerHTML += ParadigmCards.questionCard(q, ''); });
     document.getElementById('stat-questions').textContent = rows.length;
+  }).catch(function () {
+    document.getElementById('questions-strip').innerHTML = '<p style="font-size:12.5px;color:var(--ink-soft);">Couldn\'t load — <a href="javascript:location.reload()">reload</a>.</p>';
   });
 
   ParadigmData.getPapers().then(function (rows) {
@@ -241,7 +269,14 @@
   // "Latest in Paradigm" — merges papers + Policy Watch entries into one
   // recency-sorted feed, most recent first. Homepage-only, top of page,
   // so a visitor sees evidence of activity within seconds of arriving.
-  Promise.all([ParadigmData.getPapers(), ParadigmData.getRegulations('PARADIGM')]).then(function (results) {
+  document.getElementById('latest-updates').innerHTML = ParadigmCards.loadingSkeleton(3, 'Loading the latest…');
+
+  ParadigmCards.withTimeout(
+    Promise.all([ParadigmData.getPapers(), ParadigmData.getRegulations('PARADIGM')]),
+    document.getElementById('latest-updates'),
+    { reloadLabel: 'Reload' }
+  ).then(function (wrapped) {
+    var results = wrapped.result;
     var papers = (results[0] || []).filter(function (p) { return String(p.ACTIVE).toUpperCase() !== 'FALSE'; });
     var regs = (results[1] && results[1].regulations) || [];
 
@@ -265,6 +300,8 @@
         '<div><div class="t"><a href="' + it.href + '" style="color:var(--navy);text-decoration:none;">' + ParadigmCards.esc(it.title) + '</a></div>' +
         '<div class="s">' + ParadigmCards.esc(it.type) + ' &middot; ' + it.verb + ' ' + ParadigmCards.formatDate(it.date) + '</div></div></div>';
     }).join('') || '<p style="font-size:12.5px;color:var(--ink-soft);">No updates recorded yet.</p>';
+  }).catch(function () {
+    document.getElementById('latest-updates').innerHTML = '<p style="font-size:12.5px;color:var(--ink-soft);">Couldn\'t load — <a href="javascript:location.reload()">reload</a>.</p>';
   });
 
   /* Activity levels are placeholder until the Observatory monitoring
